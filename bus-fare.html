@@ -1,23 +1,133 @@
 <html>
+
 <head>
     <link rel="stylesheet" href="main.css">
     <title>STSK</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+
     <script>
-        function isSession() {
-            var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", "https://www.kmb.hk/ajax/BBI/get_BBI2.php?routeno=74X&bound=F&jtSorting=sec_routeno%20ASC&interchangeType=2", false ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
+
+        /**
+         * mode: B / F
+         * interchangeType: 1 / 2
+         **/
+        function getJson(routeNum, mode, interchangeType) {
+            $.getJSON(`https://api.allorigins.win/get?url=${encodeURIComponent(
+                'https://www.kmb.hk/ajax/BBI/get_BBI2.php?routeno=' + routeNum + '&bound=' + mode + '&jtSorting=sec_routeno%20ASC&interchangeType=' + interchangeType)}`, function (data) {
+                    const jsonData = JSON.parse(data.contents);
+
+                    if (jsonData.Result == "OK") {
+                        //Destroy old data
+                        const type = (mode == "F" ? 'Go' : 'Back');
+                        $('#result' + type + 'Table').DataTable().destroy();
+
+                        const place = jsonData.bus_arr[0].dest;
+                        const records = jsonData.Records;
+
+                        var html = '<thead>';
+                        html += '<tr>';
+
+                        var flag = 0;
+                        $.each(records[0], function (index, value) {
+                            if (index != "detail" && index != "spec_remark_eng")
+                                html += '<th>' + fixHeader(index) + '</th>';
+                        });
+                        html += '</tr>';
+                        html += '</thead>';
+
+                        html += '<tbody>';
+                        $.each(records, function (index, value) {
+                            html += '<tr>';
+                            $.each(value, function (index2, value2) {
+                                if (index2 != "detail" && index2 != "spec_remark_eng") {
+                                    html += '<td>' + value2 + '</td>';
+                                }
+                            });
+                            html += '</tr>';
+                        });
+                        html += '</tbody>';
+
+                        $('#result' + type + 'Table').html(html);
+                        $('#result' + type + 'Div').html("<br/>目的地: " + place);
+
+                        initDataTable('#result' + type + 'Table');
+                    }
+                }
+            );
         }
+
+        function fixHeader(code) {
+            switch (code) {
+                case 'sec_routeno': return "路線";
+                case 'sec_dest': return "往";
+                case 'xchange': return "建議轉乘巴士站";
+                case 'validity': return "備註";
+                case 'detail': return "detail";
+                case 'discount_max': return "第二程應繳車費或最高優惠";
+                case 'spec_remark_eng':
+                case 'spec_remark_chi': return "詳情";
+                default: return ""
+            }
+        }
+
+        function getResult(interchangeType) {
+            const routeNum = $("#route-num").val().toUpperCase();
+            getJson(routeNum, 'F', interchangeType);
+            getJson(routeNum, 'B', interchangeType);
+        }
+
+        function initDataTable(id) {
+            $(id).DataTable({
+                "order": [],
+                paging: false,
+                "columnDefs": [
+                    { "className": "dt-center", "targets": "_all" }
+                ]
+            });
+        }
+
+        $(document).ready(function () {
+            initDataTable('#resultGoTable');
+            initDataTable('#resultBackTable');
+        });
+
+
     </script>
 </head>
 
-<body onload="isSession()">
+<body>
     <div>
-        <object  class="header" type="text/html" data="header.html"></object>
+        <object class="header" type="text/html" data="header.html"></object>
     </div>
-    <div class="content">  
-    
+    <div class="content">
+        <div>
+            <input id="route-num" type="text" placeholder="路線" value="74X">
+            <button onclick="getResult(1)">第一程</button>
+            <button onclick="getResult(2)">第二程</button>
+            <a href="#resultGo">去程</a>
+            <a href="#resultBack">回程</a>
+        </div>
+        <a id="resultGo"></a>
+        <div>
+            <div id="resultGoDiv"></div>
+            <table id="resultGoTable" class="dataTable display"></table>
+        </div>
+        <br />
+        <br />
+        <hr>
+        <a id="resultBack"></a>
+        <div>
+            <div id="resultBackDiv"></div>
+            <table id="resultBackTable" class="dataTable display"></table>
+        </div>
+        <br />
+        <br />
+        <div>乘客用八達通卡繳付第一程車資後，除個別符號之指定時間外，乘客可於150分鐘內以同一張八達通卡繳付第二程車資，享受巴士轉乘優惠。 ^ 代表“30分鐘內”; #代表“60分鐘內”; *代表“90分鐘內”;
+            @代表“120分鐘內” 及 !代表“適用於塘尾道或以後乘搭2A線之乘客”。</div>
+
     </div>
 
 </body>

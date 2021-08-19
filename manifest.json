@@ -1,0 +1,17 @@
+{
+	"name":"STSK Portal",
+	"short_name":"STSK",
+	"start_url":"index.html",
+	"display":"standalone",
+	"background_color":"#FFFFFF",
+	"theme_color":"white",
+	"scope": ".",
+	"description":"This is a STSK Portal PWA.",
+	"icons":[
+        {
+        "src":"image/icon.png",					
+        "sizes":"180x180",
+        "type":"image/png"
+        }
+    ]
+}
