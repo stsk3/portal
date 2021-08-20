@@ -3,8 +3,8 @@ header {
     background: gray;
     text-align: center;
     position: fixed;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 50px;
     line-height: 50PX;
@@ -15,8 +15,13 @@ header {
     font-size: 2em;
 }
 
-main {
-    padding-top: 50px;
+iframe {
+    padding-top: 43px;
+    position: absolute; 
+    height: 100%; 
+    width: 100%; 
+    border: none; 
+    overflow-x: hidden;
 }
 
 th.dt-center, td.dt-center { 
