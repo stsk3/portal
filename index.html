@@ -18,6 +18,28 @@
             overscroll-behavior-y: contain;
         }
     </style>
+
+
+    <script>
+		window.addEventListener('load', () => {
+			registerSW();
+		});
+
+		// Register the Service Worker
+		async function registerSW() {
+			if ('serviceWorker' in navigator) {
+				try {
+					await navigator
+						.serviceWorker
+						.register('serviceworker.js');
+				}
+				catch (e) {
+					console.log('SW registration failed');
+				}
+			}
+		}
+	</script>
+
 </head>
 <body>
     <iframe src="home.html" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
