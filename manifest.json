@@ -9,7 +9,7 @@
 	"description":"This is a STSK Portal PWA.",
 	"icons":[
         {
-        "src":"image/icon.png",					
+        "src":"image/icon.jpg",
         "sizes":"180x180",
         "type":"image/png"
         }

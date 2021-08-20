@@ -14,15 +14,14 @@
          * interchangeType: 1 / 2
          **/
         function getJson(routeNum, mode, interchangeType) {
-            //Destroy old data
             const type = (mode == "F" ? 'Go' : 'Back');
             const tableId = '#result' + type + 'Table';
             const spanId = '#result' + type + 'Span';
 
-            $(tableId).empty();
+            //Destroy old data
+            $(tableId + " > tbody").html("");
+
             $(spanId).html("");
-            if ($.fn.DataTable.isDataTable(tableId))
-                $(tableId).DataTable().destroy();
 
             $.getJSON(`https://api.allorigins.win/get?url=${encodeURIComponent(
                 'https://www.kmb.hk/ajax/BBI/get_BBI2.php?routeno=' + routeNum + '&bound=' + mode + '&jtSorting=sec_routeno%20ASC&interchangeType=' + interchangeType)}`, function (data) {
@@ -86,6 +85,9 @@
         }
 
         function initDataTable(id) {
+            if ($.fn.DataTable.isDataTable(id))
+                $(id).DataTable().destroy();
+
             $(id).DataTable({
                 "order": [],
                 paging: false,
