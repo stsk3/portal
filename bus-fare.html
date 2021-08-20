@@ -16,9 +16,13 @@
         function getJson(routeNum, mode, interchangeType) {
             //Destroy old data
             const type = (mode == "F" ? 'Go' : 'Back');
-            $('#result' + type + 'Table').html("");
-            $('#result' + type + 'Span').html("");
-            $('#result' + type + 'Table').DataTable().destroy();
+            const tableId = '#result' + type + 'Table';
+            const spanId = '#result' + type + 'Span';
+
+            $(tableId).empty();
+            $(spanId).html("");
+            if ($.fn.DataTable.isDataTable(tableId))
+                $(tableId).DataTable().destroy();
 
             $.getJSON(`https://api.allorigins.win/get?url=${encodeURIComponent(
                 'https://www.kmb.hk/ajax/BBI/get_BBI2.php?routeno=' + routeNum + '&bound=' + mode + '&jtSorting=sec_routeno%20ASC&interchangeType=' + interchangeType)}`, function (data) {
@@ -52,10 +56,10 @@
                         html += '</tbody>';
 
                         
-                        $('#result' + type + 'Table').html(html);
-                        $('#result' + type + 'Span').html(place);
+                        $(tableId).html(html);
+                        $(spanId).html(place);
 
-                        initDataTable('#result' + type + 'Table');
+                        initDataTable(tableId);
                     }
                 }
             );
@@ -94,8 +98,8 @@
 
         $(document).ready(function () {
             $('#loadingDiv').hide();
-            initDataTable('#resultGoTable');
-            initDataTable('#resultBackTable');
+            //initDataTable('#resultGoTable');
+            //initDataTable('#resultBackTable');
         });
 
         
