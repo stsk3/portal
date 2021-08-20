@@ -11,6 +11,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="manifest.json">
     <link rel="shortcut icon" type="image/x-icon" href="image/favicon.ico">
+
+    <link rel="stylesheet" href="main.css">
     <title>STSK Portal</title>
 
     <style>
@@ -18,7 +20,6 @@
             overscroll-behavior-y: contain;
         }
     </style>
-
 
     <script>
 		window.addEventListener('load', () => {
@@ -41,9 +42,13 @@
 	</script>
 
 </head>
-<body>
-    <iframe src="home.html" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
-        Your browser doesn't support iframes
-    </iframe>
+<body style="overflow: hidden;">
+    <header>STSK</header>
+    <main>
+        <iframe src="home.html" style="position: absolute; height: 100%; width: 100%; border: none; overflow-x: hidden;">
+            Your browser doesn't support iframes
+        </iframe>
+    </main>
+    
 </body>
 </html>

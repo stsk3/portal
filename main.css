@@ -1,23 +1,34 @@
-.header {
+header {
+    overflow: hidden;
+    background: gray;
+    text-align: center;
     position: fixed;
-    top: 0;
-    left: 0;        
+    top:0;
+    left:0;
     width: 100%;
     height: 50px;
+    line-height: 50PX;
     z-index: 999;
+    vertical-align: middle;
+    text-align: center; 
+    color: white;
+    font-size: 2em;
 }
 
-.content {
-    padding-top: 60px;
+main {
+    padding-top: 50px;
 }
 
 th.dt-center, td.dt-center { 
     text-align: center; 
 }
 
-table.dataTable td,
 table.dataTable th {
     font-size: 0.5em;
+}
+
+table.dataTable td{
+    font-size: 0.6em;
 }
 
 .bus-title {
