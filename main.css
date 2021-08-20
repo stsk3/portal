@@ -14,3 +14,12 @@
 th.dt-center, td.dt-center { 
     text-align: center; 
 }
+
+table.dataTable td,
+table.dataTable th {
+    font-size: 0.5em;
+}
+
+.bus-title {
+    font-size: 1.5em;
+}

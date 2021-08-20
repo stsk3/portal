@@ -3,9 +3,11 @@ var staticCacheName = "pwa";
 self.addEventListener("install", function (e) {
     e.waitUntil(
         caches.open(staticCacheName).then(function (cache) {
-            return cache.addAll(["index.html"]);
-            return cache.addAll(["home.html"]);
-            return cache.addAll(["bus-fare.html"]);
+            return cache.addAll([
+                "index.html",
+                "home.html",
+                "bus-fare.html"
+            ]);
         })
     );
 });

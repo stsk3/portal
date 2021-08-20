@@ -2,7 +2,6 @@
 
 <head>
     <link rel="stylesheet" href="main.css">
-    <title>STSK</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -15,15 +14,16 @@
          * interchangeType: 1 / 2
          **/
         function getJson(routeNum, mode, interchangeType) {
+            //Destroy old data
+            const type = (mode == "F" ? 'Go' : 'Back');
+            $('#result' + type + 'Table').html("");
+            $('#result' + type + 'Span').html("");
+
             $.getJSON(`https://api.allorigins.win/get?url=${encodeURIComponent(
                 'https://www.kmb.hk/ajax/BBI/get_BBI2.php?routeno=' + routeNum + '&bound=' + mode + '&jtSorting=sec_routeno%20ASC&interchangeType=' + interchangeType)}`, function (data) {
                     const jsonData = JSON.parse(data.contents);
 
                     if (jsonData.Result == "OK") {
-                        //Destroy old data
-                        const type = (mode == "F" ? 'Go' : 'Back');
-                        $('#result' + type + 'Table').DataTable().destroy();
-
                         const place = jsonData.bus_arr[0].dest;
                         const records = jsonData.Records;
 
@@ -50,8 +50,10 @@
                         });
                         html += '</tbody>';
 
+                        
+                        $('#result' + type + 'Table').DataTable().destroy();
                         $('#result' + type + 'Table').html(html);
-                        $('#result' + type + 'Div').html("<br/>目的地: " + place);
+                        $('#result' + type + 'Span').html(place);
 
                         initDataTable('#result' + type + 'Table');
                     }
@@ -63,10 +65,10 @@
             switch (code) {
                 case 'sec_routeno': return "路線";
                 case 'sec_dest': return "往";
-                case 'xchange': return "建議轉乘巴士站";
+                case 'xchange': return "站";
                 case 'validity': return "備註";
                 case 'detail': return "detail";
-                case 'discount_max': return "第二程應繳車費或最高優惠";
+                case 'discount_max': return "優惠";
                 case 'spec_remark_eng':
                 case 'spec_remark_chi': return "詳情";
                 default: return ""
@@ -90,8 +92,18 @@
         }
 
         $(document).ready(function () {
+            $('#loadingDiv').hide();
             initDataTable('#resultGoTable');
             initDataTable('#resultBackTable');
+        });
+
+        
+        $(document).ajaxStart(function() {
+            $('#loadingDiv').show();
+        });
+
+        $(document).ajaxComplete(function() {
+            $('#loadingDiv').hide();
         });
 
 
@@ -107,12 +119,20 @@
             <input id="route-num" type="text" placeholder="路線" value="74X">
             <button onclick="getResult(1)">第一程</button>
             <button onclick="getResult(2)">第二程</button>
+        </div>
+        <div>
             <a href="#resultGo">去程</a>
             <a href="#resultBack">回程</a>
         </div>
+
+        <div id="loadingDiv">
+            Loading...
+        </div>
         <a id="resultGo"></a>
         <div>
-            <div id="resultGoDiv"></div>
+            <br/>
+            <span>目的地: </span>
+            <span id="resultGoSpan" class="bus-title"></span>
             <table id="resultGoTable" class="dataTable display"></table>
         </div>
         <br />
@@ -120,13 +140,20 @@
         <hr>
         <a id="resultBack"></a>
         <div>
-            <div id="resultBackDiv"></div>
+            <br/>
+            <span>目的地: </span>
+            <span id="resultBackSpan" class="bus-title"></span>
             <table id="resultBackTable" class="dataTable display"></table>
         </div>
         <br />
         <br />
-        <div>乘客用八達通卡繳付第一程車資後，除個別符號之指定時間外，乘客可於150分鐘內以同一張八達通卡繳付第二程車資，享受巴士轉乘優惠。 ^ 代表“30分鐘內”; #代表“60分鐘內”; *代表“90分鐘內”;
-            @代表“120分鐘內” 及 !代表“適用於塘尾道或以後乘搭2A線之乘客”。</div>
+        <div>乘客用八達通卡繳付第一程車資後，除個別符號之指定時間外，乘客可於150分鐘內以同一張八達通卡繳付第二程車資，享受巴士轉乘優惠。</br>
+            ^: 30分鐘內</br>
+            #: 60分鐘內</br>
+            *: 90分鐘內</br>
+            @: 120分鐘內</br>
+            !: 適用於塘尾道或以後乘搭2A線之乘客
+        </div>
 
     </div>
 
