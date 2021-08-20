@@ -18,6 +18,7 @@
             const type = (mode == "F" ? 'Go' : 'Back');
             $('#result' + type + 'Table').html("");
             $('#result' + type + 'Span').html("");
+            $('#result' + type + 'Table').DataTable().destroy();
 
             $.getJSON(`https://api.allorigins.win/get?url=${encodeURIComponent(
                 'https://www.kmb.hk/ajax/BBI/get_BBI2.php?routeno=' + routeNum + '&bound=' + mode + '&jtSorting=sec_routeno%20ASC&interchangeType=' + interchangeType)}`, function (data) {
@@ -51,7 +52,6 @@
                         html += '</tbody>';
 
                         
-                        $('#result' + type + 'Table').DataTable().destroy();
                         $('#result' + type + 'Table').html(html);
                         $('#result' + type + 'Span').html(place);
 
@@ -85,6 +85,7 @@
             $(id).DataTable({
                 "order": [],
                 paging: false,
+                "info": false,
                 "columnDefs": [
                     { "className": "dt-center", "targets": "_all" }
                 ]
