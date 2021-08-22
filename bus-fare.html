@@ -22,7 +22,7 @@
 
             $(spanId).html("");
 
-            $.getJSON(`http://whateverorigin.org/get?url=${encodeURIComponent(
+            $.getJSON(`http://api.allorigins.win/get?url=${encodeURIComponent(
                 'https://www.kmb.hk/ajax/BBI/get_BBI2.php?routeno=' + routeNum + '&bound=' + mode + '&jtSorting=sec_routeno%20ASC&interchangeType=' + interchangeType)}`, function (data) {
                     const jsonData = JSON.parse(data.contents);
 
