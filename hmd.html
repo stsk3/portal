@@ -1,36 +1,19 @@
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>知味手作</title>
-<style>
-.container {
-  position: relative;
-  height:100%;
-  width: 100%;
-  overflow: hidden;
-}
+  <title>知味手作</title>
 
-.responsive-iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-</style>
+  <script>
+    window.addEventListener('load', function () {
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        alert("You have installed");
+      } else {
+        aleat("Please install the app");
+      } 
+    }
+  </script>
+
 </head>
 <body>
-
-<object type="text/html" data="https://www.handmadelicacy.com.hk">
-<p>backup content</p>
-</object>
-
-<div class="container"> 
-  <iframe class="responsive-iframe" src="https://www.handmadelicacy.com.hk"></iframe>
-</div>
-
+  
 </body>
 </html>
