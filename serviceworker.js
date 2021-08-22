@@ -6,7 +6,13 @@ self.addEventListener("install", function (e) {
             return cache.addAll([
                 "index.html",
                 "home.html",
-                "bus-fare.html"
+                "bus-fare.html",
+                "footer.html",
+                "main.css",
+                "script/jquery.dataTables.min.css",
+                "script/jquery.dataTables.min.js",
+                "script/jquery-3.3.1.js"
+                
             ]);
         })
     );
