@@ -16,11 +16,13 @@ header {
 }
 
 iframe {
-    padding-top: 43px;
+    padding-top: 45px;
     position: absolute; 
     height: 100%; 
     width: 100%; 
     border: none; 
+    top: 0;
+    left: 0;
     overflow-x: hidden;
 }
 
