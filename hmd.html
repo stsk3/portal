@@ -1,20 +1,19 @@
 <html>
 <head>
-  <title>知味手作</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
-  <script>
-    window.addEventListener('load', function () {
-      if (window.matchMedia('(display-mode: standalone)').matches) {
-        alert("You have installed");
-        window.location = "http://www.handmadelicacy.com.hk";
-      } else {
-        alert("Please install the app");
-      } 
-    });
-  </script>
-
+<title>知味手作</title>
+<script>
+$(document).ready(function() {
+  $.getJSON('http://api.allorigins.win/get?url=https%3A//www.handmadelicacy.com.hk', function (data) {
+    $("html").load(data.contents);
+  });
+});
+</script>
 </head>
 <body>
-  
+
+
+
 </body>
 </html>
