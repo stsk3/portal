@@ -5,7 +5,7 @@
 <title>知味手作</title>
 <script>
 $(document).ready(function() {
-  $.getJSON('http://api.allorigins.win/get?url=https%3A//handmadelicacy.com.hk', function (data) {
+  $.getJSON('https://api.allorigins.win/get?url=https%3A//handmadelicacy.com.hk', function (data) {
     $("html").load(data.contents);
   });  
 });
