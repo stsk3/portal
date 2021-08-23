@@ -16,22 +16,21 @@ header {
 }
 
 iframe {
-    margin-top: 45px;
-    position: absolute; 
+    position: absolute;
     height: 100%; 
     width: 100%; 
     border: none; 
-    top: 0;
+    top: 45px;
     left: 0;
     overflow-x: hidden;
 }
-
+/**
 a.anchor {
     display: block;
     position: relative;
     top: -50px;
     visibility: hidden;
-}
+}**/
 
 th.dt-center, td.dt-center { 
     text-align: center; 
