@@ -16,7 +16,7 @@ header {
 }
 
 iframe {
-    padding-top: 45px;
+    margin-top: 45px;
     position: absolute; 
     height: 100%; 
     width: 100%; 
