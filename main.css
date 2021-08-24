@@ -1,36 +1,14 @@
 header {
-    overflow: hidden;
-    background: gray;
-    text-align: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    z-index: 999;
     vertical-align: middle;
     text-align: center; 
     color: white;
     font-size: 2em;
 }
 
-iframe {
-    position: absolute;
-    height: 100%; 
-    width: 100%; 
-    border: none; 
-    top: 45px;
-    left: 0;
-    overflow-x: hidden;
+header-body {
+    background: grey;
 }
-/**
-a.anchor {
-    display: block;
-    position: relative;
-    top: -50px;
-    visibility: hidden;
-}**/
+
 
 th.dt-center, td.dt-center { 
     text-align: center; 

@@ -11,8 +11,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="manifest.json">
     <link rel="shortcut icon" type="image/x-icon" href="image/favicon.ico">
-
-    <link rel="stylesheet" href="main.css">
     <title>STSK Portal</title>
 
     <style>
@@ -42,11 +40,8 @@
 	</script>
 
 </head>
-<body style="overflow: hidden;">
-	<header><a onclick="window.open('home.html', 'iframe');return false;">STSK</a></header>
-    <iframe name="iframe" src="home.html">
-        Your browser doesn't support iframes
-    </iframe>
-    
-</body>
+<frameset framespacing="0" rows="55,*" frameborder="0" noresize>
+    <frame name="top" src="header.html" target="top">
+    <frame name="main" src="home.html" target="main">
+</frameset>
 </html>
