@@ -15,10 +15,12 @@
             transition:transform 0.25s ease;
         }
 
-        img:hover {
-            -webkit-transform:scale(3); /* or some other value */
-            transform:scale(3);
-            transform-origin: left center;
+        @media(hover: hover) and (pointer: fine) {
+            img:hover {
+                -webkit-transform:scale(3);
+                transform:scale(3);
+                transform-origin: left center;
+            }
         }
     </style>
 </head>
