@@ -13,8 +13,8 @@ self.addEventListener("install", function (e) {
                 "main.css",
                 "script/jquery.dataTables.min.css",
                 "script/jquery.dataTables.min.js",
-                "script/jquery-3.3.1.js"
-                
+                "script/jquery-3.3.1.js",
+                "script/bus-route.js"
             ]);
         })
     );
