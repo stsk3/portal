@@ -14,7 +14,7 @@ self.addEventListener("install", function (e) {
                 "script/jquery.dataTables.min.css",
                 "script/jquery.dataTables.min.js",
                 "script/jquery-3.3.1.js",
-                "script/bus-route.js"
+                "script/bus-route.js",
                 "mcl/index.html"
             ]);
         })
