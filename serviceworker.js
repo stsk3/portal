@@ -1,4 +1,4 @@
-var staticCacheName = "pwa";
+var staticCacheName = "stsk-portal-v1.0";
 
 self.addEventListener("install", function (e) {
     e.waitUntil(
@@ -15,6 +15,7 @@ self.addEventListener("install", function (e) {
                 "script/jquery.dataTables.min.js",
                 "script/jquery-3.3.1.js",
                 "script/bus-route.js"
+                "mcl/index.html"
             ]);
         })
     );
