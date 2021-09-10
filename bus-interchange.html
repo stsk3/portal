@@ -35,7 +35,13 @@
                     }
                 );
             } else {
-                const jsonData = busFArray[routeNum];
+                var busArray;
+                if (mode == "F") {
+                    busArray = interchangeType == 1 ? busFArray : busF2Array;
+                } else {
+                    busArray = (interchangeType == 1) ? busBArray : busB2Array;
+                }
+                const jsonData = JSON.parse(busArray.get(routeNum));
                 createTable(jsonData, tableId, spanId);
             }
         }
@@ -92,7 +98,7 @@
 
         function getResult(interchangeType, isOnline) {
             const routeNum = isOnline? $("#route-num").val().toUpperCase() : $('#route-select').find(":selected").val();
-            if (routeNum != "") {
+            if (!routeNum.startsWith("==")) {
                 getJson(routeNum, 'F', interchangeType, isOnline);
                 getJson(routeNum, 'B', interchangeType, isOnline);
             }
@@ -114,7 +120,7 @@
 
         function initRouteList() {
             select = document.getElementById('route-select');
-            for (const key of Object.keys(busFArray)) {
+            for (const key of busFArray.keys()) {
                 var opt = document.createElement('option');
                 opt.value = key;
                 opt.innerHTML = key;
@@ -150,7 +156,7 @@
     </div>
     <div >
         <select id="route-select">
-            <option value=""></option>
+            <option value="==">選擇路線</option>
         </select>
         <button onclick="getResult(1, false)">第一程</button>
         <button onclick="getResult(2, false)">第二程</button>
