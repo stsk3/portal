@@ -1,4 +1,4 @@
-var staticCacheName = "stsk-portal-v1.1";
+var staticCacheName = "stsk-portal-v1.2";
 
 self.addEventListener("install", function (e) {
     e.waitUntil(
@@ -30,3 +30,19 @@ self.addEventListener("fetch", function (event) {
         })
     );
 });
+
+
+self.addEventListener('activate', event => {
+    // Remove old caches
+    event.waitUntil(
+        (async () => {
+            const keys = await caches.keys();
+            return keys.map(async (cache) => {
+                if(cache !== cacheName) {
+                    console.log('Service Worker: Removing old cache: '+cache);
+                    return await caches.delete(cache);
+                }
+            })
+        })()
+    )
+})
