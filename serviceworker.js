@@ -34,7 +34,7 @@ self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys().then(function(cacheNames) {
             var promiseArr = cacheNames.map(function(item) {
-                if (item !== cacheName) {
+                if (item !== cacheName || item !== dataCacheName) {
                     // Delete that cached file
                     console.log('[ServiceWorker] Removing Cached Files from Cache - ', item);
                     return caches.delete(item);
