@@ -53,8 +53,10 @@ self.addEventListener('fetch', event => {
             return response || fetch(event.request).then(res =>
                 caches.open(dataCacheName)
                 .then(function(cache) {
-                    cache.put(event.request, res.clone());
-                    return res;
+                    if(!(event.request.url.indexOf('http') === 0)){
+                        cache.put(event.request, res.clone());
+                        return res;
+                    }
                 })
             );
         })
