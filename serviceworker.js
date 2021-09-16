@@ -19,10 +19,10 @@ const dataCacheName = 'stsk-portal-data-v1.4';
 
 // install
 self.addEventListener('install', event => {
-    console.log('installing…');
+    console.log('[Install]]');
     event.waitUntil(
         caches.open(cacheName).then(cache => {
-            console.log('Caching app ok');
+            console.log('Finished caching');
             return cache.addAll(filesToCache);
         })
     );
@@ -30,7 +30,7 @@ self.addEventListener('install', event => {
 
 // activate
 self.addEventListener('activate', event => {
-    console.log('now ready to handle fetches!');
+    console.log('[Activate]');
     event.waitUntil(
         caches.keys().then(function(cacheNames) {
             var promiseArr = cacheNames.map(function(item) {
@@ -47,13 +47,14 @@ self.addEventListener('activate', event => {
 
 // fetch
 self.addEventListener('fetch', event => {
-    console.log('now fetch!');
+    console.log('[Fetch]');
     event.respondWith(
         caches.match(event.request).then(function (response) {
             return response || fetch(event.request).then(res =>
                 caches.open(dataCacheName)
                 .then(function(cache) {
                     if(event.request.url.indexOf('http') === 0){
+                        console.log('Fetched and Cached: ' + event.request.url);
                         cache.put(event.request, res.clone());
                         return res;
                     }
