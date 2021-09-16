@@ -1,4 +1,4 @@
-var staticCacheName = "stsk-portal-v1.0";
+var staticCacheName = "stsk-portal-v1.1";
 
 self.addEventListener("install", function (e) {
     e.waitUntil(
