@@ -34,7 +34,7 @@ self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys().then(function(cacheNames) {
             var promiseArr = cacheNames.map(function(item) {
-                if (item !== cacheName && item !== dataCacheName) {
+                if (item !== cacheName) {
                     // Delete that cached file
                     console.log('[ServiceWorker] Removing Cached Files from Cache - ', item);
                     return caches.delete(item);
@@ -53,7 +53,7 @@ self.addEventListener('fetch', event => {
             return response || fetch(event.request).then(res =>
                 caches.open(dataCacheName)
                 .then(function(cache) {
-                    if(!(event.request.url.indexOf('http') === 0)){
+                    if(event.request.url.indexOf('http') === 0){
                         cache.put(event.request, res.clone());
                         return res;
                     }
