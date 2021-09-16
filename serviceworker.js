@@ -13,13 +13,13 @@ const filesToCache = [
     "mcl/index.html"
 ];
 
-
-const cacheName = 'stsk-portal-v1.4';
-const dataCacheName = 'stsk-portal-data-v1.4';
+const version = 1.5;
+const cacheName = 'stsk-portal-v' + version;
+const dataCacheName = 'stsk-portal-data-v' + version;
 
 // install
 self.addEventListener('install', event => {
-    console.log('[Install]]');
+    console.log('[Install]');
     event.waitUntil(
         caches.open(cacheName).then(cache => {
             console.log('Finished caching');
