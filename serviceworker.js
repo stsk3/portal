@@ -11,10 +11,11 @@ const filesToCache = [
     "script/jquery-3.3.1.js",
     "script/bus-route.js",
     "mcl/index.html",
+    "mcl/image/favicon.ico",
     "kfc/index.html"
 ];
 
-const version = 1.6;
+const version = 1.61;
 const cacheName = 'stsk-portal-v' + version;
 const dataCacheName = 'stsk-portal-data-v' + version;
 
