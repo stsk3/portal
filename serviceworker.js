@@ -1,48 +1,62 @@
-var staticCacheName = "stsk-portal-v1.2";
-
-self.addEventListener("install", function (e) {
-    e.waitUntil(
-        caches.open(staticCacheName).then(function (cache) {
-            return cache.addAll([
-                "index.html",
-                "header.html",
-                "home.html",
-                "bus-interchange.html",
-                "bus-sectional-fare.html",
-                "footer.html",
-                "main.css",
-                "script/jquery.dataTables.min.css",
-                "script/jquery.dataTables.min.js",
-                "script/jquery-3.3.1.js",
-                "script/bus-route.js",
-                "mcl/index.html"
-            ]);
-        })
-    );
-});
-
-self.addEventListener("fetch", function (event) {
-    console.log(event.request.url);
-
-    event.respondWith(
-        caches.match(event.request).then(function (response) {
-            return response || fetch(event.request);
-        })
-    );
-});
+const filesToCache = [
+    "index.html",
+    "header.html",
+    "home.html",
+    "bus-interchange.html",
+    "bus-sectional-fare.html",
+    "footer.html",
+    "main.css",
+    "script/jquery.dataTables.min.css",
+    "script/jquery.dataTables.min.js",
+    "script/jquery-3.3.1.js",
+    "script/bus-route.js",
+    "mcl/index.html"
+];
 
 
-self.addEventListener('activate', event => {
-    // Remove old caches
+const cacheName = 'stsk-portal-v1.4';
+const dataCacheName = 'stsk-portal-data-v1.4';
+
+// install
+self.addEventListener('install', event => {
+    console.log('installing…');
     event.waitUntil(
-        (async () => {
-            const keys = await caches.keys();
-            return keys.map(async (cache) => {
-                if(cache !== cacheName) {
-                    console.log('Service Worker: Removing old cache: '+cache);
-                    return await caches.delete(cache);
+        caches.open(cacheName).then(cache => {
+            console.log('Caching app ok');
+            return cache.addAll(filesToCache);
+        })
+    );
+});
+
+// activate
+self.addEventListener('activate', event => {
+    console.log('now ready to handle fetches!');
+    event.waitUntil(
+        caches.keys().then(function(cacheNames) {
+            var promiseArr = cacheNames.map(function(item) {
+                if (item !== cacheName) {
+                    // Delete that cached file
+                    console.log('[ServiceWorker] Removing Cached Files from Cache - ', item);
+                    return caches.delete(item);
                 }
             })
-        })()
-    )
+            return Promise.all(promiseArr);
+        })
+    ); // end event.waitUntil
+})
+
+// fetch
+self.addEventListener('fetch', event => {
+    console.log('now fetch!');
+    event.respondWith(
+        caches.match(event.request).then(function (response) {
+            return response || fetch(event.request).then(res =>
+                caches.open(dataCacheName)
+                .then(function(cache) {
+                    cache.put(event.request, res.clone());
+                    return res;
+                })
+            );
+        })
+    );
 })
