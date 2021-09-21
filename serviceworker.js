@@ -15,7 +15,7 @@ const filesToCache = [
     "kfc/index.html"
 ];
 
-const version = 1.64;
+const version = 1.65;
 const cacheName = 'stsk-portal-v' + version;
 const dataCacheName = 'stsk-portal-data-v' + version;
 
