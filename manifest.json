@@ -3,8 +3,8 @@
 	"short_name":"STSK",
 	"start_url":"index.html",
 	"display":"standalone",
-	"background_color":"#FFFFFF",
-	"theme_color":"white",
+	"background_color":"#81BEF7",
+	"theme_color":"#81BEF7",
 	"scope": ".",
 	"description":"This is a STSK Portal PWA.",
 	"icons":[
