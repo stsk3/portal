@@ -21,7 +21,6 @@
             const type = (mode == "F" ? 'Go' : 'Back');
             const tableId = '#result' + type + 'Table';
             const spanId = '#result' + type + 'Span';
-            const errorMsgId = '#result' + type + 'Error';
 
             //Destroy old data
             $(tableId + " > tbody").html("");
@@ -29,10 +28,10 @@
             $(spanId).html("");
 
             if (isOnline) {
-                $.getJSON(`https://api.allorigins.win/raw?url=${encodeURIComponent(
+                $.getJSON(`https://api.allorigins.win/get?url=${encodeURIComponent(
                     'https://www.kmb.hk/ajax/BBI/get_BBI2.php?routeno=' + routeNum + '&bound=' + mode + '&jtSorting=sec_routeno%20ASC' + (interchangeType == 2 ? '&interchangeType=2' : ''))}`, function (data) {
-                        const jsonData = data;
-                        createTable(jsonData, tableId, spanId, errorMsgId);
+                        const jsonData = JSON.parse(data.contents);
+                        createTable(jsonData, tableId, spanId);
                     }
                 );
             } else {
@@ -43,47 +42,44 @@
                     busArray = (interchangeType == 1) ? busBArray : busB2Array;
                 }
                 const jsonData = JSON.parse(busArray.get(routeNum));
-                createTable(jsonData, tableId, spanId, errorMsgId);
+                createTable(jsonData, tableId, spanId);
             }
         }
 
-        function createTable(jsonData, tableId, spanId, errorMsgId) {
+        function createTable(jsonData, tableId, spanId) {
             if (jsonData.Result == "OK") {
                 const place = jsonData.bus_arr[0].dest;
-                $(spanId).html(place);
-
                 const records = jsonData.Records;
-                if (records.length > 0) {
-                    var html = '<thead>';
-                    html += '<tr>';
 
-                    var flag = 0;
-                    $.each(records[0], function (index, value) {
-                        if (index != "detail" && index != "spec_remark_eng")
-                            html += '<th>' + fixHeader(index) + '</th>';
+                var html = '<thead>';
+                html += '<tr>';
+
+                var flag = 0;
+                $.each(records[0], function (index, value) {
+                    if (index != "detail" && index != "spec_remark_eng")
+                        html += '<th>' + fixHeader(index) + '</th>';
+                });
+                html += '</tr>';
+                html += '</thead>';
+
+                html += '<tbody>';
+                $.each(records, function (index, value) {
+                    html += '<tr>';
+                    $.each(value, function (index2, value2) {
+                        if (index2 != "detail" && index2 != "spec_remark_eng") {
+                            html += '<td>' + value2 + '</td>';
+                        }
                     });
                     html += '</tr>';
-                    html += '</thead>';
+                });
+                html += '</tbody>';
 
-                    html += '<tbody>';
-                    $.each(records, function (index, value) {
-                        html += '<tr>';
-                        $.each(value, function (index2, value2) {
-                            if (index2 != "detail" && index2 != "spec_remark_eng") {
-                                html += '<td>' + value2 + '</td>';
-                            }
-                        });
-                        html += '</tr>';
-                    });
-                    html += '</tbody>';
 
-                    $(tableId).html(html);
+                $(tableId).html(html);
+                $(spanId).html(place);
 
-                    initDataTable(tableId);
-                }
+                initDataTable(tableId);
             }
-
-            $(errorMsgId).html(jsonData.Message);
         }
 
         function fixHeader(code) {
@@ -154,7 +150,7 @@
 
 <body>
     <div>
-        <input id="route-num" type="text" placeholder="路線">
+        <input id="route-num" type="text" placeholder="路線" value="74X">
         <button onclick="getResult(1, true)">第一程</button>
         <button onclick="getResult(2, true)">第二程</button>
     </div>
@@ -179,7 +175,6 @@
         <span>目的地: </span>
         <span id="resultGoSpan" class="bus-title"></span>
         <table id="resultGoTable" class="dataTable display"></table>
-        <div id="resultGoError" class="bus-error-msg"></div>
     </div>
     <br />
     <br />
@@ -190,7 +185,6 @@
         <span>目的地: </span>
         <span id="resultBackSpan" class="bus-title"></span>
         <table id="resultBackTable" class="dataTable display"></table>
-        <div id="resultBackError" class="bus-error-msg"></div>
     </div>
     <br />
     <br />

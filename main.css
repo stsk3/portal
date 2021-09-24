@@ -31,9 +31,3 @@ table.dataTable td{
 .bus-title {
     font-size: 1.5em;
 }
-
-
-.bus-error-msg {
-    padding-top: 10px;
-    color: red;
-}

@@ -6,7 +6,7 @@ if ([System.IO.File]::Exists($FilePath)) {
 Add-Content -Path $FilePath -Value "let busFArray = new Map();`nlet busBArray = new Map();`nlet busF2Array = new Map();`nlet busB2Array = new Map();`n"
 
 
-$RouteArray = @("64K","64P","65K","71A","71B","71K","71S","72","72A","72C","72X","73","73A","73B","73D","73P","73X","74A","74B","74C","74D","74E","74F","74K","74P","74X","75K","75P","75X","263C","264R","265S","271","271B","271P","271S","271X","272A","272E","272P","272X","273C","273P","274P","274X","275R","307","307A","307P","900","907B","907C","A47X","E41","NA47","N271","N307","T74")
+$RouteArray = @("64K","64P","65K","71A","71B","71K","71S","72","72A","72C","72X","73","73B","73D","73P","73X","74A","74B","74C","74D","74E","74F","74K","74P","74X","75K","75P","75X","263C","264R","265S","271","271B","271P","271S","271X","272A","272E","272P","272X","273C","273P","274P","274X","275R","307","307A","307P","900","907B","907C","A47X","E41","NA47","N271","N307","T74")
 $Line = "busFArray.set('==大埔==', ````);"
 Add-Content -Path $FilePath -Value $Line
 AddRow($RouteArray)
