@@ -29,8 +29,9 @@
             $(spanId).html("");
 
             if (isOnline) {
-                $.getJSON(`https://api.allorigins.win/raw?url=${encodeURIComponent(
-                    'https://www.kmb.hk/ajax/BBI/get_BBI2.php?routeno=' + routeNum + '&bound=' + mode + '&jtSorting=sec_routeno%20ASC' + (interchangeType == 2 ? '&interchangeType=2' : ''))}`, function (data) {
+                $.getJSON(`https://cors-anywhere.herokuapp.com/
+                    ${'https://www.kmb.hk/ajax/BBI/get_BBI2.php?routeno=' + routeNum + '&bound=' + mode + '&jtSorting=sec_routeno%20ASC' + (interchangeType == 2 ? '&interchangeType=2' : '')}
+                `, function (data) {
                         const jsonData = data;
                         createTable(jsonData, tableId, spanId, errorMsgId);
                     }
