@@ -10,12 +10,55 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="main.css">
     <link rel="shortcut icon" type="image/x-icon" href="image/favicon.ico">
     <title>STSK Portal</title>
 
     <style>
         body {
-            overscroll-behavior-y: contain;
+          margin: 0;
+          background-color: ;
+          overscroll-behavior-y: contain;
+        }
+
+        #navbar {
+          background-color: #81BEF7;
+          position: fixed;
+          top: 0;
+          width: 100%;
+          display: block;
+          transition: top 0.3s;
+        }
+
+        #navbar a {
+          float: left;
+          display: block;
+          color: #f2f2f2;
+          vertical-align: middle;
+          text-align: center;
+          padding: 5px;
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        #navbar a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+
+        iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: none;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        #iframeDiv {
+            padding:15px 0px 0px 0px;
+            font-size:30px;
+            margin-top:30px;
         }
     </style>
 
@@ -39,9 +82,27 @@
 		}
 	</script>
 
+    <script>
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+          if (prevScrollpos > currentScrollPos) {
+            document.getElementById("navbar").style.top = "0";
+          } else {
+            document.getElementById("navbar").style.top = "-50px";
+          }
+          prevScrollpos = currentScrollPos;
+        }
+    </script>
+
 </head>
-<frameset framespacing="0" rows="55,*" frameborder="0" noresize>
-    <frame name="top" src="header.html" target="top">
-    <frame name="main" src="home.html" target="main">
-</frameset>
+<body>
+    <div id="navbar">
+        <a href="index.html">STSK</a>
+    </div>
+</body>
+
+<div id="iframeDiv">
+    <iframe src="home.html"></iframe>
+</div>
 </html>
