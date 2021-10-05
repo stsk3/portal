@@ -1,21 +1,20 @@
 const filesToCache = [
     "index.html",
-    "header.html",
     "home.html",
     "bus-interchange.html",
     "bus-sectional-fare.html",
     "footer.html",
     "main.css",
+    "image/favicon.ico",
     "script/jquery.dataTables.min.css",
     "script/jquery.dataTables.min.js",
     "script/jquery-3.3.1.js",
     "script/bus-route.js",
     "mcl/index.html",
-    "mcl/image/favicon.ico",
     "kfc/index.html"
 ];
 
-const version = 1.7;
+const version = 1.71;
 const cacheName = 'stsk-portal-v' + version;
 const dataCacheName = 'stsk-portal-data-v' + version;
 

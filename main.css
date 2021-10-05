@@ -1,3 +1,51 @@
+
+        .index-page {
+          margin: 0;
+          overscroll-behavior-y: contain;
+        }
+
+        .index-page #navbar {
+          background-color: #81BEF7;
+          position: fixed;
+          top: 0;
+          width: 100%;
+          display: block;
+          transition: top 0.3s;
+        }
+
+        .index-page #navbar a {
+          width: 100%;
+          float: left;
+          display: block;
+          color: #f2f2f2;
+          vertical-align: middle;
+          text-align: center;
+          padding: 5px;
+          text-decoration: none;
+          font-size: 25px;
+        }
+
+        .index-page #navbar a:hover {
+          background-color: #3a99f2;
+          color: f2f2f2;
+        }
+
+        .index-page iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: none;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .index-page #iframeDiv {
+            padding:15px 0px 0px 0px;
+            font-size:30px;
+            margin-top:30px;
+        }
+
+
 .header-body {
     background: grey;
     -webkit-touch-callout: none; /* iOS Safari */
