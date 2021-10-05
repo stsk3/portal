@@ -14,9 +14,9 @@ const filesToCache = [
     "kfc/index.html"
 ];
 
-const version = 1.71;
-const cacheName = 'stsk-portal-v' + version;
-const dataCacheName = 'stsk-portal-data-v' + version;
+const swVersion = 1.72;
+const cacheName = 'stsk-portal-v' + swVersion;
+const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
 // install
 self.addEventListener('install', event => {

@@ -2,6 +2,7 @@
 <head>
     <link rel="stylesheet" href="main.css">
     <script type="text/javascript" src="serviceworker.js"></script>
+    <script type="text/javascript" src="version.js"></script>
 </head>
 
 <body>
@@ -22,7 +23,9 @@
         <br/>
         <br/>
         <script type="text/javascript">
-            document.write("Version: " + version);
+            document.write("Version: " + swVersion);
+            if (latestVersion != swVersion)
+                document.write("(舊版本)");
         </script>
     </div>
 
