@@ -66,8 +66,8 @@ home.html
 }
 
 .home-page #weather-bar {
-  overflow:hidden;
-  padding: 1px 5px;
+  overflow: hidden;
+  padding: 0px 5px;
   background-color: #FF3F33;
   color: #FFFFFF;
 }
