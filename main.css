@@ -1,62 +1,117 @@
+/**
+index.html
+**/
+.index-page {
+  margin: 0;
+  overscroll-behavior-y: contain;
+}
 
-        .index-page {
-          margin: 0;
-          overscroll-behavior-y: contain;
-        }
+.index-page #navbar {
+  background-color: #81BEF7;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: block;
+  transition: top 0.3s;
+}
 
-        .index-page #navbar {
-          background-color: #81BEF7;
-          position: fixed;
-          top: 0;
-          width: 100%;
-          display: block;
-          transition: top 0.3s;
-        }
+.index-page #navbar a {
+  width: 100%;
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  vertical-align: middle;
+  text-align: center;
+  padding: 5px;
+  text-decoration: none;
+  font-size: 25px;
+}
 
-        .index-page #navbar a {
-          width: 100%;
-          float: left;
-          display: block;
-          color: #f2f2f2;
-          vertical-align: middle;
-          text-align: center;
-          padding: 5px;
-          text-decoration: none;
-          font-size: 25px;
-        }
+.index-page #navbar a:hover {
+  background-color: #3a99f2;
+  color: f2f2f2;
+}
 
-        .index-page #navbar a:hover {
-          background-color: #3a99f2;
-          color: f2f2f2;
-        }
+.index-page iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
-        .index-page iframe {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: none;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-
-        .index-page #iframeDiv {
-            padding:15px 0px 0px 0px;
-            font-size:30px;
-            margin-top:30px;
-        }
-
-
-.header-body {
-    background: grey;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+.index-page #iframeDiv {
+    padding:15px 0px 0px 0px;
+    font-size:30px;
+    margin-top:30px;
 }
 
 
+/**
+home.html
+**/
+.home-page {
+  padding: 0;
+  margin: 0;
+  background-color: #F4FBFF;
+}
+
+.home-page #version {
+  padding: 20px 0px;
+}
+
+.home-page .grid-container {
+  display: grid;
+  grid-template-columns: 50% auto;
+  padding: 0;
+  margin: 0;
+}
+
+.home-page a {
+  border: 0px;
+  padding: 50px 20px;
+  text-align: center;
+  font-weight: bold;
+
+  font-size: 50px;
+  text-shadow: -5px 0 grey, 0 5px grey, 5px 0 grey, 0 -5px grey;
+
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.home-page a > img {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.home-page .red {
+    background-color: #FCC7D2;
+}
+
+.home-page .green {
+    background-color: #BEFEBF;
+}
+
+.home-page .blue {
+    background-color: #B0CCEF;
+}
+
+.home-page .yellow {
+    background-color: #E9FF94;
+}
+
+.home-page .orange {
+    background-color: #FBDC85;
+}
+
+
+
+/**
+Table
+**/
 th.dt-center, td.dt-center { 
     text-align: center; 
 }
@@ -68,6 +123,10 @@ table.dataTable th {
 table.dataTable td{
     font-size: 0.6em;
 }
+
+/**
+bus-interchange.html
+**/
 
 .bus-title {
     font-size: 1.5em;
