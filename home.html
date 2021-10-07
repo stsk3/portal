@@ -9,6 +9,7 @@
     <script>
 		window.addEventListener('load', () => {
 			getCurrentWeather();
+			getCurrentVersion();
 		});
 
         function getCurrentWeather() {
@@ -24,6 +25,18 @@
                         signalNames += name + " ";
                     })
                     $('#weather-bar').html(signalNames);
+                }
+            );
+        }
+
+        function getCurrentVersion() {
+            $.get('version.js',
+                function (data) {
+                    var version = "Version: " + swVersion;
+                    if (data != swVersion) {
+                        version += "(舊版本)";
+                    }
+                    $('#version').html(version);
                 }
             );
         }
@@ -47,11 +60,7 @@
     </div>
 
 
-    <div id="version">
-        <script type="text/javascript">
-            document.write("Version: " + swVersion);
-        </script>
-    </div>
+    <div id="version"></div>
 
 </body>
 

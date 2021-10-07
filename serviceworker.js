@@ -24,7 +24,7 @@ const filesToCache = [
     "script/bus-route.js"
 ];
 
-const swVersion = 1.88;
+const swVersion = 1.89;
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
@@ -64,7 +64,7 @@ self.addEventListener('fetch', event => {
             return response || fetch(event.request).then(res =>
                 caches.open(dataCacheName)
                 .then(function(cache) {
-                    if(event.request.url.indexOf('http') === 0 && event.request.url.indexOf('warnsum') !== -1){
+                    if(event.request.url.indexOf('http') === 0 && event.request.url.indexOf('warnsum') !== -1 && !event.request.url.endsWith('version.js')){
                         console.log('Fetched and Cached: ' + event.request.url);
                         cache.put(event.request, res.clone());
                     }
