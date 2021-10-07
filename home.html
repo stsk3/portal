@@ -12,7 +12,7 @@
 		});
 
         function getCurrentWeather() {
-            $.getJSON('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=warnsum&lang=tc',
+            $.getJSON('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=warnsum&lang=tc&ts=' + Date.now(),
                 function (data) {
                     const jsonData = data;
                     var signalNames = "";
