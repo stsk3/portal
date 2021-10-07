@@ -65,6 +65,13 @@ home.html
   margin: 0;
 }
 
+.home-page #weather-bar {
+  overflow:hidden;
+  padding: 1px 5px;
+  background-color: #FF3F33;
+  color: #FFFFFF;
+}
+
 .home-page #version {
   padding: 20px 0px;
 }

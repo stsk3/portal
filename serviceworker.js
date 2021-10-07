@@ -3,6 +3,7 @@ const filesToCache = [
     "home.html",
     "bus-interchange.html",
     "bus-sectional-fare.html",
+    "weather.html",
     "footer.html",
 
     "mcl/index.html",
