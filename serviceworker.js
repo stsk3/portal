@@ -6,7 +6,7 @@ const filesToCache = [
     "footer.html",
 
     "mcl/index.html",
-    "kfc/index.html"
+    "kfc/index.html",
 
 
     "image/favicon.ico",
@@ -20,7 +20,7 @@ const filesToCache = [
     "script/jquery.dataTables.min.css",
     "script/jquery.dataTables.min.js",
     "script/jquery-3.3.1.js",
-    "script/bus-route.js",
+    "script/bus-route.js"
 ];
 
 const swVersion = 1.81;
