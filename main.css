@@ -1,3 +1,11 @@
+body {
+  background-color: #F4FBFF;
+}
+
+a {
+  color: #2F7DD0;
+}
+
 /**
 index.html
 **/
@@ -55,7 +63,6 @@ home.html
 .home-page {
   padding: 0;
   margin: 0;
-  background-color: #F4FBFF;
 }
 
 .home-page #version {
@@ -75,6 +82,7 @@ home.html
   text-align: center;
   font-weight: bold;
 
+  font-size: 125%;
   text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
 
   text-decoration: none;
