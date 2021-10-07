@@ -4,17 +4,26 @@ const filesToCache = [
     "bus-interchange.html",
     "bus-sectional-fare.html",
     "footer.html",
-    "main.css",
+
+    "mcl/index.html",
+    "kfc/index.html"
+
+
     "image/favicon.ico",
+    "image/home-icon/bus_interchange.png",
+    "image/home-icon/bus_sectional_fare.png",
+    "image/home-icon/hmd.png",
+    "image/home-icon/kfc.png",
+    "image/home-icon/mcl.png",
+
+    "main.css",
     "script/jquery.dataTables.min.css",
     "script/jquery.dataTables.min.js",
     "script/jquery-3.3.1.js",
     "script/bus-route.js",
-    "mcl/index.html",
-    "kfc/index.html"
 ];
 
-const swVersion = 1.8;
+const swVersion = 1.81;
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
@@ -54,7 +63,7 @@ self.addEventListener('fetch', event => {
             return response || fetch(event.request).then(res =>
                 caches.open(dataCacheName)
                 .then(function(cache) {
-                    if(event.request.url.indexOf('http') === 0){
+                    if(event.request.url.indexOf('http') === 0 && !event.request.url.endsWith('version.js')){
                         console.log('Fetched and Cached: ' + event.request.url);
                         cache.put(event.request, res.clone());
                         return res;
