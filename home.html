@@ -11,6 +11,10 @@
 			getCurrentWeather();
 			getCurrentVersion();
 		});
+	    
+	     	$(document).ready(function() {        
+			$.ajaxSetup({ cache: false });  
+		});
 
         function getCurrentWeather() {
             $.getJSON('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=warnsum&lang=tc',
