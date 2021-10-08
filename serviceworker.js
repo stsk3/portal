@@ -25,7 +25,7 @@ const filesToCache = [
     "script/bus-route.js"
 ];
 
-const swVersion = 1.91;
+const swVersion = 1.92;
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
@@ -65,7 +65,10 @@ self.addEventListener('fetch', event => {
             return response || fetch(event.request).then(res =>
                 caches.open(dataCacheName)
                 .then(function(cache) {
-                    if(event.request.url.indexOf('http') === 0 && event.request.url.indexOf('warnsum') !== -1 && !event.request.url.endsWith('version.js')){
+                    if(event.request.url.indexOf('http') === 0 &&
+                        event.request.url.indexOf('weatherAPI') === -1 &&
+                        event.request.url.indexOf('latestVersion.txt') === -1)
+                    {
                         console.log('Fetched and Cached: ' + event.request.url);
                         cache.put(event.request, res.clone());
                     }

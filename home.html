@@ -7,13 +7,10 @@
 
 
     <script>
-		window.addEventListener('load', () => {
-			getCurrentWeather();
+	    $(document).ready(function() {
+			$.ajaxSetup({ cache: false });
 			getCurrentVersion();
-		});
-	    
-	     	$(document).ready(function() {        
-			$.ajaxSetup({ cache: false });  
+			getCurrentWeather();
 		});
 
         function getCurrentWeather() {
@@ -23,18 +20,43 @@
                     var signalNames = "";
                     Object.keys(jsonData).forEach(function(key) {
                         const name = data[key].name;
+                        const type = data[key].type;
                         const actionCode = data[key].actionCode;
                         const issueTime = data[key].issueTime;
                         const updateTime = data[key].updateTime;
-                        signalNames += name + " ";
+                        signalNames += (type ? type:"") + name + " ";
                     })
                     $('#weather-bar').html(signalNames);
+                }
+            );
+
+            $.getJSON('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=tc',
+                function (data) {
+                    const jsonData = data;
+
+                    const icon = jsonData.icon[0];
+                    var temperatureTp = "";
+                    var temperatureYl = "";
+
+                    const temperatureArray = jsonData.temperature.data;
+                    for(var i = 0; i < temperatureArray.length; i++) {
+                        var temperatureObj = temperatureArray[i];
+                        var place = temperatureObj.place;
+                        if (place == "大埔")
+                            temperatureTp = temperatureObj.value;
+                        if (place == "元朗公園")
+                            temperatureYl = temperatureObj.value;
+                    }
+
+                    $("#weather-icon").attr("src", `https://www.hko.gov.hk/images/HKOWxIconOutline/pic${icon}.png`);
+                    $('#temperature-tp').html(temperatureTp + "°C");
+                    $('#temperature-yl').html(temperatureYl + "°C");
                 }
             );
         }
 
         function getCurrentVersion() {
-            $.get('version.js',
+            $.get('latestVersion.txt',
                 function (data) {
                     var version = "Version: " + swVersion;
                     if (data != swVersion) {
@@ -56,7 +78,7 @@
     <div class="grid-container">
         <a href="bus-interchange.html" class="red"><img src="image/home-icon/bus_sectional_fare.png">九巴轉乘優惠</a>
         <a href="bus-sectional-fare.html" class="blue"><img src="image/home-icon/bus_interchange.png">九巴區域性<br/>雙向分段收費計劃</a>
-        <a href="weather.html" class="green"><img src="image/home-icon/weather.png">天氣</a>
+        <a href="weather.html" class="blue"><img src="image/home-icon/weather.png" id="weather-icon">天氣<br/><span id="temperature-tp"></span> / <span id="temperature-yl"></span></a>
         <a href="https://www.handmadelicacy.com.hk" class="green" target="_top"><img src="image/home-icon/hmd.png">知味手作</a>
         <a href="mcl/index.html" class="orange" target="_top"><img src="image/home-icon/mcl.png">MCL會員</a>
         <a href="kfc/index.html" class="red" target="_top"><img src="image/home-icon/kfc.png">KFC會員</a>

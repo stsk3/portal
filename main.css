@@ -7,6 +7,13 @@ a {
 }
 
 /**
+list body
+**/
+.list-body div {
+    margin: 10px 0px;
+}
+
+/**
 index.html
 **/
 .index-page {
