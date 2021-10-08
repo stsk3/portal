@@ -17,16 +17,45 @@
             $.getJSON('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=warnsum&lang=tc',
                 function (data) {
                     const jsonData = data;
-                    var signalNames = "";
+                    var signalList = "";
                     Object.keys(jsonData).forEach(function(key) {
+                        const code = data[key].code;
                         const name = data[key].name;
                         const type = data[key].type;
                         const actionCode = data[key].actionCode;
                         const issueTime = data[key].issueTime;
                         const updateTime = data[key].updateTime;
-                        signalNames += (type ? type:"") + name + " ";
+                        //signalList += (type ? type:"") + name + " ";
+
+                        //icon
+                        var icon = "";
+                        switch (code) {
+                            case 'WFIREY': icon = "firey"; break;
+                            case 'WFIRER': icon = "firer"; break;
+                            case 'WFROST': icon = "frost"; break;
+                            case 'WHOT': icon = "vhot"; break;
+                            case 'WCOLD': icon = "cold"; break;
+                            case 'WMSGNL': icon = "sms"; break;
+                            case 'WRAINA': icon = "raina"; break;
+                            case 'WRAINR': icon = "rainr"; break;
+                            case 'WRAINB': icon = "rainb"; break;
+                            case 'WFNTSA': icon = "ntfl"; break;
+                            case 'WL': icon = "landslip"; break;
+                            case 'TC1': icon = "tc1"; break;
+                            case 'TC3': icon = "tc3"; break;
+                            case 'TC8NE': icon = "tc8ne"; break;
+                            case 'TC8SE': icon = "tc8b"; break;
+                            case 'TC8NW': icon = "tc8d"; break;
+                            case 'TC8SW': icon = "tc8c"; break;
+                            case 'TC9': icon = "tc9"; break;
+                            case 'TC10': icon = "tc10"; break;
+                            case 'WTMW': icon = "tsunami-warn"; break;
+                            case 'WTS': icon = "ts"; break;
+                            default: break;
+                        }
+                        signalList += `<img src="https://www.hko.gov.hk/tc/wxinfo/dailywx/images/${icon}.gif"/>`;
                     })
-                    $('#weather-bar').html(signalNames);
+                    $('#signal-bar').html(signalList);
                 }
             );
 
@@ -49,8 +78,7 @@
                     }
 
                     $("#weather-icon").attr("src", `https://www.hko.gov.hk/images/HKOWxIconOutline/pic${icon}.png`);
-                    $('#temperature-tp').html(temperatureTp + "°C");
-                    $('#temperature-yl').html(temperatureYl + "°C");
+                    $('#temperature').html("大埔: " + temperatureTp + "°C" + "<br/>" + "元朗: " + temperatureYl + "°C");
                 }
             );
         }
@@ -58,7 +86,7 @@
         function getCurrentVersion() {
             $.get('latestVersion.txt',
                 function (data) {
-                    var version = "Version: " + swVersion;
+                    var version = "v" + swVersion;
                     if (data != swVersion) {
                         version += "(舊版本)";
                     }
@@ -72,22 +100,18 @@
 <body class="home-page">
 
     <div id="weather-bar">
-
+        <span id="signal-bar"></span>
+        <span id="version"></span>
     </div>
 
     <div class="grid-container">
         <a href="bus-interchange.html" class="red"><img src="image/home-icon/bus_sectional_fare.png">九巴轉乘優惠</a>
         <a href="bus-sectional-fare.html" class="blue"><img src="image/home-icon/bus_interchange.png">九巴區域性<br/>雙向分段收費計劃</a>
-        <a href="weather.html" class="blue"><img src="image/home-icon/weather.png" id="weather-icon">天氣<br/><span id="temperature-tp"></span> / <span id="temperature-yl"></span></a>
+        <a href="weather.html" class="blue"><img src="image/home-icon/weather.png" id="weather-icon">天氣<br/><span id="temperature"></span></a>
         <a href="https://www.handmadelicacy.com.hk" class="green" target="_top"><img src="image/home-icon/hmd.png">知味手作</a>
         <a href="mcl/index.html" class="orange" target="_top"><img src="image/home-icon/mcl.png">MCL會員</a>
         <a href="kfc/index.html" class="red" target="_top"><img src="image/home-icon/kfc.png">KFC會員</a>
-        
-	
 	</div>
-
-
-    <div id="version"></div>
 
 </body>
 
