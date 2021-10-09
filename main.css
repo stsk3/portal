@@ -14,6 +14,43 @@ list body
 }
 
 /**
+.tooltip
+**/
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #81BEF7;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  left: 110%;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #81BEF7 transparent transparent;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+/**
 index.html
 **/
 .index-page {
@@ -76,12 +113,26 @@ home.html
   overflow: hidden;
   padding: 0px 5px;
   background-color: #F7E282;
-  color: grey;
+}
+
+.home-page #weather-bar #swt-bar {
+  padding: 0px 5px;
+  font-size:10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-page #weather-bar a {
+  color: red;
+  text-decoration: none;
 }
 
 .home-page #version {
   vertical-align: top;
-  float: right;
+  float: right; 
+  font-size:10px;
+  color: grey;
 }
 
 .home-page .grid-container {
@@ -91,7 +142,7 @@ home.html
   margin: 0;
 }
 
-.home-page a {
+.home-page .grid-container a {
   border: 0px;
   padding: 50px 20px;
   text-align: center;
@@ -111,7 +162,7 @@ home.html
   width: 50%;
 }
 
-.home-page #signal-bar > img {
+.home-page #signal-bar img {
   width: 40px;
   padding: 0px 5px;
 }

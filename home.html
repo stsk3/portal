@@ -7,7 +7,7 @@
 
 
     <script>
-	    $(document).ready(function() {
+	    document.addEventListener("DOMContentLoaded", function(event) { 
 			$.ajaxSetup({ cache: false });
 			getCurrentVersion();
 			getCurrentWeather();
@@ -53,9 +53,30 @@
                             case 'WTS': icon = "ts"; break;
                             default: break;
                         }
-                        signalList += `<img src="https://www.hko.gov.hk/tc/wxinfo/dailywx/images/${icon}.gif"/>`;
+
+                        //issueTime
+                        const issueTimeObj = new Date(issueTime);
+                        const formattedIssueTime = new Date(issueTimeObj.getTime() - (issueTimeObj.getTimezoneOffset() * 60000)).toISOString().replace(/T/, ' ').replace(/\..+/, '');
+
+                        signalList += `<span class="tooltip"><img src="https://www.hko.gov.hk/tc/wxinfo/dailywx/images/${icon}.gif"/><span class="tooltiptext">${formattedIssueTime}發出</span></span>`;
                     })
                     $('#signal-bar').html(signalList);
+                }
+            );
+
+            $.getJSON('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=swt&lang=tc',
+                function (data) {
+                    const jsonData = data;
+
+                    var swtList = "";
+                    const swtArray = jsonData.swt;
+                    for(var i = 0; i < swtArray.length; i++) {
+                        var swtObj = swtArray[i];
+                        var desc = swtObj.desc;
+                        swtList += (i == 0 ? "" : "<br/>") + `<a href="https://www.hko.gov.hk/tc/sweather_tips.html" target="_blank">${desc}</a>`;
+                    }
+                    $('#swt-bar').html(swtList);
+
                 }
             );
 
@@ -100,15 +121,16 @@
 <body class="home-page">
 
     <div id="weather-bar">
-        <span id="signal-bar"></span>
         <span id="version"></span>
+        <span id="signal-bar"></span>
+        <div id="swt-bar"></div>
     </div>
 
     <div class="grid-container">
         <a href="bus-interchange.html" class="red"><img src="image/home-icon/bus_sectional_fare.png">九巴轉乘優惠</a>
         <a href="bus-sectional-fare.html" class="blue"><img src="image/home-icon/bus_interchange.png">九巴區域性<br/>雙向分段收費計劃</a>
         <a href="weather.html" class="blue"><img src="image/home-icon/weather.png" id="weather-icon">天氣<br/><span id="temperature"></span></a>
-        <a href="https://www.handmadelicacy.com.hk" class="green" target="_top"><img src="image/home-icon/hmd.png">知味手作</a>
+        <a href="https://www.handmadelicacy.com.hk" class="green" target="_blank"><img src="image/home-icon/hmd.png">知味手作</a>
         <a href="mcl/index.html" class="orange" target="_top"><img src="image/home-icon/mcl.png">MCL會員</a>
         <a href="kfc/index.html" class="red" target="_top"><img src="image/home-icon/kfc.png">KFC會員</a>
 	</div>
