@@ -56,7 +56,7 @@
 
                         //issueTime
                         const issueTimeObj = new Date(issueTime);
-                        const formattedIssueTime = new Date(issueTimeObj.getTime() - (issueTimeObj.getTimezoneOffset() * 60000)).toISOString().replace(/T/, ' ').replace(/\..+/, '');
+                        const formattedIssueTime = new Date(issueTimeObj.getTime() - (issueTimeObj.getTimezoneOffset() * 60000)).toISOString().replace(/T/, ' ').replace(/\..+/, '').slice(0, -3);
 
                         signalList += `<span class="tooltip"><img src="https://www.hko.gov.hk/tc/wxinfo/dailywx/images/${icon}.gif"/><span class="tooltiptext">${formattedIssueTime}發出</span></span>`;
                     })

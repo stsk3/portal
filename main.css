@@ -23,15 +23,15 @@ list body
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 200px;
-  background-color: #81BEF7;
+  width: 155px;
+  background-color: #81BEF7BB;
   color: #fff;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
   position: absolute;
-  z-index: 1;
-  top: 5px;
+  z-index: 999;
+  top: 3px;
   left: 110%;
 }
 
@@ -117,7 +117,7 @@ home.html
 
 .home-page #weather-bar #swt-bar {
   padding: 0px 5px;
-  font-size:10px;
+  font-size: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -163,8 +163,8 @@ home.html
 }
 
 .home-page #signal-bar img {
-  width: 40px;
-  padding: 0px 5px;
+  width: 30px;
+  padding: 0px 2px;
 }
 
 .home-page .red {
