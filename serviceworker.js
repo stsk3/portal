@@ -25,7 +25,7 @@ const filesToCache = [
     "script/bus-route.js"
 ];
 
-const swVersion = 1.95;
+const swVersion = 1.96;
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

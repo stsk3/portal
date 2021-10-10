@@ -56,7 +56,7 @@
 
                         //issueTime
                         const issueTimeObj = new Date(issueTime);
-                        const formattedIssueTime = new Date(issueTimeObj.getTime() - (issueTimeObj.getTimezoneOffset() * 60000)).toISOString().replace(/T/, ' ').replace(/\..+/, '').slice(0, -3);
+                        const formattedIssueTime = new Date(issueTimeObj.getTime() - (issueTimeObj.getTimezoneOffset() * 60000)).toISOString().replace(/\..+/, '').slice(5, -3).replace(/-/, '月').replace(/T/, '日');
 
                         signalList += `<span class="tooltip"><img src="https://www.hko.gov.hk/tc/wxinfo/dailywx/images/${icon}.gif"/><span class="tooltiptext">${formattedIssueTime}發出</span></span>`;
                     })
@@ -127,12 +127,13 @@
     </div>
 
     <div class="grid-container">
-        <a href="bus-interchange.html" class="red"><img src="image/home-icon/bus_sectional_fare.png">九巴轉乘優惠</a>
-        <a href="bus-sectional-fare.html" class="blue"><img src="image/home-icon/bus_interchange.png">九巴區域性<br/>雙向分段收費計劃</a>
         <a href="weather.html" class="blue"><img src="image/home-icon/weather.png" id="weather-icon">天氣<br/><span id="temperature"></span></a>
-        <a href="https://www.handmadelicacy.com.hk" class="green" target="_blank"><img src="image/home-icon/hmd.png">知味手作</a>
-        <a href="mcl/index.html" class="orange" target="_top"><img src="image/home-icon/mcl.png">MCL會員</a>
+        <a href="" class="light-green"><img src="image/home-icon/bus_eta.png">九巴到站時間</a>
+        <a href="bus-interchange.html" class="light-red"><img src="image/home-icon/bus_sectional_fare.png">九巴轉乘優惠</a>
+        <a href="bus-sectional-fare.html" class="light-blue"><img src="image/home-icon/bus_interchange.png">九巴區域性<br/>雙向分段收費計劃</a>
         <a href="kfc/index.html" class="red" target="_top"><img src="image/home-icon/kfc.png">KFC會員</a>
+        <a href="mcl/index.html" class="orange" target="_top"><img src="image/home-icon/mcl.png">MCL會員</a>
+        <a href="https://www.handmadelicacy.com.hk" class="green" target="_blank"><img src="image/home-icon/hmd.png">知味手作</a>
 	</div>
 
 </body>

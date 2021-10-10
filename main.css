@@ -23,7 +23,7 @@ list body
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 155px;
+  width: 120px;
   background-color: #81BEF7BB;
   color: #fff;
   text-align: center;
@@ -31,7 +31,7 @@ list body
   padding: 5px 0;
   position: absolute;
   z-index: 999;
-  top: 3px;
+  top: 2px;
   left: 110%;
 }
 
@@ -43,7 +43,7 @@ list body
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent #81BEF7 transparent transparent;
+  border-color: transparent #81BEF7BB transparent transparent;
 }
 .tooltip:hover .tooltiptext {
   visibility: visible;
@@ -113,11 +113,11 @@ home.html
   overflow: hidden;
   padding: 0px 5px;
   background-color: #F7E282;
+  font-size:10px;
 }
 
 .home-page #weather-bar #swt-bar {
   padding: 0px 5px;
-  font-size: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -131,7 +131,6 @@ home.html
 .home-page #version {
   vertical-align: top;
   float: right; 
-  font-size:10px;
   color: grey;
 }
 
@@ -144,7 +143,7 @@ home.html
 
 .home-page .grid-container a {
   border: 0px;
-  padding: 50px 20px;
+  padding: 35px 15px;
   text-align: center;
   font-weight: bold;
 
@@ -171,16 +170,32 @@ home.html
     background-color: #FCC7D2;
 }
 
+.home-page .light-red {
+    background-color: #FCDAC7;
+}
+
 .home-page .green {
     background-color: #BEFEBF;
+}
+
+.home-page .light-green {
+    background-color: #C7FCE2;
 }
 
 .home-page .blue {
     background-color: #B0CCEF;
 }
 
+.home-page .light-blue {
+    background-color: #C7E9FC;
+}
+
 .home-page .yellow {
     background-color: #E9FF94;
+}
+
+.home-page .light-yellow {
+    background-color: #FCFAC7;
 }
 
 .home-page .orange {
