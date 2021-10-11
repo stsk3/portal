@@ -232,3 +232,42 @@ bus-interchange.html
     padding-top: 10px;
     color: red;
 }
+
+
+/**
+bus-eta.hhtml
+**/
+
+.bus-eta-page  .dataTables_wrapper .dataTables_filter{
+    float: left;
+}
+
+.bus-eta-page .dataTables_wrapper .dataTables_length {
+    float: right;
+}
+
+.bus-eta-page .dataTables_wrapper .dataTables_filter input {
+    width: 100px;
+}
+
+.bus-eta-page #busRouteInfo {
+    margin: 10px 0px;
+    border: 2px dotted;
+    display: none;
+}
+
+.bus-eta-page .bus-num {
+    font-size: 1.5em;
+}
+
+.bus-eta-page .busStopDiv {
+    padding: 10px 0px 0px 0px;
+}
+
+.bus-eta-page #busStopSpan {
+    padding-right: 50px;
+}
+
+.bus-eta-page .etaDiv {
+    padding: 0px 20px;
+}
