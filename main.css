@@ -219,6 +219,10 @@ table.dataTable td{
     font-size: 0.6em;
 }
 
+.paginate_button{
+    font-size: 0.5em;
+}
+
 /**
 bus-interchange.html
 **/
@@ -250,14 +254,6 @@ bus-eta.hhtml
     width: 100px;
 }
 
-.bus-eta-page table.dataTable th {
-    font-size: 1em;
-}
-
-.bus-eta-page table.dataTable td{
-    font-size: 1em;
-}
-
 .bus-eta-page #busRouteInfo {
     margin: 10px 0px;
     border: 2px dotted;
@@ -273,26 +269,28 @@ bus-eta.hhtml
 }
 
 .bus-eta-page .busStopDiv .busStopDiv-seq {
-    padding: 0px 5px 0px 0px;
+    padding: 0px 2px 0px 0px;
 }
 
 .bus-eta-page .busStopDiv .busStopDiv-name {
-    padding: 0px 10px 0px 0px;
+    padding: 0px 5px 0px 0px;
     font-weight: bold;
-    font-size: 1.5em;
 }
 
 .bus-eta-page .busStopDiv .busStopDiv-other {
-    font-size: 1.5em;
+    padding: 0px 5px 0px 0px;
 }
 
 .bus-eta-page .etaDiv {
-    margin: 0px 50px;
-    padding: 0px 30px;
-    font-size: 1.2em;
+    margin: 0px 5px;
+    padding: 0px 5px;
     border: 2px solid orange;
     border-radius: 12px;
     display: none;
+}
+
+.bus-eta-page .etaDiv.bus-stop > div {
+    margin: 5px 10px;
 }
 
 .bus-eta-page .etaDiv .eta-detail{

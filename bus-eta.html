@@ -12,7 +12,11 @@
         const refreshInterval = 30000;
 
         function getRouteList() {
-            const tableId = '#routeListTable';
+            clearRefreshMap();
+            $('#busRouteInfo').hide();
+            $('#loadingDiv').show();
+
+            const tableId = '#listTable';
 
             //Destroy old data
             $(tableId + " > tbody").html("");
@@ -32,6 +36,13 @@
                         html += '</tr>';
                         html += '</thead>';
 
+                        if ($.fn.DataTable.isDataTable(tableId)) {
+                            const dt = $(tableId).DataTable();
+                            dt.columns(0).header().to$().text('路線');
+                            dt.columns(1).header().to$().text('起點');
+                            dt.columns(2).header().to$().text('終點');
+                        }
+
                         html += '<tbody>';
                         $.each(records, function (index, record) {
                             const route = record.route;
@@ -40,7 +51,7 @@
                             const bound = record.bound;
                             const serviceType = record.service_type;
 
-                            html += `<tr onclick="getBusStopList('${route}', '${bound}', '${serviceType}')">`;
+                            html += `<tr onclick="getRouteBusStopList('${route}', '${bound}', '${serviceType}')">`;
                             html += '<td>' + record.route + '</td>';
                             html += '<td>' + record.orig_tc + '</td>';
                             html += '<td>' + record.dest_tc + '</td>';
@@ -52,12 +63,54 @@
                         $(tableId).html(html);
 
                         initDataTable(tableId);
+                        $('#loadingDiv').hide();
                    }
              }});
         }
 
 
-        function getBusStopList(route, bound, serviceType) {
+        function getBusStopList() {
+            clearRefreshMap();
+            $('#busRouteInfo').hide();
+            $('#loadingDiv').show();
+
+            const tableId = '#listTable';
+
+            //Destroy old data
+            $(tableId + " > tbody").html("");
+
+            setTimeout(function(){ 
+                if ($.fn.DataTable.isDataTable(tableId)) {
+                    const dt = $(tableId).DataTable();
+                    dt.columns(0).header().to$().text('巴士站');
+                    dt.columns(1).header().to$().text('Lat');
+                    dt.columns(2).header().to$().text('Long');
+                }
+
+                var html = '<tbody>';
+                for (const [key, value] of Object.entries(busStopMap)) {
+                    const name = value.name;
+                    const lat = value.lat;
+                    const long = value.long;
+
+                    html += `<tr onclick="getBusStopETA('${key}')">`;
+                    html += '<td>' + name + '</td>';
+                    html += '<td>' + lat + '</td>';
+                    html += '<td>' + long + '</td>';
+                    html += '</tr>';
+                }
+                html += '</tbody>';
+
+                $(tableId).html(html);
+
+                initDataTable(tableId);
+                $('#loadingDiv').hide();
+
+            }, 0);
+       }
+
+
+        function getRouteBusStopList(route, bound, serviceType) {
             clearRefreshMap();
             $('#loadingDiv').show();
 
@@ -73,11 +126,16 @@
                             const seq = record.seq;
                             const stop = record.stop;
 
+                            const busStopName = busStopMap[stop].name;
+                            const busStopLat = busStopMap[stop].lat;
+                            const busStopLong = busStopMap[stop].long;
+
                             html += `<div class="busStopDiv">
                                                <span>
                                                    <span class="busStopDiv-seq">${seq}.</span>
-                                                   <span class="busStopDiv-name" onclick="getETA('${route}', '${bound}', '${serviceType}', '${stop}', '${seq}')">${busStopMap[stop]}</span>
-                                                   <span class="busStopDiv-other" onclick="getBusStopETA('${stop}', '${seq}')">🚏🚌</span>
+                                                   <span class="busStopDiv-name" onclick="getRouteETA('${route}', '${bound}', '${serviceType}', '${stop}', '${seq}')">${busStopName}</span>
+                                                   <span class="busStopDiv-other" onclick="getRouteBusStopETA('${stop}', '${seq}')">🚏🚌</span>
+                                                   <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
                                                </span>
                                            </div>`;
                             html += `<div id="${seq}-${stop}" class="etaDiv"></div>`;
@@ -93,7 +151,32 @@
         }
 
 
-        function getETA(route, bound, serviceType, stop, seq) {
+        function getBusStopETA(stop) {
+            clearRefreshMap();
+            $('#loadingDiv').show();
+
+            const busStopName = busStopMap[stop].name;
+            const busStopLat = busStopMap[stop].lat;
+            const busStopLong = busStopMap[stop].long;
+
+            var html = '';
+            html += `<div class="busStopDiv">`
+            html += `<div id="0-${stop}" class="etaDiv bus-stop"></div>`;
+            html += `</div>`;
+
+            $("#busRouteInfo-Title").html("巴士站: ");
+            $("#busRouteInfo-Data").html(busStopName + `<span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>`);
+
+            $("#busStopList").html(html);
+            $('#busRouteInfo').show();
+
+            getRouteBusStopETA(stop, 0)
+
+            $('#loadingDiv').hide();
+        }
+
+
+        function getRouteETA(route, bound, serviceType, stop, seq) {
             const id = seq + '-' + stop;
 
             if (refreshMap[id + '-stopEta']  !== undefined) {
@@ -131,7 +214,7 @@
                         $(`#${id}`).html(html);
 
                         if (refreshMap[id + '-eta'] === undefined) {
-                            var interval = setInterval(function() { getETA(route, bound, serviceType, stop, seq); }, refreshInterval);
+                            var interval = setInterval(function() { getRouteETA(route, bound, serviceType, stop, seq); }, refreshInterval);
                             refreshMap[id + '-eta'] = interval;
                         }
                    }
@@ -140,7 +223,7 @@
 
 
 
-        function getBusStopETA(stop, seq) {
+        function getRouteBusStopETA(stop, seq) {
             const id = seq + '-' + stop;
 
             if (refreshMap[id + '-eta']  !== undefined) {
@@ -175,7 +258,7 @@
                         $(`#${id}`).html(html);
 
                         if (refreshMap[id + '-stopEta'] === undefined) {
-                            var interval = setInterval(function() { getBusStopETA(stop, seq); }, refreshInterval);
+                            var interval = setInterval(function() { getRouteBusStopETA(stop, seq); }, refreshInterval);
                             refreshMap[id + '-stopEta'] = interval;
                         }
                    }
@@ -192,8 +275,10 @@
                     $.each(records, function (index, record) {
                         const stop = record.stop;
                         const name = record.name_tc;
+                        const lat = record.lat;
+                        const long = record.long;
 
-                        busStopMap[stop] = name;
+                        busStopMap[stop] = { 'name': name, 'lat': lat, 'long': long };
                     });
              });
         }
@@ -206,11 +291,13 @@
             $(id).DataTable({
                 "order": [],
                 paging: true,
-                "info": true,
+                "info": false,
                 "columnDefs": [
                     { "className": "dt-center", "targets": "_all" }
                 ]
             });
+
+            $('.bus-eta-page .dataTables_wrapper .dataTables_filter input').focus()
         }
 
         function clearRefreshMap() {
@@ -221,8 +308,8 @@
         }
 
         $(document).ready(function () {
-            getRouteList();
             initBusStop();
+            getRouteList();
             $('#loadingDiv').hide();
         });
 
@@ -250,11 +337,16 @@
 </head>
 
 <body class="bus-eta-page">
+    <div>
+        <button onclick="getRouteList()">巴士路線</button>
+        <button onclick="getBusStopList()">巴士站</button>
+    </div>
+    <br/>
     <div id="loadingDiv">
         Loading...
     </div>
     <div>
-        <table id="routeListTable" class="dataTable display"></table>
+        <table id="listTable" class="dataTable display"></table>
         <div id="busRouteInfo">
             <span id="busRouteInfo-Title"></span>
             <span id="busRouteInfo-Data"></span>
