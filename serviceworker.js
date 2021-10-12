@@ -3,6 +3,7 @@ const filesToCache = [
     "home.html",
     "bus-interchange.html",
     "bus-sectional-fare.html",
+    "bus-eta.html",
     "weather.html",
     "footer.html",
 
@@ -13,6 +14,7 @@ const filesToCache = [
     "image/favicon.ico",
     "image/home-icon/bus_interchange.png",
     "image/home-icon/bus_sectional_fare.png",
+    "image/home-icon/bus_eta.png",
     "image/home-icon/hmd.png",
     "image/home-icon/kfc.png",
     "image/home-icon/mcl.png",
@@ -25,7 +27,7 @@ const filesToCache = [
     "script/bus-route.js"
 ];
 
-const swVersion = 1.100;
+const swVersion = '1.101';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
@@ -66,8 +68,7 @@ self.addEventListener('fetch', event => {
                 caches.open(dataCacheName)
                 .then(function(cache) {
                     if(event.request.url.indexOf('http') === 0 &&
-                        event.request.url.indexOf('weatherAPI') === -1 &&
-                        event.request.url.indexOf('latestVersion.txt') === -1)
+                        event.request.url.indexOf('?_=') === -1)
                     {
                         console.log('Fetched and Cached: ' + event.request.url);
                         cache.put(event.request, res.clone());

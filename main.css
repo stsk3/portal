@@ -250,13 +250,21 @@ bus-eta.hhtml
     width: 100px;
 }
 
+.bus-eta-page table.dataTable th {
+    font-size: 1em;
+}
+
+.bus-eta-page table.dataTable td{
+    font-size: 1em;
+}
+
 .bus-eta-page #busRouteInfo {
     margin: 10px 0px;
     border: 2px dotted;
     display: none;
 }
 
-.bus-eta-page .bus-num {
+.bus-eta-page #busRouteInfo-Data {
     font-size: 1.5em;
 }
 
@@ -264,10 +272,33 @@ bus-eta.hhtml
     padding: 10px 0px 0px 0px;
 }
 
-.bus-eta-page #busStopSpan {
-    padding-right: 50px;
+.bus-eta-page .busStopDiv .busStopDiv-seq {
+    padding: 0px 5px 0px 0px;
+}
+
+.bus-eta-page .busStopDiv .busStopDiv-name {
+    padding: 0px 10px 0px 0px;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.bus-eta-page .busStopDiv .busStopDiv-other {
+    font-size: 1.5em;
 }
 
 .bus-eta-page .etaDiv {
-    padding: 0px 20px;
+    margin: 0px 50px;
+    padding: 0px 30px;
+    font-size: 1.2em;
+    border: 2px solid orange;
+    border-radius: 12px;
+    display: none;
+}
+
+.bus-eta-page .etaDiv .eta-detail{
+    font-weight: bold;
+}
+
+.bus-eta-page .etaDiv .eta-detail.seq1{
+    color: red;
 }
