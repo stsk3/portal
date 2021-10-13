@@ -1,0 +1,51 @@
+<html>
+
+<head>    
+    <link rel="stylesheet" href="main.css">
+    <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
+
+    <script>
+
+
+        function getData() {
+            $.ajax({url: `https://api.allorigins.win/raw?url=${encodeURIComponent('https://www.ha.org.hk/opendata/aed/aedwtdata-tc.json')}`, cache: false, success: 
+                function (data) {
+                    const jsonData = data;
+
+                    const updateTime = jsonData.updateTime;
+                    $('.list-sub-title').html("最後更新: " + updateTime);
+
+                    const records = jsonData.waitTime;
+                    if (records.length > 0) {
+                        var html = '';
+                        $.each(records, function (index, record) {
+                            const hospName = record.hospName;
+                            const topWait = record.topWait;
+                            const isLow = topWait.includes("1 小時");
+
+                            html += `<div>${hospName}</div><div ${isLow ? 'class="blue"' : ''}>${topWait}</div>`;
+                        });
+                        html += '</tbody>';
+                        $('.grid-2').html(html);
+                   }
+             }});
+        }
+
+        $(document).ready(function () {
+            getData();
+        });
+    </script>
+
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="list-title">急症室等候時間</div>
+    <div class="list-sub-title"></div>
+    <div class="list-body grid-2"></div>
+
+    <object type="text/html" data="footer.html"></object>
+</body>
+
+</html>

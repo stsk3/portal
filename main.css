@@ -6,12 +6,41 @@ a {
   color: #2F7DD0;
 }
 
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
 /**
-list body
+list page
 **/
+.list-title {
+    margin: 10px 0px;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.list-sub-title {
+    font-size: 0.7em;
+}
+
 .list-body div {
     margin: 10px 0px;
 }
+
+
+/**
+grid
+**/
+.grid-2 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+
 
 /**
 .tooltip
@@ -301,6 +330,12 @@ bus-eta.hhtml
     margin: 5px 10px;
 }
 
+
+.bus-eta-page .etaDiv .eta-detail-route {
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
 .bus-eta-page .etaDiv .eta-detail{
     font-weight: bold;
 }
@@ -351,7 +386,7 @@ mtr-eta.hhtml
 
 .mtr-eta-page .etaDiv .eta-detail-route {
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.3em;
 }
 
 .mtr-eta-page .etaDiv .eta-detail{

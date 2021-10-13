@@ -255,7 +255,7 @@
                             var timeGap = "";
                             if (eta) timeGap = millisToMinutesAndSeconds(new Date(eta) - new Date(dataTimestamp));
                             else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
-                            html += `<div><span class="eta-detail">${route}</span> 往${dest}(${stopSeq}) <span class="eta-detail seq${etaSeq}">${timeGap}</span>  ${rmk}</div>`;
+                            html += `<div><span class="eta-detail-route">${route}</span> 往${dest}(${stopSeq}) <span class="eta-detail seq${etaSeq}">${timeGap}</span>  ${rmk}</div>`;
                         });
 
                         $(`#${id}`).show();
