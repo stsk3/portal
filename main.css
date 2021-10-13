@@ -241,6 +241,9 @@ bus-interchange.html
 /**
 bus-eta.hhtml
 **/
+.bus-eta-page #menu-button {
+    display: none;
+}
 
 .bus-eta-page  .dataTables_wrapper .dataTables_filter{
     float: left;
@@ -256,6 +259,7 @@ bus-eta.hhtml
 
 .bus-eta-page #busRouteInfo {
     margin: 10px 0px;
+    padding: 5px  0px;
     border: 2px dotted;
     display: none;
 }
@@ -266,6 +270,10 @@ bus-eta.hhtml
 
 .bus-eta-page .busStopDiv {
     padding: 10px 0px 0px 0px;
+}
+
+.bus-eta-page .busStopTitle {
+    padding: 5px 0px 0px 0px;
 }
 
 .bus-eta-page .busStopDiv .busStopDiv-seq {
