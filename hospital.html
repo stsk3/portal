@@ -31,6 +31,16 @@
              }});
         }
 
+
+
+        $(document).ajaxStart(function () {
+            $('#loadingDiv').show();
+        });
+
+        $(document).ajaxComplete(function () {
+            $('#loadingDiv').hide();
+        });
+
         $(document).ready(function () {
             getData();
         });
@@ -42,6 +52,9 @@
 
 <body>
     <div class="list-title">急症室等候時間</div>
+    <div id="loadingDiv">
+        Loading...
+    </div>
     <div class="list-sub-title"></div>
     <div class="list-body grid-2"></div>
 
