@@ -308,3 +308,53 @@ bus-eta.hhtml
 .bus-eta-page .etaDiv .eta-detail.seq1{
     color: red;
 }
+
+
+
+/**
+mtr-eta.hhtml
+**/
+.mtr-eta-page  .dataTables_wrapper .dataTables_filter{
+    float: left;
+}
+
+.mtr-eta-page .dataTables_wrapper .dataTables_length {
+    float: right;
+}
+
+.mtr-eta-page .dataTables_wrapper .dataTables_filter input {
+    width: 100px;
+}
+
+.mtr-eta-page #stationInfo {
+    margin: 10px 0px;
+    padding: 5px  0px;
+    border: 2px dotted;
+    display: none;
+}
+
+.mtr-eta-page #stationInfo-Data {
+    font-size: 1.5em;
+}
+
+.mtr-eta-page .eta-platform {
+    padding: 5px 0 0 0;
+    font-size: 1.2em;
+}
+
+.mtr-eta-page .etaDiv {
+    margin: 0px 5px;
+    padding: 0px 5px;
+    border: 2px solid orange;
+    border-radius: 12px;
+}
+
+.mtr-eta-page .etaDiv .eta-detail-route {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.mtr-eta-page .etaDiv .eta-detail{
+    font-weight: bold;
+    color: red;
+}

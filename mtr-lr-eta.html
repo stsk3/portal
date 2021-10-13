@@ -1,0 +1,184 @@
+<html>
+
+<head>    
+    <link rel="stylesheet" href="main.css">
+    <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="script/light_rail_station_list.js"></script>
+    <style></style>
+    <script>
+        const stationMap = lightRailStationMap;
+        const refreshMap = {};  
+        const refreshInterval = 20000;
+
+
+        function getStationList() {
+            $('#stationInfo').hide();
+            $('#loadingDiv').show();
+
+            const tableId = '#listTable';
+
+            //Destroy old data
+            $(tableId + " > tbody").html("");
+
+            setTimeout(function(){ 
+                var html = '<thead>';
+                html += '<tr>';
+                html += '<th>站</th>';
+                html += '<th>Station</th>';
+                html += '<th>路線</th>';
+                html += '</tr>';
+                html += '</thead>';
+
+                html +	= '<tbody>';
+                for (const [stationId, value] of Object.entries(stationMap)) {
+                    const name = value.name;
+                    const nameEn = value.nameEn;
+                    const routeList = value.routeList;
+
+                    html += `<tr onclick="getStationData(${stationId})">`;
+                    html += '<td>' + name + '</td>';
+                    html += '<td>' + nameEn + '</td>';
+                    html += '<td>' + routeList + '</td>';
+                    html += '</tr>';
+                }
+                html += '</tbody>';
+
+                $(tableId).html(html);
+
+                initDataTable(tableId);
+
+                $('#loadingDiv').hide();
+            }, 100);
+       }
+
+
+        function getStationData(stationId) {
+            clearRefreshMap();
+            $('#loadingDiv').show();
+
+            const stationData = stationMap[stationId];
+            const stationName = stationData.name;
+
+            $("#stationInfo-Title").html("輕鐡站: ");
+            $("#stationInfo-Data").html(stationName);
+            $('#stationInfo').show();
+
+
+            var html = `<div id="eta-${stationId}"></div>`;
+            getStationETA(stationId);
+
+            $("#stationList").html(html);
+        }
+
+
+        function getStationETA(stationId) {
+            $.ajax({url: `https://rt.data.gov.hk/v1/transport/mtr/lrt/getSchedule?station_id=${stationId}`, cache: false, success: 
+                function (data) {
+                    const jsonData = data;
+
+                    const status = jsonData.status;
+                    const platformList = jsonData.platform_list;
+                    if (platformList.length > 0) {
+                        var html = '';
+                        $.each(platformList, function (index, platform) {
+                            const routeList = platform.route_list;
+                            const platformId = platform.platform_id;
+                            html += `<div class="eta-platform">${platformId}號月台</div>`;
+
+                            if (routeList.length > 0) {
+                                html += '<div class="etaDiv">';
+                                $.each(routeList, function (index, route) {
+                                    const routeNo = route.route_no;
+                                    const trainLength = route.train_length;
+                                    const arrivalDeparture = route.arrival_departure;
+                                    const dest = route.dest_ch;
+                                    const time = route.time_ch;
+
+                                    html += `<div><span class="eta-detail-route">${routeNo}</span> 往${dest} ${trainLength ? "(" + trainLength + "卡) " : ""} <span class="eta-detail">${time}</span></div>`;
+                                });
+                                html += '</div>';
+                            }
+                        });
+
+                        $(`#eta-${stationId}`).show();
+                        $(`#eta-${stationId}`).html(html);
+
+                        if (refreshMap[stationId] === undefined) {
+                            var interval = setInterval(function() { getStationETA(stationId); }, refreshInterval);
+                            refreshMap[stationId] = interval;
+                        }
+                   }
+             }});
+        }
+
+
+        function initDataTable(id) {
+            if ($.fn.DataTable.isDataTable(id))
+                $(id).DataTable().destroy();
+
+            $(id).DataTable({
+                "order": [],
+                paging: true,
+                "info": false,
+                "columnDefs": [
+                    { "className": "dt-center", "targets": "_all" }
+                ]
+            });
+
+            $('.mtr-eta-page .dataTables_wrapper .dataTables_filter input').focus()
+        }
+
+        function clearRefreshMap() {
+            for (const [key, value] of Object.entries(refreshMap)) {
+                clearInterval(refreshMap[key]);
+                refreshMap[key] = undefined;
+            }
+        }
+
+        $(document).ready(function () {
+            getStationList();
+        });
+
+
+        $(document).ajaxStart(function () {
+            //$('#loadingDiv').show();
+        });
+
+        $(document).ajaxComplete(function () {
+            $('#loadingDiv').hide();
+        });
+
+        function millisToMinutesAndSeconds(millis) {
+           if (millis > 0) { 
+               var minutes = Math.floor(millis / 60000);
+               var seconds = ((millis % 60000) / 1000).toFixed(0);
+               return minutes + "分" + (seconds < 10 ? '0' : '') + seconds+ "秒";
+           } else {
+               return "";
+           }
+        }
+
+
+    </script>
+</head>
+
+<body class="mtr-eta-page">
+    <br/>
+    <div id="loadingDiv">
+        Loading...
+    </div>
+    <div>
+        <table id="listTable" class="dataTable display"></table>
+        <div id="stationInfo">
+            <span id="stationInfo-Title"></span>
+            <span id="stationInfo-Data"></span>
+            <div id="stationList"></div>
+        </div>
+    </div>
+
+    <object type="text/html" data="footer.html"></object>
+</body>
+
+</html>

@@ -3,7 +3,8 @@ const filesToCache = [
     "home.html",
     "bus-interchange.html",
     "bus-sectional-fare.html",
-    "bus-eta.html",
+    "bus-kmb-eta.html",
+    "mtr-lr-eta.html",
     "weather.html",
     "footer.html",
 
@@ -14,7 +15,8 @@ const filesToCache = [
     "image/favicon.ico",
     "image/home-icon/bus_interchange.png",
     "image/home-icon/bus_sectional_fare.png",
-    "image/home-icon/bus_eta.png",
+    "image/home-icon/bus_kmb_eta.png",
+    "image/home-icon/mtr_lr_eta.png",
     "image/home-icon/hmd.png",
     "image/home-icon/kfc.png",
     "image/home-icon/mcl.png",
@@ -27,7 +29,7 @@ const filesToCache = [
     "script/bus-route.js"
 ];
 
-const swVersion = '1.103';
+const swVersion = '1.200';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
