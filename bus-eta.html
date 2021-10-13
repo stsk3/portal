@@ -64,7 +64,6 @@
                         $(tableId).html(html);
 
                         initDataTable(tableId);
-                        $('#loadingDiv').hide();
                    }
              }});
         }
@@ -83,9 +82,9 @@
             setTimeout(function(){ 
                 if ($.fn.DataTable.isDataTable(tableId)) {
                     const dt = $(tableId).DataTable();
-                    dt.columns(0).header().to$().text('巴士站');
-                    dt.columns(1).header().to$().text('Bus Stop');
-                    dt.columns(2).header().to$().text('數量');
+                    dt.columns(0).header().to$().text('數量');
+                    dt.columns(1).header().to$().text('巴士站');
+                    dt.columns(2).header().to$().text('Bus Stop');
                 }
 
                 var html = '<tbody>';
@@ -95,9 +94,9 @@
                     const listLength = value.length;
 
                     html += `<tr onclick="getBusStopETA('${name}')">`;
+                    html += '<td>' + listLength + '</td>';
                     html += '<td>' + name + '</td>';
                     html += '<td>' + nameEn + '</td>';
-                    html += '<td>' + listLength + '</td>';
                     html += '</tr>';
                 }
                 html += '</tbody>';
@@ -105,9 +104,9 @@
                 $(tableId).html(html);
 
                 initDataTable(tableId);
-                $('#loadingDiv').hide();
 
-            }, 0);
+                $('#loadingDiv').hide();
+            }, 100);
        }
 
 
@@ -146,7 +145,6 @@
 
                         $("#busStopList").html(html);
                         $('#busRouteInfo').show();
-                        $('#loadingDiv').hide();
                    }
              }});
         }
@@ -179,8 +177,6 @@
             }
 
             $("#busStopList").html(html);
-
-            $('#loadingDiv').hide();
         }
 
 
@@ -275,6 +271,7 @@
 
 
         function initBusStop() {
+            $('#loadingDiv').show();
             $.getJSON("https://data.etabus.gov.hk/v1/transport/kmb/stop",
                 function (data) {
                     const jsonData = data;
@@ -327,7 +324,6 @@
         $(document).ready(function () {
             initBusStop();
             getRouteList();
-            $('#loadingDiv').hide();
         });
 
 
@@ -336,7 +332,7 @@
         });
 
         $(document).ajaxComplete(function () {
-            //$('#loadingDiv').hide();
+            $('#loadingDiv').hide();
         });
 
         function millisToMinutesAndSeconds(millis) {
