@@ -14,6 +14,10 @@ a {
   color: blue;
 }
 
+.refreshDiv {
+  visibility: hidden;
+}
+
 /**
 list page
 **/

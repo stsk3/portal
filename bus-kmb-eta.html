@@ -129,6 +129,7 @@
                             const busStopName = busStopMap[stop].name;
                             const busStopLat = busStopMap[stop].lat;
                             const busStopLong = busStopMap[stop].long;
+                            const divId = seq + "-" + stop;
 
                             html += `<div class="busStopDiv">
                                                <span>
@@ -136,9 +137,10 @@
                                                    <span class="busStopDiv-name" onclick="getRouteETA('${route}', '${bound}', '${serviceType}', '${stop}', '${seq}')">${busStopName}</span>
                                                    <span class="busStopDiv-other" onclick="getRouteBusStopETA('${stop}', '${seq}')">🚏🚌</span>
                                                    <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
+                                                   <span id="${divId}-refresh" class="refreshDiv">更新中...</span>
                                                </span>
                                            </div>`;
-                            html += `<div id="${seq}-${stop}" class="etaDiv"></div>`;
+                            html += `<div id="${divId}" class="etaDiv"></div>`;
                             $("#busRouteInfo-Title").html("路線: ");
                             $("#busRouteInfo-Data").html(route);
                         });
@@ -167,10 +169,15 @@
                 const stop = busStop.stop;
                 const lat = busStop.lat;
                 const long = busStop.long;
+                const divId = "0-" + stop;
 
-                html += `<div class="busStopTitle">站牌${i+1} <span onclick="window.open('https://maps.google.com/?q=${lat},${long}', '_blank')">📌</span></div>`;
+                html += `<div class="busStopTitle">
+                                 站牌${i+1}
+                                 <span onclick="window.open('https://maps.google.com/?q=${lat},${long}', '_blank')">📌</span>
+                                 <span id="${divId}-refresh" class="refreshDiv">更新中...</span>
+                             </div>`;
                 html += `<div class="busStopDiv">`
-                html += `<div id="0-${stop}" class="etaDiv bus-stop"></div>`;
+                html += `<div id="${divId}" class="etaDiv bus-stop"></div>`;
                 html += `</div>`;
 
                 getRouteBusStopETA(stop, 0);
@@ -182,6 +189,8 @@
 
         function getRouteETA(route, bound, serviceType, stop, seq) {
             const id = seq + '-' + stop;
+
+            $(`#${id}-refresh`).css('visibility','visible');
 
             if (refreshMap[id + '-stopEta']  !== undefined) {
                 clearInterval(refreshMap[id + '-stopEta']);
@@ -214,6 +223,8 @@
                             }
                         });
 
+
+                        $(`#${id}-refresh`).css('visibility','hidden');
                         $(`#${id}`).show();
                         $(`#${id}`).html(html);
 
@@ -229,6 +240,8 @@
 
         function getRouteBusStopETA(stop, seq) {
             const id = seq + '-' + stop;
+
+            $(`#${id}-refresh`).css('visibility','visible');
 
             if (refreshMap[id + '-eta']  !== undefined) {
                 clearInterval(refreshMap[id + '-eta']);
@@ -253,7 +266,7 @@
                             const dest = record.dest_tc;
                             const serviceType = record.service_type;
                             const dataTimestamp = record.data_timestamp;
-                            const routeSetId = route + "-" + dir;
+                            const routeSetId = route + "-" + dir + "-" + etaSeq;
 
                             if (!routeSet.has(routeSetId)) {
                                 var timeGap = "";
@@ -264,6 +277,7 @@
                             }
                         });
 
+                        $(`#${id}-refresh`).css('visibility','hidden');
                         $(`#${id}`).show();
                         $(`#${id}`).html(html);
 

@@ -78,6 +78,8 @@
 
 
         function getStationETA(stationId) {
+            $(`#eta-refresh`).css('visibility','visible');
+
             $.ajax({url: `https://rt.data.gov.hk/v1/transport/mtr/lrt/getSchedule?station_id=${stationId}`, cache: false, success: 
                 function (data) {
                     const jsonData = data;
@@ -109,6 +111,7 @@
                             }
                         });
 
+                        $(`#eta-refresh`).css('visibility','hidden');
                         $(`#eta-${stationId}`).show();
                         $(`#eta-${stationId}`).html(html);
 
@@ -181,6 +184,7 @@
         <div id="stationInfo">
             <span id="stationInfo-Title"></span>
             <span id="stationInfo-Data"></span>
+            <div id="eta-refresh" class="refreshDiv">更新中...</div>
             <div id="stationList"></div>
         </div>
     </div>
