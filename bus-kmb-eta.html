@@ -209,7 +209,7 @@
                                 var timeGap = "";
                                 if (eta) timeGap = millisToMinutesAndSeconds(new Date(eta) - new Date(dataTimestamp));
                                 else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
-                                html += `<div><span class="eta-detail seq${isFirst ? '1' : etaSeq}">${timeGap}</span> ${rmk}</div>`;
+                                html += `<div class="operating"><span class="eta-detail seq${isFirst ? '1' : etaSeq}">${timeGap}</span> ${rmk}</div>`;
                                 isFirst = false;
                             }
                         });
@@ -241,6 +241,7 @@
 
                     const records = jsonData.data;
                     if (records.length > 0) {
+                        const routeSet = new Set();
                         var html = '';
                         $.each(records, function (index, record) {
                             const route = record.route;
@@ -250,12 +251,17 @@
                             const stopSeq = record.seq;
                             const rmk = record.rmk_tc;
                             const dest = record.dest_tc;
+                            const serviceType = record.service_type;
                             const dataTimestamp = record.data_timestamp;
+                            const routeSetId = route + "-" + serviceType;
 
-                            var timeGap = "";
-                            if (eta) timeGap = millisToMinutesAndSeconds(new Date(eta) - new Date(dataTimestamp));
-                            else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
-                            html += `<div><span class="eta-detail-route">${route}</span> 往${dest}(${stopSeq}) <span class="eta-detail seq${etaSeq}">${timeGap}</span>  ${rmk}</div>`;
+                            if (!routeSet.has(routeSetId)) {
+                                var timeGap = "";
+                                if (eta) timeGap = millisToMinutesAndSeconds(new Date(eta) - new Date(dataTimestamp));
+                                else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
+                                html += `<div class="${!eta ? 'end' : 'operating'}"><span class="eta-detail-route">${route}</span> 往${dest}(${stopSeq}) <span class="eta-detail seq${etaSeq}">${timeGap}</span>  ${rmk}</div>`;
+                                routeSet.add(routeSetId);
+                            }
                         });
 
                         $(`#${id}`).show();
@@ -341,7 +347,7 @@
                var seconds = ((millis % 60000) / 1000).toFixed(0);
                return minutes + "分" + (seconds < 10 ? '0' : '') + seconds+ "秒";
            } else {
-               return "";
+               return "已到站";
            }
         }
 

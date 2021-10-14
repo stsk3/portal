@@ -336,11 +336,15 @@ bus-eta.hhtml
     font-size: 1.3em;
 }
 
-.bus-eta-page .etaDiv .eta-detail{
+.bus-eta-page .etaDiv .end{
+    color: #BBBBBB;
+}
+
+.bus-eta-page .etaDiv .operating .eta-detail{
     font-weight: bold;
 }
 
-.bus-eta-page .etaDiv .eta-detail.seq1{
+.bus-eta-page .etaDiv .operating .eta-detail.seq1{
     color: red;
 }
 
