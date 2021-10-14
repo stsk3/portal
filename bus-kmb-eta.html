@@ -1,10 +1,10 @@
 <html>
 
 <head>    
-    <link rel="stylesheet" href="main.css">
     <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
     <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="main.css">
     <style></style>
     <script>
         const busStopMap = {};
@@ -253,13 +253,13 @@
                             const dest = record.dest_tc;
                             const serviceType = record.service_type;
                             const dataTimestamp = record.data_timestamp;
-                            const routeSetId = route + "-" + serviceType;
+                            const routeSetId = route + "-" + dir;
 
                             if (!routeSet.has(routeSetId)) {
                                 var timeGap = "";
                                 if (eta) timeGap = millisToMinutesAndSeconds(new Date(eta) - new Date(dataTimestamp));
                                 else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
-                                html += `<div class="${!eta ? 'end' : 'operating'}"><span class="eta-detail-route">${route}</span> 往${dest}(${stopSeq}) <span class="eta-detail seq${etaSeq}">${timeGap}</span>  ${rmk}</div>`;
+                                html += `<div class="${!eta ? 'end' : 'operating'}"><span class="eta-detail-route">${route}</span> 往${dest} <span class="eta-detail seq${etaSeq}">${timeGap}</span>  ${rmk}</div>`;
                                 routeSet.add(routeSetId);
                             }
                         });

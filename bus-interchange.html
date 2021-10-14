@@ -1,15 +1,12 @@
 <html>
 
 <head>    
-    <link rel="stylesheet" href="main.css">
     <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
     <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
     <script src="script/bus-route.js"></script>
+    <link rel="stylesheet" href="main.css">
     <style>
-        #route-num, #route-select {
-            width: 100px;
-        }
     </style>
     <script>
 
@@ -153,13 +150,13 @@
     </script>
 </head>
 
-<body>
-    <div>
+<body class="bus-interchange">
+    <div class="input-div">
         <input id="route-num" type="text" placeholder="路線">
         <button onclick="getResult(1, true)">第一程</button>
         <button onclick="getResult(2, true)">第二程</button>
     </div>
-    <div >
+    <div class="input-div">
         <select id="route-select">
             <option value="==">選擇路線</option>
         </select>

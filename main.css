@@ -40,6 +40,16 @@ grid
   grid-template-columns: 2fr 1fr;
 }
 
+/**
+datatable
+**/
+.dataTables_wrapper .dataTables_filter{
+    float: left;
+}
+
+.dataTables_wrapper .dataTables_length {
+    float: right;
+}
 
 
 /**
@@ -256,12 +266,21 @@ table.dataTable td{
 bus-interchange.html
 **/
 
-.bus-title {
+.bus-interchange .input-div > * {
+    font-size: 1.3em;
+}
+
+.bus-interchange #route-num, 
+.bus-interchange #route-select {
+    width: 150px;
+}
+
+.bus-interchange .bus-title {
     font-size: 1.5em;
 }
 
 
-.bus-error-msg {
+.bus-interchange .bus-error-msg {
     padding-top: 10px;
     color: red;
 }
@@ -274,16 +293,9 @@ bus-eta.hhtml
     display: none;
 }
 
-.bus-eta-page  .dataTables_wrapper .dataTables_filter{
-    float: left;
-}
-
-.bus-eta-page .dataTables_wrapper .dataTables_length {
-    float: right;
-}
-
 .bus-eta-page .dataTables_wrapper .dataTables_filter input {
     width: 100px;
+    font-size: 1.3em;
 }
 
 .bus-eta-page #busRouteInfo {
@@ -353,16 +365,9 @@ bus-eta.hhtml
 /**
 mtr-eta.hhtml
 **/
-.mtr-eta-page  .dataTables_wrapper .dataTables_filter{
-    float: left;
-}
-
-.mtr-eta-page .dataTables_wrapper .dataTables_length {
-    float: right;
-}
-
 .mtr-eta-page .dataTables_wrapper .dataTables_filter input {
     width: 100px;
+    font-size: 1.3em;
 }
 
 .mtr-eta-page #stationInfo {
