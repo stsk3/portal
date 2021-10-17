@@ -122,11 +122,18 @@
 
         function initRouteList() {
             select = document.getElementById('route-select');
+            var optgroup = null;
             for (const key of busFArray.keys()) {
-                var opt = document.createElement('option');
-                opt.value = key;
-                opt.innerHTML = key;
-                select.appendChild(opt);
+                if (key.startsWith("==")) {
+                    optgroup = document.createElement('optgroup');
+                    optgroup.setAttribute("label", key.substring(2, key.length-2));
+                    select.appendChild(optgroup);
+                } else {
+                    var opt = document.createElement('option');
+                    opt.value = key;
+                    opt.innerHTML = key;
+                    optgroup.appendChild(opt);
+                }
             }
         }
 

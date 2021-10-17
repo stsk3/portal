@@ -137,8 +137,8 @@
                                                    <span class="busStopDiv-name" onclick="getRouteETA('${route}', '${bound}', '${serviceType}', '${stop}', '${seq}')">${busStopName}</span>
                                                    <span class="busStopDiv-other" onclick="getRouteBusStopETA('${stop}', '${seq}')">🚏🚌</span>
                                                    <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
-                                                   <span id="${divId}-refresh" class="refreshDiv"></span>
                                                </span>
+                                               <div id="${divId}-refresh" class="refreshDiv"></div>
                                            </div>`;
                             html += `<div id="${divId}" class="etaDiv"></div>`;
                             $("#busRouteInfo-Title").html("路線: ");
@@ -174,7 +174,7 @@
                 html += `<div class="busStopTitle">
                                  站牌${i+1}
                                  <span onclick="window.open('https://maps.google.com/?q=${lat},${long}', '_blank')">📌</span>
-                                 <span id="${divId}-refresh" class="refreshDiv">更新中...</span>
+                                 <div id="${divId}-refresh" class="refreshDiv"></div>
                              </div>`;
                 html += `<div class="busStopDiv">`
                 html += `<div id="${divId}" class="etaDiv bus-stop"></div>`;
@@ -226,7 +226,7 @@
                         });
 
 
-                        $(`#${id}-refresh`).html("最後更新" + getTimeFromTimestamp(jsonData.generated_timestamp));
+                        $(`#${id}-refresh`).html("最後更新: " + getTimeFromTimestamp(jsonData.generated_timestamp));
                         $(`#${id}`).show();
                         $(`#${id}`).html(html);
 
@@ -283,7 +283,7 @@
                             }
                         });
 
-                        $(`#${id}-refresh`).html("最後更新" + getTimeFromTimestamp(jsonData.generated_timestamp));
+                        $(`#${id}-refresh`).html("最後更新: " + getTimeFromTimestamp(jsonData.generated_timestamp));
                         $(`#${id}`).show();
                         $(`#${id}`).html(html);
 
