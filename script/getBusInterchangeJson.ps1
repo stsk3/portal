@@ -1,4 +1,4 @@
-﻿$FilePath = "bus-rotue-temp.js"
+﻿$FilePath = "bus-route-temp.js"
 $CurrPath = Get-Location
 $FullPath = $CurrPath.toString() + "\" + $FilePath
 
