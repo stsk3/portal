@@ -137,7 +137,7 @@
                                                    <span class="busStopDiv-name" onclick="getRouteETA('${route}', '${bound}', '${serviceType}', '${stop}', '${seq}')">${busStopName}</span>
                                                    <span class="busStopDiv-other" onclick="getRouteBusStopETA('${stop}', '${seq}')">🚏🚌</span>
                                                    <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
-                                                   <span id="${divId}-refresh" class="refreshDiv">更新中...</span>
+                                                   <span id="${divId}-refresh" class="refreshDiv"></span>
                                                </span>
                                            </div>`;
                             html += `<div id="${divId}" class="etaDiv"></div>`;
@@ -190,8 +190,6 @@
         function getRouteETA(route, bound, serviceType, stop, seq) {
             const id = seq + '-' + stop;
 
-            $(`#${id}-refresh`).css('visibility','visible');
-
             if (refreshMap[id + '-stopEta']  !== undefined) {
                 clearInterval(refreshMap[id + '-stopEta']);
                 refreshMap[id + '-stopEta'] = undefined;
@@ -216,15 +214,18 @@
 
                             if (dir == bound && seq == stopSeq) {
                                 var timeGap = "";
-                                if (eta) timeGap = millisToMinutesAndSeconds(new Date(eta) - new Date(dataTimestamp));
+                                if (eta) timeGap = new Date(eta) - new Date(dataTimestamp);
                                 else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
-                                html += `<div class="operating"><span class="eta-detail seq${isFirst ? '1' : etaSeq}">${timeGap}</span> ${rmk}</div>`;
+                                html += `<div class="operating">
+                                                 <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-time-gap="${timeGap}">${millisToMinutesAndSeconds(timeGap)}</span>
+                                                 ${rmk}
+                                              </div>`;
                                 isFirst = false;
                             }
                         });
 
 
-                        $(`#${id}-refresh`).css('visibility','hidden');
+                        $(`#${id}-refresh`).html("最後更新" + getTimeFromTimestamp(jsonData.generated_timestamp));
                         $(`#${id}`).show();
                         $(`#${id}`).html(html);
 
@@ -240,8 +241,6 @@
 
         function getRouteBusStopETA(stop, seq) {
             const id = seq + '-' + stop;
-
-            $(`#${id}-refresh`).css('visibility','visible');
 
             if (refreshMap[id + '-eta']  !== undefined) {
                 clearInterval(refreshMap[id + '-eta']);
@@ -270,14 +269,19 @@
 
                             if (!routeSet.has(routeSetId)) {
                                 var timeGap = "";
-                                if (eta) timeGap = millisToMinutesAndSeconds(new Date(eta) - new Date(dataTimestamp));
+                                if (eta) timeGap = new Date(eta) - new Date(dataTimestamp);
                                 else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
-                                html += `<div class="${!eta ? 'end' : 'operating'}"><span class="eta-detail-route">${route}</span> 往${dest} <span class="eta-detail seq${etaSeq}">${timeGap}</span>  ${rmk}</div>`;
+                                html += `<div class="${!eta ? 'end' : 'operating'}">
+                                                  <span class="eta-detail-route">${route}</span>
+                                                  往${dest}
+                                                  <span class="eta-detail seq${etaSeq}" data-time-gap="${timeGap}">${millisToMinutesAndSeconds(timeGap)}</span>
+                                                  ${rmk}
+                                              </div>`;
                                 routeSet.add(routeSetId);
                             }
                         });
 
-                        $(`#${id}-refresh`).css('visibility','hidden');
+                        $(`#${id}-refresh`).html("最後更新" + getTimeFromTimestamp(jsonData.generated_timestamp));
                         $(`#${id}`).show();
                         $(`#${id}`).html(html);
 
@@ -344,6 +348,7 @@
         $(document).ready(function () {
             initBusStop();
             getRouteList();
+            const updateTimeGapInterval = setInterval(updateTimeGap , 1000);
         });
 
 
@@ -354,6 +359,27 @@
         $(document).ajaxComplete(function () {
             $('#loadingDiv').hide();
         });
+
+
+        function updateTimeGap() {
+            $(".eta-detail").each(function() {
+                const timeGap = $(this).attr("data-time-gap");
+                if (timeGap && timeGap > 0) {
+                    const newTimeGap = timeGap - 1000;
+                    $(this).attr("data-time-gap", newTimeGap);
+                    $(this).html(millisToMinutesAndSeconds(newTimeGap));
+                }
+            });
+        }
+
+        function getTimeFromTimestamp(timestamp) {
+            const date = new Date(timestamp);
+            const hours = date.getHours(); 
+            const minutes = "0" + date.getMinutes();
+            const seconds = "0" + date.getSeconds();
+            const formattedTime = hours + ':' + minutes.substr(-2);// + ':' + seconds.substr(-2);
+            return formattedTime;
+        }
 
         function millisToMinutesAndSeconds(millis) {
            if (millis > 0) { 
