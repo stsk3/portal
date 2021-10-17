@@ -198,6 +198,7 @@
             $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/eta/${stop}/${route}/${serviceType}`, cache: false, success: 
                 function (data) {
                     const jsonData = data;
+                    const currentTimestamp = jsonData.generated_timestamp;
 
                     const records = jsonData.data;
                     if (records.length > 0) {
@@ -214,7 +215,7 @@
 
                             if (dir == bound && seq == stopSeq) {
                                 var timeGap = "";
-                                if (eta) timeGap = new Date(eta) - new Date(dataTimestamp);
+                                if (eta) timeGap = new Date(eta) - new Date(currentTimestamp);
                                 else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
                                 html += `<div class="operating">
                                                  <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-time-gap="${timeGap}">${millisToMinutesAndSeconds(timeGap)}</span>
@@ -250,6 +251,7 @@
             $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/${stop}`, cache: false, success: 
                 function (data) {
                     const jsonData = data;
+                    const currentTimestamp = jsonData.generated_timestamp;
 
                     const records = jsonData.data;
                     if (records.length > 0) {
@@ -269,7 +271,7 @@
 
                             if (!routeSet.has(routeSetId)) {
                                 var timeGap = "";
-                                if (eta) timeGap = new Date(eta) - new Date(dataTimestamp);
+                                if (eta) timeGap = new Date(eta) - new Date(currentTimestamp);
                                 else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
                                 html += `<div class="${!eta ? 'end' : 'operating'}">
                                                   <span class="eta-detail-route">${route}</span>
@@ -377,7 +379,7 @@
             const hours = date.getHours(); 
             const minutes = "0" + date.getMinutes();
             const seconds = "0" + date.getSeconds();
-            const formattedTime = hours + ':' + minutes.substr(-2);// + ':' + seconds.substr(-2);
+            const formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
             return formattedTime;
         }
 

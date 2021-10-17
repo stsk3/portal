@@ -78,13 +78,12 @@
 
 
         function getStationETA(stationId) {
-            $(`#eta-refresh`).css('visibility','visible');
-
             $.ajax({url: `https://rt.data.gov.hk/v1/transport/mtr/lrt/getSchedule?station_id=${stationId}`, cache: false, success: 
                 function (data) {
                     const jsonData = data;
 
                     const status = jsonData.status;
+                    const systemTime = jsonData.system_time;
                     const platformList = jsonData.platform_list;
                     if (platformList.length > 0) {
                         var html = '';
@@ -111,7 +110,7 @@
                             }
                         });
 
-                        $(`#eta-refresh`).css('visibility','hidden');
+                        $(`#eta-refresh`).html("最後更新" + getTimeFromTimestamp(systemTime));
                         $(`#eta-${stationId}`).show();
                         $(`#eta-${stationId}`).html(html);
 
@@ -159,6 +158,15 @@
         $(document).ajaxComplete(function () {
             $('#loadingDiv').hide();
         });
+
+        function getTimeFromTimestamp(timestamp) {
+            const date = new Date(timestamp);
+            const hours = date.getHours(); 
+            const minutes = "0" + date.getMinutes();
+            const seconds = "0" + date.getSeconds();
+            const formattedTime = hours + ':' + minutes.substr(-2)+ ':' + seconds.substr(-2);
+            return formattedTime;
+        }
 
         function millisToMinutesAndSeconds(millis) {
            if (millis > 0) { 
