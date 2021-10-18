@@ -218,7 +218,7 @@
                                 if (eta) timeGap = new Date(eta) - new Date(currentTimestamp);
                                 else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
                                 html += `<div class="operating">
-                                                 <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-time-gap="${timeGap}">${millisToMinutesAndSeconds(timeGap)}</span>
+                                                 <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-time-gap="${timeGap}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(timeGap, stopSeq)}</span>
                                                  ${rmk}
                                               </div>`;
                                 isFirst = false;
@@ -276,7 +276,7 @@
                                 html += `<div class="${!eta ? 'end' : 'operating'}">
                                                   <span class="eta-detail-route">${route}</span>
                                                   往${dest}
-                                                  <span class="eta-detail seq${etaSeq}" data-time-gap="${timeGap}">${millisToMinutesAndSeconds(timeGap)}</span>
+                                                  <span class="eta-detail seq${etaSeq}" data-time-gap="${timeGap}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(timeGap, stopSeq)}</span>
                                                   ${rmk}
                                               </div>`;
                                 routeSet.add(routeSetId);
@@ -365,11 +365,12 @@
 
         function updateTimeGap() {
             $(".eta-detail").each(function() {
+                const stopSeq = $(this).attr("data-stop-seq");
                 const timeGap = $(this).attr("data-time-gap");
                 if (timeGap && timeGap > 0) {
                     const newTimeGap = timeGap - 1000;
                     $(this).attr("data-time-gap", newTimeGap);
-                    $(this).html(millisToMinutesAndSeconds(newTimeGap));
+                    $(this).html(millisToMinutesAndSeconds(newTimeGap, stopSeq));
                 }
             });
         }
@@ -383,13 +384,15 @@
             return formattedTime;
         }
 
-        function millisToMinutesAndSeconds(millis) {
+        function millisToMinutesAndSeconds(millis, stopSeq) {
            if (millis > 0) { 
                var minutes = Math.floor(millis / 60000);
                var seconds = ((millis % 60000) / 1000).toFixed(0);
                return minutes + "分" + (seconds < 10 ? '0' : '') + seconds+ "秒";
+           } else if (!isNaN(millis)) {
+               return stopSeq == 1 ? "已開出" : "已到站";
            } else {
-               return "已到站";
+               return millis;
            }
         }
 
