@@ -184,17 +184,36 @@ home.html
   margin: 0;
 }
 
-.home-page .grid-container a {
+.home-page .grid-container > a,
+.home-page .grid-container > div {
   border: 0px;
   padding: 35px 15px;
-  text-align: center;
   font-weight: bold;
 
   font-size: 100%;
-  text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
+}
 
+.home-page .grid-container > a {
+  padding: 35px 15px;
+  text-align: center;
+  text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
   text-decoration: none;
   color: #FFFFFF;
+}
+
+
+.home-page .grid-container > div {
+  padding: 10px 5px;
+}
+
+.home-page .grid-container > div > div {
+  padding: 5px 0px;
+}
+
+.home-page .grid-container > div a {
+  padding: 0px 5px;
+  text-decoration: none;
+  color: black;
 }
 
 .home-page a > img {
@@ -298,7 +317,7 @@ bus-eta.hhtml
 }
 
 .bus-eta-page .dataTables_wrapper .dataTables_filter input {
-    width: 100px;
+    width: 130px;
     font-size: 1.3em;
 }
 
@@ -353,7 +372,7 @@ bus-eta.hhtml
 }
 
 .bus-eta-page .etaDiv .end{
-    color: #BBBBBB;
+    color: #DDDDDD;
 }
 
 .bus-eta-page .etaDiv .operating .eta-detail{

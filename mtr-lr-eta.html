@@ -105,7 +105,7 @@
                                     const time = route.time_ch;
                                     const timeWords = time == "-" ? arrivalDeparture == "A" ? "已到站" : "已開出" : time;
 
-                                    html += `<div><span class="eta-detail-route">${routeNo}</span> 往${dest} ${trainLength ? "(" + trainLength + "卡) " : ""} <span class="eta-detail">${timeWords}</span></div>`;
+                                    html += `<div><span class="eta-detail-route">${routeNo}</span> ➔${dest} ${trainLength ? "(" + trainLength + "卡) " : ""} <span class="eta-detail">${timeWords}</span></div>`;
                                 });
                                 html += '</div>';
                             }
