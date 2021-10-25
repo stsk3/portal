@@ -13,6 +13,8 @@
         const refreshInterval = 30000;
 
         var searchValue = "";
+        var userLng = -1;
+        var userLat = -1;
 
         function getRouteList() {
             clearRefreshMap();
@@ -130,6 +132,9 @@
 
                     const records = jsonData.data;
                     if (records.length > 0) {
+                        var minDistance = 9999999;
+                        var minDistanceSeq = -1;
+
                         var html = '';
                         $.each(records, function (index, record) {
                             const route = record.route;
@@ -141,12 +146,20 @@
                             const busStopLong = busStopMap[stop].long;
                             const divId = seq + "-" + stop;
 
-                            html += `<div class="busStopDiv">
+                            const distance = calcCrow(busStopLat, busStopLong);
+
+                            if (distance != -1 && distance < minDistance) {
+                                minDistance = distance;
+                                minDistanceSeq = seq;
+                            }
+
+                            html += `<div class="busStopDiv" id="busStopDiv-${seq}">
                                                <span>
                                                    <span class="busStopDiv-seq">${seq}.</span>
                                                    <span class="busStopDiv-name" onclick="getRouteETA('${route}', '${bound}', '${serviceType}', '${stop}', '${seq}')">${busStopName}</span>
                                                    <span class="busStopDiv-other" onclick="getRouteBusStopETA('${stop}', '${seq}')">🚏🚌</span>
                                                    <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
+                                                   <span class="busStopDiv-distance">${distance != -1 ? distance + "米": ""}</span>
                                                </span>
                                                <div id="${divId}-refresh" class="refreshDiv"></div>
                                            </div>`;
@@ -156,6 +169,7 @@
                         });
 
                         $("#busStopList").html(html);
+                        $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
                         $('#busRouteInfo').show();
                    }
              }});
@@ -359,11 +373,16 @@
                 ],
                 "search": {
                     "search": searchValue
+                },
+                "initComplete": function( settings, json ) {
+                    if (searchValue) {
+                        $("tr")[1].click();
+                        searchValue = "";
+                    }
                 }
             });
 
 
-            searchValue = "";
             $('#menu-button').show();
             $('.bus-eta-page .dataTables_wrapper .dataTables_filter input').focus()
         }
@@ -376,6 +395,7 @@
         }
 
         $(document).ready(function () {
+            getLocation();
             initBusStop();
             
             const updateTimeGapInterval = setInterval(updateTimeGap , 1000);
@@ -435,6 +455,57 @@
                 });
            return result;
         }
+
+
+        //This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
+        function calcCrow(lat2, lon2) 
+        {
+            var lat1 = userLat;
+            var lon1 = userLng;
+            if (lat1 == -1 || lon1 == -1) {
+                return -1;
+            } else {
+                var R = 6371; // km
+                var dLat = toRad(lat2-lat1);
+                var dLon = toRad(lon2-lon1);
+                var lat1 = toRad(lat1);
+                var lat2 = toRad(lat2);
+
+                var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                    Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+                var d = R * c; //KM
+                var m = Math.round(d * 1000);
+                return m;
+             }
+       }
+
+        // Converts numeric degrees to radians
+        function toRad(Value) 
+        {
+            return Value * Math.PI / 180;
+        }
+
+
+        //function that gets the location and returns it
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                console.log("Geo Location not supported by browser");
+            }
+        }
+        //function that retrieves the position
+        function showPosition(position) {
+            var location = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            }
+            console.log(location);
+            userLat = location.latitude;
+            userLng = location.longitude;
+        }
+
 
 
     </script>
