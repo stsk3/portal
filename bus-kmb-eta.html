@@ -378,13 +378,14 @@
                     if (searchValue) {
                         $("tr")[1].click();
                         searchValue = "";
+                    } else {
+                        $('.bus-eta-page .dataTables_wrapper .dataTables_filter input').focus()
                     }
                 }
             });
 
 
             $('#menu-button').show();
-            $('.bus-eta-page .dataTables_wrapper .dataTables_filter input').focus()
         }
 
         function clearRefreshMap() {
