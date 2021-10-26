@@ -361,8 +361,12 @@ bus-eta.hhtml
     display: none;
 }
 
-.bus-eta-page .etaDiv.bus-stop > div {
-    margin: 5px 10px;
+.bus-eta-page .etaDiv.bus-stop {
+    padding-bottom: 10px;
+}
+
+.bus-eta-page .etaDiv .etaStop-seq-1{
+    margin-top: 10px;
 }
 
 

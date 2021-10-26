@@ -201,7 +201,7 @@
                                  <div id="${divId}-refresh" class="refreshDiv"></div>
                              </div>`;
                 html += `<div class="busStopDiv">`
-                html += `<div id="${divId}" class="etaDiv bus-stop"></div>`;
+                html += `<div id="${divId}" class="etaDiv"></div>`;
                 html += `</div>`;
 
                 getRouteBusStopETA(stop, 0);
@@ -251,6 +251,7 @@
 
 
                         $(`#${id}-refresh`).html("最後更新: " + getTimeFromTimestamp(jsonData.generated_timestamp));
+                        $(`#${id}`).removeClass("bus-stop");
                         $(`#${id}`).show();
                         $(`#${id}`).html(html);
 
@@ -279,6 +280,7 @@
 
                     const records = jsonData.data;
                     if (records.length > 0) {
+                        const currentRoute = "";
                         const routeSet = new Set();
                         var html = '';
                         $.each(records, function (index, record) {
@@ -297,7 +299,7 @@
                                 var timeGap = "";
                                 if (eta) timeGap = new Date(eta) - new Date(currentTimestamp);
                                 else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
-                                html += `<div class="${!eta ? 'end' : 'operating'}">
+                                html += `<div class="etaStop-seq-${etaSeq} ${!eta ? 'end' : 'operating'}">
                                                   <span class="eta-detail-route">${route}</span>
                                                   ➔${dest}
                                                   <span class="eta-detail seq${etaSeq}" data-time-gap="${timeGap}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(timeGap, stopSeq)}</span>
@@ -308,6 +310,7 @@
                         });
 
                         $(`#${id}-refresh`).html("最後更新: " + getTimeFromTimestamp(jsonData.generated_timestamp));
+                        $(`#${id}`).addClass("bus-stop");
                         $(`#${id}`).show();
                         $(`#${id}`).html(html);
 
