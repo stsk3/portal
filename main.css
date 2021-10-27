@@ -210,6 +210,18 @@ home.html
   padding: 5px 0px;
 }
 
+.home-page .grid-container > .icon {
+    text-align: center;
+}
+
+.home-page .grid-container > .icon > div > img {
+    width: 20%
+}
+
+.home-page .grid-container > .icon > div a {
+   margin: 0px 1px;
+}
+
 .home-page .grid-container > div a {
   padding: 0px 5px;
   text-decoration: none;
