@@ -56,10 +56,10 @@
                             const bound = record.bound;
                             const serviceType = record.service_type;
 
-                            html += `<tr ${serviceType != 1 ? 'style="color: #BBBBBB"' : ''} onclick="getRouteBusStopList('${route}', '${bound}', '${serviceType}')">`;
-                            html += '<td>' + record.route + `${serviceType != 1 ? "*" : ""}</td>`;
+                            html += `<tr ${serviceType != 1 ? 'style="color: #BBBBBB"' : ''} onclick="getRouteBusStopList('${route}', '${bound}', '${serviceType}', '${dest}')">`;
+                            html += '<td class="highlight">' + record.route + `${serviceType != 1 ? "*" : ""}</td>`;
                             html += '<td>' + record.orig_tc + '</td>';
-                            html += '<td>➔ ' + record.dest_tc + '</td>';
+                            html += '<td class="highlight">➔ ' + record.dest_tc + '</td>';
                             html += '</tr>';
                         });
                         html += '</tbody>';
@@ -122,7 +122,7 @@
        }
 
 
-        function getRouteBusStopList(route, bound, serviceType) {
+        function getRouteBusStopList(route, bound, serviceType, dest) {
             clearRefreshMap();
             $('#loadingDiv').show();
 
@@ -165,7 +165,7 @@
                                            </div>`;
                             html += `<div id="${divId}" class="etaDiv"></div>`;
                             $("#busRouteInfo-Title").html("路線: ");
-                            $("#busRouteInfo-Data").html(route);
+                            $("#busRouteInfo-Data").html(route + " ➔" + dest);
                         });
 
                         $("#busStopList").html(html);

@@ -321,6 +321,10 @@ bus-eta.hhtml
     font-size: 1.3em;
 }
 
+.bus-eta-page .dataTables_wrapper .highlight {
+    font-size: 1em;
+}
+
 .bus-eta-page #busRouteInfo {
     margin: 10px 0px;
     padding: 5px  0px;
