@@ -108,7 +108,7 @@
             $.get('latestVersion.txt',
                 function (data) {
                     var version = "v" + swVersion;
-                    if (data != swVersion) {
+                    if (data.trim() != swVersion.trim()) {
                         version += "(舊版本)";
                     }
                     $('#version').html(version);
