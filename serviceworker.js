@@ -25,6 +25,7 @@ const filesToCache = [
     "image/home-icon/weather.png",
     "image/home-icon/hospital.png",
     "image/home-icon/tv_schedule.png",
+    "image/home-icon/fairwood.png",
 
 
     "main.css",
@@ -34,7 +35,7 @@ const filesToCache = [
     "script/bus-route.js"
 ];
 
-const swVersion = '1.31';
+const swVersion = '1.40';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
