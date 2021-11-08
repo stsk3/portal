@@ -104,6 +104,14 @@
             );
         }
 
+        function etaSearch(ele, type) {
+            if(event.key === 'Enter') {
+                const value = ele.value;
+                window.location.href = "bus-kmb-eta.html?" + type + "=" + value;
+            }
+        }
+
+
         function getCurrentVersion() {
             $.get('latestVersion.txt',
                 function (data) {
@@ -129,7 +137,13 @@
     <div class="grid-container">
         <a href="weather.html" class="blue"><img src="image/home-icon/weather.png" id="weather-icon">天氣<br/><span id="temperature"></span></a>
         <a href="mtr-lr-eta.html" class="red"><img src="image/home-icon/mtr_lr_eta.png">輕黨鐵到站時間</a>
-        <a href="bus-kmb-eta.html" class="light-green"><img src="image/home-icon/bus_kmb_eta.png">九巴到站時間</a>
+        <a href="bus-kmb-eta.html" class="light-green">
+            <img src="image/home-icon/bus_kmb_eta.png">九巴到站時間
+            <div style="padding-top: 5px">
+                <input type="input" placeholder="路線" size="2" onkeydown="etaSearch(this, 'route')" onclick="event.preventDefault()">
+                <input type="input" placeholder="巴士站" size="3" onkeydown="etaSearch(this, 'stop')" onclick="event.preventDefault()">
+            </div>
+        </a>
         <div class="light-green">
             <div>
                 <a href="bus-kmb-eta.html?route=64K">64K</a><a class="red" href="bus-kmb-eta.html?route=269C">269C</a><a href="bus-kmb-eta.html?route=269D">269D</a>
