@@ -56,7 +56,7 @@
                             const bound = record.bound;
                             const serviceType = record.service_type;
 
-                            html += `<tr ${serviceType != 1 ? 'style="color: #BBBBBB"' : ''} onclick="getRouteBusStopList('${route}', '${bound}', '${serviceType}', '${dest}')">`;
+                            html += `<tr ${serviceType != 1 ? 'style="color: #BBBBBB"' : ''} onclick="clearRefreshMap(); getRouteBusStopList('${route}', '${bound}', '${serviceType}', '${dest}')">`;
                             html += '<td class="highlight">' + record.route + `${serviceType != 1 ? "*" : ""}</td>`;
                             html += '<td>' + record.orig_tc + '</td>';
                             html += '<td class="highlight">➔ ' + record.dest_tc + '</td>';
@@ -105,7 +105,7 @@
                     const nameEn = value[0].nameEn;
                     const listLength = value.length;
 
-                    html += `<tr onclick="getBusStopETA('${name}')">`;
+                    html += `<tr onclick="clearRefreshMap(); getBusStopETA('${name}', 'busStopList')">`;
                     html += '<td>' + listLength + '</td>';
                     html += '<td>' + name + '</td>';
                     html += '<td>' + nameEn + '</td>';
@@ -123,7 +123,6 @@
 
 
         function getRouteBusStopList(route, bound, serviceType, dest) {
-            clearRefreshMap();
             $('#loadingDiv').show();
 
             $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/route-stop/${route}/${bound == "I" ? "inbound" : "outbound"}/${serviceType}`, cache: true, success: 
@@ -157,7 +156,7 @@
                                                <span>
                                                    <span class="busStopDiv-seq">${seq}.</span>
                                                    <span class="busStopDiv-name" onclick="getRouteETA('${route}', '${bound}', '${serviceType}', '${stop}', '${seq}')">${busStopName}</span>
-                                                   <span class="busStopDiv-other" onclick="getRouteBusStopETA('${stop}', '${seq}')">🚏🚌</span>
+                                                   <span class="busStopDiv-other" onclick="getBusStopETA('${busStopName}', '${divId}')">🚏🚌</span>
                                                    <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
                                                    <span class="busStopDiv-distance">${distance != -1 ? distance + "米": ""}</span>
                                                </span>
@@ -176,16 +175,16 @@
         }
 
 
-        function getBusStopETA(name) {
-            clearRefreshMap();
-            $('#loadingDiv').show();
+        function getBusStopETA(name, id) {
+            if (refreshMap[id + '-eta']  !== undefined) {
+                clearInterval(refreshMap[id + '-eta']);
+                delete refreshMap[id + '-eta'];
+            }
 
             const busStopGroupList = busStopGroupMap[name];
             const busStopName = name;
 
-            $("#busRouteInfo-Title").html("巴士站: ");
-            $("#busRouteInfo-Data").html(busStopName);
-            $('#busRouteInfo').show();
+            $('#loadingDiv').show();
 
             var html = '';
             for (var i = 0; i < busStopGroupList.length; i++) {
@@ -204,20 +203,37 @@
                 html += `<div id="${divId}" class="etaDiv"></div>`;
                 html += `</div>`;
 
-                getRouteBusStopETA(stop, 0);
+                getRouteBusStopETA(stop);
             }
 
-            $("#busStopList").html(html);
+
+            if (refreshMap[id + '-stopEta'] === undefined) {
+                //Bus stop page
+                if (id == 'busStopList') {
+                    $("#busRouteInfo-Title").html("巴士站: ");
+                    $("#busRouteInfo-Data").html(busStopName);
+                    $('#busRouteInfo').show();
+                //Route page
+                } else {
+                    if (refreshMap[id + '-eta']  !== undefined) {
+                        clearInterval(refreshMap[id + '-eta']);
+                        delete refreshMap[id + '-eta'];
+                   }
+
+                   $(`#${id}-refresh`).html("");
+                   $("#" + id).show();
+               }
+
+                $("#" + id).html(html); //Only for the first time, for interval triggered -> only update ETA
+
+                var interval = setInterval(function() { getBusStopETA(name, id); }, refreshInterval);
+                refreshMap[id + '-stopEta'] = interval;
+            }
         }
 
 
         function getRouteETA(route, bound, serviceType, stop, seq) {
             const id = seq + '-' + stop;
-
-            if (refreshMap[id + '-stopEta']  !== undefined) {
-                clearInterval(refreshMap[id + '-stopEta']);
-                refreshMap[id + '-stopEta'] = undefined;
-            }
 
             $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/eta/${stop}/${route}/${serviceType}`, cache: false, success: 
                 function (data) {
@@ -256,6 +272,11 @@
                         $(`#${id}`).html(html);
 
                         if (refreshMap[id + '-eta'] === undefined) {
+                            if (refreshMap[id + '-stopEta']  !== undefined) {
+                                clearInterval(refreshMap[id + '-stopEta']);
+                                delete refreshMap[id + '-stopEta'];
+                            }
+
                             var interval = setInterval(function() { getRouteETA(route, bound, serviceType, stop, seq); }, refreshInterval);
                             refreshMap[id + '-eta'] = interval;
                         }
@@ -265,13 +286,8 @@
 
 
 
-        function getRouteBusStopETA(stop, seq) {
-            const id = seq + '-' + stop;
-
-            if (refreshMap[id + '-eta']  !== undefined) {
-                clearInterval(refreshMap[id + '-eta']);
-                refreshMap[id + '-eta']  = undefined;
-            }
+        function getRouteBusStopETA(stop) {
+            const id = '0-' + stop;
 
             $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/${stop}`, cache: false, success: 
                 function (data) {
@@ -313,11 +329,6 @@
                         $(`#${id}`).addClass("bus-stop");
                         $(`#${id}`).show();
                         $(`#${id}`).html(html);
-
-                        if (refreshMap[id + '-stopEta'] === undefined) {
-                            var interval = setInterval(function() { getRouteBusStopETA(stop, seq); }, refreshInterval);
-                            refreshMap[id + '-stopEta'] = interval;
-                        }
                    }
              }});
         }
@@ -394,7 +405,7 @@
         function clearRefreshMap() {
             for (const [key, value] of Object.entries(refreshMap)) {
                 clearInterval(refreshMap[key]);
-                refreshMap[key] = undefined;
+                delete refreshMap[key];
             }
         }
 
