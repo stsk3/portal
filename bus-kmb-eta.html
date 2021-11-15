@@ -12,6 +12,9 @@
         const refreshMap = {};  
         const refreshInterval = 30000;
 
+
+        const regex = /\([A-Z]\d{1,2}\)/;
+
         var searchValue = "";
         var userLng = -1;
         var userLat = -1;
@@ -145,6 +148,15 @@
                             const busStopLong = busStopMap[stop].long;
                             const divId = seq + "-" + stop;
 
+                            var busStopGroupName = busStopName;
+                            var platform = busStopGroupName.match(regex);
+                            if (platform) {
+                                platform = platform[0];
+                                busStopGroupName = busStopGroupName.replace(platform, '').trim();
+                                platform = platform.replace('(', '').replace(')', '').trim();
+                                busStopGroupName = busStopGroupName + "(" + platform[0] + ")";
+                            }
+
                             const distance = calcCrow(busStopLat, busStopLong);
 
                             if (distance != -1 && distance < minDistance) {
@@ -156,7 +168,7 @@
                                                <span>
                                                    <span class="busStopDiv-seq">${seq}.</span>
                                                    <span class="busStopDiv-name" onclick="getRouteETA('${route}', '${bound}', '${serviceType}', '${stop}', '${seq}')">${busStopName}</span>
-                                                   <span class="busStopDiv-other" onclick="getBusStopETA('${busStopName}', '${divId}')">🚏🚌</span>
+                                                   <span class="busStopDiv-other" onclick="getBusStopETA('${busStopGroupName}', '${divId}')">🚏🚌</span>
                                                    <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
                                                    <span class="busStopDiv-distance">${distance != -1 ? distance + "米": ""}</span>
                                                </span>
@@ -192,10 +204,11 @@
                 const stop = busStop.stop;
                 const lat = busStop.lat;
                 const long = busStop.long;
+                const platform = busStop.platform;
                 const divId = "0-" + stop;
 
                 html += `<div class="busStopTitle">
-                                 站牌${i+1}
+                                 月台${platform ? platform : i+1}
                                  <span onclick="window.open('https://maps.google.com/?q=${lat},${long}', '_blank')">📌</span>
                                  <div id="${divId}-refresh" class="refreshDiv"></div>
                              </div>`;
@@ -350,12 +363,41 @@
 
                         busStopMap[stop] = { 'name': name, 'nameEn': nameEn, 'lat': lat, 'long': long };
 
-                        var busStopGroupList = busStopGroupMap[name];
+
+                        //Add to map
+                        var groupName = name;
+                        var groupNameEn = nameEn;
+                        var platform = null;
+
+                        var platform = name.match(regex);
+                        if (platform) {
+                            platform = platform[0];
+                            groupName = name.replace(platform, '').trim();
+                            groupNameEn = nameEn.replace(platform, '').trim();
+
+                            platform = platform.replace('(', '').replace(')', '').trim();
+                            groupName = groupName + "(" + platform[0] + ")";
+                            groupNameEn = groupNameEn + "(" + platform[0] + ")";
+//if (platform.substr(1) == "11") console.log(groupName + platform);
+                        }
+
+                        var busStopGroupList = busStopGroupMap[groupName];
                         if (busStopGroupList == undefined) {
                             busStopGroupList = [];
-                            busStopGroupMap[name] = busStopGroupList;
+                            busStopGroupMap[groupName] = busStopGroupList;
                         }
-                        busStopGroupList.push({'stop': stop, 'nameEn': nameEn, 'lat': lat, 'long': long });
+
+                        if (platform == null || busStopGroupList.length == 0) {
+                            busStopGroupList.push({'stop': stop, 'nameEn': groupNameEn, 'lat': lat, 'long': long, 'platform': platform });
+                        } else {
+                            var i = 0;
+                            for (; i < busStopGroupList.length; i++) {
+                                if (parseInt(platform.substr(1)) <= parseInt(busStopGroupList[i].platform.substr(1))) {
+                                    break;
+                                }
+                            }
+                            busStopGroupList.splice(i, 0, {'stop': stop, 'nameEn': groupNameEn, 'lat': lat, 'long': long, 'platform': platform });
+                        }
                     });
 
 
