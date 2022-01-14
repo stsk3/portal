@@ -1,0 +1,199 @@
+<html>
+
+<head>    
+    <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="script/light_rail_station_list.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <style></style>
+    <script>
+        const busRefreshInterval = 30000;
+        const lrRefreshInterval = 10000;
+
+
+        
+
+        function getBusRouteETA(route, bound, serviceType, stop, seq) {
+            const id = route;
+
+            $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/eta/${stop}/${route}/${serviceType}`, cache: false, success: 
+                function (data) {
+                    const jsonData = data;
+                    const currentTimestamp = jsonData.generated_timestamp;
+
+                    const records = jsonData.data;
+                    if (records.length > 0) {
+                        var isFirst = true;
+                        var html = '';
+                        $.each(records, function (index, record) {
+                            const route = record.route;
+                            const dir = record.dir;
+                            const etaSeq = record.eta_seq;
+                            const eta = record.eta;
+                            const stopSeq = record.seq;
+                            const rmk = record.rmk_tc;
+                            const dataTimestamp = record.data_timestamp;
+
+                            if (dir == bound && seq == stopSeq) {
+                                var timeGap = "";
+                                if (eta) timeGap = new Date(eta) - new Date(currentTimestamp);
+                                else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
+                                html += `<div class="operating">
+                                                 <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-time-gap="${timeGap}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(timeGap, stopSeq, true)}</span>
+                                                 ${rmk}
+                                              </div>`;
+                                isFirst = false;
+                            }
+                        });
+
+
+                        $(`#${id}-refresh`).html("最後更新: " + getTimeFromTimestamp(jsonData.generated_timestamp));
+                        $(`#${id}`).removeClass("bus-stop");
+                        $(`#${id}`).show();
+                        $(`#${id}`).html(html);
+                   }
+             }});
+
+             setTimeout(function() { getBusRouteETA(route, bound, serviceType, stop, seq); }, busRefreshInterval);
+        }
+
+
+        function getLRStationETA(stationId) {
+            $.ajax({url: `https://rt.data.gov.hk/v1/transport/mtr/lrt/getSchedule?station_id=${stationId}`, cache: false, success: 
+                function (data) {
+                    const jsonData = data;
+
+                    const status = jsonData.status;
+                    const systemTime = jsonData.system_time;
+                    const platformList = jsonData.platform_list;
+                    if (platformList.length > 0) {
+                        var html = '';
+                        $.each(platformList, function (index, platform) {
+                            const routeList = platform.route_list;
+                            const endServiceStatus = platform.end_service_status;
+                            const platformId = platform.platform_id;
+                            html += `<div class="eta-platform">${platformId}號月台</div>`;
+
+                            if (endServiceStatus && endServiceStatus == 1) {
+                                html += '<div class="etaDiv">列車服務已結束</div>';
+                            } else if (routeList && routeList.length > 0) {
+                                html += '<div class="etaDiv">';
+                                $.each(routeList, function (index, route) {
+                                    const routeNo = route.route_no;
+                                    const trainLength = route.train_length;
+                                    const arrivalDeparture = route.arrival_departure;
+                                    const dest = route.dest_ch;
+                                    const time = route.time_ch;
+                                    const timeWords = time == "-" ? arrivalDeparture == "A" ? "已到站" : "已開出" : time;
+
+                                    html += `<div><span class="eta-detail-route">${routeNo}</span> ➔${dest} ${trainLength ? "(" + trainLength + "卡) " : ""} <span class="eta-detail">${timeWords}</span></div>`;
+                                });
+                                html += '</div>';
+                            }
+                        });
+
+                        $(`#eta-lr-refresh`).html("最後更新: " + getTimeFromTimestamp(systemTime));
+                        $(`#eta-lr`).show();
+                        $(`#eta-lr`).html(html);
+                   }
+             }});
+
+             setTimeout(function() { getLRStationETA(570); }, lrRefreshInterval);
+        }
+
+        $(document).ready(function () {
+            const updateTimeGapInterval = setInterval(updateTimeGap , 1000);
+
+            $('#busRouteInfo').show();
+            getBusRouteETA('269D', 'I', '1', '1B0FD9C27F5FE0BE', '12');
+            //getRouteETA('276', 'I', '1', 'D9CE618F99BAC2B6', '6'); //元朗康樂路 (S10)
+
+            $('#stationInfo').show();
+            getLRStationETA(570);
+        });
+
+
+        $(document).ajaxStart(function () {
+            //$('#loadingDiv').show();
+        });
+
+        $(document).ajaxComplete(function () {
+            $('#loadingDiv').hide();
+        });
+
+        
+
+
+        function updateTimeGap() {
+            $(".eta-detail").each(function() {
+                const stopSeq = $(this).attr("data-stop-seq");
+                const timeGap = $(this).attr("data-time-gap");
+                if (timeGap && timeGap > 0) {
+                    const newTimeGap = timeGap - 1000;
+                    $(this).attr("data-time-gap", newTimeGap);
+                    $(this).html(millisToMinutesAndSeconds(newTimeGap, stopSeq));
+                }
+            });
+        }
+
+        function getTimeFromTimestamp(timestamp) {
+            const date = new Date(timestamp);
+            const hours = date.getHours(); 
+            const minutes = "0" + date.getMinutes();
+            const seconds = "0" + date.getSeconds();
+            const formattedTime = hours + ':' + minutes.substr(-2)+ ':' + seconds.substr(-2);
+            return formattedTime;
+        }
+
+        function millisToMinutesAndSeconds(millis, stopSeq, isBus) {
+            if (millis > 0) { 
+               var minutes = Math.floor(millis / 60000);
+               var seconds = ((millis % 60000) / 1000).toFixed(0);
+               return minutes + "分" + (seconds < 10 ? '0' : '') + seconds+ "秒";
+            } else if (isBus) {
+                if (!isNaN(millis)) {
+                   return stopSeq == 1 ? "已開出" : "已到站";
+                } else {
+                    return millis;
+                }
+            } else {
+                return "";
+            }
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <br/>
+    <div id="loadingDiv">
+        Loading...
+    </div>
+    <div class="bus-eta-page">
+        <div id="busRouteInfo">
+            <span id="busRouteInfo-Title">巴士路線: </span>
+            <span id="busRouteInfo-Data">269D ➔天富</span>
+            <div class="busStopDiv" id="busStopDiv-1">
+                <span>
+                    <span class="busStopDiv-name">元朗狗屋</span>
+                </span>
+                <div id="269D-refresh" class="refreshDiv"></div>
+            </div>
+            <div id="269D" class="etaDiv"></div>`
+        </div>
+    </div>
+    <div class="mtr-eta-page">
+        <div id="stationInfo">
+            <span id="stationInfo-Title">輕鐵站: </span>
+            <span id="stationInfo-Data">豐年路</span>
+            <div id="eta-lr-refresh" class="refreshDiv">更新中...</div>
+            <div id="eta-lr"></div>
+        </div>
+    </div>
+
+    <object type="text/html" data="footer.html"></object>
+</body>
+
+</html>
