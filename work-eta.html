@@ -11,11 +11,10 @@
         const busRefreshInterval = 30000;
         const lrRefreshInterval = 10000;
 
+       
 
-        
-
-        function getBusRouteETA(route, bound, serviceType, stop, seq) {
-            const id = route;
+        function getBusRouteETA(route, bound, serviceType, stop, seq, row) {
+            const id = row;
 
             $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/eta/${stop}/${route}/${serviceType}`, cache: false, success: 
                 function (data) {
@@ -40,7 +39,7 @@
                                 if (eta) timeGap = new Date(eta) - new Date(currentTimestamp);
                                 else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
                                 html += `<div class="operating">
-                                                 <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-time-gap="${timeGap}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(timeGap, stopSeq, true)}</span>
+                                                 <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-time-gap="${timeGap}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(timeGap, stopSeq)}</span>
                                                  ${rmk}
                                               </div>`;
                                 isFirst = false;
@@ -48,16 +47,15 @@
                         });
 
 
-                        $(`#${id}-refresh`).html("最後更新: " + getTimeFromTimestamp(jsonData.generated_timestamp));
-                        $(`#${id}`).removeClass("bus-stop");
-                        $(`#${id}`).show();
-                        $(`#${id}`).html(html);
+                        $(`#bus-${id}-refresh`).html("最後更新: " + getTimeFromTimestamp(jsonData.generated_timestamp));
+                        $(`#bus-${id}`).removeClass("bus-stop");
+                        $(`#bus-${id}`).show();
+                        $(`#bus-${id}`).html(html);
                    }
              }});
 
-             setTimeout(function() { getBusRouteETA(route, bound, serviceType, stop, seq); }, busRefreshInterval);
+             setTimeout(function() { getBusRouteETA(route, bound, serviceType, stop, seq, row); }, busRefreshInterval);
         }
-
 
         function getLRStationETA(stationId) {
             $.ajax({url: `https://rt.data.gov.hk/v1/transport/mtr/lrt/getSchedule?station_id=${stationId}`, cache: false, success: 
@@ -99,19 +97,8 @@
                    }
              }});
 
-             setTimeout(function() { getLRStationETA(570); }, lrRefreshInterval);
+             setTimeout(function() { getLRStationETA(stationId); }, lrRefreshInterval);
         }
-
-        $(document).ready(function () {
-            const updateTimeGapInterval = setInterval(updateTimeGap , 1000);
-
-            $('#busRouteInfo').show();
-            getBusRouteETA('269D', 'I', '1', '1B0FD9C27F5FE0BE', '12');
-            //getRouteETA('276', 'I', '1', 'D9CE618F99BAC2B6', '6'); //元朗康樂路 (S10)
-
-            $('#stationInfo').show();
-            getLRStationETA(570);
-        });
 
 
         $(document).ajaxStart(function () {
@@ -146,22 +133,70 @@
             return formattedTime;
         }
 
-        function millisToMinutesAndSeconds(millis, stopSeq, isBus) {
-            if (millis > 0) { 
+
+        function millisToMinutesAndSeconds(millis, stopSeq) {
+           if (millis > 0) { 
                var minutes = Math.floor(millis / 60000);
                var seconds = ((millis % 60000) / 1000).toFixed(0);
                return minutes + "分" + (seconds < 10 ? '0' : '') + seconds+ "秒";
-            } else if (isBus) {
-                if (!isNaN(millis)) {
-                   return stopSeq == 1 ? "已開出" : "已到站";
-                } else {
-                    return millis;
-                }
-            } else {
-                return "";
-            }
+           } else if (!isNaN(millis)) {
+               return stopSeq == 1 ? "已開出" : "已到站";
+           } else {
+               return millis;
+           }
         }
 
+
+
+
+        function findGetParameter(parameterName) {
+            var result = null,
+            tmp = [];
+            location.search.substr(1).split("&")
+                .forEach(function (item) {
+                    tmp = item.split("=");
+                       if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+                });
+           return result;
+        }
+
+
+
+
+        $(document).ready(function () {
+            const updateTimeGapInterval = setInterval(updateTimeGap , 1000);
+
+            const paramType = findGetParameter("type");
+
+            if (paramType != '1') {
+                $('#busRouteInfo-Data-0').html('269D ➔天富');
+                $('#busStopDiv-name-0').html('元朗狗屋');
+                getBusRouteETA('269D', 'I', '1', '1B0FD9C27F5FE0BE', '12', 0);
+
+
+                $('#busRouteInfo-Data-1').html('276 ➔天慈');
+                $('#busStopDiv-name-1').html('元朗康樂路 (S10)');
+                getBusRouteETA('276', 'I', '1', 'D9CE618F99BAC2B6', '6', 1);
+
+                $('#stationInfo-Data').html('豐年路');
+                getLRStationETA(570);
+            } else {
+                $('#busRouteInfo-Data-0').html('269D ➔瀝源, 拍卡!!');
+                $('#busStopDiv-name-0').html('天耀邨耀民樓');
+                getBusRouteETA('269D', 'O', '1', '0BC0F64B076ED373', '10', 0);
+
+                $('#busRouteInfo-Data-1').html('276 ➔上水, 拍卡!!');
+                $('#busStopDiv-name-1').html('天耀邨耀民樓');
+                getBusRouteETA('276', 'O', '1', '4BE4E6D4F5A06A51', '3', 1);
+
+                $('#stationInfo-Data').html('天耀');
+                getLRStationETA(445);
+            }
+
+
+            $('.busRouteInfo').show();
+            $('#stationInfo').show();
+        });
 
     </script>
 </head>
@@ -172,22 +207,35 @@
         Loading...
     </div>
     <div class="bus-eta-page">
-        <div id="busRouteInfo">
+        <div class="busRouteInfo">
             <span id="busRouteInfo-Title">巴士路線: </span>
-            <span id="busRouteInfo-Data">269D ➔天富</span>
+            <span class="busRouteInfo-Data" id="busRouteInfo-Data-0"></span>
+            <div class="busStopDiv" id="busStopDiv-0">
+                <span>
+                    <span class="busStopDiv-name" id="busStopDiv-name-0"></span>
+                </span>
+                <div id="bus-0-refresh" class="refreshDiv"></div>
+            </div>
+            <div id="bus-0" class="etaDiv"></div>
+        </div>
+    </div>
+    <div class="bus-eta-page">
+        <div class="busRouteInfo">
+            <span id="busRouteInfo-Title">巴士路線: </span>
+            <span class="busRouteInfo-Data" id="busRouteInfo-Data-1"></span>
             <div class="busStopDiv" id="busStopDiv-1">
                 <span>
-                    <span class="busStopDiv-name">元朗狗屋</span>
+                    <span class="busStopDiv-name" id="busStopDiv-name-1"></span>
                 </span>
-                <div id="269D-refresh" class="refreshDiv"></div>
+                <div id="bus-1-refresh" class="refreshDiv"></div>
             </div>
-            <div id="269D" class="etaDiv"></div>`
+            <div id="bus-1" class="etaDiv"></div>
         </div>
     </div>
     <div class="mtr-eta-page">
         <div id="stationInfo">
             <span id="stationInfo-Title">輕鐵站: </span>
-            <span id="stationInfo-Data">豐年路</span>
+            <span id="stationInfo-Data"></span>
             <div id="eta-lr-refresh" class="refreshDiv">更新中...</div>
             <div id="eta-lr"></div>
         </div>

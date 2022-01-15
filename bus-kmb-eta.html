@@ -21,7 +21,7 @@
 
         function getRouteList() {
             clearRefreshMap();
-            $('#busRouteInfo').hide();
+            $('.busRouteInfo').hide();
             $('#loadingDiv').show();
 
             const tableId = '#listTable';
@@ -78,7 +78,7 @@
 
         function getBusStopList() {
             clearRefreshMap();
-            $('#busRouteInfo').hide();
+            $('.busRouteInfo').hide();
             $('#loadingDiv').show();
 
             const tableId = '#listTable';
@@ -181,7 +181,7 @@
 
                         $("#busStopList").html(html);
                         $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
-                        $('#busRouteInfo').show();
+                        $('.busRouteInfo').show();
                    }
              }});
         }
@@ -225,7 +225,7 @@
                 if (id == 'busStopList') {
                     $("#busRouteInfo-Title").html("巴士站: ");
                     $("#busRouteInfo-Data").html(busStopName);
-                    $('#busRouteInfo').show();
+                    $('.busRouteInfo').show();
                 //Route page
                 } else {
                     if (refreshMap[id + '-eta']  !== undefined) {
@@ -579,9 +579,9 @@
     </div>
     <div>
         <table id="listTable" class="dataTable display"></table>
-        <div id="busRouteInfo">
+        <div class="busRouteInfo">
             <span id="busRouteInfo-Title"></span>
-            <span id="busRouteInfo-Data"></span>
+            <span class="busRouteInfo-Data" id="busRouteInfo-Data"></span>
             <div id="busStopList"></div>
         </div>
     </div>

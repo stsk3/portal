@@ -4,6 +4,7 @@ const filesToCache = [
     "bus-interchange.html",
     "bus-sectional-fare.html",
     "bus-kmb-eta.html",
+    "work-eta.html",
     "mtr-lr-eta.html",
     "weather.html",
     "hospital.html",
@@ -36,7 +37,7 @@ const filesToCache = [
     "script/bus-route.js"
 ];
 
-const swVersion = '1.60';
+const swVersion = '1.61';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

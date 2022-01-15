@@ -343,14 +343,14 @@ bus-eta.hhtml
     font-size: 1em;
 }
 
-.bus-eta-page #busRouteInfo {
+.bus-eta-page .busRouteInfo {
     margin: 10px 0px;
     padding: 5px  0px;
     border: 2px dotted;
     display: none;
 }
 
-.bus-eta-page #busRouteInfo-Data {
+.bus-eta-page .busRouteInfo-Data {
     font-size: 1.5em;
 }
 
