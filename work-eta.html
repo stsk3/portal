@@ -67,7 +67,7 @@
                     const platformList = jsonData.platform_list;
                     if (platformList.length > 0) {
                         var html = '';
-                        $.each(platformList, function (index, platform) {
+                        $($(platformList).get().reverse()).each(function (index, platform) {
                             const routeList = platform.route_list;
                             const endServiceStatus = platform.end_service_status;
                             const platformId = platform.platform_id;
