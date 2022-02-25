@@ -37,7 +37,7 @@ const filesToCache = [
     "script/bus-route.js"
 ];
 
-const swVersion = '1.62';
+const swVersion = '1.63';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
@@ -78,7 +78,9 @@ self.addEventListener('fetch', event => {
                 caches.open(dataCacheName)
                 .then(function(cache) {
                     if(event.request.url.indexOf('http') === 0 &&
-                        event.request.url.indexOf('?_=') === -1)
+                        event.request.url.indexOf('?_=') === -1 &&
+                        event.request.url.indexOf('/apk/') === -1 &&
+                        event.request.url.indexOf('/config/') === -1)
                     {
                         console.log('Fetched and Cached: ' + event.request.url);
                         cache.put(event.request, res.clone());
