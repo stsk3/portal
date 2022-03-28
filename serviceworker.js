@@ -34,10 +34,14 @@ const filesToCache = [
     "script/jquery.dataTables.min.css",
     "script/jquery.dataTables.min.js",
     "script/jquery-3.3.1.js",
-    "script/bus-route.js"
+
+    "transport/bus-route.js",
+    "transport/light_rail_station_list.js",
+    "transport/sectional-tko.png",
+    "transport/sectional-tuen-yuen-tin.png",
 ];
 
-const swVersion = '1.68';
+const swVersion = '1.69';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
