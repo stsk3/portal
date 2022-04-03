@@ -17,6 +17,7 @@ const filesToCache = [
 
 
     "image/favicon.ico",
+    "image/marker-icon.png",
     "image/home-icon/bus_interchange.png",
     "image/home-icon/bus_sectional_fare.png",
     "image/home-icon/bus_kmb_eta.png",
@@ -36,6 +37,8 @@ const filesToCache = [
     "script/jquery.dataTables.min.css",
     "script/jquery.dataTables.min.js",
     "script/jquery-3.3.1.js",
+    "script/leaflet.js",
+    "script/leaflet.css",
 
     "transport/bus-route.js",
     "transport/light_rail_station_list.js",
@@ -43,7 +46,7 @@ const filesToCache = [
     "transport/sectional-tuen-yuen-tin.png",
 ];
 
-const swVersion = '1.71';
+const swVersion = '1.80';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

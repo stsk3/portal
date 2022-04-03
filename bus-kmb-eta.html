@@ -4,9 +4,14 @@
     <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
     <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="script/leaflet.css" />
+    <script src="script/leaflet.js"></script>
     <link rel="stylesheet" href="main.css">
     <style></style>
     <script>
+        var leafletMap;
+        var leafletMapMarkerMap = {};
+
         const busStopMap = {};
         const busStopGroupMap = {};
         const refreshMap = {};  
@@ -22,6 +27,7 @@
         function getRouteList() {
             clearRefreshMap();
             $('.busRouteInfo').hide();
+            clearMarkersFromMap();
             $('#loadingDiv').show();
 
             const tableId = '#listTable';
@@ -71,6 +77,12 @@
                         $(tableId).html(html);
 
                         initDataTable(tableId);
+
+                        $('#loadingDiv').hide();
+
+                        $('#leaflet-map').show();
+                        initMap();
+                        setMapDefaultView();
                    }
              }});
         }
@@ -79,6 +91,8 @@
         function getBusStopList() {
             clearRefreshMap();
             $('.busRouteInfo').hide();
+            clearMarkersFromMap();
+            $('#leaflet-map').hide();
             $('#loadingDiv').show();
 
             const tableId = '#listTable';
@@ -128,6 +142,9 @@
         function getRouteBusStopList(route, bound, serviceType, dest) {
             $('#loadingDiv').show();
 
+            clearMarkersFromMap();
+            const mapPoints = [];
+
             $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/route-stop/${route}/${bound == "I" ? "inbound" : "outbound"}/${serviceType}`, cache: true, success: 
                 function (data) {
                     const jsonData = data;
@@ -157,6 +174,9 @@
                                 busStopGroupName = busStopGroupName + "(" + platform[0] + ")";
                             }
 
+                            const mapPopupName = seq + " " + busStopName;
+                            mapPoints.push([busStopLat, busStopLong, mapPopupName]); 
+
                             const distance = calcCrow(busStopLat, busStopLong);
 
                             if (distance != -1 && distance < minDistance) {
@@ -167,8 +187,8 @@
                             html += `<div class="busStopDiv" id="busStopDiv-${seq}">
                                                <span>
                                                    <span class="busStopDiv-seq">${seq}.</span>
-                                                   <span class="busStopDiv-name" onclick="getRouteETA('${route}', '${bound}', '${serviceType}', '${stop}', '${seq}')">${busStopName}</span>
-                                                   <span class="busStopDiv-other" onclick="getBusStopETA('${busStopGroupName}', '${divId}')">🚏🚌</span>
+                                                   <span class="busStopDiv-name" onclick="getRouteETA('${route}', '${bound}', '${serviceType}', '${stop}', '${seq}'); selectMarker('${mapPopupName}');">${busStopName}</span>
+                                                   <span class="busStopDiv-other" onclick="getBusStopETA('${busStopGroupName}', '${divId}'); selectMarker('${mapPopupName}'); ">🚏🚌</span>
                                                    <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
                                                    <span class="busStopDiv-distance">${distance != -1 ? distance + "米": ""}</span>
                                                </span>
@@ -182,6 +202,8 @@
                         $("#busStopList").html(html);
                         $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
                         $('.busRouteInfo').show();
+
+                        addMarkersToMap(mapPoints);
                    }
              }});
         }
@@ -562,6 +584,67 @@
             userLng = location.longitude;
         }
 
+        function initMap() {
+            if (!leafletMap) {
+                leafletMap = L.map('leaflet-map', {
+                    attributionControl: false,
+                    zoomControl: true,
+                });
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(leafletMap);
+            }
+       }
+
+       function setMapDefaultView() {
+           leafletMap.setView([22.3493, 114.1694], 10);
+       }
+
+       function clearMarkersFromMap() {
+           if (leafletMap) {
+               leafletMapMarkerMap = {};
+               leafletMap.eachLayer(function(layer) {
+                   if (layer instanceof L.Marker) {
+                       leafletMap.removeLayer(layer)
+                   }
+               })
+            }
+       }
+
+       function addMarkersToMap(points) {
+           const markerIcon = L.icon({
+               iconSize: [30, 48],
+               iconUrl: "image/marker-icon.png"
+           });
+
+           // adding all markers to the featureGroups array
+           let featureGroups = [];
+           for (let i = 0; i < points.length; i++) {
+               const [lat, lng, title] = points[i];
+               const marker = L.marker([lat, lng], {opacity: 1.0, icon: markerIcon}).bindPopup(title);
+               leafletMapMarkerMap[title] = marker;
+               featureGroups.push(marker);
+           }
+
+           // adding all markers to the map
+           for (let i = 0; i < featureGroups.length; i++) {
+               featureGroups[i].addTo(leafletMap);
+           }
+
+           // Extended `LayerGroup` that makes it easy to do the same for all layers of its members
+           const group = new L.featureGroup(featureGroups);
+
+          // method fitBounds sets a map view that contains the given geographical bounds
+          leafletMap.fitBounds(group.getBounds(), {
+              padding: [50, 50], // adding padding to map
+          });
+       }
+
+       function selectMarker(title) {
+           const marker = leafletMapMarkerMap[title];
+           if (marker) {
+               marker.openPopup();
+               leafletMap.setView(marker._latlng, 15);
+           }
+       }
 
 
     </script>
@@ -578,6 +661,7 @@
     </div>
     <div>
         <table id="listTable" class="dataTable display"></table>
+        <div id="leaflet-map" style="height:200px"></div>
         <div class="busRouteInfo">
             <span id="busRouteInfo-Title"></span>
             <span class="busRouteInfo-Data" id="busRouteInfo-Data"></span>
