@@ -28,6 +28,8 @@ const filesToCache = [
     "image/home-icon/hospital.png",
     "image/home-icon/tv_schedule.png",
     "image/home-icon/fairwood.png",
+    "image/home-icon/promotion.png",
+    "image/home-icon/tvstsk.png",
 
 
     "main.css",
@@ -41,7 +43,7 @@ const filesToCache = [
     "transport/sectional-tuen-yuen-tin.png",
 ];
 
-const swVersion = '1.69';
+const swVersion = '1.70';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

@@ -267,11 +267,11 @@
                             const dataTimestamp = record.data_timestamp;
 
                             if (dir == bound && seq == stopSeq) {
-                                var timeGap = "";
-                                if (eta) timeGap = new Date(eta) - new Date(currentTimestamp);
-                                else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
+                                var etaText;
+                                if (eta) etaText = eta;
+                                else if (rmk != "暫停預報") etaText = "暫時沒有預定班次";
                                 html += `<div class="operating">
-                                                 <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-time-gap="${timeGap}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(timeGap, stopSeq)}</span>
+                                                 <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-eta="${etaText}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(etaText, stopSeq)}</span>
                                                  ${rmk}
                                               </div>`;
                                 isFirst = false;
@@ -325,13 +325,13 @@
                             const routeSetId = route + "-" + dir + "-" + etaSeq;
 
                             if (!routeSet.has(routeSetId)) {
-                                var timeGap = "";
-                                if (eta) timeGap = new Date(eta) - new Date(currentTimestamp);
-                                else if (rmk != "暫停預報") timeGap = "暫時沒有預定班次";
+                                var etaText;
+                                if (eta) etaText = eta;
+                                else if (rmk != "暫停預報") etaText = "暫時沒有預定班次";
                                 html += `<div class="etaStop-seq-${etaSeq} ${!eta ? 'end' : 'operating'}">
                                                   <span class="eta-detail-route">${route}</span>
                                                   ➔${dest}
-                                                  <span class="eta-detail seq${etaSeq}" data-time-gap="${timeGap}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(timeGap, stopSeq)}</span>
+                                                  <span class="eta-detail seq${etaSeq}" data-eta="${etaText}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(etaText, stopSeq)}</span>
                                                   ${rmk}
                                               </div>`;
                                 routeSet.add(routeSetId);
@@ -469,14 +469,11 @@
 
 
         function updateTimeGap() {
+            const currentDateTime = new Date();
             $(".eta-detail").each(function() {
                 const stopSeq = $(this).attr("data-stop-seq");
-                const timeGap = $(this).attr("data-time-gap");
-                if (timeGap && timeGap > 0) {
-                    const newTimeGap = timeGap - 1000;
-                    $(this).attr("data-time-gap", newTimeGap);
-                    $(this).html(millisToMinutesAndSeconds(newTimeGap, stopSeq));
-                }
+                const eta = $(this).attr("data-eta");
+                $(this).html(millisToMinutesAndSeconds(eta, stopSeq));
             });
         }
 
@@ -489,16 +486,18 @@
             return formattedTime;
         }
 
-        function millisToMinutesAndSeconds(millis, stopSeq) {
-           if (millis > 0) { 
-               var minutes = Math.floor(millis / 60000);
-               var seconds = ((millis % 60000) / 1000).toFixed(0);
-               return minutes + "分" + (seconds < 10 ? '0' : '') + seconds+ "秒";
-           } else if (!isNaN(millis)) {
-               return stopSeq == 1 ? "已開出" : "已到站";
-           } else {
-               return millis;
+        function millisToMinutesAndSeconds(eta, stopSeq) {
+           if (eta) {
+               const millis = new Date(eta) - new Date();
+               if (millis > 0) { 
+                   var minutes = Math.floor(millis / 60000);
+                   var seconds = Math.floor(((millis % 60000) / 1000));
+                   return minutes + "分" + (seconds < 10 ? '0' : '') + seconds+ "秒";
+               } else if (!isNaN(millis)) {
+                   return stopSeq == 1 ? "已開出" : "已到站";
+               }
            }
+           return eta;
         }
 
 
