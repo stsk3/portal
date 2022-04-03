@@ -612,6 +612,8 @@
        function addMarkersToMap(points) {
            const markerIcon = L.icon({
                iconSize: [30, 48],
+               iconAnchor: [15, 48],
+               popupAnchor:  [15, 0]
                iconUrl: "image/marker-icon.png"
            });
 
@@ -634,7 +636,7 @@
 
           // method fitBounds sets a map view that contains the given geographical bounds
           leafletMap.fitBounds(group.getBounds(), {
-              padding: [10, 10], // adding padding to map
+              padding: [20, 20], // adding padding to map
           });
        }
 
