@@ -17,7 +17,6 @@ const filesToCache = [
 
 
     "image/favicon.ico",
-    "image/marker-icon.png",
     "image/home-icon/bus_interchange.png",
     "image/home-icon/bus_sectional_fare.png",
     "image/home-icon/bus_kmb_eta.png",
