@@ -32,6 +32,24 @@ const filesToCache = [
     "image/home-icon/promotion.png",
     "image/home-icon/tvstsk.png",
 
+    "image/map-marker/birthday_2020.png",
+    "image/map-marker/birthday_2021.png",
+    "image/map-marker/cockroach.png",
+    "image/map-marker/cow.png",
+    "image/map-marker/farm.png",
+    "image/map-marker/flower.png",
+    "image/map-marker/flower_group.png",
+    "image/map-marker/gold.png",
+    "image/map-marker/gps.png",
+    "image/map-marker/grass.png",
+    "image/map-marker/mushroom.png",
+    "image/map-marker/peach.png",
+    "image/map-marker/pepeachristsky.png",
+    "image/map-marker/pepeachristsky_love.png",
+    "image/map-marker/shinchanp.png",
+    "image/map-marker/snoopy_blue.png",
+    "image/map-marker/snoopy_yellow.png",
+
 
     "main.css",
     "script/jquery.dataTables.min.css",
@@ -46,7 +64,7 @@ const filesToCache = [
     "transport/sectional-tuen-yuen-tin.png",
 ];
 
-const swVersion = '1.822';
+const swVersion = '1.90';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
