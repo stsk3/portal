@@ -108,6 +108,11 @@
         "func": "rtmp_hk04"
       },
       {
+        "title": "NBATV",
+        "cardImage": "sports_nbatv",
+        "func": "tvfix_nbatv"
+      },
+      {
         "title": "NHK WORLD Premium",
         "cardImage": "sports_nhkworldpremium",
         "func": "tvfix_nhkworldpremium"
@@ -175,7 +180,11 @@
       {
         "title": "廣東體育",
         "cardImage": "sports_gdtv",
-        "func": "tvfix_gdtyhd"
+        "func": "tvfix_gdtyhd",
+        "videoUrlList": [
+          "http://livesec.mudu.tv/watch/gaz1e4.m3u8"
+        ],
+        "getFromInternet": true
       },
       {
         "title": "CCTV5体育",
@@ -298,7 +307,7 @@
       {
         "title": "Viu99",
         "cardImage": "viu99",
-        "func": "tvfix_viutv|viutv2",
+        "func": "tvfix_viutv:第一聲道|viutv2:第二聲道",
         "videoUrlList": [
           "https://cdn.hkdtmb.com/hls/99/index.m3u8"
         ],
@@ -379,11 +388,6 @@
         "title": "RT",
         "cardImage": "news_rt",
         "func": "tvfix_rt"
-      },
-      {
-        "title": "烏克蘭新聞",
-        "cardImage": "news_prmua",
-        "func": "tvfix_prmua"
       },
       {
         "title": "NHK WORLD",
@@ -528,12 +532,12 @@
       {
         "title": "Animal Planet",
         "cardImage": "knowledge_animal",
-        "func": "tvfix_animal|animal2"
+        "func": "tvfix_animal:第一聲道|animal2:第二聲道"
       },
       {
         "title": "國家地理",
         "cardImage": "knowledge_natlgeo",
-        "func": "tvfix_natlgeo|natlgeo2"
+        "func": "tvfix_natlgeo:第一聲道|natlgeo2:第二聲道"
       },
       {
         "title": "星空衛視",
@@ -548,7 +552,7 @@
       {
         "title": "NHK綜合",
         "cardImage": "world_nhkg",
-        "func": "tvfix_nhkg|nhkg2"
+        "func": "tvfix_nhkg:第一聲道|nhkg2:第二聲道"
       },
       {
         "title": "瞬間看地球",
@@ -568,12 +572,32 @@
       {
         "title": "HBO",
         "cardImage": "movie_hbo",
-        "func": "tvfix_hbo|hbo2"
+        "func": "tvfix_hbo:粵語繁體|hbo5:英語繁體|hbo3:國語繁體|hbo7:英語英文|hbo2:粵語簡體|hbo6:英語簡體|hbo4:國語簡體"
+      },
+      {
+        "title": "HBO Hits",
+        "cardImage": "movie_hbohits",
+        "func": "tvfix_hbohits:粵語繁體|hbohits5:英語繁體|hbohits3:國語繁體|hbohits7:英語英文|hbohits2:粵語簡體|hbohits6:英語簡體|hbohits4:國語簡體"
+      },
+      {
+        "title": "HBO Family",
+        "cardImage": "movie_hbofamily",
+        "func": "tvfix_hbofamily:粵語繁體|hbofamily5:英語繁體|hbofamily3:國語繁體|hbofamily7:英語英文|hbofamily2:粵語簡體|hbofamily6:英語簡體|hbofamily4:國語簡體"
+      },
+      {
+        "title": "HBO Signature",
+        "cardImage": "movie_hbosignature",
+        "func": "tvfix_hbosignature:粵語繁體|hbosignature5:英語繁體|hbosignature3:國語繁體|hbosignature7:英語英文|hbosignature2:粵語簡體|hbosignature6:英語簡體|hbosignature4:國語簡體"
+      },
+      {
+        "title": "Cinemax",
+        "cardImage": "movie_cinemax",
+        "func": "tvfix_cinemax:粵語繁體|cinemax5:英語繁體|cinemax3:國語繁體|cinemax7:英語英文|cinemax2:粵語簡體|cinemax6:英語簡體|cinemax4:國語簡體"
       },
       {
         "title": "美亞電影台",
         "cardImage": "movie_mydy",
-        "func": "tvfix_mydy|mydy2"
+        "func": "tvfix_mydy:粵語|mydy2:國語"
       },
       {
         "title": "衛視電影台",
@@ -588,7 +612,7 @@
       {
         "title": "天映經典",
         "cardImage": "movie_tyjd",
-        "func": "tvfix_tyjd|tyjd2"
+        "func": "tvfix_tyjd:第一聲道|tyjd2:第二聲道"
       },
       {
         "title": "鳳凰電影",
@@ -598,17 +622,17 @@
       {
         "title": "Thrill",
         "cardImage": "movie_thrill",
-        "func": "tvfix_thrill|thrill2"
+        "func": "tvfix_thrill:第一聲道|thrill2:第二聲道"
       },
       {
         "title": "Hands Up Channel",
         "cardImage": "movie_handsup",
-        "func": "tvfix_kid|kid2"
+        "func": "tvfix_kid:第一聲道|kid2:第二聲道"
       },
       {
         "title": "Animax",
         "cardImage": "movie_animax",
-        "func": "tvfix_animax|animax2"
+        "func": "tvfix_animax:第一聲道|animax2:第二聲道"
       }
     ]
   },
