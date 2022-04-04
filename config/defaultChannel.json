@@ -582,7 +582,7 @@
       {
         "title": "HBO Family",
         "cardImage": "movie_hbofamily",
-        "func": "tvfix_hbofamily:粵語繁體|hbofamily5:英語繁體|hbofamily3:國語繁體|hbofamily7:英語英文|hbofamily2:粵語簡體|hbofamily6:英語簡體|hbofamily4:國語簡體"
+        "func": "tvfix_hbofamily7:聲道一繁體|hbofamily3:聲道二繁體|hbofamily4:聲道三繁體|hbofamily5:聲道一印文|hbofamily:聲道二印文|hbofamily6:聲道一泰文|hbofamily2:聲道二泰文"
       },
       {
         "title": "HBO Signature",
@@ -592,7 +592,7 @@
       {
         "title": "Cinemax",
         "cardImage": "movie_cinemax",
-        "func": "tvfix_cinemax:粵語繁體|cinemax5:英語繁體|cinemax3:國語繁體|cinemax7:英語英文|cinemax2:粵語簡體|cinemax6:英語簡體|cinemax4:國語簡體"
+        "func": "tvfix_cinemax5:英語繁體|cinemax:國語繁體|cinemax3:泰語繁體|cinemax7:英語繁體|cinemax6:英語簡體|cinemax2:國語簡體|cinemax4:泰語簡體"
       },
       {
         "title": "美亞電影台",
