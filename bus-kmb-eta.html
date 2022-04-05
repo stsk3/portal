@@ -10,8 +10,7 @@
     <style></style>
     <script>
         var leafletMap;
-        var leafletMapMarkerMap = {};
-        const gpsMarkerName = "Hi!";
+        var leafletMapStationMarkerMap = {};
 
         const busStopMap = {};
         const busStopGroupMap = {};
@@ -83,7 +82,6 @@
 
                         $('#leaflet-map').show();
                         initMap();
-                        setMapDefaultView();
                    }
              }});
         }
@@ -204,7 +202,7 @@
                         $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
                         $('.busRouteInfo').show();
 
-                        addMarkersToMap(mapPoints, true);
+                        addMarkersToMap(mapPoints);
                    }
              }});
         }
@@ -586,42 +584,41 @@
         }
 
         function initMap() {
-            var pan = true;
             if (!leafletMap) {
                 leafletMap = L.map('leaflet-map', {
                     attributionControl: true,
                     zoomControl: true,
                 });
-                //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(leafletMap);
+                //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(leafletMap); //unlimited
                 //L.tileLayer('https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=0942c800a2af4b9092eabaadb56bf511').addTo(leafletMap);
                 L.tileLayer('https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=0942c800a2af4b9092eabaadb56bf511').addTo(leafletMap);
                 //L.tileLayer('https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png').addTo(leafletMap); //unlimited
 
-                leafletMap.locate({ setView: false, enableHighAccuracy: true, watch: true})
+                var gpsMarkerLayer;
+                leafletMap.locate({ setView: false, enableHighAccuracy: false, watch: true})
                     .on('locationfound', function(data){
-                        console.log(data);
-                        addMarkersToMap([[data.latitude, data.longitude, gpsMarkerName]], pan);
-                        pan = false;
+                        //console.log(data);
+                        if (gpsMarkerLayer) {
+                            gpsMarkerLayer.remove();
+                        } else {
+                            leafletMap.setView(data.latlng, 16);
+                        }
+                        gpsMarkerLayer = new L.marker(data.latlng, {opacity: 0.75, icon: L.icon({ iconSize: [20, 20], iconUrl: "image/map-marker/gps.png" })}).addTo(leafletMap);
                      })
                     .on('locationerror', function(e){
                         console.log(e);
                         //alert("Location access has been denied.");
+                        leafletMap.setView([22.3493, 114.1694], 10); //Default HK view
                      });
             }
        }
 
-       function setMapDefaultView() {
-           leafletMap.setView([22.3493, 114.1694], 10);
-       }
-
        function clearMarkersFromMap() {
            if (leafletMap) {
-               leafletMapMarkerMap = {};
-               leafletMap.eachLayer(function(layer) {
-                   if (layer instanceof L.Marker) {
-                       leafletMap.removeLayer(layer)
-                   }
-               })
+               for (const [key, value] of Object.entries(leafletMapStationMarkerMap)) {
+                   value.remove();
+               }
+               leafletMapStationMarkerMap = {};
             }
        }
 
@@ -630,8 +627,6 @@
        const iconSize = [70, 70];
        const iconAnchor = [iconSize[0]/2, iconSize[1]];
        const popupAnchor = [0, -iconSize[1]+20];
-       // GPS
-       const youIcon = L.icon({ iconSize: [20, 20], iconUrl: "image/map-marker/gps.png" });
        // Random icon
        const flowerIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/flower.png" });
        const flowerGroupIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/flower_group.png" });
@@ -657,9 +652,7 @@
            var dateObj = new Date();
            var month = dateObj.getMonth() + 1; //months from 1-12
            var day = dateObj.getDate();
-           if (title == gpsMarkerName) {
-               return youIcon;
-           } else if (month == 1 && day == 31 || month == 9 && day == 25) {
+           if (month == 1 && day == 31 || month == 9 && day == 25) {
                return birthdayIconGroup[Math.floor(Math.random() * birthdayIconGroup.length)]; 
            } else if (title.includes("農場") || title.includes("濕地") || title.includes("海洋")) {
                return farmIcon;
@@ -674,7 +667,9 @@
            } else if (lat > 22.378108 && lat < 22.382899 && lng > 114.184857 && lng < 114.190576 ||
                            lat > 22.337514 && lat < 22.340208 && lng > 114.150742 && lng < 114.153199 ||
                            lat > 22.293074 && lat < 22.298610 && lng > 114.167096 && lng < 114.170694 ||
-                           lat > 22.316337 && lat < 22.317684 && lng > 114.265320 && lng < 114.267037) {
+                           lat > 22.316337 && lat < 22.317684 && lng > 114.265320 && lng < 114.267037 ||
+                           lat > 22.503357 && lat < 22.504148 && lng > 114.132813 && lng < 114.134248 ||
+                           lat > 22.320862 && lat < 22.325913 && lng > 114.254699 && lng < 114.262062) {
                return shinchanIcon;
            } else if (lat > 22.444000 && lat < 22.446200 && lng > 114.022155 && lng < 114.026000) {
                return snoopyBlueIcon;
@@ -684,13 +679,13 @@
            return randomIconGroup[lat.toString().slice(-1) % randomIconGroup.length];
        }
 
-       function addMarkersToMap(points, pan) {
+       function addMarkersToMap(points) {
            // adding all markers to the featureGroups array
            let featureGroups = [];
            for (let i = 0; i < points.length; i++) {
                const [lat, lng, title] = points[i];//
                const marker = L.marker([lat, lng], {opacity: 1.0, icon: getMarkerIcon(lat, lng, title)}).bindPopup(title);
-               leafletMapMarkerMap[title] = marker;
+               leafletMapStationMarkerMap[title] = marker;
                featureGroups.push(marker);
            }
 
@@ -702,16 +697,14 @@
            // Extended `LayerGroup` that makes it easy to do the same for all layers of its members
            const group = new L.featureGroup(featureGroups);
 
-          if (pan) {
-              // method fitBounds sets a map view that contains the given geographical bounds
-              leafletMap.fitBounds(group.getBounds(), {
-                  padding: [20, 20], // adding padding to map
-              });
-          }
+          // method fitBounds sets a map view that contains the given geographical bounds
+          leafletMap.fitBounds(group.getBounds(), {
+              padding: [20, 20], // adding padding to map
+          });
        }
 
        function selectMarker(title) {
-           const marker = leafletMapMarkerMap[title];
+           const marker = leafletMapStationMarkerMap[title];
            if (marker) {
                marker.openPopup();
                leafletMap.setView(marker._latlng, 17);

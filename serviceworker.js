@@ -17,6 +17,7 @@ const filesToCache = [
 
 
     "image/favicon.ico",
+    "image/icon.png",
     "image/home-icon/bus_interchange.png",
     "image/home-icon/bus_sectional_fare.png",
     "image/home-icon/bus_kmb_eta.png",
@@ -51,6 +52,7 @@ const filesToCache = [
 
 
     "main.css",
+    "manifest.json",
     "script/jquery.dataTables.min.css",
     "script/jquery.dataTables.min.js",
     "script/jquery-3.3.1.js",
@@ -63,7 +65,7 @@ const filesToCache = [
     "transport/sectional-tuen-yuen-tin.png",
 ];
 
-const swVersion = '1.90';
+const swVersion = '1.91';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
@@ -103,10 +105,14 @@ self.addEventListener('fetch', event => {
             return response || fetch(event.request).then(res =>
                 caches.open(dataCacheName)
                 .then(function(cache) {
-                    if(event.request.url.indexOf('http') === 0 &&
-                        event.request.url.indexOf('_=') === -1 &&
-                        event.request.url.indexOf('/apk/') === -1 &&
-                        event.request.url.indexOf('/config/') === -1)
+                    if(event.request.url.includes('http') &&
+                        (event.request.url.includes('stsk3') ||
+                            event.request.url.includes('etabus') ||
+                            event.request.url.includes('hko.gov.hk')) &&
+                        !event.request.url.includes('serviceworker.js') &&
+                        !event.request.url.includes('_=') &&
+                        !event.request.url.includes('/apk/') &&
+                        !event.request.url.includes('/config/'))
                     {
                         console.log('Fetched and Cached: ' + event.request.url);
                         cache.put(event.request, res.clone());
