@@ -41,6 +41,7 @@ const filesToCache = [
     "image/map-marker/flower_group.png",
     "image/map-marker/gold.png",
     "image/map-marker/gps.png",
+    "image/map-marker/gps-button.png",
     "image/map-marker/grass.png",
     "image/map-marker/mushroom.png",
     "image/map-marker/peach.png",
@@ -57,6 +58,7 @@ const filesToCache = [
     "script/jquery.dataTables.min.js",
     "script/jquery-3.3.1.js",
     "script/leaflet.js",
+    "script/leaflet.js.map",
     "script/leaflet.css",
 
     "transport/bus-route.js",
@@ -65,7 +67,7 @@ const filesToCache = [
     "transport/sectional-tuen-yuen-tin.png",
 ];
 
-const swVersion = '1.91';
+const swVersion = '1.92';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
