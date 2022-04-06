@@ -29,9 +29,7 @@
         function getRouteList() {
             clearRefreshMap();
             $('.busRouteInfo').hide();
-            $('#loadingDiv').show();
-
-            initMap();
+            setMapVisibility(false);
 
             const tableId = '#listTable';
 
@@ -80,9 +78,8 @@
                         $(tableId).html(html);
 
                         initDataTable(tableId);
-
-                        $('#loadingDiv').hide();
-                   }
+                        initMap();
+                    }
              }});
         }
 
@@ -90,8 +87,7 @@
         function getBusStopList() {
             clearRefreshMap();
             $('.busRouteInfo').hide();
-            $('#loadingDiv').show();
-            initMap();
+            setMapVisibility(false);
 
             const tableId = '#listTable';
 
@@ -131,15 +127,12 @@
                 $(tableId).html(html);
 
                 initDataTable(tableId);
-
-                $('#loadingDiv').hide();
+                initMap();
             }, 100);
        }
 
 
         function getRouteBusStopList(route, bound, serviceType, dest) {
-            $('#loadingDiv').show();
-
             const mapPoints = [];
 
             $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/route-stop/${route}/${bound == "I" ? "inbound" : "outbound"}/${serviceType}`, cache: true, success: 
@@ -215,8 +208,6 @@
             const busStopGroupList = busStopGroupMap[name];
             const busStopName = name;
 
-            $('#loadingDiv').show();
-
             const mapPoints = [];
 
             var html = '';
@@ -276,7 +267,7 @@
         function getRouteETA(route, bound, serviceType, stop, seq) {
             const id = seq + '-' + stop;
 
-            $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/eta/${stop}/${route}/${serviceType}`, cache: false, success: 
+            $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/eta/${stop}/${route}/${serviceType}`, cache: false, global: false, success: 
                 function (data) {
                     const jsonData = data;
                     const currentTimestamp = jsonData.generated_timestamp;
@@ -330,7 +321,7 @@
         function getRouteBusStopETA(stop) {
             const id = '0-' + stop;
 
-            $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/${stop}`, cache: false, success: 
+            $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/${stop}`, cache: false, global: false, success: 
                 function (data) {
                     const jsonData = data;
                     const currentTimestamp = jsonData.generated_timestamp;
@@ -376,7 +367,6 @@
 
 
         function initBusStop() {
-            $('#loadingDiv').show();
             $.getJSON("https://data.etabus.gov.hk/v1/transport/kmb/stop",
                 function (data) {
                     const jsonData = data;
@@ -488,7 +478,7 @@
 
 
         $(document).ajaxStart(function () {
-            //$('#loadingDiv').show();
+            $('#loadingDiv').show();
         });
 
         $(document).ajaxComplete(function () {
@@ -591,158 +581,186 @@
         }
 
         function initMap() {
-            if (!leafletMap) {
-                leafletMap = L.map('leaflet-map', {
-                    attributionControl: false,
-                    zoomControl: true,
-                });
-                //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(leafletMap); //unlimited
-                //L.tileLayer('https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=0942c800a2af4b9092eabaadb56bf511').addTo(leafletMap);
-                L.tileLayer('https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=0942c800a2af4b9092eabaadb56bf511').addTo(leafletMap);
-                //L.tileLayer('https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png').addTo(leafletMap); //unlimited
+            if (isShowMap()) {
+                if (!leafletMap) {
+                    leafletMap = L.map('leaflet-map', {
+                        attributionControl: false,
+                        zoomControl: true,
+                    });
+                    //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(leafletMap); //unlimited
+                    //L.tileLayer('https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=0942c800a2af4b9092eabaadb56bf511').addTo(leafletMap);
+                    //L.tileLayer('https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=0942c800a2af4b9092eabaadb56bf511').addTo(leafletMap);
+                    L.tileLayer('https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png').addTo(leafletMap); //unlimited
 
-                var firstTime = true;
-                leafletMap.locate({ setView: false, enableHighAccuracy: false, watch: true})
-                    .on('locationfound', function(data){
-                        //console.log(data);
-                        if (leafletMapGPSMarkerLayer) {
-                            leafletMapGPSMarkerLayer.remove();
-                        }
-                        leafletMapGPSMarkerLayer = new L.marker(data.latlng, {opacity: 0.75, icon: L.icon({ iconSize: [20, 20], iconUrl: "image/map-marker/gps.png" })}).addTo(leafletMap);
-                        if (firstTime) {
-                            setVIewToGpsLocation();
-                            firstTime = false;
-                        }
-                     })
-                    .on('locationerror', function(e){
-                        console.log(e);
-                        //alert("Location access has been denied.");
-                        if (firstTime) {
-                            leafletMap.setView([22.3493, 114.1694], 10); //Default HK view
-                            firstTime = false;
-                        }
-                     });
-            } else {
+                    var firstTime = true;
+                    leafletMap.locate({ setView: false, enableHighAccuracy: false, watch: true})
+                        .on('locationfound', function(data){
+                            //console.log(data);
+                            if (leafletMapGPSMarkerLayer) {
+                                leafletMapGPSMarkerLayer.remove();
+                            }
+                            leafletMapGPSMarkerLayer = new L.marker(data.latlng, {opacity: 0.75, icon: L.icon({ iconSize: [20, 20], iconUrl: "image/map-marker/gps.png" })}).addTo(leafletMap);
+                            if (firstTime) {
+                                setViewToGpsLocation();
+                                firstTime = false;
+                            }
+                        })
+                        .on('locationerror', function(e){
+                            console.log(e);
+                            //alert("Location access has been denied.");
+                            if (firstTime) {
+                                leafletMap.setView([22.3493, 114.1694], 10); //Default HK view
+                                firstTime = false;
+                            }
+                        });
+                } else {
+                    clearMarkersFromMap();
+                    setViewToGpsLocation()
+                }
+                setMapVisibility(true);
+            }
+        }
+
+        function destroyMap() {
+            if (leafletMap) {
+                leafletMap.off();
+                leafletMap.remove();
+                leafletMap = null;
+            }
+            setMapVisibility(false);
+        }
+
+        function setMapVisibility(isShow) {
+            const leafletMap = $("#leaflet-map");
+            if (isShowMap() && isShow)
+                leafletMap.show();
+            else 
+                leafletMap.hide();
+        }
+
+        function setViewToGpsLocation() {
+            if (leafletMapGPSMarkerLayer) {
+                leafletMap.setView(leafletMapGPSMarkerLayer._latlng, leafletMapMaxZoom);
+            }
+        }
+
+        function clearMarkersFromMap() {
+            if (leafletMap) {
+                for (const [key, value] of Object.entries(leafletMapStationMarkerMap)) {
+                    value.remove();
+                }
+                leafletMapStationMarkerMap = {};
+            }
+        }
+
+
+        // setup icon
+        const iconSize = [70, 70];
+        const iconAnchor = [iconSize[0]/2, iconSize[1]];
+        const popupAnchor = [0, -iconSize[1]+20];
+        // Random icon
+        const flowerIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/flower.png" });
+        const flowerGroupIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/flower_group.png" });
+        const goldIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/gold.png" });
+        const grassIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/grass.png" });
+        const mushroomIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/mushroom.png" });
+        const peachIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/peach.png" });
+        const randomIconGroup = [flowerIcon, flowerGroupIcon, goldIcon, grassIcon, mushroomIcon, peachIcon];
+        // Specific icon
+        const farmIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/farm.png" });
+        const cockroachIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/cockroach.png" });
+        const cowIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/cow.png" });
+        const pepeachristskyIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/pepeachristsky.png" });
+        const pepeachristskyLoveIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/pepeachristsky_love.png" });
+        const shinchanIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/shinchan.png" });
+        const snoopyBlueIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/snoopy_blue.png" });
+        const snoopyYellowIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/snoopy_yellow.png" });
+        // Birthday icon
+        const birthday2020Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2020.png" });
+        const birthday2021Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2021.png" });
+        const birthdayIconGroup = [birthday2020Icon, birthday2021Icon];
+        function getMarkerIcon(lat, lng, title) {
+            var dateObj = new Date();
+            var month = dateObj.getMonth() + 1; //months from 1-12
+            var day = dateObj.getDate();
+            if (month == 1 && day == 31 || month == 9 && day == 25) {
+                return birthdayIconGroup[Math.floor(Math.random() * birthdayIconGroup.length)]; 
+            } else if (title.includes("農場") || title.includes("濕地") || title.includes("海洋")) {
+                return farmIcon;
+            } else if (title.includes("警署")) {
+                return cockroachIcon;
+            } else if (lat > 22.336580 && lat < 22.338074 && lng > 114.144197 && lng < 114.149740) {
+                return cowIcon;
+            } else if (lat > 22.336964 && lat < 22.363622 && lng > 114.095672 && lng < 114.112284) {
+                return pepeachristskyIcon;
+            } else if (lat > 22.499862 && lat < 22.506404 && lng > 114.124999 && lng < 114.133139) {
+                return pepeachristskyLoveIcon;
+            } else if (lat > 22.378108 && lat < 22.382899 && lng > 114.184857 && lng < 114.190576 ||
+                            lat > 22.337514 && lat < 22.340208 && lng > 114.150742 && lng < 114.153199 ||
+                            lat > 22.293074 && lat < 22.298610 && lng > 114.167096 && lng < 114.170694 ||
+                            lat > 22.316337 && lat < 22.317684 && lng > 114.265320 && lng < 114.267037 ||
+                            lat > 22.503357 && lat < 22.504148 && lng > 114.132813 && lng < 114.134248 ||
+                            lat > 22.320862 && lat < 22.325913 && lng > 114.254699 && lng < 114.262062) {
+                return shinchanIcon;
+            } else if (lat > 22.444000 && lat < 22.446200 && lng > 114.022155 && lng < 114.026000) {
+                return snoopyBlueIcon;
+            } else if (title.includes("太和")) {
+                return snoopyYellowIcon;
+            }
+            return randomIconGroup[lat.toString().slice(-1) % randomIconGroup.length];
+        }
+
+        function addMarkersToMap(points) {
+            if (isShowMap()) {
+                // clear previous markers
                 clearMarkersFromMap();
-                setVIewToGpsLocation()
+
+                // adding all markers to the featureGroups array
+                let featureGroups = [];
+                for (let i = 0; i < points.length; i++) {
+                    const [lat, lng, title] = points[i];//
+                    const marker = L.marker([lat, lng], {opacity: 1.0, icon: getMarkerIcon(lat, lng, title)}).bindPopup(title);
+                    leafletMapStationMarkerMap[title] = marker;
+                    featureGroups.push(marker);
+                }
+
+                // adding all markers to the map
+                for (let i = 0; i < featureGroups.length; i++) {
+                    featureGroups[i].addTo(leafletMap);
+                }
+
+                // Extended `LayerGroup` that makes it easy to do the same for all layers of its members
+                const group = new L.featureGroup(featureGroups);
+
+                // method fitBounds sets a map view that contains the given geographical bounds
+                leafletMap.fitBounds(group.getBounds(), {
+                    padding: [20, 20], // adding padding to map
+                    maxZoom: leafletMapMaxZoom
+                });
             }
-       }
+        }
 
-       function destroyMap() {
-           if (leafletMap) {
-               leafletMap.off();
-               leafletMap.remove();
-               leafletMap = null;
-           }
-       }
-
-       function setVIewToGpsLocation() {
-           if (leafletMapGPSMarkerLayer) {
-               leafletMap.setView(leafletMapGPSMarkerLayer._latlng, leafletMapMaxZoom);
-           }
-       }
-
-       function clearMarkersFromMap() {
-           if (leafletMap) {
-               for (const [key, value] of Object.entries(leafletMapStationMarkerMap)) {
-                   value.remove();
-               }
-               leafletMapStationMarkerMap = {};
+        function selectMarker(title) {
+            if (isShowMap()) {
+                const marker = leafletMapStationMarkerMap[title];
+                if (marker) {
+                    marker.openPopup();
+                    leafletMap.setView(marker._latlng, leafletMapMaxZoom);
+                }
             }
-       }
+        }
 
+        function mapCheckboxChanged(event) {
+            const isChecked = event.target.checked;
+            if (isChecked)
+                initMap();
+            else
+                destroyMap();
+        }
 
-       // setup icon
-       const iconSize = [70, 70];
-       const iconAnchor = [iconSize[0]/2, iconSize[1]];
-       const popupAnchor = [0, -iconSize[1]+20];
-       // Random icon
-       const flowerIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/flower.png" });
-       const flowerGroupIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/flower_group.png" });
-       const goldIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/gold.png" });
-       const grassIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/grass.png" });
-       const mushroomIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/mushroom.png" });
-       const peachIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/peach.png" });
-       const randomIconGroup = [flowerIcon, flowerGroupIcon, goldIcon, grassIcon, mushroomIcon, peachIcon];
-       // Specific icon
-       const farmIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/farm.png" });
-       const cockroachIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/cockroach.png" });
-       const cowIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/cow.png" });
-       const pepeachristskyIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/pepeachristsky.png" });
-       const pepeachristskyLoveIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/pepeachristsky_love.png" });
-       const shinchanIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/shinchan.png" });
-       const snoopyBlueIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/snoopy_blue.png" });
-       const snoopyYellowIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/snoopy_yellow.png" });
-       // Birthday icon
-       const birthday2020Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2020.png" });
-       const birthday2021Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2021.png" });
-       const birthdayIconGroup = [birthday2020Icon, birthday2021Icon];
-       function getMarkerIcon(lat, lng, title) {
-           var dateObj = new Date();
-           var month = dateObj.getMonth() + 1; //months from 1-12
-           var day = dateObj.getDate();
-           if (month == 1 && day == 31 || month == 9 && day == 25) {
-               return birthdayIconGroup[Math.floor(Math.random() * birthdayIconGroup.length)]; 
-           } else if (title.includes("農場") || title.includes("濕地") || title.includes("海洋")) {
-               return farmIcon;
-           } else if (title.includes("警署")) {
-               return cockroachIcon;
-           } else if (lat > 22.336580 && lat < 22.338074 && lng > 114.144197 && lng < 114.149740) {
-               return cowIcon;
-           } else if (lat > 22.336964 && lat < 22.363622 && lng > 114.095672 && lng < 114.112284) {
-               return pepeachristskyIcon;
-           } else if (lat > 22.499862 && lat < 22.506404 && lng > 114.124999 && lng < 114.133139) {
-               return pepeachristskyLoveIcon;
-           } else if (lat > 22.378108 && lat < 22.382899 && lng > 114.184857 && lng < 114.190576 ||
-                           lat > 22.337514 && lat < 22.340208 && lng > 114.150742 && lng < 114.153199 ||
-                           lat > 22.293074 && lat < 22.298610 && lng > 114.167096 && lng < 114.170694 ||
-                           lat > 22.316337 && lat < 22.317684 && lng > 114.265320 && lng < 114.267037 ||
-                           lat > 22.503357 && lat < 22.504148 && lng > 114.132813 && lng < 114.134248 ||
-                           lat > 22.320862 && lat < 22.325913 && lng > 114.254699 && lng < 114.262062) {
-               return shinchanIcon;
-           } else if (lat > 22.444000 && lat < 22.446200 && lng > 114.022155 && lng < 114.026000) {
-               return snoopyBlueIcon;
-           } else if (title.includes("太和")) {
-               return snoopyYellowIcon;
-           }
-           return randomIconGroup[lat.toString().slice(-1) % randomIconGroup.length];
-       }
-
-       function addMarkersToMap(points) {
-            // clear previous markers
-            clearMarkersFromMap();
-
-           // adding all markers to the featureGroups array
-           let featureGroups = [];
-           for (let i = 0; i < points.length; i++) {
-               const [lat, lng, title] = points[i];//
-               const marker = L.marker([lat, lng], {opacity: 1.0, icon: getMarkerIcon(lat, lng, title)}).bindPopup(title);
-               leafletMapStationMarkerMap[title] = marker;
-               featureGroups.push(marker);
-           }
-
-           // adding all markers to the map
-           for (let i = 0; i < featureGroups.length; i++) {
-               featureGroups[i].addTo(leafletMap);
-           }
-
-           // Extended `LayerGroup` that makes it easy to do the same for all layers of its members
-           const group = new L.featureGroup(featureGroups);
-
-          // method fitBounds sets a map view that contains the given geographical bounds
-          leafletMap.fitBounds(group.getBounds(), {
-              padding: [20, 20], // adding padding to map
-              maxZoom: leafletMapMaxZoom
-          });
-       }
-
-       function selectMarker(title) {
-           const marker = leafletMapStationMarkerMap[title];
-           if (marker) {
-               marker.openPopup();
-               leafletMap.setView(marker._latlng, leafletMapMaxZoom);
-           }
-       }
+        function isShowMap() {
+            return $("#mapSwitch").prop("checked");
+        }
 
 
     </script>
@@ -752,6 +770,11 @@
     <div id="menu-button">
         <button onclick="getRouteList()">巴士路線</button>
         <button onclick="getBusStopList()">巴士站</button>
+        地圖:
+        <label class="switch">
+            <input id="mapSwitch" type="checkbox" onchange="mapCheckboxChanged(event)">
+            <span class="slider"></span>
+        </label>
     </div>
     <br/>
     <div id="loadingDiv">
@@ -759,10 +782,10 @@
     </div>
     <div>
         <table id="listTable" class="dataTable display"></table>
-        <div id="leaflet-map" style="height:250px">
+        <div id="leaflet-map">
             <div class="leaflet-bottom leaflet-right">
                 <div id="marker-legend">
-                    <button onclick="setVIewToGpsLocation()" style="pointer-events: auto; margin: 5px"><img src="image/map-marker/gps-button.png"></button >
+                    <button id="leaflet-map-gps-button" onclick="setViewToGpsLocation()"><img src="image/map-marker/gps-button.png"></button>
                 </div>
             </div>      
         </div>
