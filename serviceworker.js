@@ -67,7 +67,7 @@ const filesToCache = [
     "transport/sectional-tuen-yuen-tin.png",
 ];
 
-const swVersion = '1.94';
+const swVersion = '1.95';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
@@ -111,7 +111,6 @@ self.addEventListener('fetch', event => {
                         (event.request.url.includes('stsk3') ||
                             event.request.url.includes('etabus') ||
                             event.request.url.includes('hko.gov.hk')) &&
-                        !event.request.url.includes('serviceworker.js') &&
                         !event.request.url.includes('_=') &&
                         !event.request.url.includes('/apk/') &&
                         !event.request.url.includes('/config/'))

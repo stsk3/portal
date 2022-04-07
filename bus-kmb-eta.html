@@ -79,8 +79,8 @@
 
                         $(tableId).html(html);
 
-                        initDataTable(tableId);
                         initMap();
+                        initDataTable(tableId);
                     }
              }});
         }
@@ -96,7 +96,7 @@
             //Destroy old data
             $(tableId + " > tbody").html("");
 
-            setTimeout(function(){ 
+            //setTimeout(function(){ 
                 var html = '<thead>';
                 html += '<tr>';
                 html += '<th>數量</th>';
@@ -128,9 +128,10 @@
 
                 $(tableId).html(html);
 
-                initDataTable(tableId);
+
                 initMap();
-            }, 100);
+                initDataTable(tableId);
+            //}, 100);
        }
 
 
@@ -424,11 +425,11 @@
                    const paramRoute = findGetParameter("route");
                    const paramStop = findGetParameter("stop");
                    if (paramRoute) {
-                       getRouteList();
                        searchValue = paramRoute;
+                       getRouteList();
                    } else if (paramStop) {
-                      getBusStopList();
                        searchValue = paramStop;
+                      getBusStopList();
                    } else {
                        getRouteList();
                    }
@@ -631,6 +632,8 @@
                 leafletMap.off();
                 leafletMap.remove();
                 leafletMap = null;
+                leafletMapStationMarkerMap = {};
+                leafletMapGPSMarkerLayer = null;
             }
             setMapVisibility(false);
         }
