@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="main.css">
     <style></style>
     <script>
+        const MAP_ENABLED = "bus-kmb-eta-map-enabled";
+
         var leafletMap;
         var leafletMapStationMarkerMap = {};
         var leafletMapGPSMarkerLayer;
@@ -471,6 +473,7 @@
 
         $(document).ready(function () {
             getLocation();
+            $("#mapSwitch").prop("checked", localStorage.getItem(MAP_ENABLED) === 'true');
             initBusStop();
             
             const updateTimeGapInterval = setInterval(updateTimeGap , 1000);
@@ -592,25 +595,27 @@
                     //L.tileLayer('https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=0942c800a2af4b9092eabaadb56bf511').addTo(leafletMap);
                     L.tileLayer('https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png').addTo(leafletMap); //unlimited
 
-                    var firstTime = true;
+                    leafletMap.createPane("gpsPane");
+                    leafletMap.getPane("gpsPane").style.zIndex = 610;
+
                     leafletMap.locate({ setView: false, enableHighAccuracy: false, watch: true})
                         .on('locationfound', function(data){
                             //console.log(data);
+                            const setView = Object.entries(leafletMapStationMarkerMap) == 0;
                             if (leafletMapGPSMarkerLayer) {
                                 leafletMapGPSMarkerLayer.remove();
                             }
-                            leafletMapGPSMarkerLayer = new L.marker(data.latlng, {opacity: 0.75, icon: L.icon({ iconSize: [20, 20], iconUrl: "image/map-marker/gps.png" })}).addTo(leafletMap);
-                            if (firstTime) {
+                            leafletMapGPSMarkerLayer = new L.marker(data.latlng, {opacity: 0.75, icon: L.icon({ iconSize: [20, 20], iconUrl: "image/map-marker/gps.png" }), pane: "gpsPane"}).addTo(leafletMap);
+                            if (setView) {
                                 setViewToGpsLocation();
-                                firstTime = false;
                             }
                         })
                         .on('locationerror', function(e){
                             console.log(e);
                             //alert("Location access has been denied.");
-                            if (firstTime) {
+                            const setView = Object.entries(leafletMapStationMarkerMap) == 0;
+                            if (setView) {
                                 leafletMap.setView([22.3493, 114.1694], 10); //Default HK view
-                                firstTime = false;
                             }
                         });
                 } else {
@@ -752,6 +757,7 @@
 
         function mapCheckboxChanged(event) {
             const isChecked = event.target.checked;
+            localStorage.setItem(MAP_ENABLED, isChecked);
             if (isChecked)
                 initMap();
             else
