@@ -471,9 +471,14 @@ bus-eta.hhtml
   display: none;
 }
 
-.bus-eta-page #leaflet-map #leaflet-map-gps-button {
+.bus-eta-page #leaflet-map.enlarge {
+  height: 500px !important;
+}
+
+.bus-eta-page #leaflet-map #leaflet-map-gps-button,
+.bus-eta-page #leaflet-map #leaflet-map-enlarge-button {
   pointer-events: auto; 
-  margin: 5px;
+  margin: 0 5 5 0;
 }
 
 
