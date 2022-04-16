@@ -67,7 +67,7 @@ const filesToCache = [
     "transport/sectional-tuen-yuen-tin.png",
 ];
 
-const swVersion = '1.96';
+const swVersion = '1.97';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
