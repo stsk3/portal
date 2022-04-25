@@ -4,7 +4,6 @@
     <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
     <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="script/light_rail_station_list.js"></script>
     <link rel="stylesheet" href="main.css">
     <style></style>
     <script>
@@ -156,6 +155,39 @@
            return result;
         }
 
+        function createBusDiv(id, data, name) {
+            const content = `
+                <div class="bus-eta-page">
+                    <div class="busRouteInfo">
+                        <span id="busRouteInfo-Title">巴士路線: </span>
+                        <span class="busRouteInfo-Data" id="busRouteInfo-Data-${id}">${data}</span>
+                        <div class="busStopDiv" id="busStopDiv-0">
+                            <span>
+                                <span class="busStopDiv-name" id="busStopDiv-name-${id}">${name}</span>
+                            </span>
+                            <div id="bus-${id}-refresh" class="refreshDiv"></div>
+                        </div>
+                        <div id="bus-${id}" class="etaDiv"></div>
+                    </div>
+                </div>`;
+            $("#content").append(content);
+        }
+
+
+
+        function createLRDiv(data) {
+            const content = `
+                <div class="mtr-eta-page">
+                    <div id="stationInfo">
+                        <span id="stationInfo-Title">輕鐵站: </span>
+                        <span id="stationInfo-Data">${data}</span>
+                        <div id="eta-lr-refresh" class="refreshDiv">更新中...</div>
+                        <div id="eta-lr"></div>
+                    </div>
+                </div>`;
+            $("#content").append(content);
+
+        }
 
 
 
@@ -164,29 +196,36 @@
 
             const paramType = findGetParameter("type");
 
-            if (paramType != '1') {
-                $('#busRouteInfo-Data-0').html('269D ➔天富');
-                $('#busStopDiv-name-0').html('元朗狗屋');
+            if (paramType == '0') {
+                createBusDiv(0, '269D ➔天富', '元朗狗屋')
                 getBusRouteETA('269D', 'I', '1', '1B0FD9C27F5FE0BE', '12', 0);
 
-
-                $('#busRouteInfo-Data-1').html('276 ➔天慈');
-                $('#busStopDiv-name-1').html('元朗康樂路 (S10)');
+                createBusDiv(1, '276 ➔天慈', '元朗康樂路 (S10)')
                 getBusRouteETA('276', 'I', '1', 'D9CE618F99BAC2B6', '6', 1);
 
-                $('#stationInfo-Data').html('豐年路');
+                createLRDiv('豐年路');
                 getLRStationETA(570);
-            } else {
-                $('#busRouteInfo-Data-0').html('269D ➔瀝源, 拍卡!!');
-                $('#busStopDiv-name-0').html('天耀邨耀民樓');
+            } else if (paramType == '1') {
+                createBusDiv(0, '269D ➔瀝源, 拍卡!!', '天耀邨耀民樓')
                 getBusRouteETA('269D', 'O', '1', '0BC0F64B076ED373', '10', 0);
 
-                $('#busRouteInfo-Data-1').html('276 ➔上水, 拍卡!!');
-                $('#busStopDiv-name-1').html('天耀邨耀民樓');
+                createBusDiv(1, '276 ➔上水, 拍卡!!', '天耀邨耀民樓')
                 getBusRouteETA('276', 'O', '1', '4BE4E6D4F5A06A51', '3', 1);
 
-                $('#stationInfo-Data').html('天耀');
+                createLRDiv('天耀');
                 getLRStationETA(445);
+            } else if (paramType == '2') {
+                createBusDiv(0, '74C ➔觀塘碼頭', '太和站')
+                getBusRouteETA('74C', 'O', '1', '399EF919E10C7F33', '10', 0);
+
+                createBusDiv(1, '85X ➔紅磡(紅鸞道)', '大老山隧道')
+                getBusRouteETA('85X', 'O', '1', '3114213F8975F536', '11', 1);
+
+                createBusDiv(2, '85S ➔紅磡(紅鸞道)', '大老山隧道')
+                getBusRouteETA('85S', 'O', '1', '3114213F8975F536', '11', 2);
+
+                createBusDiv(3, '15 ➔紅磡(紅鸞道)', '采頤花園')
+                getBusRouteETA('15', 'O', '1', 'D1AAD1771F3FA9A0', '15', 3);
             }
 
 
@@ -202,40 +241,8 @@
     <div id="loadingDiv">
         Loading...
     </div>
-    <div class="bus-eta-page">
-        <div class="busRouteInfo">
-            <span id="busRouteInfo-Title">巴士路線: </span>
-            <span class="busRouteInfo-Data" id="busRouteInfo-Data-0"></span>
-            <div class="busStopDiv" id="busStopDiv-0">
-                <span>
-                    <span class="busStopDiv-name" id="busStopDiv-name-0"></span>
-                </span>
-                <div id="bus-0-refresh" class="refreshDiv"></div>
-            </div>
-            <div id="bus-0" class="etaDiv"></div>
-        </div>
-    </div>
-    <div class="bus-eta-page">
-        <div class="busRouteInfo">
-            <span id="busRouteInfo-Title">巴士路線: </span>
-            <span class="busRouteInfo-Data" id="busRouteInfo-Data-1"></span>
-            <div class="busStopDiv" id="busStopDiv-1">
-                <span>
-                    <span class="busStopDiv-name" id="busStopDiv-name-1"></span>
-                </span>
-                <div id="bus-1-refresh" class="refreshDiv"></div>
-            </div>
-            <div id="bus-1" class="etaDiv"></div>
-        </div>
-    </div>
-    <div class="mtr-eta-page">
-        <div id="stationInfo">
-            <span id="stationInfo-Title">輕鐵站: </span>
-            <span id="stationInfo-Data"></span>
-            <div id="eta-lr-refresh" class="refreshDiv">更新中...</div>
-            <div id="eta-lr"></div>
-        </div>
-    </div>
+
+    <div id="content"></div>
 
     <object type="text/html" data="footer.html"></object>
 </body>
