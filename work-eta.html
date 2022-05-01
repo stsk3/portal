@@ -227,32 +227,46 @@
                 createBusDiv(3, '15 ➔紅磡(紅鸞道)', '采頤花園')
                 getBusRouteETA('15', 'O', '1', 'D1AAD1771F3FA9A0', '15', 3);
             } else if (paramType == '3') {
-                createBusDiv(0, '85X ➔馬鞍山市中心', '紅磡(紅鸞道)巴士總站')
-                getBusRouteETA('85X', 'I', '1', 'B452F1514B4FEE40', '1', 0);
+                var i = 0;
+                createBusDiv(i, '85X ➔馬鞍山市中心', '紅磡(紅鸞道)巴士總站')
+                getBusRouteETA('85X', 'I', '1', 'B452F1514B4FEE40', '1', i++);
 
-                createBusDiv(1, '73 ➔粉嶺(華明)', '大埔寶鄉橋')
-                getBusRouteETA('73', 'I', '1', 'FDDA176977136CD9', '17', 1);
+                createBusDiv(i, '297 ➔坑口(北)(將軍澳醫院) <采頤花園>', '紅磡(紅鸞道)巴士總站')
+                getBusRouteETA('297', 'I', '1', '58A2321139358155', '1', i++);
 
-                createBusDiv(2, '73A ➔粉嶺(華明)', '大埔寶鄉橋')
-                getBusRouteETA('73A', 'I', '1', 'FDDA176977136CD9', '25', 2);
+                createBusDiv(i, '15 ➔平田 <景泰街>', '紅磡(紅鸞道)巴士總站')
+                getBusRouteETA('15', 'I', '1', '12C9A74EEAE58238', '1', i++);
 
-                createBusDiv(3, '74D ➔九龍坑', '大埔寶鄉橋')
-                getBusRouteETA('74D', 'I', '1', 'FDDA176977136CD9', '23', 3);
+                createBusDiv(i, '7B ➔樂富 <聖佐治大廈>', '紅磡(紅鸞道)巴士總站')
+                getBusRouteETA('7B', 'O', '1', 'ED18A55B2C83BAD2', '1', i++);
 
-                createBusDiv(4, '64K ➔元朗(西)', '大埔寶鄉橋')
-                getBusRouteETA('64K', 'I', '1', 'DA30F5393480B81D', '4', 4);
+                createBusDiv(i, '5D ➔紅磡(循環線) <景泰街>', '黃埔花園總站')
+                getBusRouteETA('5D', 'O', '1', '32A26FEADDED5A62', '21', i++);
+            } else if (paramType == '4') {
+                var i = 0;
+                createBusDiv(i, '73 ➔粉嶺(華明)', '大埔寶鄉橋')
+                getBusRouteETA('73', 'I', '1', 'FDDA176977136CD9', '17', i++);
 
-                createBusDiv(5, '64P ➔嘉道理農場', '大埔寶鄉橋')
-                getBusRouteETA('64P', 'O', '1', 'DA30F5393480B81D', '4', 5);
+                createBusDiv(i, '73A ➔粉嶺(華明)', '大埔寶鄉橋')
+                getBusRouteETA('73A', 'I', '1', 'FDDA176977136CD9', '25', i++);
 
-                createBusDiv(6, '72 ➔大埔(太和)', '大埔廣福道')
-                getBusRouteETA('72', 'I', '1', 'C55F50E43F6108EB', '40', 6);
+                createBusDiv(i, '74D ➔九龍坑', '大埔寶鄉橋')
+                getBusRouteETA('74D', 'I', '1', 'FDDA176977136CD9', '23', i++);
 
-                createBusDiv(7, '272E ➔大埔(太和)', '大埔廣福道')
-                getBusRouteETA('272E', 'I', '1', 'C55F50E43F6108EB', '18', 7);
+                createBusDiv(i, '64K ➔元朗(西)', '大埔寶鄉橋')
+                getBusRouteETA('64K', 'I', '1', 'DA30F5393480B81D', '4', i++);
 
-                createBusDiv(8, '907C ➔大埔頭', '大埔寶鄉橋')
-                getBusRouteETA('907C', 'I', '1', '530F970BB56D778D', '8', 8);
+                createBusDiv(i, '64P ➔嘉道理農場', '大埔寶鄉橋')
+                getBusRouteETA('64P', 'O', '1', 'DA30F5393480B81D', '4', i++);
+
+                createBusDiv(i, '72 ➔大埔(太和)', '大埔廣福道')
+                getBusRouteETA('72', 'I', '1', 'C55F50E43F6108EB', '40', i++);
+
+                createBusDiv(i, '272E ➔大埔(太和)', '大埔廣福道')
+                getBusRouteETA('272E', 'I', '1', 'C55F50E43F6108EB', '18', i++);
+
+                createBusDiv(i, '907C ➔大埔頭', '大埔寶鄉橋')
+                getBusRouteETA('907C', 'I', '1', '530F970BB56D778D', '8', i++);
             }
 
 
