@@ -215,17 +215,22 @@
                 createLRDiv('天耀');
                 getLRStationETA(445);
             } else if (paramType == '2') {
-                createBusDiv(0, '74C ➔觀塘碼頭', '太和站')
-                getBusRouteETA('74C', 'O', '1', '399EF919E10C7F33', '10', 0);
+                var i = 0;
 
-                createBusDiv(1, '85X ➔紅磡(紅鸞道)', '大老山隧道')
-                getBusRouteETA('85X', 'O', '1', '3114213F8975F536', '11', 1);
+                createBusDiv(i, '74C ➔觀塘碼頭', '太和站')
+                getBusRouteETA('74C', 'O', '1', '399EF919E10C7F33', '10', i++);
 
-                createBusDiv(2, '85S ➔紅磡(紅鸞道)', '大老山隧道')
-                getBusRouteETA('85S', 'O', '1', '3114213F8975F536', '11', 2);
+                createBusDiv(i, '307P ➔銅鑼灣(天后)', '太和站')
+                getBusRouteETA('307P', 'O', '1', '8C1810DE2419A30B', '2', i++);
 
-                createBusDiv(3, '15 ➔紅磡(紅鸞道)', '采頤花園')
-                getBusRouteETA('15', 'O', '1', 'D1AAD1771F3FA9A0', '15', 3);
+                createBusDiv(i, '85X ➔紅磡(紅鸞道)', '大老山隧道')
+                getBusRouteETA('85X', 'O', '1', '3114213F8975F536', '11', i++);
+
+                createBusDiv(i, '85S ➔紅磡(紅鸞道)', '大老山隧道')
+                getBusRouteETA('85S', 'O', '1', '3114213F8975F536', '11', i++);
+
+                createBusDiv(i, '15 ➔紅磡(紅鸞道)', '采頤花園')
+                getBusRouteETA('15', 'O', '1', 'D1AAD1771F3FA9A0', '15', i++);
             } else if (paramType == '3') {
                 var i = 0;
                 createBusDiv(i, '85X ➔馬鞍山市中心', '紅磡(紅鸞道)巴士總站')
