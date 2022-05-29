@@ -189,7 +189,7 @@
       {
         "title": "CCTV5体育",
         "cardImage": "cctv5",
-        "func": "tvfix2_cctv5hd",
+        "func": "tvfix_cctv5hd",
         "videoUrlList": [
           "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/cctv5hd/4000000/mnf.m3u8",
           "http://39.135.138.60:18890/PLTV/88888910/224/3221225633/index.m3u8",
@@ -200,7 +200,7 @@
       {
         "title": "CCTV5+体育赛事",
         "cardImage": "cctv5plus",
-        "func": "tvfix2_cctv5phd",
+        "func": "tvfix_cctv5phd",
         "videoUrlList": [
           "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/cctv5phd/4000000/mnf.m3u8",
           "http://39.135.138.60:18890/PLTV/88888910/224/3221225649/index.m3u8"
@@ -210,7 +210,7 @@
       {
         "title": "新視覺HD",
         "cardImage": "sports_newying",
-        "func": "tvfix2_xsjhd",
+        "func": "tvfix_xsjhd",
         "videoUrlList": [
           "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/xsjhd/4000000/mnf.m3u8"
         ],
@@ -219,7 +219,7 @@
       {
         "title": "五星體育",
         "cardImage": "sports_5star",
-        "func": "tvfix2_wxtyhd",
+        "func": "tvfix_wxtyhd",
         "videoUrlList": [
           "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/ssty/4000000/mnf.m3u8"
         ],
@@ -228,7 +228,7 @@
       {
         "title": "勁爆體育",
         "cardImage": "sports_gingbao",
-        "func": "tvfix2_jbtyhd",
+        "func": "tvfix_jbtyhd",
         "videoUrlList": [
           "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/jbtyhd/4000000/mnf.m3u8"
         ],
@@ -237,7 +237,7 @@
       {
         "title": "魅力足球",
         "cardImage": "sports_ml",
-        "func": "tvfix2_mlzqhd",
+        "func": "tvfix_mlzqhd",
         "videoUrlList": [
           "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/mlyyhd/4000000/mnf.m3u8"
         ],
@@ -307,7 +307,7 @@
       {
         "title": "Viu99",
         "cardImage": "viu99",
-        "func": "tvfix2_viutv:第一聲道|viutv2:第二聲道",
+        "func": "tvfix_viutv:第一聲道|viutv2:第二聲道",
         "videoUrlList": [
           "https://cdn.hkdtmb.com/hls/99/index.m3u8"
         ],
@@ -347,7 +347,7 @@
       {
         "title": "港台電視33",
         "cardImage": "rthktv33",
-        "func": "tvfix2_cctv1hdhk",
+        "func": "tvfix_cctv1hdhk",
         "videoUrlList": [
           "https://cdn.hkdtmb.com/hls/33/index.m3u8"
         ],
@@ -397,7 +397,7 @@
       {
         "title": "CCTV13新闻",
         "cardImage": "cctv13",
-        "func": "tvfix2_cctv13hd",
+        "func": "tvfix_cctv13hd",
         "videoUrlList": [
           "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/cctvxw/1300000/mnf.m3u8",
           "http://39.135.138.60:18890/PLTV/88888910/224/3221225638/index.m3u8"
@@ -642,7 +642,7 @@
       {
         "title": "CCTV1综合",
         "cardImage": "cctv1",
-        "func": "tvfix2_cctv1hd",
+        "func": "tvfix_cctv1hd",
         "videoUrlList": [
           "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/cctv1hd/4000000/mnf.m3u8",
           "http://39.135.138.60:18890/PLTV/88888910/224/3221225618/index.m3u8"
