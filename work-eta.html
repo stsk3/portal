@@ -144,8 +144,8 @@
                       });
                   }
 
-                  if (routeStatus) {
-                      html += `<div class="operating"><div class="eta-detail seq1">${routeStatus}</div></div>`;
+                  if (html == '') {
+                      html += `<div class="operating"><div class="eta-detail seq1">${routeStatus ? routeStatus : "暫時沒有預定班次"}</div></div>`;
                   }
 
                   $(`#bus-${id}-refresh`).html("最後更新: " + getTimeFromTimestamp(systemTime));
