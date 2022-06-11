@@ -18,12 +18,13 @@
             $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/eta/${stop}/${route}/${serviceType}`, cache: false, success: 
                 function (data) {
                     const jsonData = data;
+                    var html = '';
+
                     const currentTimestamp = jsonData.generated_timestamp;
 
                     const records = jsonData.data;
                     if (records.length > 0) {
                         var isFirst = true;
-                        var html = '';
                         $.each(records, function (index, record) {
                             const route = record.route;
                             const dir = record.dir;
@@ -44,13 +45,12 @@
                                 isFirst = false;
                             }
                         });
-
-
-                        $(`#bus-${id}-refresh`).html("最後更新: " + getTimeFromTimestamp(jsonData.generated_timestamp));
-                        $(`#bus-${id}`).removeClass("bus-stop");
-                        $(`#bus-${id}`).show();
-                        $(`#bus-${id}`).html(html);
                    }
+
+                   $(`#bus-${id}-refresh`).html("最後更新: " + getTimeFromTimestamp(jsonData.generated_timestamp));
+                   $(`#bus-${id}`).removeClass("bus-stop");
+                   $(`#bus-${id}`).show();
+                   $(`#bus-${id}`).html(html);
              }});
 
              setTimeout(function() { getBusRouteETA(route, bound, serviceType, stop, seq, row); }, busRefreshInterval);
@@ -61,11 +61,12 @@
                 function (data) {
                     const jsonData = data;
 
+                    var html = '';
+
                     const status = jsonData.status;
                     const systemTime = jsonData.system_time;
                     const platformList = jsonData.platform_list;
                     if (platformList.length > 0) {
-                        var html = '';
                         $($(platformList).get().reverse()).each(function (index, platform) {
                             const routeList = platform.route_list;
                             const endServiceStatus = platform.end_service_status;
@@ -89,16 +90,71 @@
                                 html += '</div>';
                             }
                         });
-
-                        $(`#eta-lr-refresh`).html("最後更新: " + getTimeFromTimestamp(systemTime));
-                        $(`#eta-lr`).show();
-                        $(`#eta-lr`).html(html);
                    }
+
+                   $(`#eta-lr-refresh`).html("最後更新: " + getTimeFromTimestamp(systemTime));
+                   $(`#eta-lr`).show();
+                   $(`#eta-lr`).html(html);
              }});
 
              setTimeout(function() { getLRStationETA(stationId); }, lrRefreshInterval);
         }
 
+
+
+
+
+        function getMTRBusStationETA(routeName, stopId, stopSeq, row) {
+            const id = row;
+
+            $.ajax({url: `https://rt.data.gov.hk/v1/transport/mtr/bus/getSchedule`, cache: false, 
+                         type: "POST", data: JSON.stringify({ routeName: routeName, busStopId: stopId, language: "zh" }), contentType: "application/json; charset=utf-8", dataType: "json", success: 
+                function (data) {
+                    const jsonData = data;
+
+                    var html = '';
+
+                    const status = jsonData.status;
+                    const systemTime = jsonData.routeStatusTime;
+                    const routeStatus = jsonData.routeStatusRemarkTitle;
+                    const busStopList = jsonData.busStop;
+                    if (busStopList.length > 0) {
+                        $.each(busStopList, function (index, busStop) {
+                            const busStopId = busStop.busStopId;
+                            const busList = busStop.bus;
+                            if (busStopId == stopId && busList.length > 0) {
+                                var isFirst = true;
+                                $.each(busList, function (index2, record) {
+                                    const arrivalTimeInSecond = record.arrivalTimeInSecond;
+                                    const arrivalTimeText = record.arrivalTimeText;
+                                    const departureTimeInSecond = record.departureTimeInSecond;
+                                    const departureTimeText = record.departureTimeText;
+                                    const timeInSecond = stopSeq == 1 ? departureTimeInSecond : arrivalTimeInSecond;
+                                    const timeText = stopSeq == 1 ? departureTimeText : arrivalTimeText;
+                                    const etaSeq = index2 +1;
+                                    var etaText;
+                                    if (timeInSecond) { etaText = new Date(systemTime); etaText.setSeconds(timeInSecond) }
+                                    else etaText = "暫時沒有預定班次";
+                                    html += `<div class="operating">
+                                                     <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-eta="${etaText}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(etaText, stopSeq)}</span>
+                                                  </div>`;
+                                    isFirst = false;
+                                });
+                            }
+                      });
+                  }
+
+                  if (routeStatus) {
+                      html += `<div class="operating"><div class="eta-detail seq1">${routeStatus}</div></div>`;
+                  }
+
+                  $(`#bus-${id}-refresh`).html("最後更新: " + getTimeFromTimestamp(systemTime));
+                  $(`#bus-${id}`).removeClass("bus-stop");
+                  $(`#bus-${id}`).show();
+                  $(`#bus-${id}`).html(html);
+             }});
+             setTimeout(function() { getMTRBusStationETA(routeName, stopId, stopSeq, row); }, busRefreshInterval);
+        }
 
         $(document).ajaxStart(function () {
             //$('#loadingDiv').show();
@@ -130,8 +186,8 @@
 
 
         function millisToMinutesAndSeconds(eta, stopSeq) {
-           if (eta) {
-               const millis = new Date(eta) - new Date();
+           if (eta) { 
+               const millis = (eta instanceof Date ? eta : new Date(eta)) - new Date();
                if (millis > 0) { 
                    var minutes = Math.floor(millis / 60000);
                    var seconds = Math.floor(((millis % 60000) / 1000));
@@ -197,23 +253,33 @@
             const paramType = findGetParameter("type");
 
             if (paramType == '0') {
-                createBusDiv(0, '269D ➔天富', '元朗狗屋')
-                getBusRouteETA('269D', 'I', '1', '1B0FD9C27F5FE0BE', '12', 0);
+                var i = 0;
 
-                createBusDiv(1, '276 ➔天慈', '元朗康樂路 (S10)')
-                getBusRouteETA('276', 'I', '1', 'D9CE618F99BAC2B6', '6', 1);
+                createBusDiv(i, '269D ➔天富', '元朗狗屋')
+                getBusRouteETA('269D', 'I', '1', '1B0FD9C27F5FE0BE', '12', i++);
+
+                createBusDiv(i, '276 ➔天慈', '元朗康樂路 (S10)')
+                getBusRouteETA('276', 'I', '1', 'D9CE618F99BAC2B6', '6', i++);
 
                 createLRDiv('豐年路');
                 getLRStationETA(570);
-            } else if (paramType == '1') {
-                createBusDiv(0, '269D ➔瀝源, 拍卡!!', '天耀邨耀民樓')
-                getBusRouteETA('269D', 'O', '1', '0BC0F64B076ED373', '10', 0);
 
-                createBusDiv(1, '276 ➔上水, 拍卡!!', '天耀邨耀民樓')
-                getBusRouteETA('276', 'O', '1', '4BE4E6D4F5A06A51', '3', 1);
+                createBusDiv(i, 'K73 ➔天恆 ', '元朗西')
+                getMTRBusStationETA('K73', 'K73-D010', 1, i++);
+            } else if (paramType == '1') {
+                var i = 0;
+
+                createBusDiv(i, '269D ➔瀝源, 拍卡!!', '天耀邨耀民樓')
+                getBusRouteETA('269D', 'O', '1', '0BC0F64B076ED373', '10', i++);
+
+                createBusDiv(i, '276 ➔上水, 拍卡!!', '天耀邨耀民樓')
+                getBusRouteETA('276', 'O', '1', '4BE4E6D4F5A06A51', '3', i++);
 
                 createLRDiv('天耀');
                 getLRStationETA(445);
+
+                createBusDiv(i, 'K73 ➔元朗西 ', '天慈邨')
+                getMTRBusStationETA('K73', 'K73-U080', 8, i++);
             } else if (paramType == '2') {
                 var i = 0;
 

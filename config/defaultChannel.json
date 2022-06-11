@@ -26,6 +26,11 @@
         "func": "nowtv_332"
       },
       {
+        "title": "now財經台",
+        "cardImage": "nowtv333",
+        "func": "nowtv_333"
+      },
+      {
         "title": "now直播台",
         "cardImage": "nowtv331",
         "func": "nowtv_331"
@@ -63,6 +68,7 @@
         "cardImage": "tdmsport",
         "func": "",
         "videoUrlList": [
+          "http://live.tdm.com.mo:1935/ch4/sport_ch4.live/playlist.m3u8",
           "http://live1.tdm.com.mo:1935/ch4/sport_ch4.live/playlist.m3u8",
           "http://live2.tdm.com.mo:1935/ch4/sport_ch4.live/playlist.m3u8",
           "http://live3.tdm.com.mo:1935/ch4/sport_ch4.live/playlist.m3u8",
@@ -106,11 +112,6 @@
         "title": "有線18台",
         "cardImage": "cable_18",
         "func": "rtmp_hk04"
-      },
-      {
-        "title": "NBATV",
-        "cardImage": "sports_nbatv",
-        "func": "tvfix_nbatv"
       },
       {
         "title": "NHK WORLD Premium",
@@ -171,6 +172,11 @@
         "title": "華視",
         "cardImage": "tw_cts",
         "func": "rtmp_tv11"
+      },
+      {
+        "title": "緯來育樂",
+        "cardImage": "sports_vlyl",
+        "func": "rtmp_tv70"
       }
     ]
   },
@@ -180,19 +186,15 @@
       {
         "title": "廣東體育",
         "cardImage": "sports_gdtv",
-        "func": "tvfix_gdtyhd",
-        "videoUrlList": [
-          "http://livesec.mudu.tv/watch/gaz1e4.m3u8"
-        ],
-        "getFromInternet": true
+        "func": "tvfix_gdtyhd"
       },
       {
         "title": "CCTV5体育",
         "cardImage": "cctv5",
         "func": "tvfix_cctv5hd",
         "videoUrlList": [
-          "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/cctv5hd/4000000/mnf.m3u8",
           "http://39.135.138.60:18890/PLTV/88888910/224/3221225633/index.m3u8",
+          "http://140.207.241.2:8080/live/program/live/cctv5hd/4000000/mnf.m3u8",
           "http://newvideo.dangtutv.cn:8278/CCTVsports/playlist.m3u8"
         ],
         "getFromInternet": true
@@ -202,8 +204,8 @@
         "cardImage": "cctv5plus",
         "func": "tvfix_cctv5phd",
         "videoUrlList": [
-          "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/cctv5phd/4000000/mnf.m3u8",
-          "http://39.135.138.60:18890/PLTV/88888910/224/3221225649/index.m3u8"
+          "http://39.135.138.60:18890/PLTV/88888910/224/3221225649/index.m3u8",
+          "http://140.207.241.2:8080/live/program/live/cctv5phd/4000000/mnf.m3u8"
         ],
         "getFromInternet": true
       },
@@ -212,7 +214,7 @@
         "cardImage": "sports_newying",
         "func": "tvfix_xsjhd",
         "videoUrlList": [
-          "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/xsjhd/4000000/mnf.m3u8"
+          "http://140.207.241.2:8080/live/program/live/xsjhd/4000000/mnf.m3u8"
         ],
         "getFromInternet": true
       },
@@ -221,7 +223,7 @@
         "cardImage": "sports_5star",
         "func": "tvfix_wxtyhd",
         "videoUrlList": [
-          "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/ssty/4000000/mnf.m3u8"
+          "http://140.207.241.2:8080/live/program/live/ssty/4000000/mnf.m3u8"
         ],
         "getFromInternet": true
       },
@@ -230,7 +232,7 @@
         "cardImage": "sports_gingbao",
         "func": "tvfix_jbtyhd",
         "videoUrlList": [
-          "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/jbtyhd/4000000/mnf.m3u8"
+          "http://140.207.241.2:8080/live/program/live/jbtyhd/4000000/mnf.m3u8"
         ],
         "getFromInternet": true
       },
@@ -239,7 +241,7 @@
         "cardImage": "sports_ml",
         "func": "tvfix_mlzqhd",
         "videoUrlList": [
-          "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/mlyyhd/4000000/mnf.m3u8"
+          "http://140.207.241.2:8080/live/program/live/mlyyhd/4000000/mnf.m3u8"
         ],
         "getFromInternet": true
       },
@@ -286,7 +288,7 @@
           "http://media.fantv.hk/m3u8/archive/channel2.m3u8",
           "http://uc6.i-cable.com/live_freedirect/opentvhd001_h.live/playlist.m3u8",
           "http://uc6.i-cable.com/live_freedirect/opentvhd001.live/playlist.m3u8",
-          "https://cdn.hkdtmb.com/hls/77/index.m3u8"
+          "https://cdn.hklive.tv/hls/77/index.m3u8"
         ]
       },
       {
@@ -296,7 +298,7 @@
         "videoUrlList": [
           "http://uc6.i-cable.com/live_freedirect/opentvhd002_h.live/playlist.m3u8",
           "http://uc6.i-cable.com/live_freedirect/opentvhd002.live/playlist.m3u8",
-          "https://cdn.hkdtmb.com/hls/76/index.m3u8"
+          "https://cdn.hklive.tv/hls/76/index.m3u8"
         ]
       }
     ]
@@ -307,18 +309,17 @@
       {
         "title": "Viu99",
         "cardImage": "viu99",
-        "func": "tvfix_viutv:第一聲道|viutv2:第二聲道",
+        "func": "",
         "videoUrlList": [
-          "https://cdn.hkdtmb.com/hls/99/index.m3u8"
-        ],
-        "getFromInternet": true
+          "https://cdn.hklive.tv/hls/99/index.m3u8"
+        ]
       },
       {
         "title": "Viu96",
         "cardImage": "viu96",
         "func": "viu",
         "videoUrlList": [
-          "https://cdn.hkdtmb.com/hls/96/index.m3u8"
+          "https://cdn.hklive.tv/hls/96/index.m3u8"
         ]
       }
     ]
@@ -332,7 +333,7 @@
         "func": "rthk",
         "videoUrlList": [
           "https://www.rthk.hk/feeds/dtt/rthktv31_https.m3u8",
-          "https://cdn.hkdtmb.com/hls/31/index.m3u8"
+          "https://cdn.hklive.tv/hls/31/index.m3u8"
         ]
       },
       {
@@ -341,17 +342,15 @@
         "func": "rthk",
         "videoUrlList": [
           "https://www.rthk.hk/feeds/dtt/rthktv32_https.m3u8",
-          "https://cdn.hkdtmb.com/hls/32/index.m3u8"
+          "https://cdn.hklive.tv/hls/32/index.m3u8"
         ]
       },
       {
         "title": "港台電視33",
         "cardImage": "rthktv33",
-        "func": "tvfix_cctv1hdhk",
         "videoUrlList": [
-          "https://cdn.hkdtmb.com/hls/33/index.m3u8"
-        ],
-        "getFromInternet": true
+          "https://cdn.hklive.tv/hls/33/index.m3u8"
+        ]
       }
     ]
   },
@@ -399,8 +398,8 @@
         "cardImage": "cctv13",
         "func": "tvfix_cctv13hd",
         "videoUrlList": [
-          "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/cctvxw/1300000/mnf.m3u8",
-          "http://39.135.138.60:18890/PLTV/88888910/224/3221225638/index.m3u8"
+          "http://39.135.138.60:18890/PLTV/88888910/224/3221225638/index.m3u8",
+          "http://140.207.241.2:8080/live/program/live/cctvxw/1300000/mnf.m3u8"
         ],
         "getFromInternet": true
       },
@@ -439,6 +438,7 @@
         "cardImage": "tdmmacau",
         "func": "",
         "videoUrlList": [
+          "http://live.tdm.com.mo:1935/ch1/ch1.live/playlist.m3u8",
           "http://live1.tdm.com.mo:1935/ch1/ch1.live/playlist.m3u8",
           "http://live2.tdm.com.mo:1935/ch1/ch1.live/playlist.m3u8",
           "http://live3.tdm.com.mo:1935/ch1/ch1.live/playlist.m3u8",
@@ -450,6 +450,7 @@
         "cardImage": "tdminfo",
         "func": "",
         "videoUrlList": [
+          "http://live.tdm.com.mo:1935/ch5/info_ch5.live/playlist.m3u8",
           "http://live1.tdm.com.mo:1935/ch5/info_ch5.live/playlist.m3u8",
           "http://live2.tdm.com.mo:1935/ch5/info_ch5.live/playlist.m3u8",
           "http://live3.tdm.com.mo:1935/ch5/info_ch5.live/playlist.m3u8",
@@ -461,6 +462,7 @@
         "cardImage": "tdmhd",
         "func": "",
         "videoUrlList": [
+          "http://live.tdm.com.mo:1935/ch6/hd_ch6.live/playlist.m3u8",
           "http://live1.tdm.com.mo:1935/ch6/hd_ch6.live/playlist.m3u8",
           "http://live2.tdm.com.mo:1935/ch6/hd_ch6.live/playlist.m3u8",
           "http://live3.tdm.com.mo:1935/ch6/hd_ch6.live/playlist.m3u8",
@@ -472,6 +474,7 @@
         "cardImage": "tdmsat",
         "func": "",
         "videoUrlList": [
+          "http://live.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8",
           "http://live1.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8",
           "http://live2.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8",
           "http://live3.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8",
@@ -483,6 +486,7 @@
         "cardImage": "tdmportugal",
         "func": "",
         "videoUrlList": [
+          "http://live.tdm.com.mo:1935/ch2/ch2.live/playlist.m3u8",
           "http://live1.tdm.com.mo:1935/ch2/ch2.live/playlist.m3u8",
           "http://live2.tdm.com.mo:1935/ch2/ch2.live/playlist.m3u8",
           "http://live3.tdm.com.mo:1935/ch2/ch2.live/playlist.m3u8",
@@ -508,11 +512,6 @@
         "title": "中視",
         "cardImage": "tw_ctv",
         "func": "rtmp_tv09"
-      },
-      {
-        "title": "緯來育樂",
-        "cardImage": "sports_vlyl",
-        "func": "rtmp_tv70"
       },
       {
         "title": "緯來日本",
@@ -570,49 +569,9 @@
     "header": "電影",
     "channelDataList": [
       {
-        "title": "HBO",
-        "cardImage": "movie_hbo",
-        "func": "tvfix_hbo:粵語繁體|hbo5:英語繁體|hbo3:國語繁體|hbo7:英語英文|hbo2:粵語簡體|hbo6:英語簡體|hbo4:國語簡體"
-      },
-      {
-        "title": "HBO Hits",
-        "cardImage": "movie_hbohits",
-        "func": "tvfix_hbohits:粵語繁體|hbohits5:英語繁體|hbohits3:國語繁體|hbohits7:英語英文|hbohits2:粵語簡體|hbohits6:英語簡體|hbohits4:國語簡體"
-      },
-      {
-        "title": "HBO Family",
-        "cardImage": "movie_hbofamily",
-        "func": "tvfix_hbofamily7:聲道一繁體|hbofamily3:聲道二繁體|hbofamily4:聲道三繁體|hbofamily5:聲道一印文|hbofamily:聲道二印文|hbofamily6:聲道一泰文|hbofamily2:聲道二泰文"
-      },
-      {
-        "title": "HBO Signature",
-        "cardImage": "movie_hbosignature",
-        "func": "tvfix_hbosignature:粵語繁體|hbosignature5:英語繁體|hbosignature3:國語繁體|hbosignature7:英語英文|hbosignature2:粵語簡體|hbosignature6:英語簡體|hbosignature4:國語簡體"
-      },
-      {
-        "title": "Cinemax",
-        "cardImage": "movie_cinemax",
-        "func": "tvfix_cinemax5:英語繁體|cinemax:國語繁體|cinemax3:泰語繁體|cinemax7:英語繁體|cinemax6:英語簡體|cinemax2:國語簡體|cinemax4:泰語簡體"
-      },
-      {
         "title": "美亞電影台",
         "cardImage": "movie_mydy",
         "func": "tvfix_mydy:粵語|mydy2:國語"
-      },
-      {
-        "title": "衛視電影台",
-        "cardImage": "movie_starmovies",
-        "func": "tvfix_starmovies"
-      },
-      {
-        "title": "天映頻道",
-        "cardImage": "movie_typd",
-        "func": "tvfix_typd"
-      },
-      {
-        "title": "天映經典",
-        "cardImage": "movie_tyjd",
-        "func": "tvfix_tyjd:第一聲道|tyjd2:第二聲道"
       },
       {
         "title": "鳳凰電影",
@@ -627,12 +586,18 @@
       {
         "title": "Hands Up Channel",
         "cardImage": "movie_handsup",
-        "func": "tvfix_kid:第一聲道|kid2:第二聲道"
+        "func": "tvfix_kid:第一聲道|kid2:第二聲道",
+        "videoUrlList": [
+          "https://cdn.hklive.tv/hls/100/index.m3u8"
+        ]
       },
       {
         "title": "Animax",
         "cardImage": "movie_animax",
-        "func": "tvfix_animax:第一聲道|animax2:第二聲道"
+        "func": "tvfix_animax:第一聲道|animax2:第二聲道",
+        "videoUrlList": [
+          "https://cdn.hklive.tv/hls/504/index.m3u8"
+        ]
       }
     ]
   },
@@ -644,8 +609,8 @@
         "cardImage": "cctv1",
         "func": "tvfix_cctv1hd",
         "videoUrlList": [
-          "http://219.151.31.38/liveplay-kk.rtxapp.com/live/program/live/cctv1hd/4000000/mnf.m3u8",
-          "http://39.135.138.60:18890/PLTV/88888910/224/3221225618/index.m3u8"
+          "http://39.135.138.60:18890/PLTV/88888910/224/3221225618/index.m3u8",
+          "http://140.207.241.2:8080/live/program/live/cctv1hd/4000000/mnf.m3u8"
         ],
         "getFromInternet": true
       },
