@@ -1,0 +1,214 @@
+<html>
+<head>
+    <link rel="stylesheet" href="main.css">
+    <script type="text/javascript" src="serviceworker.js"></script>
+    <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
+
+
+
+    <script>
+	    document.addEventListener("DOMContentLoaded", function(event) { 
+			$.ajaxSetup({ cache: false });
+			getCurrentVersion();
+			getCurrentWeather();
+		});
+
+        function getCurrentWeather() {
+            $.getJSON('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=warnsum&lang=tc',
+                function (data) {
+                    const jsonData = data;
+                    var signalList = "";
+                    Object.keys(jsonData).forEach(function(key) {
+                        const code = data[key].code;
+                        const name = data[key].name;
+                        const type = data[key].type;
+                        const actionCode = data[key].actionCode;
+                        const issueTime = data[key].issueTime;
+                        const updateTime = data[key].updateTime;
+                        //signalList += (type ? type:"") + name + " ";
+
+                        //icon
+                        var icon = "";
+                        switch (code) {
+                            case 'WFIREY': icon = "firey"; break;
+                            case 'WFIRER': icon = "firer"; break;
+                            case 'WFROST': icon = "frost"; break;
+                            case 'WHOT': icon = "vhot"; break;
+                            case 'WCOLD': icon = "cold"; break;
+                            case 'WMSGNL': icon = "sms"; break;
+                            case 'WRAINA': icon = "raina"; break;
+                            case 'WRAINR': icon = "rainr"; break;
+                            case 'WRAINB': icon = "rainb"; break;
+                            case 'WFNTSA': icon = "ntfl"; break;
+                            case 'WL': icon = "landslip"; break;
+                            case 'TC1': icon = "tc1"; break;
+                            case 'TC3': icon = "tc3"; break;
+                            case 'TC8NE': icon = "tc8ne"; break;
+                            case 'TC8SE': icon = "tc8b"; break;
+                            case 'TC8NW': icon = "tc8d"; break;
+                            case 'TC8SW': icon = "tc8c"; break;
+                            case 'TC9': icon = "tc9"; break;
+                            case 'TC10': icon = "tc10"; break;
+                            case 'WTMW': icon = "tsunami-warn"; break;
+                            case 'WTS': icon = "ts"; break;
+                            default: break;
+                        }
+
+                        //issueTime
+                        const issueTimeObj = new Date(issueTime);
+                        const formattedIssueTime = new Date(issueTimeObj.getTime() - (issueTimeObj.getTimezoneOffset() * 60000)).toISOString().replace(/\..+/, '').slice(5, -3).replace(/-/, '月').replace(/T/, '日');
+
+                        signalList += `<span class="tooltip"><img src="https://www.hko.gov.hk/tc/wxinfo/dailywx/images/${icon}.gif"/><span class="tooltiptext">${formattedIssueTime}發出</span></span>`;
+                    })
+                    $('#signal-bar').html(signalList);
+                }
+            );
+
+            $.getJSON('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=swt&lang=tc',
+                function (data) {
+                    const jsonData = data;
+
+                    var swtList = "";
+                    const swtArray = jsonData.swt;
+                    for(var i = 0; i < swtArray.length; i++) {
+                        var swtObj = swtArray[i];
+                        var desc = swtObj.desc;
+                        swtList += (i == 0 ? "" : "<br/>") + `<a href="https://www.hko.gov.hk/tc/sweather_tips.html" target="_blank">${desc}</a>`;
+                    }
+                    $('#swt-bar').html(swtList);
+
+                }
+            );
+
+            $.getJSON('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=tc',
+                function (data) {
+                    const jsonData = data;
+
+                    const icon = jsonData.icon[0];
+                    var temperatureTp = "";
+                    var temperatureYl = "";
+
+                    const temperatureArray = jsonData.temperature.data;
+                    for(var i = 0; i < temperatureArray.length; i++) {
+                        var temperatureObj = temperatureArray[i];
+                        var place = temperatureObj.place;
+                        if (place == "大埔")
+                            temperatureTp = temperatureObj.value;
+                        if (place == "元朗公園")
+                            temperatureYl = temperatureObj.value;
+                    }
+
+                    $("#weather-icon").attr("src", `https://www.hko.gov.hk/images/HKOWxIconOutline/pic${icon}.png`);
+                    $('#temperature').html("大埔: " + temperatureTp + "°C" + "<br/>" + "元朗: " + temperatureYl + "°C");
+                }
+            );
+        }
+
+        function etaSearch(ele, type) {
+alert(event.key);
+            if(event.key === 'Enter' || event.key === 'Tab') {
+                const value = ele.value;
+                window.location.href = "bus-kmb-eta.html?" + type + "=" + value;
+            }
+        }
+
+
+        function getCurrentVersion() {
+            $.get('latestVersion.txt',
+                function (data) {
+                    var version = "v" + swVersion;
+                    if (data.trim() != swVersion.trim()) {
+                        version += "(舊版本)";
+                    }
+                    $('#version').html(version);
+                }
+            );
+        }
+    </script>
+</head>
+
+<body class="home-page">
+
+    <div id="weather-bar">
+        <span id="version"></span>
+        <span id="signal-bar"></span>
+        <div id="swt-bar"></div>
+    </div>
+
+    <div class="grid-container">
+        <a href="weather.html" class="blue"><img src="image/home-icon/weather.png" id="weather-icon">天氣<br/><span id="temperature"></span></a>
+        <a href="mtr-lr-eta.html" class="red"><img src="image/home-icon/mtr_lr_eta.png">輕黨鐵到站時間</a>
+        <a href="bus-kmb-eta.html" class="light-green">
+            <img src="image/home-icon/bus_kmb_eta.png">九巴到站時間
+            <div style="padding-top: 5px">
+                <input type="input" placeholder="64K" size="2" onkeydown="etaSearch(this, 'route')" onclick="event.preventDefault()">
+                <input type="input" placeholder="喜利徑" size="3" onkeydown="etaSearch(this, 'stop')" onclick="event.preventDefault()">
+            </div>
+        </a>
+        <div class="light-green">
+            <div>
+                <a href="bus-kmb-eta.html?route=68">68</a><a class="green" href="bus-kmb-eta.html?route=68A">A</a><a class="light-red" href="bus-kmb-eta.html?route=68E">E</a><a class="blue" href="bus-kmb-eta.html?route=68M">M</a><a class="light-blue" href="bus-kmb-eta.html?route=68X">X</a><a class="red" href="bus-kmb-eta.html?route=968">9</a>
+            </div>
+            <div>
+                <a href="bus-kmb-eta.html?route=268">268</a><a class="green" href="bus-kmb-eta.html?route=268B">B</a><a class="red" href="bus-kmb-eta.html?route=268C">C</a><a class="light-blue" href="bus-kmb-eta.html?route=268X">X</a><a class="light-red" href="bus-kmb-eta.html?route=269">269</a>
+            </div>
+            <div>
+                <a class="red" href="bus-kmb-eta.html?route=64K">64K</a><a class="light-blue" href="bus-kmb-eta.html?route=264R">264R</a><a class="green" href="bus-kmb-eta.html?route=276">276/P</a>
+            </div>
+            <div>
+                <a class="red" href="bus-kmb-eta.html?stop=喜利徑">喜利徑</a><a href="bus-kmb-eta.html?stop=元朗（西）">元朗（西）</a>
+            </div>
+            <div>
+                <a href="bus-kmb-eta.html?stop=耀盛樓">耀盛</a><a href="bus-kmb-eta.html?stop=耀民樓">耀民</a><a class="red" href="bus-kmb-eta.html?stop=天祐苑">天祐苑</a>
+            </div>
+            <div>
+                <a href="bus-kmb-eta.html?stop=太和">太和</a><a class="red" href="bus-kmb-eta.html?stop=廣福道">廣福道</a><a class="light-red" href="work-eta.html?type=4">回家</a>
+            </div>
+            <div>
+                <a class="blue" href="work-eta.html?type=0">番工💯</a><a class="light-blue" href="work-eta.html?type=2">B</a><a class="red" href="work-eta.html?type=1">放工😘</a><a class="light-red" href="work-eta.html?type=3">B</a>
+            </div>
+        </div>
+        <a href="bus-sectional-fare.html" class="light-blue"><img src="image/home-icon/bus_interchange.png">九巴區域性<br/>雙向分段收費計劃</a>
+        <a href="bus-interchange.html" class="light-red"><img src="image/home-icon/bus_sectional_fare.png">九巴轉乘優惠</a>
+        <div class="light-green icon">
+            <div>
+                <img src="image/home-icon/promotion.png">
+            </div>
+            <div>
+                <a class="red" href="https://www.circlek.hk/hk/hotpicks/deals" target="_blank">Circle K</a><a class="green" href="https://www.7-eleven.com.hk/zh/Promotions" target="_blank">7-11</a><a class="light-blue" href="https://www.759store.com/promotion.php" target="_blank">759</a>
+            </div>
+            <div>
+                <a class="blue" href="https://www.groupbuya.com/jetso/%E7%99%BE%E4%BD%B3" target="_blank">百佳</a><a class="red" href="https://www.groupbuya.com/jetso/%E8%B3%BC%E7%89%A9%2C%E6%83%A0%E5%BA%B7%E8%B6%85%E7%B4%9A%E5%B8%82%E5%A0%B4" target="_blank">惠康</a>
+            </div>
+            <div>
+                <a class="red" href="https://www.aeonstores.com.hk/promotion" target="_blank">吉之島</a><a class="green" href="https://www.yata.hk/tch/promotion/" target="_blank">一田</a><a class="light-red" href="https://www.citistore.com.hk/category/promotions/" target="_blank">千色</a>
+            </div>
+        </div>
+        <div class="blue icon">
+            <div>
+                <img src="image/home-icon/tv_schedule.png">
+            </div>
+            <div>
+                <a class="light-blue" href="https://viu.tv/epg/96" target="_blank">96</a><a class="light-blue" href="https://viu.tv/epg/99" target="_blank">99</a><a class="orange" href="https://nowplayer.now.com/tvguide?filterType=isSubscribed" target="_blank">now TV</a>
+            </div>
+            <div>
+                <a class="red" href="http://www.hkibchannel.com.hk/epg_chi.html" target="_blank">76</a><a class="red" href="https://hkopentv.com/epgs/" target="_blank">77</a><a href="http://epg.i-cable.com/ci/channel/epg/601/" target="_blank">有線體育</a>
+            </div>
+            <div>
+                <a href="https://programme.tvb.com/" target="_blank">CCTVB</a><a href="https://www.rthk.hk/tv?lang=zh-hant" target="_blank">港台</a>
+            </div>
+            <div>
+                <a href="http://epg.gdtv.cn/?c=3" target="_blank">廣東</a><a href="https://www.tdm.com.mo/zh-hant/program_list?台channel=6" target="_blank">TDM</a><a href="https://sports.cctv.com/epg/" target="_blank">CCTV</a>
+            </div>
+        </div>
+        <a class="orange" href="https://fairwood.order.place/crm/brand/600001/home" target="_blank"><img src="image/home-icon/fairwood.png">大快活</a>
+        <a href="hospital.html" class="light-red"><img src="image/home-icon/hospital.png">急症室等候時間</a>
+        <a href="kfc/index.html" class="red" target="_top"><img src="image/home-icon/kfc.png">KFC會員</a>
+        <a href="mcl/index.html" class="orange" target="_top"><img src="image/home-icon/mcl.png">MCL會員</a>
+        <a href="apk/app-debug-tv.apk" class="green" target="_blank"><img src="image/home-icon/tvstsk.png">TVSTSK</a>
+        <a href="https://www.handmadelicacy.com.hk" class="light-green" target="_blank"><img src="image/home-icon/hmd.png">知味手作</a>
+    </div>
+
+</body>
+
+</html>
