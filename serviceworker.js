@@ -6,6 +6,7 @@ const filesToCache = [
     "bus-kmb-eta.html",
     "work-eta.html",
     "mtr-lr-eta.html",
+    "mtr-bus-eta.html",
     "weather.html",
     "hospital.html",
 
@@ -67,7 +68,7 @@ const filesToCache = [
     "transport/sectional-tuen-yuen-tin.png",
 ];
 
-const swVersion = '1.111';
+const swVersion = '1.112';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

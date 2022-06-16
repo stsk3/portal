@@ -108,7 +108,7 @@
             const id = row;
 
             $.ajax({url: `https://rt.data.gov.hk/v1/transport/mtr/bus/getSchedule`, cache: false, 
-                         type: "POST", data: JSON.stringify({ routeName: routeName, busStopId: stopId, language: "zh" }), contentType: "application/json; charset=utf-8", dataType: "json", success: 
+                         type: "POST", data: JSON.stringify({ routeName: routeName, language: "zh" }), contentType: "application/json; charset=utf-8", dataType: "json", success: 
                 function (data) {
                     const jsonData = data;
 

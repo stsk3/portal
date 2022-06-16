@@ -1,0 +1,293 @@
+<html>
+
+<head>    
+    <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="transport/light_rail_station_list.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <style></style>
+    <script>
+        const mtrBusRotueMap = { "K73": {desc: "天恆至元朗西"}, "K74": {desc: "天恆至元朗西"}};
+        const routeMap = mtrBusRotueMap; //TODO
+        const refreshMap = {};  
+        const refreshInterval = 30000;
+
+        
+        var userLng = -1;
+        var userLat = -1;
+
+
+        function getRouteList() {
+            $('.busRouteInfo').hide();
+            $('#loadingDiv').show();
+
+            const tableId = '#listTable';
+
+            //Destroy old data
+            $(tableId + " > tbody").html("");
+
+            setTimeout(function(){ 
+                var html = '<thead>';
+                html += '<tr>';
+                html += '<th>路線</th>';
+                html += '<th>目的地</th>';
+                html += '</tr>';
+                html += '</thead>';
+
+                html += '<tbody>';
+                for (const [routeName, value] of Object.entries(routeMap)) {
+                    const desc = value.desc;
+                    //const serviceType = value.service_type;
+
+                    html += `<tr onclick="getRouteData('${routeName}')">`;
+                    html += '<td class="highlight">' + routeName + '</td>';
+                    html += '<td>' + desc + '</td>';
+                    html += '</tr>';
+                }
+                html += '</tbody>';
+
+                $(tableId).html(html);
+
+                initDataTable(tableId);
+
+                $('#loadingDiv').hide();
+            }, 100);
+       }
+
+
+        function getRouteData(routeName) {
+            clearRefreshMap();
+
+            const routeData = routeMap[routeName];
+
+            $("#busRouteInfo-Title").html("路線: ");
+            $("#busRouteInfo-Data").html(routeName + ": " + routeData.desc);
+            $('.busRouteInfo').show();
+
+
+            var html = `<div id="eta-${routeName}"></div>`;
+            getRouteETA(routeName);
+
+            $("#busStopList").html(html);
+        }
+
+
+        function getRouteETA(routeName) {      
+            const mapPoints = [];
+    
+            $.ajax({url: `https://rt.data.gov.hk/v1/transport/mtr/bus/getSchedule`, cache: false, 
+                         type: "POST", data: JSON.stringify({ routeName: routeName, language: "zh" }), contentType: "application/json; charset=utf-8", dataType: "json", success: 
+                function (data) {
+                    const jsonData = data;
+
+                    var html = '';
+                    var minDistance = 9999999;
+                    var minDistanceSeq = -1;
+
+                    const status = jsonData.status;
+                    const systemTime = jsonData.routeStatusTime;
+                    const routeStatus = jsonData.routeStatusRemarkTitle;
+                    const busStopList = jsonData.busStop;
+                    if (busStopList.length > 0) {
+                        $.each(busStopList, function (index, busStop) {
+                            const seq = index + 1;
+                            const busStopId = busStop.busStopId;          
+                            const busStopName = busStopId;//TODO
+                            const busStopLat = 0;//TODO
+                            const busStopLong = 0;//TODO
+
+                            const mapPopupName = busStopId;
+                            mapPoints.push([busStopLat, busStopLong, mapPopupName]); 
+
+                            const distance = calcCrow(busStopLat, busStopLong);
+                            if (distance != -1 && distance < minDistance) {
+                                minDistance = distance;
+                                minDistanceSeq = seq;
+                            }
+                            html += `<div class="busStopDiv" id="busStopDiv-${seq}">
+                                        <span>
+                                            <span class="busStopDiv-seq">${seq}.</span>
+                                            <span class="busStopDiv-name" onclick="selectMarker('${mapPopupName}');">${busStopName}</span>
+                                            <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
+                                            <span class="busStopDiv-distance">${distance != -1 ? distance + "米": ""}</span>
+                                        </span>
+                                    </div>`;
+
+                            const busList = busStop.bus;
+                            html += '<div class="etaDiv">';
+                            if (busList.length > 0) {
+                                var isFirst = true;
+                                $.each(busList, function (index2, record) {
+                                    const stopSeq = index2;
+                                    const arrivalTimeInSecond = record.arrivalTimeInSecond;
+                                    const arrivalTimeText = record.arrivalTimeText;
+                                    const departureTimeInSecond = record.departureTimeInSecond;
+                                    const departureTimeText = record.departureTimeText;
+                                    const timeInSecond = stopSeq == 1 ? departureTimeInSecond : arrivalTimeInSecond;
+                                    const timeText = stopSeq == 1 ? departureTimeText : arrivalTimeText;
+                                    const etaSeq = index2 + 1;
+                                    var etaText;
+                                    if (timeInSecond) { etaText = new Date(systemTime); etaText.setSeconds(timeInSecond) }
+                                    else etaText = "暫時沒有預定班次";
+                                    html += `<div class="operating">
+                                                <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-eta="${etaText}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(etaText, stopSeq)}</span>
+                                            </div>`;
+                                    isFirst = false;
+                                });
+                            } else {
+                                html += `<div class="operating"><div class="eta-detail seq1">${routeStatus ? routeStatus : "暫時沒有預定班次"}</div></div>`;
+                            }
+                            html += `</div>`;
+
+                    });
+                }
+
+
+                $(`#eta-refresh`).html("最後更新: " + getTimeFromTimestamp(systemTime));
+                $(`#eta-${routeName}`).show();
+                $(`#eta-${routeName}`).html(html);
+                $(`.etaDiv`).show();
+
+                if (refreshMap[routeName] === undefined) {
+                    var interval = setInterval(function() { getRouteETA(routeName); }, refreshInterval);
+                    refreshMap[routeName] = interval;
+                }
+            }});
+        }
+
+
+        function initDataTable(id) {
+            if ($.fn.DataTable.isDataTable(id))
+                $(id).DataTable().destroy();
+
+            $(id).DataTable({
+                "order": [[0, "asc"]],
+                paging: true,
+                "info": false,
+                "columnDefs": [
+                    { "className": "dt-center", "targets": "_all" }
+                ]
+            });
+
+            $('.bus-eta-page .dataTables_wrapper .dataTables_filter input').focus()
+        }
+
+        function clearRefreshMap() {
+            for (const [key, value] of Object.entries(refreshMap)) {
+                clearInterval(refreshMap[key]);
+                refreshMap[key] = undefined;
+            }
+        }
+
+        
+
+        //This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
+        function calcCrow(lat2, lon2) 
+        {
+            var lat1 = userLat;
+            var lon1 = userLng;
+            if (lat1 == -1 || lon1 == -1) {
+                return -1;
+            } else {
+                var R = 6371; // km
+                var dLat = toRad(lat2-lat1);
+                var dLon = toRad(lon2-lon1);
+                var lat1 = toRad(lat1);
+                var lat2 = toRad(lat2);
+
+                var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                    Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+                var d = R * c; //KM
+                var m = Math.round(d * 1000);
+                return m;
+             }
+       }
+
+        // Converts numeric degrees to radians
+        function toRad(Value) 
+        {
+            return Value * Math.PI / 180;
+        }
+
+
+
+        //function that gets the location and returns it
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                console.log("Geo Location not supported by browser");
+            }
+        }
+        //function that retrieves the position
+        function showPosition(position) {
+            var location = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            }
+            console.log(location);
+            userLat = location.latitude;
+            userLng = location.longitude;
+        }
+
+        $(document).ready(function () {
+            getRouteList();
+        });
+
+
+        $(document).ajaxStart(function () {
+            $('#loadingDiv').show();
+        });
+
+        $(document).ajaxComplete(function () {
+            $('#loadingDiv').hide();
+        });
+
+        function getTimeFromTimestamp(timestamp) {
+            const date = new Date(timestamp);
+            const hours = date.getHours(); 
+            const minutes = "0" + date.getMinutes();
+            const seconds = "0" + date.getSeconds();
+            const formattedTime = hours + ':' + minutes.substr(-2)+ ':' + seconds.substr(-2);
+            return formattedTime;
+        }
+        
+
+        function millisToMinutesAndSeconds(eta, stopSeq) {
+            if (eta) { 
+                const millis = (eta instanceof Date ? eta : new Date(eta)) - new Date();
+                if (millis > 0) { 
+                    var minutes = Math.floor(millis / 60000);
+                    var seconds = Math.floor(((millis % 60000) / 1000));
+                    return minutes + "分" + (seconds < 10 ? '0' : '') + seconds+ "秒";
+                } else if (!isNaN(millis)) {
+                    return stopSeq == 1 ? "已開出" : "已到站";
+                }
+            }
+            return eta;
+        }
+
+    </script>
+</head>
+
+<body class="bus-eta-page">
+    <br/>
+    <div id="loadingDiv">
+        Loading...
+    </div>
+    <div>
+        <table id="listTable" class="dataTable display"></table>
+        <div class="busRouteInfo">
+            <span id="busRouteInfo-Title"></span>
+            <span class="busRouteInfo-Data" id="busRouteInfo-Data"></span>
+            <div id="eta-refresh" class="refreshDiv">更新中...</div>
+            <div id="busStopList"></div>
+        </div>
+    </div>
+
+    <object type="text/html" data="footer.html"></object>
+</body>
+
+</html>

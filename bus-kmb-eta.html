@@ -69,9 +69,9 @@
                             const serviceType = record.service_type;
 
                             html += `<tr ${serviceType != 1 ? 'style="color: #BBBBBB"' : ''} onclick="clearRefreshMap(); getRouteBusStopList('${route}', '${bound}', '${serviceType}', '${dest}')">`;
-                            html += '<td class="highlight">' + record.route + `${serviceType != 1 ? "*" : ""}</td>`;
-                            html += '<td>' + record.orig_tc + '</td>';
-                            html += '<td class="highlight">➔ ' + record.dest_tc + '</td>';
+                            html += '<td class="highlight">' + route + `${serviceType != 1 ? "*" : ""}</td>`;
+                            html += '<td>' + orig_tc + '</td>';
+                            html += '<td class="highlight">➔ ' + dest_tc + '</td>';
                             html += '</tr>';
                         });
                         html += '</tbody>';

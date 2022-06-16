@@ -208,6 +208,10 @@ home.html
   margin: 0;
 }
 
+.home-page form {
+    display: inline-block;
+}
+
 .home-page #weather-bar {
   overflow: hidden;
   padding: 0px 5px;
