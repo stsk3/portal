@@ -70,8 +70,8 @@
 
                             html += `<tr ${serviceType != 1 ? 'style="color: #BBBBBB"' : ''} onclick="clearRefreshMap(); getRouteBusStopList('${route}', '${bound}', '${serviceType}', '${dest}')">`;
                             html += '<td class="highlight">' + route + `${serviceType != 1 ? "*" : ""}</td>`;
-                            html += '<td>' + orig_tc + '</td>';
-                            html += '<td class="highlight">➔ ' + dest_tc + '</td>';
+                            html += '<td>' + orig + '</td>';
+                            html += '<td class="highlight">➔ ' + dest + '</td>';
                             html += '</tr>';
                         });
                         html += '</tbody>';
