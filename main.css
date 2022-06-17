@@ -443,6 +443,10 @@ bus-eta.hhtml
     display: none;
 }
 
+.bus-eta-page .etaDiv.show {
+    display: block;
+}
+
 .bus-eta-page .etaDiv.bus-stop {
     padding-bottom: 10px;
     margin-bottom: 10px;

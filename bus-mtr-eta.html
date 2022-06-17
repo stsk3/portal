@@ -4,14 +4,14 @@
     <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
     <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="transport/light_rail_station_list.js"></script>
+    <script type="text/javascript" src="transport/mtr_bus_route_list.js"></script>
     <link rel="stylesheet" href="main.css">
     <style></style>
     <script>
-        const mtrBusRotueMap = { "K73": {desc: "天恆至元朗西"}, "K74": {desc: "天恆至元朗西"}};
-        const routeMap = mtrBusRotueMap; //TODO
+        const routeMap = mtrBusRotueMap;
         const refreshMap = {};  
         const refreshInterval = 30000;
+        const showSet = new Set()
 
         
         var userLng = -1;
@@ -58,6 +58,7 @@
 
         function getRouteData(routeName) {
             clearRefreshMap();
+            showSet.clear()
 
             const routeData = routeMap[routeName];
 
@@ -87,7 +88,7 @@
 
                     const status = jsonData.status;
                     const systemTime = jsonData.routeStatusTime;
-                    const routeStatus = jsonData.routeStatusRemarkTitle;
+                    const routeStatus = jsonData.routeStatusRemarkContent;
                     const busStopList = jsonData.busStop;
                     if (busStopList.length > 0) {
                         $.each(busStopList, function (index, busStop) {
@@ -97,6 +98,7 @@
                             const busStopLat = 0;//TODO
                             const busStopLong = 0;//TODO
 
+                            const divId = busStopId;
                             const mapPopupName = busStopId;
                             mapPoints.push([busStopLat, busStopLong, mapPopupName]); 
 
@@ -108,30 +110,29 @@
                             html += `<div class="busStopDiv" id="busStopDiv-${seq}">
                                         <span>
                                             <span class="busStopDiv-seq">${seq}.</span>
-                                            <span class="busStopDiv-name" onclick="selectMarker('${mapPopupName}');">${busStopName}</span>
+                                            <span class="busStopDiv-name" onclick="showEtaDiv('${divId}'); selectMarker('${mapPopupName}');">${busStopName}</span>
                                             <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
                                             <span class="busStopDiv-distance">${distance != -1 ? distance + "米": ""}</span>
                                         </span>
                                     </div>`;
 
                             const busList = busStop.bus;
-                            html += '<div class="etaDiv">';
+                            html += `<div id="${divId}" class="etaDiv">`;
                             if (busList.length > 0) {
                                 var isFirst = true;
                                 $.each(busList, function (index2, record) {
-                                    const stopSeq = index2;
                                     const arrivalTimeInSecond = record.arrivalTimeInSecond;
                                     const arrivalTimeText = record.arrivalTimeText;
                                     const departureTimeInSecond = record.departureTimeInSecond;
                                     const departureTimeText = record.departureTimeText;
-                                    const timeInSecond = stopSeq == 1 ? departureTimeInSecond : arrivalTimeInSecond;
-                                    const timeText = stopSeq == 1 ? departureTimeText : arrivalTimeText;
+                                    const timeInSecond = arrivalTimeInSecond > 10000 ? departureTimeInSecond : arrivalTimeInSecond;
+                                    const timeText = arrivalTimeInSecond > 10000 ? departureTimeText : arrivalTimeText;
                                     const etaSeq = index2 + 1;
                                     var etaText;
                                     if (timeInSecond) { etaText = new Date(systemTime); etaText.setSeconds(timeInSecond) }
                                     else etaText = "暫時沒有預定班次";
                                     html += `<div class="operating">
-                                                <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-eta="${etaText}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(etaText, stopSeq)}</span>
+                                                <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-eta="${etaText}" data-stop-seq="${seq}">${millisToMinutesAndSeconds(etaText, seq)}</span>
                                             </div>`;
                                     isFirst = false;
                                 });
@@ -141,13 +142,21 @@
                             html += `</div>`;
 
                     });
+                } else {
+                    html += `<div class="etaDiv show">`;
+                    html += `<div class="operating"><div class="eta-detail seq1">${routeStatus ? routeStatus : "暫時沒有預定班次"}</div></div>`;
+                    html += `</div>`;
                 }
 
 
                 $(`#eta-refresh`).html("最後更新: " + getTimeFromTimestamp(systemTime));
                 $(`#eta-${routeName}`).show();
                 $(`#eta-${routeName}`).html(html);
-                $(`.etaDiv`).show();
+
+                
+                for (let divId of showSet) {
+                    showEtaDiv(divId)
+                }
 
                 if (refreshMap[routeName] === undefined) {
                     var interval = setInterval(function() { getRouteETA(routeName); }, refreshInterval);
@@ -157,11 +166,25 @@
         }
 
 
+        function showEtaDiv(divId) {
+            let element = $(`#${divId}`);
+            if (element.is(":visible")) {
+                element.hide();
+                showSet.delete(divId)
+            }
+            else {
+                element.show();
+                showSet.add(divId)
+            }  
+        }
+
+
         function initDataTable(id) {
             if ($.fn.DataTable.isDataTable(id))
                 $(id).DataTable().destroy();
 
             $(id).DataTable({
+                "pageLength": 20,
                 "order": [[0, "asc"]],
                 paging: true,
                 "info": false,
@@ -235,6 +258,8 @@
         $(document).ready(function () {
             getLocation();
             getRouteList();
+
+            const updateTimeGapInterval = setInterval(updateTimeGap , 1000);
         });
 
 
@@ -245,6 +270,16 @@
         $(document).ajaxComplete(function () {
             $('#loadingDiv').hide();
         });
+
+
+        function updateTimeGap() {
+            const currentDateTime = new Date();
+            $(".eta-detail").each(function() {
+                const stopSeq = $(this).attr("data-stop-seq");
+                const eta = $(this).attr("data-eta");
+                $(this).html(millisToMinutesAndSeconds(eta, stopSeq));
+            });
+        }
 
         function getTimeFromTimestamp(timestamp) {
             const date = new Date(timestamp);
@@ -268,6 +303,12 @@
                 }
             }
             return eta;
+        }
+
+
+
+        function selectMarker(title) {
+            
         }
 
     </script>
