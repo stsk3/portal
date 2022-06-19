@@ -5,10 +5,12 @@
     <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
     <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="transport/mtr_bus_route_list.js"></script>
+    <script type="text/javascript" src="transport/mtr_bus_station_list.js"></script>
     <link rel="stylesheet" href="main.css">
     <style></style>
     <script>
         const routeMap = mtrBusRotueMap;
+        const stationMap = mtrBusStationMap;
         const refreshMap = {};  
         const refreshInterval = 30000;
         const showSet = new Set()
@@ -86,6 +88,8 @@
                     var minDistance = 9999999;
                     var minDistanceSeq = -1;
 
+                    var isChangedDirection = false;
+
                     const status = jsonData.status;
                     const systemTime = jsonData.routeStatusTime;
                     const routeStatus = jsonData.routeStatusRemarkContent;
@@ -93,10 +97,11 @@
                     if (busStopList.length > 0) {
                         $.each(busStopList, function (index, busStop) {
                             const seq = index + 1;
-                            const busStopId = busStop.busStopId;          
-                            const busStopName = busStopId;//TODO
-                            const busStopLat = 0;//TODO
-                            const busStopLong = 0;//TODO
+                            const busStopId = busStop.busStopId;
+                            const busStationData = stationMap[busStopId];
+                            const busStopName = (busStationData) ? busStationData.name : busStopId;
+                            const busStopLat = (busStationData) ? busStationData.lat : -1;
+                            const busStopLong = (busStationData) ? busStationData.long : -1;
 
                             const divId = busStopId;
                             const mapPopupName = busStopId;
@@ -106,6 +111,11 @@
                             if (distance != -1 && distance < minDistance) {
                                 minDistance = distance;
                                 minDistanceSeq = seq;
+                            }
+
+                            if (busStopId.includes("U") && !isChangedDirection) {
+                                isChangedDirection = true;
+                                html += "<hr />";
                             }
                             html += `<div class="busStopDiv" id="busStopDiv-${seq}">
                                         <span>
@@ -152,6 +162,7 @@
                 $(`#eta-refresh`).html("最後更新: " + getTimeFromTimestamp(systemTime));
                 $(`#eta-${routeName}`).show();
                 $(`#eta-${routeName}`).html(html);
+                $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
 
                 
                 for (let divId of showSet) {
@@ -210,7 +221,7 @@
         {
             var lat1 = userLat;
             var lon1 = userLng;
-            if (lat1 == -1 || lon1 == -1) {
+            if (lat1 == -1 || lon1 == -1 || lat2 == -1 || lon2 == -1) {
                 return -1;
             } else {
                 var R = 6371; // km
