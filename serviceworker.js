@@ -61,14 +61,17 @@ const filesToCache = [
     "script/leaflet.js",
     "script/leaflet.js.map",
     "script/leaflet.css",
+    "script/map-component.js",
 
     "transport/bus-route.js",
     "transport/light_rail_station_list.js",
+    "transport/mtr_bus_route_list.js",
+    "transport/mtr_bus_station_list.js",
     "transport/sectional-tko.png",
     "transport/sectional-tuen-yuen-tin.png",
 ];
 
-const swVersion = '1.114';
+const swVersion = '1.115';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
