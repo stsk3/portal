@@ -33,6 +33,12 @@ function calcCrow(lat2, lon2) {
 }
 
 
+// Converts numeric degrees to radians
+function toRad(Value) {
+    return Value * Math.PI / 180;
+}
+
+
 //function that gets the location and returns it
 function getLocation() {
     if (navigator.geolocation) {

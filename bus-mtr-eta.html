@@ -6,6 +6,8 @@
     <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="transport/mtr_bus_route_list.js"></script>
     <script type="text/javascript" src="transport/mtr_bus_station_list.js"></script>
+    <script type="text/javascript" src="script/leaflet.js"></script>
+    <script type="text/javascript" src="script/map-component.js"></script>
     <link rel="stylesheet" href="main.css">
     <style></style>
     <script>
@@ -15,7 +17,6 @@
         const refreshInterval = 30000;
         const showSet = new Set()
 
-        
         var userLng = -1;
         var userLat = -1;
 
@@ -23,13 +24,14 @@
         function getRouteList() {
             $('.busRouteInfo').hide();
             $('#loadingDiv').show();
+            setMapVisibility(false);
 
             const tableId = '#listTable';
 
             //Destroy old data
             $(tableId + " > tbody").html("");
 
-            setTimeout(function(){ 
+            //setTimeout(function(){ 
                 var html = '<thead>';
                 html += '<tr>';
                 html += '<th>路線</th>';
@@ -51,10 +53,11 @@
 
                 $(tableId).html(html);
 
+                initMap();
                 initDataTable(tableId);
 
                 $('#loadingDiv').hide();
-            }, 100);
+            //}, 100);
        }
 
 
@@ -150,8 +153,10 @@
                                 html += `<div class="operating"><div class="eta-detail seq1">${routeStatus ? routeStatus : "暫時沒有預定班次"}</div></div>`;
                             }
                             html += `</div>`;
-
-                    });
+                            
+                            addMarkersToMap(mapPoints);
+                        }
+                    );
                 } else {
                     html += `<div class="etaDiv show">`;
                     html += `<div class="operating"><div class="eta-detail seq1">${routeStatus ? routeStatus : "暫時沒有預定班次"}</div></div>`;
@@ -214,60 +219,7 @@
             }
         }
 
-        
-
-        //This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
-        function calcCrow(lat2, lon2) 
-        {
-            var lat1 = userLat;
-            var lon1 = userLng;
-            if (lat1 == -1 || lon1 == -1 || lat2 == -1 || lon2 == -1) {
-                return -1;
-            } else {
-                var R = 6371; // km
-                var dLat = toRad(lat2-lat1);
-                var dLon = toRad(lon2-lon1);
-                var lat1 = toRad(lat1);
-                var lat2 = toRad(lat2);
-
-                var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                    Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
-                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-                var d = R * c; //KM
-                var m = Math.round(d * 1000);
-                return m;
-             }
-       }
-
-        // Converts numeric degrees to radians
-        function toRad(Value) 
-        {
-            return Value * Math.PI / 180;
-        }
-
-
-
-        //function that gets the location and returns it
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                console.log("Geo Location not supported by browser");
-            }
-        }
-        //function that retrieves the position
-        function showPosition(position) {
-            var location = {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude
-            }
-            console.log(location);
-            userLat = location.latitude;
-            userLng = location.longitude;
-        }
-
         $(document).ready(function () {
-            getLocation();
             getRouteList();
 
             const updateTimeGapInterval = setInterval(updateTimeGap , 1000);
@@ -316,22 +268,31 @@
             return eta;
         }
 
-
-
-        function selectMarker(title) {
-            
-        }
-
     </script>
 </head>
 
 <body class="bus-eta-page">
+    <div id="menu-button">
+        地圖:
+        <label class="switch">
+            <input id="mapSwitch" type="checkbox" onchange="mapCheckboxChanged(event)">
+            <span class="slider"></span>
+        </label>
+    </div>
     <br/>
     <div id="loadingDiv">
         Loading...
     </div>
     <div>
         <table id="listTable" class="dataTable display"></table>
+        <div id="leaflet-map"> 
+            <div class="leaflet-bottom leaflet-right">
+                <div id="marker-legend">
+                    <button id="leaflet-map-enlarge-button" onclick="resizeMap()"><img src="image/map-marker/enlarge-button.png"></button>
+                    <button id="leaflet-map-gps-button" onclick="setViewToGpsLocation()"><img src="image/map-marker/gps-button.png"></button>
+                </div>
+            </div>
+        </div>
         <div class="busRouteInfo">
             <span id="busRouteInfo-Title"></span>
             <span class="busRouteInfo-Data" id="busRouteInfo-Data"></span>
