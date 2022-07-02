@@ -35,7 +35,7 @@
                             const dataTimestamp = record.data_timestamp;
 
                             if (dir == bound && seq == stopSeq) {
-                                var etaText;
+                                var etaText = "";
                                 if (eta) etaText = eta;
                                 else if (rmk != "暫停預報") etaText = "暫時沒有預定班次";
                                 html += `<div class="operating">
@@ -132,7 +132,7 @@
                                     const timeInSecond = stopSeq == 1 ? departureTimeInSecond : arrivalTimeInSecond;
                                     const timeText = stopSeq == 1 ? departureTimeText : arrivalTimeText;
                                     const etaSeq = index2 +1;
-                                    var etaText;
+                                    var etaText = "";
                                     if (timeInSecond) { etaText = new Date(systemTime); etaText.setSeconds(timeInSecond) }
                                     else etaText = "暫時沒有預定班次";
                                     html += `<div class="operating">

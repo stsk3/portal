@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="main.css">
     <style></style>
     <script>
+
         const busStopMap = {};
         const busStopGroupMap = {};
         const refreshMap = {};  
@@ -279,7 +280,7 @@
                             const dataTimestamp = record.data_timestamp;
 
                             if (dir == bound && seq == stopSeq) {
-                                var etaText;
+                                var etaText = "";
                                 if (eta) etaText = eta;
                                 else if (rmk != "暫停預報") etaText = "暫時沒有預定班次";
                                 html += `<div class="operating">
@@ -337,7 +338,7 @@
                             const routeSetId = route + "-" + dir + "-" + etaSeq;
 
                             if (!routeSet.has(routeSetId)) {
-                                var etaText;
+                                var etaText = "";
                                 if (eta) etaText = eta;
                                 else if (rmk != "暫停預報") etaText = "暫時沒有預定班次";
                                 html += `<div class="etaStop-seq-${etaSeq} ${!eta ? 'end' : 'operating'}">
@@ -521,6 +522,14 @@
                 });
            return result;
         }
+
+
+        // Converts numeric degrees to radians
+        function toRad(Value) 
+        {
+            return Value * Math.PI / 180;
+        }
+
 
     </script>
 </head>
