@@ -131,13 +131,18 @@
         <a href="weather.html" class="blue"><img src="image/home-icon/weather.png" id="weather-icon">天氣<br/><span id="temperature"></span></a>
         <a href="mtr-lr-eta.html" class="red"><img src="image/home-icon/mtr_lr_eta.png">輕黨鐵到站時間</a>
         <a href="bus-kmb-eta.html" class="light-green">
-            <img src="image/home-icon/bus_kmb_eta.png">九巴到站時間
+            <img src="image/home-icon/bus_kmb_eta.png">巴士到站時間
             <div style="padding-top: 5px">
                 <form action="bus-kmb-eta.html" method="get">
                     <input type="input" name="route" placeholder="64K" size="2" onclick="event.preventDefault()">
                 </form>
                 <form action="bus-kmb-eta.html" method="get">
                     <input type="input" name="stop" placeholder="喜利徑" size="3" onclick="event.preventDefault()">
+                </form>
+            </div>
+            <div>
+                <form action="bus-mtr-eta.html" method="get">
+                    <input type="submit" value="黨鐡" class="red">
                 </form>
             </div>
         </a>
@@ -162,9 +167,6 @@
             </div>
             <div>
                 <a class="blue" href="work-eta.html?type=0">番工💯</a><a class="light-blue" href="work-eta.html?type=2">B</a><a class="red" href="work-eta.html?type=1">放工😘</a><a class="light-red" href="work-eta.html?type=3">B</a>
-            </div>
-            <div>
-                <a href="bus-mtr-eta.html">MTR</a>
             </div>
         </div>
         <a href="bus-sectional-fare.html" class="light-blue"><img src="image/home-icon/bus_interchange.png">九巴區域性<br/>雙向分段收費計劃</a>

@@ -62,10 +62,10 @@ $Line = "busFArray.set('==元朗==', ````);"
 Add-Content -Path $FilePath -Value $Line
 AddRow($RouteArray)
 
-$RouteArray = @("80M","81K","85","88K","88X","280X","285")
-$Line = "busFArray.set('==火炭==', ````);"
-Add-Content -Path $FilePath -Value $Line
-AddRow($RouteArray)
+#$RouteArray = @("80M","81K","85","88K","88X","280X","285")
+#$Line = "busFArray.set('==火炭==', ````);"
+#Add-Content -Path $FilePath -Value $Line
+#AddRow($RouteArray)
 
 
     
