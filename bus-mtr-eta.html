@@ -5,21 +5,14 @@
     <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
     <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="transport/mtr_bus_route_list.js"></script>
-    <script type="text/javascript" src="transport/mtr_bus_station_list.js"></script>
     <script type="text/javascript" src="script/leaflet.js"></script>
     <script type="text/javascript" src="script/map-component.js"></script>
     <link rel="stylesheet" href="main.css">
     <style></style>
     <script>
-        const routeMap = mtrBusRotueMap;
-        const stationMap = mtrBusStationMap;
+        const routeMap = mtrBusRouteMap;
         const refreshMap = {};  
         const refreshInterval = 30000;
-        const showSet = new Set()
-
-        var userLng = -1;
-        var userLat = -1;
-
 
         function getRouteList() {
             $('.busRouteInfo').hide();
@@ -42,6 +35,7 @@
                 html += '<tbody>';
                 for (const [routeName, value] of Object.entries(routeMap)) {
                     const desc = value.desc;
+                    const isCircular = value.isCircular;
                     //const serviceType = value.service_type;
 
                     html += `<tr onclick="getRouteData('${routeName}')">`;
@@ -63,9 +57,9 @@
 
         function getRouteData(routeName) {
             clearRefreshMap();
-            showSet.clear()
 
             const routeData = routeMap[routeName];
+            const isCircular = routeData.isCircular;
 
             $("#busRouteInfo-Title").html("路線: ");
             $("#busRouteInfo-Data").html(routeName + ": " + routeData.desc);
@@ -73,106 +67,131 @@
 
 
             var html = `<div id="eta-${routeName}"></div>`;
-            getRouteETA(routeName);
+
+            //Print Stations
+            const mapPoints = {'A': [], 'B': []};
+
+            var minDistance = 9999999;
+            var minDistanceSeq = -1;
+
+            var busStopIdPrefix;
+            var count;
+            var countPrefix;
+            Object.keys(routeData.stations).map(function(key, index) {
+                const busStopId = key;
+                const busStationData = routeData.stations[busStopId];
+
+                const busStopName = busStationData.name;
+                const busStopLat = busStationData.lat;
+                const busStopLong = busStationData.long;
+
+                const currentBusStopIdPrefix = busStopId[busStopId.indexOf("-") + 1];
+                if (!busStopIdPrefix) {
+                    busStopIdPrefix = currentBusStopIdPrefix;
+                    html += "<hr />去程<input type='radio' value='A' name='mapSelectionButton' checked/>";
+                    count = 1;
+                    countPrefix = "A";
+                }
+                if (!isCircular && currentBusStopIdPrefix != busStopIdPrefix) {
+                    busStopIdPrefix = currentBusStopIdPrefix;
+                    html += "<hr />回程<input type='radio' value='B' name='mapSelectionButton'/>";
+                    count = 1;
+                    countPrefix = "B";
+                }
+
+                const seq = countPrefix + count++;
+
+                const divId = busStopId;
+                const mapPopupName = seq + " " + busStopName;
+                mapPoints[countPrefix].push([busStopLat, busStopLong, mapPopupName]); 
+
+                const distance = calcCrow(busStopLat, busStopLong);
+                if (distance != -1 && distance < minDistance) {
+                    minDistance = distance;
+                    minDistanceSeq = seq;
+                }
+
+                
+                html += `<div class="busStopDiv" id="busStopDiv-${seq}">
+                            <span>
+                                <span class="busStopDiv-seq">${seq}.</span>
+                                <span class="busStopDiv-name" onclick="showEtaDiv('${divId}'); selectMarker('${mapPopupName}');">${busStopName}</span>
+                                <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
+                                <span class="busStopDiv-distance">${distance != -1 ? distance + "米": ""}</span>
+                            </span>
+                        </div>
+                        <div id="${divId}" class="etaDiv">
+                            <div class="operating">
+                                <div class="eta-detail seq1">暫時沒有預定班次</div>
+                            </div>
+                        </div>`;
+
+                addMarkersToMap(mapPoints['A']);
+            });
 
             $("#busStopList").html(html);
+            $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
+
+            $("input[name='mapSelectionButton']").change(function() {
+                addMarkersToMap(mapPoints[$(this).val()]);
+            });
+
+            getRouteETA(routeName);
         }
 
 
-        function getRouteETA(routeName) {      
-            const mapPoints = [];
-    
+        function getRouteETA(routeName) {    
             $.ajax({url: `https://rt.data.gov.hk/v1/transport/mtr/bus/getSchedule`, cache: false, 
                          type: "POST", data: JSON.stringify({ routeName: routeName, language: "zh" }), contentType: "application/json; charset=utf-8", dataType: "json", success: 
                 function (data) {
                     const jsonData = data;
 
                     var html = '';
-                    var minDistance = 9999999;
-                    var minDistanceSeq = -1;
-
-                    var isChangedDirection = false;
 
                     const status = jsonData.status;
                     const systemTime = jsonData.routeStatusTime;
                     const routeStatus = jsonData.routeStatusRemarkContent;
                     const busStopList = jsonData.busStop;
+
+                    //Reset all eta
+                    $('.etaDiv').each(function(i, element) {
+                        element.innerHTML =`<div class="operating"><div class="operating"><div class="eta-detail seq1">${routeStatus ? routeStatus : "暫時沒有預定班次"}</div></div>`;
+                    });
+                    
+                    //Update ETA
                     if (busStopList.length > 0) {
                         $.each(busStopList, function (index, busStop) {
-                            const seq = index + 1;
-                            const busStopId = busStop.busStopId;
-                            const busStationData = stationMap[busStopId];
-                            const busStopName = (busStationData) ? busStationData.name : busStopId;
-                            const busStopLat = (busStationData) ? busStationData.lat : -1;
-                            const busStopLong = (busStationData) ? busStationData.long : -1;
-
-                            const divId = busStopId;
-                            const mapPopupName = busStopId;
-                            mapPoints.push([busStopLat, busStopLong, mapPopupName]); 
-
-                            const distance = calcCrow(busStopLat, busStopLong);
-                            if (distance != -1 && distance < minDistance) {
-                                minDistance = distance;
-                                minDistanceSeq = seq;
-                            }
-
-                            if (busStopId.includes("U") && !isChangedDirection) {
-                                isChangedDirection = true;
-                                html += "<hr />";
-                            }
-                            html += `<div class="busStopDiv" id="busStopDiv-${seq}">
-                                        <span>
-                                            <span class="busStopDiv-seq">${seq}.</span>
-                                            <span class="busStopDiv-name" onclick="showEtaDiv('${divId}'); selectMarker('${mapPopupName}');">${busStopName}</span>
-                                            <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
-                                            <span class="busStopDiv-distance">${distance != -1 ? distance + "米": ""}</span>
-                                        </span>
-                                    </div>`;
-
+                            const divId = busStop.busStopId;
                             const busList = busStop.bus;
-                            html += `<div id="${divId}" class="etaDiv">`;
+                            var html = ""
                             if (busList.length > 0) {
-                                var isFirst = true;
                                 $.each(busList, function (index2, record) {
                                     const arrivalTimeInSecond = record.arrivalTimeInSecond;
                                     const arrivalTimeText = record.arrivalTimeText;
+                                    const isTerminal = arrivalTimeInSecond > 10000;
+                                    const seq = isTerminal ? 1 : 0;
                                     const departureTimeInSecond = record.departureTimeInSecond;
                                     const departureTimeText = record.departureTimeText;
-                                    const timeInSecond = arrivalTimeInSecond > 10000 ? departureTimeInSecond : arrivalTimeInSecond;
-                                    const timeText = arrivalTimeInSecond > 10000 ? departureTimeText : arrivalTimeText;
+                                    const timeInSecond = isTerminal ? departureTimeInSecond : arrivalTimeInSecond;
+                                    const timeText = isTerminal ? departureTimeText : arrivalTimeText;
                                     const etaSeq = index2 + 1;
                                     var etaText;
                                     if (timeInSecond) { etaText = new Date(systemTime); etaText.setSeconds(timeInSecond) }
                                     else etaText = "暫時沒有預定班次";
                                     html += `<div class="operating">
-                                                <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-eta="${etaText}" data-stop-seq="${seq}">${millisToMinutesAndSeconds(etaText, seq)}</span>
+                                                <span class="eta-detail seq${etaSeq}" data-eta="${etaText}" data-stop-seq="${seq}">${millisToMinutesAndSeconds(etaText, seq)}</span>
                                             </div>`;
-                                    isFirst = false;
                                 });
-                            } else {
-                                html += `<div class="operating"><div class="eta-detail seq1">${routeStatus ? routeStatus : "暫時沒有預定班次"}</div></div>`;
+                                $(`#${divId}`).html(html)
                             }
-                            html += `</div>`;
-                            
-                            addMarkersToMap(mapPoints);
                         }
                     );
-                } else {
-                    html += `<div class="etaDiv show">`;
-                    html += `<div class="operating"><div class="eta-detail seq1">${routeStatus ? routeStatus : "暫時沒有預定班次"}</div></div>`;
-                    html += `</div>`;
                 }
 
 
                 $(`#eta-refresh`).html("最後更新: " + getTimeFromTimestamp(systemTime));
                 $(`#eta-${routeName}`).show();
                 $(`#eta-${routeName}`).html(html);
-                $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
-
-                
-                for (let divId of showSet) {
-                    showEtaDiv(divId)
-                }
 
                 if (refreshMap[routeName] === undefined) {
                     var interval = setInterval(function() { getRouteETA(routeName); }, refreshInterval);
@@ -186,21 +205,21 @@
             let element = $(`#${divId}`);
             if (element.is(":visible")) {
                 element.hide();
-                showSet.delete(divId)
             }
             else {
                 element.show();
-                showSet.add(divId)
             }  
         }
 
 
         function initDataTable(id) {
+            $('#initializingDiv').show();
+
             if ($.fn.DataTable.isDataTable(id))
                 $(id).DataTable().destroy();
 
             $(id).DataTable({
-                "pageLength": 20,
+                "pageLength": 25,
                 "order": [[0, "asc"]],
                 paging: true,
                 "info": false,
@@ -210,6 +229,9 @@
             });
 
             $('.bus-eta-page .dataTables_wrapper .dataTables_filter input').focus()
+
+            $('#initializingDiv').hide();
+            $('#menu-button').show();
         }
 
         function clearRefreshMap() {
@@ -280,6 +302,7 @@
         </label>
     </div>
     <br/>
+    <div id="initializingDiv">Initializing...</div>
     <div id="loadingDiv">
         Loading...
     </div>
@@ -288,8 +311,10 @@
         <div id="leaflet-map"> 
             <div class="leaflet-bottom leaflet-right">
                 <div id="marker-legend">
-                    <button id="leaflet-map-enlarge-button" onclick="resizeMap()"><img src="image/map-marker/enlarge-button.png"></button>
-                    <button id="leaflet-map-gps-button" onclick="setViewToGpsLocation()"><img src="image/map-marker/gps-button.png"></button>
+                    <button id="leaflet-map-enlarge-button" class="custom-button" onclick="resizeMap()"><img src="image/map-marker/enlarge-button.png"></button>
+                    <button id="leaflet-map-prev-button" class="custom-button" onclick="popupPrevNextMarker(false)"><img src="image/map-marker/prev-button.png"></button>
+                    <button id="leaflet-map-next-button" class="custom-button" onclick="popupPrevNextMarker(true)"><img src="image/map-marker/next-button.png"></button>
+                    <button id="leaflet-map-gps-button" class="custom-button" onclick="setViewToGpsLocation()"><img src="image/map-marker/gps-button.png"></button>
                 </div>
             </div>
         </div>

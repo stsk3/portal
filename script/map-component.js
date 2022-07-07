@@ -6,6 +6,7 @@ var leafletMap;
 var leafletMapStationMarkerMap = {};
 var leafletMapGPSMarkerLayer;
 const leafletMapMaxZoom = 17;
+var currentPopupTitle;
 
 var userLng = -1;
 var userLat = -1;
@@ -156,6 +157,7 @@ function clearMarkersFromMap() {
             value.remove();
         }
         leafletMapStationMarkerMap = {};
+        currentPopupTitle = null;
     }
 }
 
@@ -224,10 +226,13 @@ function addMarkersToMap(points) {
         let featureGroups = [];
         for (let i = 0; i < points.length; i++) {
             const [lat, lng, title] = points[i]; //
+            var popup = L.popup({
+                closeOnClick: false,
+              }).setContent(title);
             const marker = L.marker([lat, lng], {
                 opacity: 1.0,
                 icon: getMarkerIcon(lat, lng, title)
-            }).bindPopup(title);
+            }).bindPopup(popup);
             leafletMapStationMarkerMap[title] = marker;
             featureGroups.push(marker);
         }
@@ -252,8 +257,24 @@ function selectMarker(title) {
     if (isShowMap()) {
         const marker = leafletMapStationMarkerMap[title];
         if (marker) {
+            leafletMap.closePopup();
+            currentPopupTitle = title;
             marker.openPopup();
             leafletMap.setView(marker._latlng, leafletMapMaxZoom);
+        }
+    }
+}
+
+function popupPrevNextMarker(isNext) {
+    if (isShowMap()) {
+        const markerArray = Object.keys(leafletMapStationMarkerMap);
+        const markerArrayLength = markerArray.length;
+        if (markerArrayLength > 0) {
+            const currentPopupIndex = markerArray.indexOf(currentPopupTitle);
+            const futurePopupIndex = isNext ? 
+                (currentPopupIndex + 1) != markerArrayLength ? (currentPopupIndex + 1) : 0 :
+                (currentPopupIndex - 1) < 0 ? markerArrayLength - 1 : (currentPopupIndex - 1)
+            selectMarker(markerArray[futurePopupIndex]);
         }
     }
 }

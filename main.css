@@ -483,8 +483,7 @@ bus-eta.hhtml
   height: 500px !important;
 }
 
-.bus-eta-page #leaflet-map #leaflet-map-gps-button,
-.bus-eta-page #leaflet-map #leaflet-map-enlarge-button {
+.bus-eta-page #leaflet-map .custom-button{
   pointer-events: auto; 
   margin: 0 5 5 0;
 }

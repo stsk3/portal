@@ -37,6 +37,7 @@ const filesToCache = [
     "image/map-marker/birthday_2021.png",
     "image/map-marker/cockroach.png",
     "image/map-marker/cow.png",
+    "image/map-marker/enlarge-button.png",
     "image/map-marker/farm.png",
     "image/map-marker/flower.png",
     "image/map-marker/flower_group.png",
@@ -45,9 +46,11 @@ const filesToCache = [
     "image/map-marker/gps-button.png",
     "image/map-marker/grass.png",
     "image/map-marker/mushroom.png",
+    "image/map-marker/next-button.png",
     "image/map-marker/peach.png",
     "image/map-marker/pepeachristsky.png",
     "image/map-marker/pepeachristsky_love.png",
+    "image/map-marker/prev-button.png",
     "image/map-marker/shinchan.png",
     "image/map-marker/snoopy_blue.png",
     "image/map-marker/snoopy_yellow.png",
@@ -66,12 +69,11 @@ const filesToCache = [
     "transport/bus-route.js",
     "transport/light_rail_station_list.js",
     "transport/mtr_bus_route_list.js",
-    "transport/mtr_bus_station_list.js",
     "transport/sectional-tko.png",
     "transport/sectional-tuen-yuen-tin.png",
 ];
 
-const swVersion = '1.116';
+const swVersion = '1.120';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

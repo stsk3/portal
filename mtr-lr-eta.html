@@ -125,6 +125,8 @@
 
 
         function initDataTable(id) {
+            $('#initializingDiv').show();
+
             if ($.fn.DataTable.isDataTable(id))
                 $(id).DataTable().destroy();
 
@@ -138,6 +140,8 @@
             });
 
             $('.mtr-eta-page .dataTables_wrapper .dataTables_filter input').focus()
+
+            $('#initializingDiv').hide();
         }
 
         function clearRefreshMap() {
@@ -174,6 +178,7 @@
 
 <body class="mtr-eta-page">
     <br/>
+    <div id="initializingDiv">Initializing...</div>
     <div id="loadingDiv">
         Loading...
     </div>

@@ -428,6 +428,8 @@
 
 
         function initDataTable(id) {
+            $('#initializingDiv').show();
+
             if ($.fn.DataTable.isDataTable(id))
                 $(id).DataTable().destroy();
 
@@ -451,7 +453,7 @@
                 }
             });
 
-
+            $('#initializingDiv').hide();
             $('#menu-button').show();
         }
 
@@ -536,6 +538,7 @@
         </label>
     </div>
     <br/>
+    <div id="initializingDiv">Initializing...</div>
     <div id="loadingDiv">
         Loading...
     </div>
@@ -544,8 +547,10 @@
         <div id="leaflet-map"> 
             <div class="leaflet-bottom leaflet-right">
                 <div id="marker-legend">
-                    <button id="leaflet-map-enlarge-button" onclick="resizeMap()"><img src="image/map-marker/enlarge-button.png"></button>
-                    <button id="leaflet-map-gps-button" onclick="setViewToGpsLocation()"><img src="image/map-marker/gps-button.png"></button>
+                    <button id="leaflet-map-enlarge-button" class="custom-button" onclick="resizeMap()"><img src="image/map-marker/enlarge-button.png"></button>
+                    <button id="leaflet-map-prev-button" class="custom-button" onclick="popupPrevNextMarker(false)"><img src="image/map-marker/prev-button.png"></button>
+                    <button id="leaflet-map-next-button" class="custom-button" onclick="popupPrevNextMarker(true)"><img src="image/map-marker/next-button.png"></button>
+                    <button id="leaflet-map-gps-button" class="custom-button" onclick="setViewToGpsLocation()"><img src="image/map-marker/gps-button.png"></button>
                 </div>
             </div>
         </div>
