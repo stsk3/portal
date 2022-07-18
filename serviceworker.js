@@ -33,6 +33,8 @@ const filesToCache = [
     "image/home-icon/promotion.png",
     "image/home-icon/tvstsk.png",
 
+    "image/map-marker/anniversary_2021.png",
+    "image/map-marker/anniversary_2022.png",
     "image/map-marker/birthday_2020.png",
     "image/map-marker/birthday_2021.png",
     "image/map-marker/cockroach.png",
@@ -73,7 +75,7 @@ const filesToCache = [
     "transport/sectional-tuen-yuen-tin.png",
 ];
 
-const swVersion = '1.120';
+const swVersion = '1.121';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

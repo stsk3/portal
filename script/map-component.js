@@ -186,12 +186,18 @@ const snoopyYellowIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, po
 const birthday2020Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2020.png" });
 const birthday2021Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2021.png" });
 const birthdayIconGroup = [birthday2020Icon, birthday2021Icon];
+// Anniversary icon
+const anniversary2021Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/anniversary_2021.png" });
+const anniversary2022Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/anniversary_2022.png" });
+const anniversaryIconGroup = [anniversary2021Icon, anniversary2022Icon];
 function getMarkerIcon(lat, lng, title) {
     var dateObj = new Date();
     var month = dateObj.getMonth() + 1; //months from 1-12
     var day = dateObj.getDate();
     if (month == 1 && day == 31 || month == 9 && day == 25) {
         return birthdayIconGroup[Math.floor(Math.random() * birthdayIconGroup.length)];
+    } else if (month == 8 && day == 1) {
+        return anniversaryIconGroup[Math.floor(Math.random() * anniversaryIconGroup.length)];
     } else if (title.includes("農場") || title.includes("濕地") || title.includes("海洋")) {
         return farmIcon;
     } else if (title.includes("警署")) {
@@ -232,7 +238,7 @@ function addMarkersToMap(points) {
             const marker = L.marker([lat, lng], {
                 opacity: 1.0,
                 icon: getMarkerIcon(lat, lng, title)
-            }).bindPopup(popup);
+            }).bindPopup(popup).on('click', markerOnClick);
             leafletMapStationMarkerMap[title] = marker;
             featureGroups.push(marker);
         }
@@ -253,14 +259,18 @@ function addMarkersToMap(points) {
     }
 }
 
-function selectMarker(title) {
+function selectMarker(title, resetZoomLevel = true) {
     if (isShowMap()) {
         const marker = leafletMapStationMarkerMap[title];
         if (marker) {
             leafletMap.closePopup();
             currentPopupTitle = title;
             marker.openPopup();
-            leafletMap.setView(marker._latlng, leafletMapMaxZoom);
+            if (resetZoomLevel) {
+                leafletMap.setView(marker._latlng, leafletMapMaxZoom);
+            } else {
+                leafletMap.setView(marker._latlng);
+            }
         }
     }
 }
@@ -274,7 +284,7 @@ function popupPrevNextMarker(isNext) {
             const futurePopupIndex = isNext ? 
                 (currentPopupIndex + 1) != markerArrayLength ? (currentPopupIndex + 1) : 0 :
                 (currentPopupIndex - 1) < 0 ? markerArrayLength - 1 : (currentPopupIndex - 1)
-            selectMarker(markerArray[futurePopupIndex]);
+            selectMarker(markerArray[futurePopupIndex], false);
         }
     }
 }
@@ -286,6 +296,11 @@ function mapCheckboxChanged(event) {
         initMap();
     else
         destroyMap();
+}
+
+function markerOnClick(e) {
+    currentPopupTitle = this.getPopup().getContent();
+    //console.log(currentPopupTitle)
 }
 
 function isShowMap() {
