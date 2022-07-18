@@ -1,0 +1,69 @@
+<html>
+
+<head>    
+    <link rel="stylesheet" href="main.css">
+    <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
+
+    <script>
+        var currentDisplayDate = "";
+
+        function getData() {
+            $.ajax({url: `https://www.881903.com/api/news/recent/traffic?limit=15`, cache: false, success: 
+                function (data) {
+                    const jsonData = data;
+
+                    //const updateTime = jsonData.updateTime;
+                    //$('.list-sub-title').html("最後更新: " + updateTime);
+
+                    const records = jsonData.response.content;
+                    if (records.length > 0) {
+                        var html = '';
+                        $.each(records, function (index, record) {
+                            const title = record.title;
+                            const displayTS = record.display_ts;
+                            const displayDate = record.display_date;
+
+                            if (currentDisplayDate != displayDate) {
+                                currentDisplayDate = displayDate;
+                                html += `<hr/><div><b>${currentDisplayDate}</b></div>`;
+                            }
+
+                            html += `<div>${title}</div>`;
+                        });
+                        html += '</tbody>';
+                        $('.grid-1').html(html);
+                   }
+             }});
+        }
+
+
+
+        $(document).ajaxStart(function () {
+            $('#loadingDiv').show();
+        });
+
+        $(document).ajaxComplete(function () {
+            $('#loadingDiv').hide();
+        });
+
+        $(document).ready(function () {
+            getData();
+        });
+    </script>
+
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="list-title">交通消息</div>
+    <div id="loadingDiv">
+        Loading...
+    </div>
+    <div class="list-sub-title"></div>
+    <div class="list-body grid-1"></div>
+
+    <object type="text/html" data="footer.html"></object>
+</body>
+
+</html>

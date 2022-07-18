@@ -9,6 +9,7 @@ const filesToCache = [
     "mtr-lr-eta.html",
     "weather.html",
     "hospital.html",
+    "traffic-news.html",
 
     "footer.html",
 
@@ -28,6 +29,7 @@ const filesToCache = [
     "image/home-icon/mcl.png",
     "image/home-icon/weather.png",
     "image/home-icon/hospital.png",
+    "image/home-icon/traffic-news.png",
     "image/home-icon/tv_schedule.png",
     "image/home-icon/fairwood.png",
     "image/home-icon/promotion.png",
@@ -57,8 +59,16 @@ const filesToCache = [
     "image/map-marker/snoopy_blue.png",
     "image/map-marker/snoopy_yellow.png",
 
+    "image/loading/loading1.png",
+    "image/loading/loading2.png",
+    "image/loading/loading3.png",
+    "image/loading/loading4.png",
+    "image/loading/loading5.png",
+    "image/loading/loading6.png",
+
 
     "main.css",
+    "script/common.js",
     "manifest.json",
     "script/jquery.dataTables.min.css",
     "script/jquery.dataTables.min.js",
@@ -75,7 +85,7 @@ const filesToCache = [
     "transport/sectional-tuen-yuen-tin.png",
 ];
 
-const swVersion = '1.121';
+const swVersion = '1.130';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

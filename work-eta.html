@@ -74,7 +74,7 @@
                             html += `<div class="eta-platform">${platformId}號月台</div>`;
 
                             if (endServiceStatus && endServiceStatus == 1) {
-                                html += '<div class="etaDiv">列車服務已結束</div>';
+                                html += '<div class="etaDiv"><div class="operating"><span class="eta-detail seq1">列車服務已結束</span></div></div>';
                             } else if (routeList && routeList.length > 0) {
                                 html += '<div class="etaDiv">';
                                 $.each(routeList, function (index, route) {

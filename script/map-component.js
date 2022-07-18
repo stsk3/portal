@@ -66,7 +66,8 @@ function initMap() {
                 attributionControl: false,
                 zoomControl: true,
                 dragging: !L.Browser.mobile,
-                tap: !L.Browser.mobile
+                tap: !L.Browser.mobile,
+                doubleClickZoom: false
             });
             //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(leafletMap); //unlimited
             //L.tileLayer('https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=0942c800a2af4b9092eabaadb56bf511').addTo(leafletMap);

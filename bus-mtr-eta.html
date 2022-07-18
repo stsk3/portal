@@ -7,6 +7,7 @@
     <script type="text/javascript" src="transport/mtr_bus_route_list.js"></script>
     <script type="text/javascript" src="script/leaflet.js"></script>
     <script type="text/javascript" src="script/map-component.js"></script>
+    <script type="text/javascript" src="script/common.js"></script>
     <link rel="stylesheet" href="main.css">
     <style></style>
     <script>
@@ -242,6 +243,7 @@
         }
 
         $(document).ready(function () {
+            initializingGif();
             getRouteList();
 
             const updateTimeGapInterval = setInterval(updateTimeGap , 1000);
