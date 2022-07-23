@@ -114,6 +114,38 @@
         "func": "rtmp_hk04"
       },
       {
+        "title": "myTV SUPER直播足球1台(900)",
+        "cardImage": "mytv_live_soccer",
+        "func": "mytv_live_900",
+        "videoUrlList": [
+          "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT1_h264/__op/default/__f/manifest.mpd"
+        ]
+      },
+      {
+        "title": "myTV SUPER直播足球2台(901)",
+        "cardImage": "mytv_live_soccer",
+        "func": "mytv_live_901",
+        "videoUrlList": [
+          "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT2_h264/__op/default/__f/manifest.mpd"
+        ]
+      },
+      {
+        "title": "myTV SUPER直播足球3台(902)",
+        "cardImage": "mytv_live_soccer",
+        "func": "mytv_live_902",
+        "videoUrlList": [
+          "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT3_h264/__op/default/__f/manifest.mpd"
+        ]
+      },
+      {
+        "title": "myTV SUPER直播足球4台(903)",
+        "cardImage": "mytv_live_soccer",
+        "func": "mytv_live_903",
+        "videoUrlList": [
+          "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT4_h264/__op/default/__f/manifest.mpd"
+        ]
+      },
+      {
         "title": "NHK WORLD Premium",
         "cardImage": "sports_nhkworldpremium",
         "func": "tvfix_nhkworldpremium"
