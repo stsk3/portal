@@ -3,7 +3,7 @@ const filesToCache = [
     "home.html",
     "bus-interchange.html",
     "bus-sectional-fare.html",
-    "bus-kmb-eta.html",
+    "bus-eta.html",
     "bus-mtr-eta.html",
     "work-eta.html",
     "mtr-lr-eta.html",
@@ -83,9 +83,10 @@ const filesToCache = [
     "transport/mtr_bus_route_list.js",
     "transport/sectional-tko.png",
     "transport/sectional-tuen-yuen-tin.png",
+    "transport/sectional-north.png",
 ];
 
-const swVersion = '1.131';
+const swVersion = '1.140';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

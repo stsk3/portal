@@ -11,6 +11,14 @@
     <style></style>
     <script>
 
+        const BRAVO = 'citybus-nwfb';
+
+        var company;
+        var apiType;
+        var apiHost;
+        var apiVersion;
+
+
         const busStopMap = {};
         const busStopGroupMap = {};
         const refreshMap = {};  
@@ -31,7 +39,7 @@
             $(tableId + " > tbody").html("");
 
 
-            $.ajax({url: "https://data.etabus.gov.hk/v1/transport/kmb/route/", cache: true, success: 
+            $.ajax({url: `https://${apiHost}/transport/${apiType}/route/${company}`, cache: true, success: 
                 function (data) {
                     const jsonData = data;
 
@@ -57,14 +65,24 @@
                             const route = record.route;
                             const orig = record.orig_tc;
                             const dest = record.dest_tc;
-                            const bound = record.bound;
-                            const serviceType = record.service_type;
+                            const bound = record.bound ? record.bound : "O";
+                            const serviceType = record.service_type ? record.service_type : "";
+                            const isNotMain = isKMB() && serviceType != 1;
 
-                            html += `<tr ${serviceType != 1 ? 'style="color: #BBBBBB"' : ''} onclick="clearRefreshMap(); getRouteBusStopList('${route}', '${bound}', '${serviceType}', '${dest}')">`;
-                            html += '<td class="highlight">' + route + `${serviceType != 1 ? "*" : ""}</td>`;
+                            html += `<tr ${isNotMain ? 'style="color: #BBBBBB"' : ''} onclick="clearRefreshMap(); getRouteBusStopList('${route}', '${bound}', '${serviceType}', '${dest}')">`;
+                            html += '<td class="highlight">' + route + `${isNotMain ? "*" : ""}</td>`;
                             html += '<td>' + orig + '</td>';
                             html += '<td class="highlight">➔ ' + dest + '</td>';
                             html += '</tr>';
+
+                            if (isBRAVO()) {
+                                const bound = "I";
+                                html += `<tr ${isNotMain ? 'style="color: #BBBBBB"' : ''} onclick="clearRefreshMap(); getRouteBusStopList('${route}', '${bound}', '${serviceType}', '${orig}')">`;
+                                html += '<td class="highlight">' + route + `${isNotMain ? "*" : ""}</td>`;
+                                html += '<td>' + dest + '</td>';
+                                html += '<td class="highlight">➔ ' + orig + '</td>';
+                                html += '</tr>';
+                            }
                         });
                         html += '</tbody>';
 
@@ -127,10 +145,30 @@
        }
 
 
+        function getBusStop(id) {
+            $.ajax({url: `https://${apiHost}/transport/${apiType}/stop/${id}`, cache: true, async: false, success: 
+                function (data) {
+                    const jsonData = data;
+
+                    const record = jsonData.data;
+                    if (record) {
+                        const stop = record.stop;
+                        const name = record.name_tc;
+                        const nameEn = record.name_en;
+                        const lat = record.lat;
+                        const long = record.long;
+
+                        busStopMap[stop] = { 'name': name, 'nameEn': nameEn, 'lat': lat, 'long': long };
+                    }
+             }});
+       }
+
+
+
         function getRouteBusStopList(route, bound, serviceType, dest) {
             const mapPoints = [];
 
-            $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/route-stop/${route}/${bound == "I" ? "inbound" : "outbound"}/${serviceType}`, cache: true, success: 
+            $.ajax({url: `https://${apiHost}/transport/${apiType}/route-stop/${company}${route}/${bound == "I" ? "inbound" : "outbound"}/${serviceType}`, cache: true, success: 
                 function (data) {
                     const jsonData = data;
 
@@ -144,6 +182,10 @@
                             const route = record.route;
                             const seq = record.seq;
                             const stop = record.stop;
+
+                            if (isBRAVO() && !busStopMap[stop]) {
+                                getBusStop(stop);
+                            }
 
                             const busStopName = busStopMap[stop].name;
                             const busStopLat = busStopMap[stop].lat;
@@ -173,7 +215,7 @@
                                                <span>
                                                    <span class="busStopDiv-seq">${seq}.</span>
                                                    <span class="busStopDiv-name" onclick="getRouteETA('${route}', '${bound}', '${serviceType}', '${stop}', '${seq}'); selectMarker('${mapPopupName}');">${busStopName}</span>
-                                                   <span class="busStopDiv-other" onclick="getBusStopETA('${busStopGroupName}', '${divId}', false); selectMarker('${mapPopupName}'); ">🚏🚌</span>
+                                                   <span class="busStopDiv-other${isKMB()?'':'-hidden'}" onclick="getBusStopETA('${busStopGroupName}', '${divId}', false); selectMarker('${mapPopupName}'); ">🚏🚌</span>
                                                    <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
                                                    <span class="busStopDiv-distance">${distance != -1 ? distance + "米": ""}</span>
                                                </span>
@@ -189,6 +231,8 @@
                         $('.busRouteInfo').show();
 
                         addMarkersToMap(mapPoints);
+                   } else {
+                       $("#busStopList").html("沒有此路線");
                    }
              }});
         }
@@ -262,13 +306,13 @@
         function getRouteETA(route, bound, serviceType, stop, seq) {
             const id = seq + '-' + stop;
 
-            $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/eta/${stop}/${route}/${serviceType}`, cache: false, global: false, success: 
+            $.ajax({url: `https://${apiHost}/transport/${apiType}/eta/${company}${stop}/${route}/${serviceType}`, cache: false, global: false, success: 
                 function (data) {
                     const jsonData = data;
                     const currentTimestamp = jsonData.generated_timestamp;
 
                     const records = jsonData.data;
-                    if (records.length > 0) {
+                    if (records) {
                         var isFirst = true;
                         var html = '';
                         $.each(records, function (index, record) {
@@ -280,10 +324,10 @@
                             const rmk = record.rmk_tc;
                             const dataTimestamp = record.data_timestamp;
 
-                            if (dir == bound && seq == stopSeq) {
+                            if (dir == bound && (isBRAVO() || (isKMB() && seq == stopSeq))) {
                                 var etaText = "";
                                 if (eta) etaText = eta;
-                                else if (rmk != "暫停預報") etaText = "暫時沒有預定班次";
+                                else if (rmk != "暫停預報" && rmk != "九巴時段") etaText = "暫時沒有預定班次";
                                 html += `<div class="operating">
                                                  <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-eta="${etaText}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(etaText, stopSeq)}</span>
                                                  ${rmk}
@@ -291,6 +335,10 @@
                                 isFirst = false;
                             }
                         });
+
+                        if (isBRAVO() && !html) {
+                            html = `<div class="operating"><span class="eta-detail seq1">暫時沒有預定班次</span></div>`;
+                        }
 
 
                         $(`#${id}-refresh`).html("最後更新: " + getTimeFromTimestamp(jsonData.generated_timestamp));
@@ -316,7 +364,7 @@
         function getRouteBusStopETA(stop) {
             const id = '0-' + stop;
 
-            $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/${stop}`, cache: false, global: false, success: 
+            $.ajax({url: `https://${apiHost}/transport/${apiType}/stop-eta/${company}${stop}`, cache: false, global: false, success: 
                 function (data) {
                     const jsonData = data;
                     const currentTimestamp = jsonData.generated_timestamp;
@@ -362,7 +410,7 @@
 
 
         function initBusStop() {
-            $.getJSON("https://data.etabus.gov.hk/v1/transport/kmb/stop",
+            $.getJSON(`https://${apiHost}/transport/${apiType}/stop`,
                 function (data) {
                     const jsonData = data;
 
@@ -414,8 +462,8 @@
                     });
 
 
-                   const paramRoute = findGetParameter("route");
-                   const paramStop = findGetParameter("stop");
+                   const paramRoute = findGetParameter("route", null);
+                   const paramStop = findGetParameter("stop", null);
                    if (paramRoute) {
                        searchValue = paramRoute;
                        getRouteList();
@@ -468,7 +516,24 @@
 
         $(document).ready(function () {
             initializingGif();
-            initBusStop();
+
+            company = findGetParameter("company", "kmb");
+            apiType = company == "kmb" ? company : BRAVO;
+
+            if (isKMB()) {
+                apiHost = "data.etabus.gov.hk/v1";
+                company = "";
+
+                initBusStop();
+            } else if (isBRAVO()) {
+                apiHost = "rt.data.gov.hk/v1.1";
+                company = company + "/";
+
+                $('#routeButton').hide();
+                $('#stopButton').hide();
+
+                getRouteList();
+            }
             
             const updateTimeGapInterval = setInterval(updateTimeGap , 1000);
         });
@@ -516,8 +581,8 @@
         }
 
 
-        function findGetParameter(parameterName) {
-            var result = null,
+        function findGetParameter(parameterName, defaultValue) {
+            var result = defaultValue;
             tmp = [];
             location.search.substr(1).split("&")
                 .forEach(function (item) {
@@ -527,13 +592,21 @@
            return result;
         }
 
+        function isKMB() {
+            return apiType == "kmb";
+        }
+
+        function isBRAVO() {
+            return apiType == "citybus-nwfb";
+        }
+
     </script>
 </head>
 
 <body class="bus-eta-page">
     <div id="menu-button">
-        <button onclick="getRouteList()">巴士路線</button>
-        <button onclick="getBusStopList()">巴士站</button>
+        <button id="routeButton" onclick="getRouteList()">巴士路線</button>
+        <button id="stopButton" onclick="getBusStopList()">巴士站</button>
         地圖:
         <label class="switch">
             <input id="mapSwitch" type="checkbox" onchange="mapCheckboxChanged(event)">

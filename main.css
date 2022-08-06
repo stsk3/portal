@@ -435,6 +435,10 @@ bus-eta.hhtml
     padding: 0px 5px 0px 0px;
 }
 
+.bus-eta-page .busStopDiv .busStopDiv-other-hidden {
+    display: none;
+}
+
 .bus-eta-page .etaDiv {
     margin: 0px 5px;
     padding: 0px 5px;

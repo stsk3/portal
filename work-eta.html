@@ -10,12 +10,30 @@
         const busRefreshInterval = 30000;
         const lrRefreshInterval = 10000;
 
+
+        function getBusKMBRouteETA(route, bound, serviceType, stop, seq, row) {
+            const path = 'https://data.etabus.gov.hk/v1/transport/kmb/eta';
+            getBusRouteETA('kmb', path, route, bound, serviceType, stop, seq, row);
+        }
+
+        function getBusNWFBRouteETA(route, bound, stop, seq, row) {
+            const path = 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/eta/NWFB';
+            getBusRouteETA('citybus-nwfb', path, route, bound, '', stop, seq, row);
+        }
+
+        function getBusCTBRouteETA(route, bound, serviceType, stop, seq, row) {
+            const path = 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/eta/CTB';
+            getBusRouteETA('citybus-nwfb', path, route, bound, '', stop, seq, row);
+        }
        
 
-        function getBusRouteETA(route, bound, serviceType, stop, seq, row) {
+        function getBusRouteETA(company, path, route, bound, serviceType, stop, seq, row) {
             const id = row;
 
-            $.ajax({url: `https://data.etabus.gov.hk/v1/transport/kmb/eta/${stop}/${route}/${serviceType}`, cache: false, success: 
+            const isKMB = company == "kmb";
+            const isBRAVO = company == "citybus-nwfb";
+
+            $.ajax({url: `${path}/${stop}/${route}/${serviceType}`, cache: false, success: 
                 function (data) {
                     const jsonData = data;
                     var html = '';
@@ -23,7 +41,7 @@
                     const currentTimestamp = jsonData.generated_timestamp;
 
                     const records = jsonData.data;
-                    if (records.length > 0) {
+                    if (records) {
                         var isFirst = true;
                         $.each(records, function (index, record) {
                             const route = record.route;
@@ -34,10 +52,10 @@
                             const rmk = record.rmk_tc;
                             const dataTimestamp = record.data_timestamp;
 
-                            if (dir == bound && seq == stopSeq) {
+                            if (dir == bound && (isBRAVO || (isKMB && seq == stopSeq))) {
                                 var etaText = "";
                                 if (eta) etaText = eta;
-                                else if (rmk != "暫停預報") etaText = "暫時沒有預定班次";
+                                else if (rmk != "暫停預報" && rmk != "九巴時段") etaText = "暫時沒有預定班次";
                                 html += `<div class="operating">
                                                  <span class="eta-detail seq${isFirst ? '1' : etaSeq}" data-eta="${etaText}" data-stop-seq="${stopSeq}">${millisToMinutesAndSeconds(etaText, stopSeq)}</span>
                                                  ${rmk}
@@ -47,13 +65,17 @@
                         });
                    }
 
+                   if (isBRAVO && !html) {
+                       html = `<div class="operating"><span class="eta-detail seq1">暫時沒有預定班次</span></div>`;
+                   }
+
                    $(`#bus-${id}-refresh`).html("最後更新: " + getTimeFromTimestamp(jsonData.generated_timestamp));
                    $(`#bus-${id}`).removeClass("bus-stop");
                    $(`#bus-${id}`).show();
                    $(`#bus-${id}`).html(html);
              }});
 
-             setTimeout(function() { getBusRouteETA(route, bound, serviceType, stop, seq, row); }, busRefreshInterval);
+             setTimeout(function() { getBusRouteETA(company, path, route, bound, serviceType, stop, seq, row); }, busRefreshInterval);
         }
 
         function getLRStationETA(stationId) {
@@ -256,10 +278,10 @@
                 var i = 0;
 
                 createBusDiv(i, '269D ➔天富', '元朗狗屋')
-                getBusRouteETA('269D', 'I', '1', '1B0FD9C27F5FE0BE', '12', i++);
+                getBusKMBRouteETA('269D', 'I', '1', '1B0FD9C27F5FE0BE', '12', i++);
 
                 createBusDiv(i, '276 ➔天慈', '元朗康樂路 (S10)')
-                getBusRouteETA('276', 'I', '1', 'D9CE618F99BAC2B6', '6', i++);
+                getBusKMBRouteETA('276', 'I', '1', 'D9CE618F99BAC2B6', '6', i++);
 
                 createLRDiv('豐年路');
                 getLRStationETA(570);
@@ -270,10 +292,10 @@
                 var i = 0;
 
                 createBusDiv(i, '269D ➔瀝源, 拍卡!!', '天耀邨耀民樓')
-                getBusRouteETA('269D', 'O', '1', '0BC0F64B076ED373', '10', i++);
+                getBusKMBRouteETA('269D', 'O', '1', '0BC0F64B076ED373', '10', i++);
 
                 createBusDiv(i, '276 ➔上水, 拍卡!!', '天耀邨耀民樓')
-                getBusRouteETA('276', 'O', '1', '4BE4E6D4F5A06A51', '3', i++);
+                getBusKMBRouteETA('276', 'O', '1', '4BE4E6D4F5A06A51', '3', i++);
 
                 createLRDiv('天耀');
                 getLRStationETA(445);
@@ -283,73 +305,77 @@
             } else if (paramType == '2') {
                 var i = 0;
 
-                createBusDiv(i, '74C ➔觀塘碼頭', '太和站')
-                getBusRouteETA('74C', 'O', '1', '399EF919E10C7F33', '10', i++);
+                createBusDiv(i, '74X ➔觀塘碼頭', '大埔中心總站')
+                getBusKMBRouteETA('74X', 'O', '1', '7BECB2120CD69543', '1', i++);
 
-                createBusDiv(i, '307P ➔銅鑼灣(天后)', '太和站')
-                getBusRouteETA('307P', 'O', '1', '8C1810DE2419A30B', '2', i++);
+                createBusDiv(i, '75X ➔九龍城碼頭', '大埔中心總站')
+                getBusKMBRouteETA('75X', 'O', '1', '8C21D2D96DA6D045', '2', i++);
 
                 createBusDiv(i, '74X ➔觀塘碼頭', '大埔廣福道')
-                getBusRouteETA('74X', 'O', '1', '5734545592215022', '3', i++);
-
-                createBusDiv(i, '75X ➔九龍城碼頭', '寶湖花園')
-                getBusRouteETA('75X', 'O', '1', 'A47A663F7AF92B77', '4', i++);
-
-                createBusDiv(i, '307 ➔中環(渡輪碼頭)', '大埔寶鄉街')
-                getBusRouteETA('307', 'O', '1', '3CE4F8574F4F9D72', '3', i++);
+                getBusKMBRouteETA('74X', 'O', '1', '5734545592215022', '3', i++);
 
                 createBusDiv(i, '85X ➔紅磡(紅鸞道)', '大老山隧道')
-                getBusRouteETA('85X', 'O', '1', '3114213F8975F536', '11', i++);
+                getBusKMBRouteETA('85X', 'O', '1', '3114213F8975F536', '11', i++);
 
                 createBusDiv(i, '15 ➔紅磡(紅鸞道)', '采頤花園')
-                getBusRouteETA('15', 'O', '1', 'D1AAD1771F3FA9A0', '15', i++);
+                getBusKMBRouteETA('15', 'O', '1', 'D1AAD1771F3FA9A0', '15', i++);
             } else if (paramType == '3') {
                 var i = 0;
                 createBusDiv(i, '85X ➔馬鞍山市中心', '紅磡(紅鸞道)巴士總站')
-                getBusRouteETA('85X', 'I', '1', 'B452F1514B4FEE40', '1', i++);
-
-                createBusDiv(i, '297 ➔坑口(北)(將軍澳醫院) <采頤花園>', '紅磡(紅鸞道)巴士總站')
-                getBusRouteETA('297', 'I', '1', '58A2321139358155', '1', i++);
-
-                createBusDiv(i, '15 ➔平田 <景泰街>', '紅磡(紅鸞道)巴士總站')
-                getBusRouteETA('15', 'I', '1', '12C9A74EEAE58238', '1', i++);
+                getBusKMBRouteETA('85X', 'I', '1', 'B452F1514B4FEE40', '1', i++);
 
                 createBusDiv(i, '7B ➔樂富 <聖佐治大廈>', '紅磡(紅鸞道)巴士總站')
-                getBusRouteETA('7B', 'O', '1', 'ED18A55B2C83BAD2', '1', i++);
-
-                createBusDiv(i, '5D ➔紅磡(循環線) <景泰街>', '黃埔花園總站')
-                getBusRouteETA('5D', 'O', '1', '32A26FEADDED5A62', '21', i++);
+                getBusKMBRouteETA('7B', 'O', '1', 'ED18A55B2C83BAD2', '1', i++);
 
                 createBusDiv(i, '30X ➔荃灣(荃威花園) <九龍中央郵政局>', '黃埔花園總站')
-                getBusRouteETA('30X', 'I', '1', 'DE5FEC673BB54DC5', '1', i++);
+                getBusKMBRouteETA('30X', 'I', '1', 'DE5FEC673BB54DC5', '1', i++);
+
+                createBusDiv(i, '8P ➔尖沙咀(循環線) <香港文化中心>', '黃埔花園總站')
+                getBusKMBRouteETA('8P', 'O', '1', '75D6E5952B41E1D2', '2', i++);
             } else if (paramType == '4') {
                 var i = 0;
                 createBusDiv(i, '73 ➔粉嶺(華明)', '大埔寶鄉橋')
-                getBusRouteETA('73', 'I', '1', 'FDDA176977136CD9', '17', i++);
+                getBusKMBRouteETA('73', 'I', '1', 'FDDA176977136CD9', '17', i++);
 
                 createBusDiv(i, '73A ➔粉嶺(華明)', '大埔寶鄉橋')
-                getBusRouteETA('73A', 'I', '1', 'FDDA176977136CD9', '25', i++);
+                getBusKMBRouteETA('73A', 'I', '1', 'FDDA176977136CD9', '25', i++);
 
                 createBusDiv(i, '74D ➔九龍坑', '大埔寶鄉橋')
-                getBusRouteETA('74D', 'I', '1', 'FDDA176977136CD9', '23', i++);
+                getBusKMBRouteETA('74D', 'I', '1', 'FDDA176977136CD9', '23', i++);
 
                 createBusDiv(i, '64K ➔元朗(西)', '大埔寶鄉橋')
-                getBusRouteETA('64K', 'I', '1', 'DA30F5393480B81D', '4', i++);
+                getBusKMBRouteETA('64K', 'I', '1', 'DA30F5393480B81D', '4', i++);
 
                 createBusDiv(i, '64P ➔嘉道理農場', '大埔寶鄉橋')
-                getBusRouteETA('64P', 'O', '1', 'DA30F5393480B81D', '4', i++);
+                getBusKMBRouteETA('64P', 'O', '1', 'DA30F5393480B81D', '4', i++);
 
                 createBusDiv(i, '72 ➔大埔(太和)', '大埔廣福道')
-                getBusRouteETA('72', 'I', '1', 'C55F50E43F6108EB', '40', i++);
-
-                createBusDiv(i, '272E ➔大埔(太和)', '大埔廣福道')
-                getBusRouteETA('272E', 'I', '1', 'C55F50E43F6108EB', '18', i++);
+                getBusKMBRouteETA('72', 'I', '1', 'C55F50E43F6108EB', '40', i++);
 
                 createBusDiv(i, '907C ➔大埔頭', '大埔寶鄉橋')
-                getBusRouteETA('907C', 'I', '1', '530F970BB56D778D', '8', i++);
+                getBusKMBRouteETA('907C', 'I', '1', '530F970BB56D778D', '8', i++);
 
                 createBusDiv(i, 'E41 ➔大埔頭', '大埔寶鄉橋')
-                getBusRouteETA('E41', 'I', '1', '1F672A2CDE7D1F93', '15', i++);
+                getBusKMBRouteETA('E41', 'I', '1', '1F672A2CDE7D1F93', '15', i++);
+            } else if (paramType == '5') {
+                var i = 0;
+                createBusDiv(i, '968(九巴) ➔銅鑼灣(天后)', '元朗（西）總站')
+                getBusKMBRouteETA('968', 'O', '1', 'DAFFF59B0718B464', '1', i++);
+
+                createBusDiv(i, '904(九巴) ➔堅尼地城(卑路乍灣) <山道>', '西區海底隧道 (A4)')
+                getBusKMBRouteETA('904', 'O', '1', '0F5CEC693FD6EB66', '17', i++);
+
+                createBusDiv(i, '904(新巴) ➔堅尼地城 (卑路乍灣) <山道, 德輔道西>', '西區海底隧道收費廣場')
+                getBusNWFBRouteETA('904', 'I', '001070', '18', i++);
+
+                createBusDiv(i, '905(九巴) ➔會展站 <均益大廈第二期>', '西區海底隧道 (A4)')
+                getBusKMBRouteETA('905', 'O', '1', '0F5CEC693FD6EB66', '17', i++);
+
+                createBusDiv(i, '905(新巴) ➔會展站 <均益大廈第二期, 德輔道西>', '西區海底隧道收費廣場')
+                getBusNWFBRouteETA('905', 'I', '001629', '17', i++);
+
+                createBusDiv(i, '971(新巴) ➔香港仔 (石排灣) <山道, 德輔道西>', '西區海底隧道收費廣場')
+                getBusNWFBRouteETA('971', 'I', '001629', '17', i++);
             }
 
 
