@@ -86,7 +86,7 @@ const filesToCache = [
     "transport/sectional-north.png",
 ];
 
-const swVersion = '1.141';
+const swVersion = '1.142';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
