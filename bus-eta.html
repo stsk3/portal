@@ -146,7 +146,7 @@
 
 
         function getBusStop(id) {
-            $.ajax({url: `https://${apiHost}/transport/${apiType}/stop/${id}`, cache: true, async: false, success: 
+            return $.ajax({url: `https://${apiHost}/transport/${apiType}/stop/${id}`, cache: true, success: 
                 function (data) {
                     const jsonData = data;
 
@@ -164,7 +164,6 @@
        }
 
 
-
         function getRouteBusStopList(route, bound, serviceType, dest) {
             const mapPoints = [];
 
@@ -174,63 +173,77 @@
 
                     const records = jsonData.data;
                     if (records.length > 0) {
-                        var minDistance = 9999999;
-                        var minDistanceSeq = -1;
+                        var promises = [];
 
-                        var html = '';
-                        $.each(records, function (index, record) {
-                            const route = record.route;
-                            const seq = record.seq;
-                            const stop = record.stop;
+                        //Get bus station
+                        if (isBRAVO()) {
+                            $.each(records, function (index, record) {
+                                const stop = record.stop;
+                                if (!busStopMap[stop]) {
+                                    var request = getBusStop(stop);
+                                    promises.push( request);
+                                }
+                            });
+                        }
 
-                            if (isBRAVO() && !busStopMap[stop]) {
-                                getBusStop(stop);
-                            }
 
-                            const busStopName = busStopMap[stop].name;
-                            const busStopLat = busStopMap[stop].lat;
-                            const busStopLong = busStopMap[stop].long;
-                            const divId = seq + "-" + stop;
+                        $.when.apply(null, promises).done(function(){
+                            //alert('All done');
+                            var minDistance = 9999999;
+                            var minDistanceSeq = -1;
 
-                            var busStopGroupName = busStopName;
-                            var platform = busStopGroupName.match(regex);
-                            if (platform) {
-                                platform = platform[0];
-                                busStopGroupName = busStopGroupName.replace(platform, '').trim();
-                                platform = platform.replace('(', '').replace(')', '').trim();
-                                busStopGroupName = busStopGroupName + "(" + platform[0] + ")";
-                            }
+                            var html = '';
+                            $.each(records, function (index, record) {
+                                const route = record.route;
+                                const seq = record.seq;
+                                const stop = record.stop;
 
-                            const mapPopupName = seq + " " + busStopName;
-                            mapPoints.push([busStopLat, busStopLong, mapPopupName]); 
+                                const busStopName = busStopMap[stop].name;
+                                const busStopLat = busStopMap[stop].lat;
+                                const busStopLong = busStopMap[stop].long;
+                                const divId = seq + "-" + stop;
 
-                            const distance = calcCrow(busStopLat, busStopLong);
+                                var busStopGroupName = busStopName;
+                                var platform = busStopGroupName.match(regex);
+                                if (platform) {
+                                    platform = platform[0];
+                                    busStopGroupName = busStopGroupName.replace(platform, '').trim();
+                                    platform = platform.replace('(', '').replace(')', '').trim();
+                                    busStopGroupName = busStopGroupName + "(" + platform[0] + ")";
+                                }
 
-                            if (distance != -1 && distance < minDistance) {
-                                minDistance = distance;
-                                minDistanceSeq = seq;
-                            }
+                                const mapPopupName = seq + " " + busStopName;
+                                mapPoints.push([busStopLat, busStopLong, mapPopupName]); 
 
-                            html += `<div class="busStopDiv" id="busStopDiv-${seq}">
-                                               <span>
-                                                   <span class="busStopDiv-seq">${seq}.</span>
-                                                   <span class="busStopDiv-name" onclick="getRouteETA('${route}', '${bound}', '${serviceType}', '${stop}', '${seq}'); selectMarker('${mapPopupName}');">${busStopName}</span>
-                                                   <span class="busStopDiv-other${isKMB()?'':'-hidden'}" onclick="getBusStopETA('${busStopGroupName}', '${divId}', false); selectMarker('${mapPopupName}'); ">🚏🚌</span>
-                                                   <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
-                                                   <span class="busStopDiv-distance">${distance != -1 ? distance + "米": ""}</span>
-                                               </span>
-                                               <div id="${divId}-refresh" class="refreshDiv"></div>
-                                           </div>`;
-                            html += `<div id="${divId}" class="etaDiv"></div>`;
-                            $("#busRouteInfo-Title").html("路線: ");
-                            $("#busRouteInfo-Data").html(route + " ➔" + dest);
-                        });
+                                const distance = calcCrow(busStopLat, busStopLong);
 
-                        $("#busStopList").html(html);
-                        $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
-                        $('.busRouteInfo').show();
+                                if (distance != -1 && distance < minDistance) {
+                                    minDistance = distance;
+                                    minDistanceSeq = seq;
+                                }
 
-                        addMarkersToMap(mapPoints);
+                                html += `<div class="busStopDiv" id="busStopDiv-${seq}">
+                                                   <span>
+                                                       <span class="busStopDiv-seq">${seq}.</span>
+                                                       <span class="busStopDiv-name" onclick="getRouteETA('${route}', '${bound}', '${serviceType}', '${stop}', '${seq}'); selectMarker('${mapPopupName}');">${busStopName}</span>
+                                                       <span class="busStopDiv-other${isKMB()?'':'-hidden'}" onclick="getBusStopETA('${busStopGroupName}', '${divId}', false); selectMarker('${mapPopupName}'); ">🚏🚌</span>
+                                                       <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
+                                                       <span class="busStopDiv-distance">${distance != -1 ? distance + "米": ""}</span>
+                                                   </span>
+                                                   <div id="${divId}-refresh" class="refreshDiv"></div>
+                                               </div>`;
+                                html += `<div id="${divId}" class="etaDiv"></div>`;
+                                $("#busRouteInfo-Title").html("路線: ");
+                                $("#busRouteInfo-Data").html(route + " ➔" + dest);
+                            });
+
+                            $("#busStopList").html(html);
+                            $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
+                            $('.busRouteInfo').show();
+
+                            addMarkersToMap(mapPoints);
+                        })
+
                    } else {
                        $("#busStopList").html("沒有此路線");
                    }

@@ -209,12 +209,13 @@ function getMarkerIcon(lat, lng, title) {
         return pepeachristskyIcon;
     } else if (lat > 22.499862 && lat < 22.506404 && lng > 114.124999 && lng < 114.133139) {
         return pepeachristskyLoveIcon;
-    } else if (lat > 22.378108 && lat < 22.382899 && lng > 114.184857 && lng < 114.190576 ||
-        lat > 22.337514 && lat < 22.340208 && lng > 114.150742 && lng < 114.153199 ||
-        lat > 22.293074 && lat < 22.298610 && lng > 114.167096 && lng < 114.170694 ||
-        lat > 22.316337 && lat < 22.317684 && lng > 114.265320 && lng < 114.267037 ||
-        lat > 22.503357 && lat < 22.504148 && lng > 114.132813 && lng < 114.134248 ||
-        lat > 22.320862 && lat < 22.325913 && lng > 114.254699 && lng < 114.262062) {
+    } else if (lat > 22.378108 && lat < 22.382899 && lng > 114.184857 && lng < 114.190576 || //New Town Plaza (Movie)
+        lat > 22.337514 && lat < 22.340208 && lng > 114.150742 && lng < 114.153199 || //CSW (Movie)
+        lat > 22.293074 && lat < 22.298610 && lng > 114.167096 && lng < 114.170694 || //Habour City (7-11)
+        lat > 22.316337 && lat < 22.317684 && lng > 114.265320 && lng < 114.267037 || //Hang Hau (7-11)
+        lat > 22.503357 && lat < 22.504148 && lng > 114.132813 && lng < 114.134248 || //Tin Ping (Toy)
+        lat > 22.320862 && lat < 22.325913 && lng > 114.254699 && lng < 114.262062 || //Po Lam (Mall Event)
+        lat > 22.442450 && lat < 22.447124 && lng > 114.032903 && lng < 114.039520) { //YOHO (Movie)
         return shinchanIcon;
     } else if (lat > 22.444000 && lat < 22.446200 && lng > 114.022155 && lng < 114.026000) {
         return snoopyBlueIcon;

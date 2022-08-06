@@ -274,7 +274,7 @@
 
             const paramType = findGetParameter("type");
 
-            if (paramType == '0') {
+            if (paramType == '0') { //BB番工
                 var i = 0;
 
                 createBusDiv(i, '269D ➔天富', '元朗狗屋')
@@ -288,7 +288,7 @@
 
                 createBusDiv(i, 'K73 ➔天恆 ', '元朗西')
                 getMTRBusStationETA('K73', 'K73-D010', 1, i++);
-            } else if (paramType == '1') {
+            } else if (paramType == '1') { //BB放工
                 var i = 0;
 
                 createBusDiv(i, '269D ➔瀝源, 拍卡!!', '天耀邨耀民樓')
@@ -302,7 +302,7 @@
 
                 createBusDiv(i, 'K73 ➔元朗西 ', '天慈邨')
                 getMTRBusStationETA('K73', 'K73-U080', 8, i++);
-            } else if (paramType == '2') {
+            } else if (paramType == '2') { //B番工
                 var i = 0;
 
                 createBusDiv(i, '74X ➔觀塘碼頭', '大埔中心總站')
@@ -319,7 +319,10 @@
 
                 createBusDiv(i, '15 ➔紅磡(紅鸞道)', '采頤花園')
                 getBusKMBRouteETA('15', 'O', '1', 'D1AAD1771F3FA9A0', '15', i++);
-            } else if (paramType == '3') {
+
+                createBusDiv(i, '85X ➔紅磡(紅鸞道)', '采頤花園')
+                getBusKMBRouteETA('85X', 'O', '1', 'D1AAD1771F3FA9A0', '12', i++);
+            } else if (paramType == '3') { //B放工
                 var i = 0;
                 createBusDiv(i, '85X ➔馬鞍山市中心', '紅磡(紅鸞道)巴士總站')
                 getBusKMBRouteETA('85X', 'I', '1', 'B452F1514B4FEE40', '1', i++);
@@ -332,7 +335,7 @@
 
                 createBusDiv(i, '8P ➔尖沙咀(循環線) <香港文化中心>', '黃埔花園總站')
                 getBusKMBRouteETA('8P', 'O', '1', '75D6E5952B41E1D2', '2', i++);
-            } else if (paramType == '4') {
+            } else if (paramType == '4') { //B回家
                 var i = 0;
                 createBusDiv(i, '73 ➔粉嶺(華明)', '大埔寶鄉橋')
                 getBusKMBRouteETA('73', 'I', '1', 'FDDA176977136CD9', '17', i++);
@@ -357,25 +360,47 @@
 
                 createBusDiv(i, 'E41 ➔大埔頭', '大埔寶鄉橋')
                 getBusKMBRouteETA('E41', 'I', '1', '1F672A2CDE7D1F93', '15', i++);
-            } else if (paramType == '5') {
+            } else if (paramType == '5') { //BB往西環
                 var i = 0;
-                createBusDiv(i, '968(九巴) ➔銅鑼灣(天后)', '元朗（西）總站')
+                createBusDiv(i, '968 ➔銅鑼灣(天后)', '元朗（西）總站')
                 getBusKMBRouteETA('968', 'O', '1', 'DAFFF59B0718B464', '1', i++);
 
                 createBusDiv(i, '904(九巴) ➔堅尼地城(卑路乍灣) <山道>', '西區海底隧道 (A4)')
                 getBusKMBRouteETA('904', 'O', '1', '0F5CEC693FD6EB66', '17', i++);
 
-                createBusDiv(i, '904(新巴) ➔堅尼地城 (卑路乍灣) <山道, 德輔道西>', '西區海底隧道收費廣場')
-                getBusNWFBRouteETA('904', 'I', '001070', '18', i++);
+                createBusDiv(i, '904(新巴)', '西區海底隧道收費廣場')
+                getBusNWFBRouteETA('904', 'I', '001629', '17', i++);
 
                 createBusDiv(i, '905(九巴) ➔會展站 <均益大廈第二期>', '西區海底隧道 (A4)')
                 getBusKMBRouteETA('905', 'O', '1', '0F5CEC693FD6EB66', '17', i++);
 
-                createBusDiv(i, '905(新巴) ➔會展站 <均益大廈第二期, 德輔道西>', '西區海底隧道收費廣場')
+                createBusDiv(i, '905(新巴)', '西區海底隧道收費廣場')
                 getBusNWFBRouteETA('905', 'I', '001629', '17', i++);
 
-                createBusDiv(i, '971(新巴) ➔香港仔 (石排灣) <山道, 德輔道西>', '西區海底隧道收費廣場')
+                createBusDiv(i, '971 ➔香港仔 (石排灣) <山道>', '西區海底隧道收費廣場')
                 getBusNWFBRouteETA('971', 'I', '001629', '17', i++);
+            } else if (paramType == '6') { //BB離開西環
+                var i = 0;
+                createBusDiv(i, '904(九巴) ➔荔枝角', '均益大廈第二期')
+                getBusKMBRouteETA('904', 'I', '1', '1C6C94ABE1C78BBB', '7', i++);
+
+                createBusDiv(i, '904(新巴)', '均益大廈第二期, 德輔道西')
+                getBusNWFBRouteETA('904', 'O', '001192', '7', i++);
+
+                createBusDiv(i, '905(九巴) ➔荔枝角', '水街')
+                getBusKMBRouteETA('905', 'I', '1', 'B6606A91B6DE64E3', '13', i++);
+
+                createBusDiv(i, '905(新巴)', '水街, 德輔道西')
+                getBusNWFBRouteETA('905', 'O', '001069', '13', i++);
+
+                createBusDiv(i, '971 ➔海麗邨', '均益大廈第二期, 德輔道西')
+                getBusNWFBRouteETA('971', 'O', '001192', '29', i++);
+
+                createBusDiv(i, '968 ➔元朗(西)', '西區海底隧道 (B1)')
+                getBusKMBRouteETA('968', 'I', '1', 'AD97EA183A25102C', '12', i++);
+
+                createBusDiv(i, '968 ➔元朗(西)', '皇后街')
+                getBusKMBRouteETA('968', 'I', '1', '13E0A0449C73F4DE', '11', i++);
             }
 
 
