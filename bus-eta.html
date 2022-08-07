@@ -213,7 +213,7 @@
                                 }
 
                                 const mapPopupName = seq + " " + busStopName;
-                                mapPoints.push([busStopLat, busStopLong, mapPopupName]); 
+                                mapPoints.push([isBRAVO()? busStopLat.slice(0, -4) : busStopLat, busStopLong, mapPopupName]); 
 
                                 const distance = calcCrow(busStopLat, busStopLong);
 
