@@ -5,20 +5,20 @@
       {
         "title": "有線財經資訊台",
         "cardImage": "cablefinance",
-        "func": "cabletv_108",
-        "func2": "cableolympic_38"
+        "func": "cableolympic_38",
+        "func2": "cabletv_108"
       },
       {
         "title": "有線直播新聞台",
         "cardImage": "cablelivenews",
-        "func": "cabletv_10",
-        "func2": "cableolympic_39"
+        "func": "cableolympic_39",
+        "func2": "cabletv_10"
       },
       {
         "title": "有線新聞台",
         "cardImage": "cablenews",
-        "func": "cabletv_109",
-        "func2": "cableolympic_37"
+        "func": "cableolympic_37",
+        "func2": "cabletv_109"
       },
       {
         "title": "now新聞台",
@@ -216,14 +216,10 @@
     "header": "中共體育",
     "channelDataList": [
       {
-        "title": "廣東體育",
-        "cardImage": "sports_gdtv",
-        "func": "tvfix_gdtyhd"
-      },
-      {
         "title": "CCTV5体育",
         "cardImage": "cctv5",
         "func": "tvfix_cctv5hd",
+        "func2": "rtmp_cn021",
         "videoUrlList": [
           "http://39.135.138.60:18890/PLTV/88888910/224/3221225633/index.m3u8",
           "http://140.207.241.2:8080/live/program/live/cctv5hd/4000000/mnf.m3u8",
@@ -235,6 +231,7 @@
         "title": "CCTV5+体育赛事",
         "cardImage": "cctv5plus",
         "func": "tvfix_cctv5phd",
+        "func2": "rtmp_cn051",
         "videoUrlList": [
           "http://39.135.138.60:18890/PLTV/88888910/224/3221225649/index.m3u8",
           "http://140.207.241.2:8080/live/program/live/cctv5phd/4000000/mnf.m3u8"
