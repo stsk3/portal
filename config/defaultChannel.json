@@ -146,6 +146,14 @@
         ]
       },
       {
+        "title": "myTV SUPER直播足球5台(904)",
+        "cardImage": "mytv_live_soccer",
+        "func": "mytv_live_903",
+        "videoUrlList": [
+          "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT5_h264/__op/default/__f/manifest.mpd"
+        ]
+      },
+      {
         "title": "NHK WORLD Premium",
         "cardImage": "sports_nhkworldpremium",
         "func": "tvfix_nhkworldpremium"
