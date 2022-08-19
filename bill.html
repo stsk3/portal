@@ -1,0 +1,116 @@
+<html>
+
+<head>    
+    <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="script/common.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <style></style>
+    <script>
+        
+
+        $(document).ready(function() {
+            document.getElementById('create-new-record-date').valueAsDate = new Date();
+        });
+
+        $(document).on('submit', '#create-new-record', function(event){
+            event.preventDefault();
+            let form = event.target;
+            let formData = new FormData(form);
+            let jsonStringFormData = JSON.stringify(Object.fromEntries(formData));
+            console.log(jsonStringFormData);
+
+            const dataArray = [];
+            dataArray.push(jsonStringFormData);
+
+            createDataTable(dataArray);
+        });
+
+
+        function createDataTable(records) {
+            const tableId = "#listTable";
+
+            if (records.length > 0) {
+                var html = '<thead>';
+                html += '<tr>';
+                html += '<th>Date</th>';
+                html += '<th>Name</th>';
+                html += '<th>Price</th>';
+                html += '<th>Type</th>';
+                html += '<th>Remark</th>';
+                html += '</tr>';
+                html += '</thead>';
+
+                html += '<tbody>';
+                $.each(records, function (index, jsonString) {
+                    const record = JSON.parse(jsonString);
+                    const date = record.date;
+                    const name = record.name;
+                    const price = record.price;
+                    const type = record.type;
+                    const remark = record.remark;
+
+                    html += `<tr>`;
+                    html += '<td>' + date + '</td>';
+                    html += '<td>' + name + '</td>';
+                    html += '<td>' + price + '</td>';
+                    html += '<td>' + type + '</td>';
+                    html += '<td>' + remark + '</td>';
+                    html += '</tr>';
+
+                });
+                html += '</tbody>';
+                
+                $(tableId).html(html);
+
+                initDataTable(tableId);
+            }
+        }
+
+        
+        function initDataTable(id) {
+            if ($.fn.DataTable.isDataTable(id))
+                $(id).DataTable().destroy();
+
+            $(id).DataTable({
+                "order": [],
+                paging: true,
+                "info": false,
+                "columnDefs": [
+                    { "className": "dt-center", "targets": "_all" }
+                ],
+                "initComplete": function( settings, json ) {
+                    //$('.bus-eta-page .dataTables_wrapper .dataTables_filter input').focus()
+                }
+            });
+        }
+
+
+
+    </script>
+</head>
+
+<body class="bill-page">
+    <form id="create-new-record">
+        <input type="date" name="date" placeholder="Date" id="create-new-record-date"/>
+        <input type="text" name="name" placeholder="Name" required="true" value="aa"/>
+        <input type="number" name="price" placeholder="Price" step="0.1"/>
+        <select name="type" required="true">
+            <option value="" disabled>--Type--</option>
+            <option value="cash" selected>Card1</option>
+            <option value="card">Card2</option>
+        </select>
+        <input type="text" placeholder="Remark" name="remark"/>
+        <input type="submit" value="Create"/>
+    </form>
+
+    <div>
+        <table id="listTable" class="dataTable display"></table>
+    </div>
+    
+
+    <object type="text/html" data="footer.html"></object>
+</body>
+
+</html>
