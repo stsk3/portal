@@ -535,6 +535,23 @@ mtr-eta.hhtml
     color: red;
 }
 
-.bill-page #setting-div input[type="text"] {
+/**
+finance-bill.html
+**/
+.finance-bill-page #setting-div {
+   display: none;
+}
+
+.finance-bill-page #setting-div input[type="text"] {
    width:100%;
+}
+
+.finance-bill-page #total-price-div {
+  color: red;
+}
+
+.finance-bill-page #total-price-div,
+.finance-bill-page #header-div {
+  text-decoration: bold;
+  font-size: 30px;
 }

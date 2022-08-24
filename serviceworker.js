@@ -10,6 +10,7 @@ const filesToCache = [
     "weather.html",
     "hospital.html",
     "traffic-news.html",
+    "finance-bill.html",
 
     "footer.html",
 
@@ -34,6 +35,7 @@ const filesToCache = [
     "image/home-icon/fairwood.png",
     "image/home-icon/promotion.png",
     "image/home-icon/tvstsk.png",
+    "image/home-icon/finance_bill.png",
 
     "image/map-marker/anniversary_2021.png",
     "image/map-marker/anniversary_2022.png",
@@ -86,7 +88,7 @@ const filesToCache = [
     "transport/sectional-north.png",
 ];
 
-const swVersion = '1.144';
+const swVersion = '1.150';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

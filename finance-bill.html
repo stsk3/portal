@@ -1,0 +1,314 @@
+<html>
+
+<head>    
+    <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="script/common.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <style></style>
+    <script>
+        
+        var financeBillMap = new Map();
+        var currentMonth;
+        var paymentMethodList = [];
+        var typeList = [];
+
+        $(document).ready(function() {
+            //Get Data fron session
+            getFromSession(0);
+            getFromSession(1);
+            getFromSession(2);
+
+            //Layout
+            document.getElementById('create-new-record-date').valueAsDate = new Date();
+        });
+
+        $(document).on('submit', '#create-new-record', function(event){
+            event.preventDefault();
+            let form = event.target;
+            let formData = new FormData(form);
+            let mapKey = formData.get("date").split("-")[0] + formData.get("date").split("-")[1];
+            let jsonStringFormData = JSON.stringify(Object.fromEntries(formData));
+
+            saveToSession(0, jsonStringFormData, mapKey);
+            alert("加入成功");
+        });
+
+        $(document).on('submit', '#update-setting', function(event){
+            event.preventDefault();
+            let form = event.target;
+            let formData = new FormData(form);
+            
+            saveToSession(1, formData.get("setting-paymentMethod").split("|"));
+            saveToSession(2, formData.get("setting-type").split("|"));
+
+            $('#setting-div').hide();
+            alert("更新成功");
+        });
+
+        $(document).on('change', '#finance-bill-month-select', function(event){
+            currentMonth = $('#finance-bill-month-select').val();
+            refreshDataTable();
+        });
+
+        function getCurrentFinanceBillList() {
+            return financeBillMap.has(currentMonth) ? financeBillMap.get(currentMonth) : [];
+        } 
+
+        function removeFinanceBillListRow(index) {
+            if (confirm("你確定要移除嗎?")) {
+                saveToSession(0, index, currentMonth);
+                alert("移除成功");
+            }
+        }
+
+        function refreshSetting() {
+            //First time init
+            if (paymentMethodList.length == 0) {
+                saveToSession(1, new Array("現金", "中信Motion", "Citi Plus"));
+            }
+            if (typeList.length == 0) {
+                saveToSession(2, new Array("餐飲/網上(6%)", "網上", "拍卡", "其他"));
+            }
+
+            const paymentMethodSelectList = new Array($("#create-new-record-paymentMethod"), $("#filter-paymentMethod"));
+            paymentMethodSelectList.forEach((paymentMethodSelect) => {
+                paymentMethodSelect.empty();
+                paymentMethodSelect.append($('<option></option>').attr("value", "").text("-- 付款方法 --"));
+                paymentMethodList.forEach((item) => {
+                    var option = $('<option></option>').attr("value", item).text(item);
+                    paymentMethodSelect.append(option);
+                });
+            });
+
+            const typeSelectList = new Array($("#create-new-record-type"), $("#filter-type"));
+            typeSelectList.forEach((typeSelect) => {
+                typeSelect.empty()
+                typeSelect.append($('<option></option>').attr("value", "").text("-- 類別 --"));
+                typeList.forEach((item) => {
+                    var option = $('<option></option>').attr("value", item).text(item);
+                    typeSelect.append(option);
+                });
+            });
+        }
+
+
+        function refreshDataTable() {
+            const tableId = "#listTable";
+
+            const currentFinanceBillList = getCurrentFinanceBillList();
+            $("#header-div").html(currentMonth);
+
+            const filterPaymentMethod = $("#filter-paymentMethod").val();
+            const filterType = $("#filter-type").val();
+
+            var totalPrice = 0.00;
+
+            var html = '<tbody>';
+            $.each(currentFinanceBillList, function (index, jsonString) {
+                const record = JSON.parse(jsonString);
+                const date = record.date;
+                const name = record.name;
+                const price = record.price;
+                const paymentMethod = record.paymentMethod;
+                const type = record.type;
+                const remark = record.remark;
+
+                if ((!filterPaymentMethod || filterPaymentMethod == paymentMethod) &&
+                        (!filterType || filterType == type)) {
+                    html += `<tr>`;
+                    html += '<td>' + date + '</td>';
+                    html += '<td>' + name + '</td>';
+                    html += '<td>' + price + '</td>';
+                    html += '<td>' + paymentMethod + '</td>';
+                    html += '<td>' + type + '</td>';
+                    html += '<td>' + remark + '</td>';
+                    html += `<td><input type="button" value="移除" onclick="removeFinanceBillListRow(${index})"/></td>`;
+                    html += '</tr>';
+
+                    if (!isNaN(price)) {
+                        totalPrice += +price;
+                    }
+                }
+
+            });
+            html += '</tbody>';
+                
+            $(tableId).html(html);
+
+            $("#totalPrice").html(totalPrice.toFixed(2));
+
+            initDataTable(tableId);
+        }
+
+        
+        function initDataTable(id) {
+            if ($.fn.DataTable.isDataTable(id))
+                $(id).DataTable().destroy();
+
+            $(id).DataTable({
+                "order": [0,'asc'],
+                paging: true,
+                "info": false,
+                "columns": [{"title": "日期", "width":"10%"}, {"title": "項目", "width":"30%"}, 
+                    {"title": "價錢", "width":"10%"}, {"title": "付款方法", "width":"10%"}, 
+                    {"title": "類別", "width":"10%"}, {"title": "備注", "width":"20%"}, {"title": "", "width":"10%"}],
+                "columnDefs": [
+                    { "className": "dt-center", "targets": "_all" }
+                ],
+                "initComplete": function( settings, json ) {
+                    //$('.bus-eta-page .dataTables_wrapper .dataTables_filter input').focus()
+                }
+            });
+        }
+        
+        function saveToSession(type, data = null, key = null) {
+            const sessionKey = getSessionKey(type);
+            if (sessionKey != "") {
+                var value = "";
+                switch (type) {
+                    case 0:
+                        var financeBillList = financeBillMap.has(key) ? financeBillMap.get(key) : [];
+                        if (isNaN(data)) {
+                            financeBillList.push(data);
+                        } else {
+                            financeBillList.splice(data, 1);
+                        }
+                        financeBillMap.set(key, financeBillList);
+                        if (financeBillList.length == 0) {
+                            financeBillMap.delete(key);
+                        }
+                        value = JSON.stringify(Array.from(financeBillMap.entries()));
+                        break;
+                    case 1:
+                        paymentMethodList = data;
+                        value = paymentMethodList.join("|");
+                        break;
+                    case 2:
+                        typeList = data;
+                        value = typeList.join("|");
+                        break;
+                    default: 
+                        return;
+                }
+                localStorage.setItem(sessionKey, value);
+                getFromSession(type);
+            }
+        }
+        
+        function getFromSession(type) {
+            const key = getSessionKey(type);
+            const value = localStorage.getItem(key);
+
+            if (value) {
+                switch (type) {
+                    case 0:
+                        financeBillMap = new Map(JSON.parse(value));
+                        const financeBillMonthSelect = $("#finance-bill-month-select");
+                        financeBillMonthSelect.empty();
+                        financeBillMonthSelect.append($('<option></option>').attr("value", "").text("-- 月份 --"))
+                        Array.from(financeBillMap.keys()).sort().reverse().forEach((item) => {
+                            var option = $('<option></option>').attr("value", item).text(item);
+                            if (currentMonth == item || !currentMonth) {
+                                option.attr("selected", "selected");
+                                currentMonth = item;
+                            }
+                            financeBillMonthSelect.append(option);
+                        });       
+                        refreshDataTable();
+                        break;
+                    case 1:
+                        $("#setting-paymentMethod").val(value);
+                        paymentMethodList = value.split("|");
+                        refreshSetting();
+                        break;
+                    case 2:
+                        $("#setting-type").val(value);
+                        typeList = value.split("|");
+                        refreshSetting();
+                        break;
+                    default: 
+                        return;
+                }
+            }
+        }
+
+        function getSessionKey(type) {
+            switch (type) {
+                case 0:
+                    return "finance-bill-map";
+                case 1:
+                    return "finance-bill-payment-method-list";
+                case 2:
+                    return "finance-bill-type-list";
+                default: 
+                    return "";
+            }
+        }
+
+        function exportData() {
+            const text = JSON.stringify(Array.from(financeBillMap.entries())) + "\n\n" + paymentMethodList.join("|") + "\n\n" + typeList.join("|");
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', "stsk_finance_bill_export_" + new Date().toISOString().split("T")[0].replaceAll("-","") + ".txt");
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        }
+
+    </script>
+</head>
+
+<body class="finance-bill-page">
+
+    <form id="create-new-record">
+        <input type="date" name="date" placeholder="日期" id="create-new-record-date" required="true"/>
+        <input type="text" name="name" placeholder="項目" required="true"/>
+        <input type="number" name="price" placeholder="價錢" step="0.01" required="true"/>
+        <select name="paymentMethod" id="create-new-record-paymentMethod" required="true"></select>
+        <select name="type" id="create-new-record-type" required="true"></select>
+        <input type="text" placeholder="備注" name="remark"/>
+        <input type="submit" value="加入"/>
+    </form>
+
+    <hr />
+
+    <div id="header-div"></div>
+    <div id="total-price-div">
+        總數: $<span id="totalPrice">0.00</span>
+    </div>
+    <div id="list-filter-div">
+        <select name="finance-bill-month-select" id="finance-bill-month-select"></select>
+        <select name="paymentMethod" id="filter-paymentMethod" onchange="refreshDataTable()"></select>
+        <select name="type" id="filter-type" onchange="refreshDataTable()"></select>
+        <input type="button" id="refrsh-button" value="更新" onclick="refreshDataTable()"/>
+    </div>
+    <br/>
+    <div>
+        <table id="listTable" class="dataTable display"></table>
+    </div>
+    <hr />
+
+    <div id="menu-div">
+        <input type="button" id="setting-button" value="設定" onclick="$('#setting-div').show()"/>
+        <input type="button" id="setting-button" value="匯出" onclick="exportData()"/>
+    </div>
+
+    <div id="setting-div">
+        <form id="update-setting">
+            <div><label for="setting-paymentMethod">付款方法</label><input type="text" name="setting-paymentMethod" id="setting-paymentMethod" placeholder="現金|中信Motion|Citi Plus" required="true"/></div>
+            <div><label for="setting-type">類別</label><input type="text" name="setting-type" id="setting-type" placeholder="餐飲/網上(6%)|網上|拍卡|其他" required="true"/></div>
+            <div><input type="submit" value="更新"/></div>
+        </form>
+    </div>
+    
+
+    <object type="text/html" data="footer.html"></object>
+</body>
+
+</html>
