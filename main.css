@@ -542,7 +542,9 @@ finance-bill.html
    display: none;
 }
 
-.finance-bill-page #setting-div input[type="text"] {
+.finance-bill-page #setting-div input[type="text"],
+.finance-bill-page #create-new-record input, 
+.finance-bill-page #create-new-record select {
    width:100%;
 }
 
@@ -551,6 +553,7 @@ finance-bill.html
 }
 
 .finance-bill-page #total-price-div,
+.finance-bill-page #create-new-record,
 .finance-bill-page #header-div {
   text-decoration: bold;
   font-size: 30px;

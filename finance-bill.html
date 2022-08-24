@@ -20,6 +20,14 @@
             getFromSession(1);
             getFromSession(2);
 
+            //First time init
+            if (paymentMethodList.length == 0) {
+                saveToSession(1, new Array("現金", "中信Motion", "Citi Plus"));
+            }
+            if (typeList.length == 0) {
+                saveToSession(2, new Array("餐飲/網上(6%)", "網上", "拍卡", "其他"));
+            }
+
             //Layout
             document.getElementById('create-new-record-date').valueAsDate = new Date();
         });
@@ -64,14 +72,6 @@
         }
 
         function refreshSetting() {
-            //First time init
-            if (paymentMethodList.length == 0) {
-                saveToSession(1, new Array("現金", "中信Motion", "Citi Plus"));
-            }
-            if (typeList.length == 0) {
-                saveToSession(2, new Array("餐飲/網上(6%)", "網上", "拍卡", "其他"));
-            }
-
             const paymentMethodSelectList = new Array($("#create-new-record-paymentMethod"), $("#filter-paymentMethod"));
             paymentMethodSelectList.forEach((paymentMethodSelect) => {
                 paymentMethodSelect.empty();
@@ -267,6 +267,7 @@
 <body class="finance-bill-page">
 
     <form id="create-new-record">
+        新增
         <input type="date" name="date" placeholder="日期" id="create-new-record-date" required="true"/>
         <input type="text" name="name" placeholder="項目" required="true"/>
         <input type="number" name="price" placeholder="價錢" step="0.01" required="true"/>
