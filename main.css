@@ -534,3 +534,7 @@ mtr-eta.hhtml
     font-weight: bold;
     color: red;
 }
+
+.bill-page #setting-div input[type="text"] {
+   width:100%;
+}

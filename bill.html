@@ -9,45 +9,108 @@
     <style></style>
     <script>
         
+        var financeBillMap = new Map();
+        var currentFinanceBillList = [];
+        var paymentMethodList = [];
+        var typeList = [];
 
         $(document).ready(function() {
+            getFromSession(0);
+            getFromSession(1);
+            getFromSession(2);
+
+            $('#setting-div').hide()
+
             document.getElementById('create-new-record-date').valueAsDate = new Date();
+            refreshSetting();
+            refreshDataTable();
         });
 
         $(document).on('submit', '#create-new-record', function(event){
             event.preventDefault();
             let form = event.target;
             let formData = new FormData(form);
+            let mapKey = formData.get("date").split("-")[0] + formData.get("date").split("-")[1];
+            console.log("key:" + mapKey);
             let jsonStringFormData = JSON.stringify(Object.fromEntries(formData));
             console.log(jsonStringFormData);
 
-            const dataArray = [];
-            dataArray.push(jsonStringFormData);
-
-            createDataTable(dataArray);
+            var financeBillList;
+            if (financeBillMap.has(mapKey)) {
+                financeBillList = financeBillMap.get(mapKey);
+            } else {
+                financeBillList = [];
+            }
+            financeBillList.push(jsonStringFormData);
+            financeBillMap.set(mapKey, financeBillList);
+            saveToSession(0);
+            refreshDataTable();
         });
 
+        $(document).on('submit', '#update-setting', function(event){
+            event.preventDefault();
+            let form = event.target;
+            let formData = new FormData(form);
+            
+            paymentMethodList = formData.get("setting-paymentMethod").split("|");
+            saveToSession(1);
+            typeList = formData.get("setting-type").split("|");
+            saveToSession(2);
 
-        function createDataTable(records) {
+            refreshSetting();
+
+            $('#setting-div').hide()
+        });
+
+        function removeFinanceBillListRow(index) {
+            currentFinanceBillList.splice(index, 1);
+            saveToSession(0);
+            refreshDataTable();
+        }
+
+        function calculateTotal() {
+            var price = 0.00;
+            currentFinanceBillList.forEach((jsonString) => {
+                let record = JSON.parse(jsonString);
+                if (!isNaN(record.price)) {
+                    price += +record.price;
+                }
+            });
+            $("#totalPrice").html(price.toFixed(2));
+        }
+
+        function refreshSetting() {
+            const paymentMethodSelect = $("#create-new-record-paymentMethod");
+            paymentMethodSelect.empty();
+            paymentMethodSelect.append($('<option></option>').attr("value", "").text("-- Payment Method --"));
+            paymentMethodList.forEach((item) => {
+                var option = $('<option></option>').attr("value", item).text(item);
+                paymentMethodSelect.append(option);
+            });
+
+            const typeSelect = $("#create-new-record-type");
+            typeSelect.empty()
+            typeSelect.append($('<option></option>').attr("value", "Other").text("-- Type --"));
+            typeList.forEach((item) => {
+                var option = $('<option></option>').attr("value", item).text(item);
+                typeSelect.append(option);
+            });
+        }
+
+
+        function refreshDataTable() {
             const tableId = "#listTable";
 
-            if (records.length > 0) {
-                var html = '<thead>';
-                html += '<tr>';
-                html += '<th>Date</th>';
-                html += '<th>Name</th>';
-                html += '<th>Price</th>';
-                html += '<th>Type</th>';
-                html += '<th>Remark</th>';
-                html += '</tr>';
-                html += '</thead>';
+            currentFinanceBillList = financeBillMap.get("202208");
 
-                html += '<tbody>';
-                $.each(records, function (index, jsonString) {
+            if (currentFinanceBillList.length > 0) {
+                var html = '<tbody>';
+                $.each(currentFinanceBillList, function (index, jsonString) {
                     const record = JSON.parse(jsonString);
                     const date = record.date;
                     const name = record.name;
                     const price = record.price;
+                    const paymentMethod = record.paymentMethod;
                     const type = record.type;
                     const remark = record.remark;
 
@@ -55,8 +118,10 @@
                     html += '<td>' + date + '</td>';
                     html += '<td>' + name + '</td>';
                     html += '<td>' + price + '</td>';
+                    html += '<td>' + paymentMethod + '</td>';
                     html += '<td>' + type + '</td>';
                     html += '<td>' + remark + '</td>';
+                    html += `<td><input type="button" value="Remove" onclick="removeFinanceBillListRow(${index})"/></td>`;
                     html += '</tr>';
 
                 });
@@ -66,6 +131,8 @@
 
                 initDataTable(tableId);
             }
+
+            calculateTotal();
         }
 
         
@@ -74,9 +141,12 @@
                 $(id).DataTable().destroy();
 
             $(id).DataTable({
-                "order": [],
+                "order": [0,'asc'],
                 paging: true,
                 "info": false,
+                "columns": [{"title": "Date", "width":"10%"}, {"title": "Name", "width":"30%"}, 
+                    {"title": "Price", "width":"10%"}, {"title": "Payment Method", "width":"10%"}, 
+                    {"title": "Type", "width":"10%"}, {"title": "Remark", "width":"20%"}, {"title": "Remove", "width":"10%"}],
                 "columnDefs": [
                     { "className": "dt-center", "targets": "_all" }
                 ],
@@ -85,6 +155,62 @@
                 }
             });
         }
+        
+        function saveToSession(type) {
+            const key = getSessionKey(type);
+
+            if (key != "") {
+                var value = "";
+                switch (type) {
+                    case 0:
+                        value = JSON.stringify(Array.from(financeBillMap.entries()));
+                        break;
+                    case 1:
+                        value = paymentMethodList.join("|");
+                        break;
+                    case 2:
+                        value = typeList.join("|");
+                        break;
+                    default: 
+                        return;
+                }
+                localStorage.setItem(key, value);
+            }
+        }
+        
+        function getFromSession(type) {
+            const key = getSessionKey(type);
+            const value = localStorage.getItem(key);
+
+            if (value) {
+                switch (type) {
+                    case 0:
+                        financeBillMap = new Map(JSON.parse(value));
+                        break;
+                    case 1:
+                        paymentMethodList = value.split("|");
+                        break;
+                    case 2:
+                        typeList = value.split("|");
+                        break;
+                    default: 
+                        return;
+                }
+            }
+        }
+
+        function getSessionKey(type) {
+            switch (type) {
+                case 0:
+                    return "finance-bill-map";
+                case 1:
+                    return "finance-bill-payment-method-list";
+                case 2:
+                    return "finance-bill-type-list";
+                default: 
+                    return "";
+            }
+        }
 
 
 
@@ -92,21 +218,49 @@
 </head>
 
 <body class="bill-page">
+    <div id="menu-div">
+        <input type="button" id="refrsh-button" value="Refresh" onclick="refreshDataTable()"/>
+        <input type="button" id="setting-button" value="Setting" onclick="$('#setting-div').show()"/>
+    </div>
+
+    <hr/>
+
+    <div id="setting-div">
+        <form id="update-setting">
+            <div><label for="setting-paymentMethod">Payment Method</label><input type="text" name="setting-paymentMethod" placeholder="Card1|Card2|Card3" required="true" value="Cash|Card1|Card2|Card3""/></div>
+            <div><label for="setting-type">Type</label><input type="text" name="setting-type" placeholder="Food|Online|Tap|Other" required="true" value="Food|Online|Tap|Tap2|Other"/></div>
+            <div><input type="submit" value="Update"/></div>
+        </form>
+        <hr/>
+    </div>
+
     <form id="create-new-record">
         <input type="date" name="date" placeholder="Date" id="create-new-record-date"/>
         <input type="text" name="name" placeholder="Name" required="true" value="aa"/>
-        <input type="number" name="price" placeholder="Price" step="0.1"/>
-        <select name="type" required="true">
-            <option value="" disabled>--Type--</option>
-            <option value="cash" selected>Card1</option>
-            <option value="card">Card2</option>
+        <input type="number" name="price" placeholder="Price" step="0.01" value="22.9"/>
+        <select name="paymentMethod" id="create-new-record-paymentMethod" required="true">
+            <!--<option value="">--Payment Method--</option>
+            <option value="Cash" selected>Cash</option>
+            <option value="Card1">Card1</option>-->
+        </select>
+        <select name="type" id="create-new-record-type" required="true">
+            <!--<option value="Other" selected>--Type--</option>
+            <option value="Food">Food</option>
+            <option value="Online">Online</option>
+            <option value="Tap">Tap</option>
+            <option value="Other">Other</option>-->
         </select>
         <input type="text" placeholder="Remark" name="remark"/>
         <input type="submit" value="Create"/>
     </form>
 
+    <hr />
+
     <div>
         <table id="listTable" class="dataTable display"></table>
+    </div>
+    <div>
+        Total: <span id="totalPrice">0.00</span>
     </div>
     
 
