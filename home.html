@@ -121,7 +121,16 @@
         function getMemberInfo() {
             const memberPoint = localStorage.getItem("member-point");
             if (memberPoint) {
-                $('#member-info').html(memberPoint);
+                $('#member-info').html(memberPoint + "分");
+            }
+        }
+
+        function resetMemberPoint() {
+            if (confirm("想重新計過?")) {
+                localStorage.setItem("member-point", 0);
+                getMemberInfo();
+            } else {
+                alert("笑死🤣🤣🤣")
             }
         }
     </script>
@@ -130,9 +139,11 @@
 <body class="home-page">
 
     <div id="weather-bar">
-        <span id="version"></span>
         <img id="member-level-logo" src="image/icon.png"/>
-        <span id="member-info"></span>
+        <div id="top-right-bar">
+            <div id="member-info" onclick="resetMemberPoint()"></div>
+            <div id="version"></div>
+        </div>
         <span id="signal-bar"></span>
         <div id="swt-bar"></div>
     </div>
