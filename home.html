@@ -9,6 +9,7 @@
     <script>
 	    document.addEventListener("DOMContentLoaded", function(event) { 
 			$.ajaxSetup({ cache: false });
+            getMemberInfo();
 			getCurrentVersion();
 			getCurrentWeather();
 		});
@@ -116,6 +117,13 @@
                 }
             );
         }
+
+        function getMemberInfo() {
+            const memberPoint = localStorage.getItem("member-point");
+            if (memberPoint) {
+                $('#member-info').html(memberPoint);
+            }
+        }
     </script>
 </head>
 
@@ -123,6 +131,8 @@
 
     <div id="weather-bar">
         <span id="version"></span>
+        <img id="member-level-logo" src="image/icon.png"/>
+        <span id="member-info"></span>
         <span id="signal-bar"></span>
         <div id="swt-bar"></div>
     </div>

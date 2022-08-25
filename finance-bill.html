@@ -25,7 +25,7 @@
                 saveToSession(1, new Array("現金", "中信Motion", "Citi Plus"));
             }
             if (typeList.length == 0) {
-                saveToSession(2, new Array("餐飲/網上(6%)", "網上", "拍卡", "其他"));
+                saveToSession(2, new Array("指定類別", "指定類別2", "限時類別", "限時類別2", "其他"));
             }
 
             //Layout
@@ -98,7 +98,9 @@
             const tableId = "#listTable";
 
             const currentFinanceBillList = getCurrentFinanceBillList();
-            $("#header-div").html(currentMonth);
+            if (currentMonth) {
+                $("#header-div").html(currentMonth.slice(0, 4) + "年" + +currentMonth.slice(4) + "月");
+            }
 
             const filterPaymentMethod = $("#filter-paymentMethod").val();
             const filterType = $("#filter-type").val();
@@ -303,7 +305,7 @@
     <div id="setting-div">
         <form id="update-setting">
             <div><label for="setting-paymentMethod">付款方法</label><input type="text" name="setting-paymentMethod" id="setting-paymentMethod" placeholder="現金|中信Motion|Citi Plus" required="true"/></div>
-            <div><label for="setting-type">類別</label><input type="text" name="setting-type" id="setting-type" placeholder="餐飲/網上(6%)|網上|拍卡|其他" required="true"/></div>
+            <div><label for="setting-type">類別</label><input type="text" name="setting-type" id="setting-type" placeholder="指定類別|指定類別2|限時類別|限時類別2|其他" required="true"/></div>
             <div><input type="submit" value="更新"/></div>
         </form>
     </div>

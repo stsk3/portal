@@ -231,10 +231,17 @@ home.html
   text-decoration: none;
 }
 
-.home-page #version {
+.home-page #version,
+.home-page #member-level-logo,
+.home-page #member-info {
   vertical-align: top;
   float: right; 
   color: grey;
+}
+
+.home-page #member-level-logo {
+  width: 10px;
+  height: 10px;
 }
 
 .home-page .grid-container {
@@ -557,4 +564,8 @@ finance-bill.html
 .finance-bill-page #header-div {
   text-decoration: bold;
   font-size: 30px;
+}
+
+.finance-bill-page #header-div {
+  text-decoration: underline, bold;
 }

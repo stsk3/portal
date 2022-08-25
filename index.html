@@ -48,6 +48,15 @@
           }
           prevScrollpos = currentScrollPos;
         }
+
+        //update member point
+        const key = "member-point";
+        var memberPoint = localStorage.getItem(key);
+        if (!memberPoint) {
+          memberPoint = 0;
+        } 
+        localStorage.setItem(key, memberPoint + 1);
+
     </script>
 
 </head>
