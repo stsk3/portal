@@ -121,7 +121,7 @@
         function getMemberInfo() {
             const memberPoint = localStorage.getItem("member-point");
             if (memberPoint) {
-                $('#member-info').html(memberPoint + "分");
+                $('#member-info').html(memberPoint.split("|")[0] + "分");
             }
         }
 

@@ -51,11 +51,15 @@
 
         //update member point
         const key = "member-point";
-        var memberPoint = localStorage.getItem(key);
-        if (!memberPoint) {
-          memberPoint = 0;
-        } 
-        localStorage.setItem(key, +memberPoint + 1);
+        var memberInfo = localStorage.getItem(key);
+        var memberPoint = memberInfo ? memberInfo.split("|")[0] : 0;
+        var lastUpdateDate = memberInfo && memberInfo.length > 1 ? new Date(parseInt(memberInfo.split("|")[1])) : null;
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        if (!lastUpdateDate || today - lastUpdateDate >= 86400000) { //Date
+          localStorage.setItem(key, (+memberPoint + 1) + "|" + today.getTime());
+        }
+        
 
     </script>
 
