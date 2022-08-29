@@ -71,6 +71,10 @@
             }
         }
 
+        function updateFinanceBillListRowPaidStatus(element, index) {
+            saveToSession(3, element.checked, index);
+        }
+
         function refreshSetting() {
             const paymentMethodSelectList = new Array($("#create-new-record-paymentMethod"), $("#filter-paymentMethod"));
             paymentMethodSelectList.forEach((paymentMethodSelect) => {
@@ -116,6 +120,7 @@
                 const paymentMethod = record.paymentMethod;
                 const type = record.type;
                 const remark = record.remark;
+                const paid = record.paid;
 
                 if ((!filterPaymentMethod || filterPaymentMethod == paymentMethod) &&
                         (!filterType || filterType == type)) {
@@ -126,6 +131,7 @@
                     html += '<td>' + paymentMethod + '</td>';
                     html += '<td>' + type + '</td>';
                     html += '<td>' + remark + '</td>';
+                    html += `<td><input type="checkbox" onchange="updateFinanceBillListRowPaidStatus(this, ${index})" ${paid?"checked":""}/></td>`;
                     html += `<td><input type="button" value="移除" onclick="removeFinanceBillListRow(${index})"/></td>`;
                     html += '</tr>';
 
@@ -155,7 +161,8 @@
                 "info": false,
                 "columns": [{"title": "日期", "width":"10%"}, {"title": "項目", "width":"30%"}, 
                     {"title": "價錢", "width":"10%"}, {"title": "付款方法", "width":"10%"}, 
-                    {"title": "類別", "width":"10%"}, {"title": "備注", "width":"20%"}, {"title": "", "width":"10%"}],
+                    {"title": "類別", "width":"10%"}, {"title": "備注", "width":"15%"}, {"title": "", "width":"10%"},
+                    {"title": "已付", "width":"5%"}],
                 "columnDefs": [
                     { "className": "dt-center", "targets": "_all" }
                 ],
@@ -191,6 +198,15 @@
                         typeList = data;
                         value = typeList.join("|");
                         break;
+                    case 3:
+                        var financeBillList = getCurrentFinanceBillList();
+                        const item = JSON.parse(financeBillList[key]);
+                        item.paid = data;
+                        itemString = JSON.stringify(item);
+                        financeBillList.splice(key, 1, itemString);
+                        financeBillMap.set(currentMonth, financeBillList);
+                        value = JSON.stringify(Array.from(financeBillMap.entries()));
+                        break;
                     default: 
                         return;
                 }
@@ -217,7 +233,7 @@
                                 currentMonth = item;
                             }
                             financeBillMonthSelect.append(option);
-                        });       
+                        });
                         refreshDataTable();
                         break;
                     case 1:
@@ -230,6 +246,10 @@
                         typeList = value.split("|");
                         refreshSetting();
                         break;
+                    case 3:
+                        //financeBillMap = new Map(JSON.parse(value));
+                        //refreshDataTable();
+                        break;
                     default: 
                         return;
                 }
@@ -239,6 +259,7 @@
         function getSessionKey(type) {
             switch (type) {
                 case 0:
+                case 3:
                     return "finance-bill-map";
                 case 1:
                     return "finance-bill-payment-method-list";
@@ -276,6 +297,7 @@
         <select name="paymentMethod" id="create-new-record-paymentMethod" required="true"></select>
         <select name="type" id="create-new-record-type" required="true"></select>
         <input type="text" placeholder="備注" name="remark"/>
+        <!--已付<input type="checkbox" name="paid"/>-->
         <input type="submit" value="加入"/>
     </form>
 
