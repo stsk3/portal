@@ -212,21 +212,26 @@ home.html
     display: inline-block;
 }
 
-.home-page #weather-bar {
+.home-page #nav-bar {
   overflow: hidden;
   padding: 0px 5px;
   background-color: #F7E282;
   font-size:10px;
 }
 
-.home-page #weather-bar #swt-bar {
-  padding: 0px 5px;
+.home-page #nav-bar #swt-bar {
   overflow: hidden;
+  padding: 0px 5px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.home-page #weather-bar a {
+.home-page #nav-bar #weather-bar {
+  float: left;
+  width: 100%;
+}
+
+.home-page #nav-bar a {
   color: red;
   text-decoration: none;
 }
@@ -238,7 +243,7 @@ home.html
 }
 
 .home-page #member-info {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 
