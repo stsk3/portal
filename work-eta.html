@@ -368,10 +368,10 @@
                 createBusDiv(i, '968 ➔銅鑼灣(天后)', '元朗（西）總站')
                 getBusKMBRouteETA('968', 'O', '1', 'DAFFF59B0718B464', '1', i++);
 
-                createBusDiv(i, '904(九巴) ➔堅尼地城(卑路乍灣) <山道>', '西區海底隧道 (A4)(1205-1305)')
+                createBusDiv(i, '904(九巴) ➔堅尼地城(卑路乍灣) <山道>', '西區海底隧道 (A4)(1430-1530)')
                 getBusKMBRouteETA('904', 'O', '1', '0F5CEC693FD6EB66', '17', i++);
 
-                createBusDiv(i, '905(九巴) ➔會展站 <均益大廈第二期>', '西區海底隧道 (A4)(1115-1220)')
+                createBusDiv(i, '905(九巴) ➔會展站 <均益大廈第二期>', '西區海底隧道 (A4)(1625-1746)')
                 getBusKMBRouteETA('905', 'O', '1', '0F5CEC693FD6EB66', '17', i++);
 
                 createBusDiv(i, '904(新巴)', '西區海底隧道收費廣場')
@@ -384,10 +384,10 @@
                 getBusNWFBRouteETA('971', 'I', '001629', '17', i++);
             } else if (paramType == '6') { //BB離開西環
                 var i = 0;
-                createBusDiv(i, '904(九巴) ➔荔枝角', '均益大廈第二期(1525-1625)')
+                createBusDiv(i, '904(九巴) ➔荔枝角', '均益大廈第二期(1752-1846)')
                 getBusKMBRouteETA('904', 'I', '1', '1C6C94ABE1C78BBB', '7', i++);
 
-                createBusDiv(i, '905(九巴) ➔荔枝角 <對面>', '山道(1457-1602)')
+                createBusDiv(i, '905(九巴) ➔荔枝角 <對面>', '山道(1732-1850)')
                 getBusKMBRouteETA('905', 'I', '1', '07E603DFCBEAEA77', '14', i++);
 
                 createBusDiv(i, '968 ➔元朗(西)', '西區海底隧道 (B1)')
@@ -415,6 +415,9 @@
     <br/>
     <div id="loadingDiv">
         Loading...
+    </div>
+    <div>
+        <input type="button" value="更新" onclick="location.reload()" />
     </div>
 
     <div id="content"></div>
