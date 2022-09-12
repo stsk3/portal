@@ -65,7 +65,7 @@
                         });
                    }
 
-                   if (isBRAVO && !html) {
+                   if (!html) {
                        html = `<div class="operating"><span class="eta-detail seq1">暫時沒有預定班次</span></div>`;
                    }
 
@@ -368,36 +368,42 @@
                 createBusDiv(i, '968 ➔銅鑼灣(天后)', '元朗（西）總站')
                 getBusKMBRouteETA('968', 'O', '1', 'DAFFF59B0718B464', '1', i++);
 
-                createBusDiv(i, '904(九巴) ➔堅尼地城(卑路乍灣) <山道>', '西區海底隧道 (A4)[平日1702-1754,假日0950-1030|1550-1630]')
+                createBusDiv(i, '904(九巴) ➔堅尼地城(卑路乍灣) <山道>', '西區海底隧道 (A4)[平日1535/1715,假日1030/1100|1630/1700]')
                 getBusKMBRouteETA('904', 'O', '1', '0F5CEC693FD6EB66', '17', i++);
 
-                createBusDiv(i, '905(九巴) ➔會展站 <均益大廈第二期>', '西區海底隧道 (A4)[平日1625-1746,假日0928-1021|1646-1749]')
+                createBusDiv(i, '905(九巴) ➔會展站 <均益大廈第二期>', '西區海底隧道 (A4)[平日1655/1710,假日1020|1645/1700]')
                 getBusKMBRouteETA('905', 'O', '1', '0F5CEC693FD6EB66', '17', i++);
 
-                createBusDiv(i, '904(新巴)', '西區海底隧道收費廣場')
+                createBusDiv(i, '904(新巴) ➔堅尼地城(卑路乍灣) <山道>', '西區海底隧道收費廣場')
                 getBusNWFBRouteETA('904', 'I', '001629', '17', i++);
 
-                createBusDiv(i, '905(新巴)', '西區海底隧道收費廣場')
+                createBusDiv(i, '905(新巴) ➔會展站 <均益大廈第二期>', '西區海底隧道收費廣場')
                 getBusNWFBRouteETA('905', 'I', '001629', '17', i++);
 
                 createBusDiv(i, '971 ➔香港仔 (石排灣) <山道>', '西區海底隧道收費廣場')
                 getBusNWFBRouteETA('971', 'I', '001629', '17', i++);
             } else if (paramType == '6') { //BB離開西環
                 var i = 0;
-                createBusDiv(i, '904(九巴) ➔荔枝角', "均益大廈第二期[平日1752-1846,假日1230-1310|1830-1910]")
+                createBusDiv(i, '904(九巴) ➔荔枝角', "均益大廈第二期[平日1845/2040,假日1310/1340|1910/1940]")
                 getBusKMBRouteETA('904', 'I', '1', '1C6C94ABE1C78BBB', '7', i++);
 
-                createBusDiv(i, '905(九巴) ➔荔枝角 <對面>', '山道[平日1732-1850,假日1242-1345|1740-1844]')
+                createBusDiv(i, '905(九巴) ➔荔枝角 <對面>', '山道[平日1840/1850/2045,假日1245/1300|1830/1845/2015]')
                 getBusKMBRouteETA('905', 'I', '1', '07E603DFCBEAEA77', '14', i++);
+
+                createBusDiv(i, '905A(九巴) ➔荔枝角 <對面>', '山道[平日1830/1850]')
+                getBusKMBRouteETA('905A', 'O', '1', '07E603DFCBEAEA77', '14', i++);
 
                 createBusDiv(i, '968 ➔元朗(西)', '西區海底隧道 (B1)')
                 getBusKMBRouteETA('968', 'I', '1', 'AD97EA183A25102C', '12', i++);
 
-                createBusDiv(i, '904(新巴)', '均益大廈第二期, 德輔道西')
+                createBusDiv(i, '904(新巴) ➔荔枝角', '均益大廈第二期, 德輔道西')
                 getBusNWFBRouteETA('904', 'O', '001192', '7', i++);
 
-                createBusDiv(i, '905(新巴) <對面>', '山道, 德輔道西')
+                createBusDiv(i, '905(新巴) ➔荔枝角 <對面>', '山道, 德輔道西')
                 getBusNWFBRouteETA('905', 'O', '001070', '14', i++);
+
+                createBusDiv(i, '905A(新巴) ➔荔枝角 <對面>', '山道, 德輔道西')
+                getBusNWFBRouteETA('905A', 'O', '001070', '14', i++);
 
                 createBusDiv(i, '971 ➔海麗邨', '均益大廈第二期, 德輔道西')
                 getBusNWFBRouteETA('971', 'O', '001192', '29', i++);

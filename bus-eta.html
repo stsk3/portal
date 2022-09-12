@@ -336,7 +336,6 @@
                             const stopSeq = record.seq;
                             const rmk = record.rmk_tc;
                             const dataTimestamp = record.data_timestamp;
-
                             if (dir == bound && (isBRAVO() || (isKMB() && seq == stopSeq))) {
                                 var etaText = "";
                                 if (eta) etaText = eta;
@@ -349,7 +348,7 @@
                             }
                         });
 
-                        if (isBRAVO() && !html) {
+                        if (!html) {
                             html = `<div class="operating"><span class="eta-detail seq1">暫時沒有預定班次</span></div>`;
                         }
 
