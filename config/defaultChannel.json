@@ -511,6 +511,8 @@
         "cardImage": "tdmsat",
         "func": "",
         "videoUrlList": [
+          "https://livesource.tdm.com.mo/TDM/ch3.m3u8",
+          "https://livesource.tdm.com.mo/TDM/inter_ch3.m3u8",
           "http://live.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8",
           "http://live1.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8",
           "http://live2.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8",
