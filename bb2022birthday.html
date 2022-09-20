@@ -1,0 +1,253 @@
+<html>
+
+<head>    
+    
+    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>-->
+    <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
+
+    <script>
+        let dataList = [
+            [
+                "🎂BB生日City Hunt💛💙",
+                "歡迎參加2022年BB生日City Hunt香港版活動!!<br/>\
+                你將獲分發一張地圖指南，然後自行制定路線，到不同地方完成任務，每完成一個任務可獲得一份獎品。<br/>\
+                遊戲將在下午五時正結束，玩家必須選擇以下地方作尾站：<br/>\
+                屯門公園 / 九龍公園 / 大埔海濱公園 / 上水天平邨",
+                "",
+                "",
+                ""
+            ],
+            [
+                "元朗公園🌳",
+                "Kiss阿B以開始遊戲!!!",
+                "",
+                "22.4397009068655,22.44389550912748,114.01614731056307,114.02039592954884",
+                "22.442209750412438,114.01896899439954"
+            ],
+            [
+                "青衣海濱涼亭",
+                "請講出5個青衣回憶😘",
+                "生日抽獎券",
+                "22.36241688330345,22.36442274849009,114.10307738967337,114.10851264183708",
+                "22.362928168327752,114.1069763920054"
+            ],
+            [
+                "沙田中央公園",
+                "講出5個沙田回憶😍",
+                "哈根大師🍦",
+                "22.378485280688473,22.38075046483637,114.1884415444417,114.19142710548935",
+                "22.380043960191838,114.1898000750855"
+            ],
+            [
+                "阿B前公司",
+                "接阿b放工💼",
+                "辛苦BB了！獲得七仔飲品一枝🥤",
+                "22.325857530604637,22.326849985563943,114.20430391609987,114.20603125866734",
+                "22.326211762260975,114.20533462652509"
+            ],
+            [
+                "尖東海邊",
+                "講出5個去過既海邊🌊",
+                "隱藏任務！上年生日Lunch地點",
+                "22.292879292724805,22.29490437158381,114.17052310257813,114.17672436968363",
+                "22.29329622315188,114.17490046763359"
+            ],
+            [
+                "K11 Art Mall",
+                "講出上年生日正日活動",
+                "請你再食甜品！🍰",
+                "22.297074744576513,22.29808725727346,114.1727715191813,114.17470270962937",
+                "22.297604398099637,114.17365695550244"
+            ],
+            [
+                "大埔中心",
+                "請講出我今年生日正日活動🍫",
+                "哈根大師🍦(如已食🍦將改為賞茶)",
+                "22.451194073518643,22.454287720441116,114.16847279759364,114.17221716129573",
+                "22.452631834680457,114.16993191926552"
+            ],
+            [
+                "中環碼頭",
+                "分享期望既英國生活🇬🇧",
+                "隱藏任務！上年生日Lunch地點",
+                "22.284859596257164,22.289684277338946,114.15353730892144,114.16338638025546",
+                "22.286408277497387,114.15907338825427"
+            ],
+            [
+                "西貢市中心",
+                "講出5個郊區/離島地點+回憶🏝️",
+                "遊戲結束！獲得特別禮物！🎁",
+                "22.379068975468297,22.383731671247634, 114.26854245680359,114.27461497787921",
+                "22.380820792035205,114.27189291861504"
+            ],
+            [
+                "屯門公園",
+                "遊戲結束！",
+                "獲得特別禮物！🎁",
+                "22.388800132370367,22.393938650084287,113.97225286663762,113.9751389234739",
+                "22.391726531563176,113.97370125947369"
+            ],
+            [
+                "九龍公園",
+                "遊戲結束！",
+                "獲得特別禮物！🎁",
+                "22.29810627832589,22.3028641051984,114.16810243013013,114.17205399586754",
+                "22.30193097801513,114.17089877069434"
+            ],
+            [
+                "大埔海濱公園",
+                "遊戲結束！",
+                "獲得特別禮物！🎁",
+                "22.44931970876443,22.45348927304709,114.1750396470859,114.18142459559232",
+                "22.4506973907733,114.17954049628783"
+            ],
+            [
+                "上水天平邨",
+                "遊戲結束！",
+                "獲得特別禮物！🎁",
+                "22.50034858428066,22.505666257967757,114.13144395677594,114.13566617772392",
+                "22.503981511756823,114.13289133402526"
+            ]            
+        ]
+
+
+        function arrive(isUseGps, title = "") {
+            if (title == "") {
+                $("#display-price-div").hide();
+            } else {
+                $("#display-price-div").show();
+            }
+
+            if(isUseGps) {
+                getLocation();
+            }
+
+            console.log(isUseGps + " " + title)
+
+            var selectedData = null;
+            for (let i = 0; i < dataList.length; i++) {
+                if (dataList[i][3] == '' || dataList[i][0] == title) {
+                    selectedData = dataList[i];
+                } else if (isUseGps){
+                    let location = dataList[i][3].split(",");
+                    let lat1 = location[0];
+                    let lat2 = location[1];
+                    let lng1 = location[2];
+                    let lng2 = location[3];
+                    console.log(lat1 + " " + lat2 + " " + lng1 + " " + lng2);
+                    console.log(userLat + " " + userLng)
+                    if(lat1 < userLat && userLat < lat2 && lng1 < userLng && userLng < lng2) {
+                        selectedData = dataList[i];
+                    }
+                }
+            }
+            
+            $("#display-header-div").html(selectedData[0]);
+            $("#display-body-div").html(selectedData[1]);
+            $("#display-price-div").html(selectedData[2]);
+        }
+
+        function taskDone(){
+            if ($("#task-done-password").val() == "stsk") {
+                $("#display-price-div").show();
+                $("#task-done-password").val("");
+            } else if ($("#task-done-password").val() == "happybirthday") {
+                $("#locationSelect").show();
+            }
+        }
+
+
+
+
+        var userLng = -1;
+        var userLat = -1;
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                console.log("Geo Location not supported by browser");
+            }
+        }
+
+        function showPosition(position) {
+            var location = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            }
+            console.log(location);
+            userLat = location.latitude;
+            userLng = location.longitude;
+        }
+
+
+
+        $(document).ready(function () {
+            getLocation();
+            $("#display-price-div").hide();
+            $("#locationSelect").hide();
+            arrive(false);
+
+            $.each(dataList, function (i, item) {
+                $('#locationSelect').append($('<option>', { 
+                    value: item[0],
+                    text : item[0] 
+                }));
+            });
+        });
+    </script>
+
+    <style>
+        .game-body{
+            text-align: center;
+            background-color: #F4FBFF;
+        }
+
+        #display-div > div{
+            margin: 20px 0;
+        }
+
+        #display-header-div{
+            font-size: 2em;
+            font-weight: 900;
+            text-decoration: underline;
+            color:darkorange;
+        }
+
+        #display-body-div{
+            font-size: 1em;
+            color: brown;
+        }
+        
+        #display-price-div{
+            font-size: 1.5em;
+            font-weight: 700;
+            color: red;
+        }
+    </style>
+</head>
+
+<body class="game-body">
+    <div id="display-div">
+        <div id="display-header-div"></div>
+        <div id="display-body-div"></div>
+        <div id="display-price-div"></div>
+    </div>
+
+    <hr/>
+
+    <input type="button" onclick="arrive(true)" value="到達!!"/>
+    <input type="button" onclick="taskDone()" value="任務完成"/>
+    <input type="password" id="task-done-password" />
+    <br/>
+    <br/>
+
+    <select id="locationSelect" onchange="arrive(false, this.value)">
+        <option></option>
+    </select>
+    <br/>
+
+    <object type="text/html" data="footer.html"></object>
+</body>
+
+</html>
