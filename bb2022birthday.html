@@ -191,7 +191,7 @@
             $.each(dataList, function (i, item) {
                 $('#locationSelect').append($('<option>', { 
                     value: item[0],
-                    text : item[0] 
+                    text : item[0].replace("<br/>", "")
                 }));
             });
         });

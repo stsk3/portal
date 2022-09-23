@@ -186,7 +186,8 @@ const snoopyYellowIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, po
 // Birthday icon
 const birthday2020Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2020.png" });
 const birthday2021Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2021.png" });
-const birthdayIconGroup = [birthday2020Icon, birthday2021Icon];
+const birthday2022Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2022.png" });
+const birthdayIconGroup = [birthday2020Icon, birthday2021Icon, birthday2022Icon];
 // Anniversary icon
 const anniversary2021Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/anniversary_2021.png" });
 const anniversary2022Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/anniversary_2022.png" });
