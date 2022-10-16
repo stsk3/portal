@@ -153,8 +153,8 @@
     <div class="grid-container">
         <a href="weather.html" class="blue"><img src="image/home-icon/weather.png" id="weather-icon">天氣<br/><span id="temperature"></span></a>
         <a href="finance-bill.html" class="light-red"><img src="image/home-icon/finance_bill.png">記數簿</a>
-        <a href="bus-eta.html" class="light-green">
-            <img src="image/home-icon/bus_kmb_eta.png">巴士到站時間
+        <a class="light-green">
+            <img src="image/home-icon/bus_kmb_eta.png" onclick="location.href='bus-eta.html'">巴士到站時間
             <div style="padding-top: 5px">
                 <form action="bus-eta.html" method="get">
                     <input type="input" name="route" placeholder="64K" size="2" onclick="event.preventDefault()">
@@ -193,16 +193,16 @@
                 <a class="red" href="bus-eta.html?route=64K">64K</a><a class="light-blue" href="bus-eta.html?route=264R">264R</a><a class="green" href="bus-eta.html?route=276">276/P</a>
             </div>
             <div>
-                <a class="red" href="bus-eta.html?stop=長荔街">長荔街</a><a href="bus-eta.html?stop=元朗廣場">元朗廣場</a>
-            </div>
-            <div>
-                <a href="work-eta.html?type=5" class="blue">西環往</a><a href="work-eta.html?type=6" class="light-blue">返</a><a class="red" href="bus-eta.html?stop=太和站">太和</a>
+                <a class="red" href="bus-eta.html?stop=長荔街">長荔街</a><a href="bus-eta.html?stop=形點">YOHO</a>
             </div>
             <div>
                 <a  href="bus-eta.html?stop=黃埔花園">黃埔</a><a class="red" href="bus-eta.html?stop=紅鸞道">紅鸞道</a><a class="light-red" href="work-eta.html?type=4">回家</a>
             </div>
             <div>
-                <a class="blue" href="work-eta.html?type=0">番工💯</a><a class="light-blue" href="work-eta.html?type=2">B</a><a class="red" href="work-eta.html?type=1">放工😘</a><a class="light-red" href="work-eta.html?type=3">B</a>
+                <a class="blue" href="work-eta.html?type=7">去YOHO</a><a class="red" href="work-eta.html?type=8">去大埔墟</a>
+            </div>
+            <div>
+                <a class="blue" href="work-eta.html?type=5">番工💯</a><a class="light-blue" href="work-eta.html?type=2">B</a><a class="red" href="work-eta.html?type=6">放工😘</a><a class="light-red" href="work-eta.html?type=3">B</a>
             </div>
         </div>
         <a href="traffic-news.html" class="red"><img src="image/home-icon/traffic-news.png">交通消息</a>

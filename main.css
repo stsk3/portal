@@ -318,7 +318,7 @@ home.html
   color: black;
 }
 
-.home-page a > img {
+.home-page img {
   display: block;
   padding-bottom: 10px;
   margin: 0 auto;
@@ -488,6 +488,18 @@ bus-eta.hhtml
 .bus-eta-page .etaDiv .eta-detail-route {
     font-weight: bold;
     font-size: 1.3em;
+}
+
+.bus-eta-page .etaDiv .eta-detail-station-0 {
+    color: #BB0000;
+}
+
+.bus-eta-page .etaDiv .eta-detail-station-1 {
+    color: #00BB00;
+}
+
+.bus-eta-page .etaDiv .eta-detail-station-2 {
+    color: #0000BB;
 }
 
 .bus-eta-page .etaDiv .end{

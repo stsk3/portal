@@ -12,18 +12,24 @@
 
 
         function getBusKMBRouteETA(route, bound, serviceType, stop, seq, row) {
-            const path = 'https://data.etabus.gov.hk/v1/transport/kmb/eta';
-            getBusRouteETA('kmb', path, route, bound, serviceType, stop, seq, row);
+            getBusRouteETA('kmb', getPathFromCompany('kmb'), route, bound, serviceType, stop, seq, row);
         }
 
         function getBusNWFBRouteETA(route, bound, stop, seq, row) {
-            const path = 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/eta/NWFB';
-            getBusRouteETA('citybus-nwfb', path, route, bound, '', stop, seq, row);
+            getBusRouteETA('citybus-nwfb', getPathFromCompany('citybus-nwfb-NWFB'), route, bound, '', stop, seq, row);
         }
 
         function getBusCTBRouteETA(route, bound, serviceType, stop, seq, row) {
-            const path = 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/eta/CTB';
-            getBusRouteETA('citybus-nwfb', path, route, bound, '', stop, seq, row);
+            getBusRouteETA('citybus-nwfb', getPathFromCompany('citybus-nwfb-CTB'), route, bound, '', stop, seq, row);
+        }
+
+        function getPathFromCompany(company) {
+            switch (company) {
+                case 'kmb': return 'https://data.etabus.gov.hk/v1/transport/kmb/eta';
+                case 'citybus-nwfb-NWFB': return 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/eta/NWFB';
+                case 'citybus-nwfb-CTB': return 'https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/eta/CTB';
+                default: return '';
+            }
         }
        
 
@@ -177,6 +183,99 @@
              }});
              setTimeout(function() { getMTRBusStationETA(routeName, stopId, stopSeq, row); }, busRefreshInterval);
         }
+
+
+
+
+       
+        const etaSortList = [];
+        function getSortedBusRouteETA(dataList, row) {
+            etaSortList.splice(0, etaSortList.length);
+            const stationMap = new Map();
+            var stationColor = 0;
+
+            const id = row;
+            const ajaxCallList = [];
+            dataList.forEach(function (item) {
+                const company = item[0];
+                const path = item[1];
+                const route = item[2];
+                const bound = item[3];
+                const serviceType = item[4];
+                const stop = item[5];
+                const seq = item[6];
+                const station = item[7];
+                
+                const isKMB = company == "kmb";
+                const isBRAVO = company == "citybus-nwfb";
+
+                if (!stationMap.has(station)) {
+                    console.log(stationMap)
+                    stationMap.set(station, stationColor++);
+                }
+
+                const ajaxCall = $.ajax({url: `${path}/${stop}/${route}/${serviceType}`, cache: false, success: 
+                    function (data) {
+                        const jsonData = data;
+                        const currentTimestamp = jsonData.generated_timestamp;
+
+                        const records = jsonData.data;
+                        var etaText = "暫時沒有預定班次";
+                        if (records && records.length > 0) {
+                            $.each(records, function (index, record) {
+                                const route = record.route;
+                                const dir = record.dir;
+                                const eta = record.eta;
+                                const stopSeq = record.seq;
+                                const rmk = record.rmk_tc;
+                                const dataTimestamp = record.data_timestamp;
+
+                                if (dir == bound && (isBRAVO || (isKMB && seq == stopSeq))) {
+                                    if (eta) etaText = eta;
+                                    else if (rmk != "暫停預報" && rmk != "九巴時段") etaText = "暫時沒有預定班次";
+                                    etaSortList.push({"route": route, "station": station, "eta": etaText, "rmk": rmk, "stopSeq": stopSeq, "stationColor": stationMap.get(station)});
+                                }
+                            });
+                        } else {
+                            etaSortList.push({"route": route, "eta": etaText, "rmk": "", "stopSeq": seq, "stationColor": stationMap.get(station)});
+                        }
+                }});
+
+                ajaxCallList.push(ajaxCall);            
+
+            });
+
+            $.when(...ajaxCallList).done(() => {
+                etaSortList.sort(function(a,b){
+                    const dateA = new Date(a.eta);
+                    const dateB = new Date(b.eta);
+                    if (isNaN(dateA)) return 1;
+                    if (isNaN(dateB)) return -1;
+                    const millis = dateA - dateB;
+                    return millis;
+                });
+
+                var html = '';
+                    etaSortList.forEach(function (item, index) {
+                    html += `
+                        <div class="operating">
+                            <span class="eta-detail-route">${item.route}</span>
+                            <span class="eta-detail-station-${item.stationColor}">[${item.station}]</span>
+                            <span class="eta-detail seq${new Date(item.eta) - new Date() < 600000 ? 1 : index+1}" data-eta="${item.eta}" data-stop-seq="${item.stopSeq}">${millisToMinutesAndSeconds(item.eta, item.stopSeq)}</span>
+                            ${item.rmk}
+                        </div>`
+                });           
+
+                $(`#bus-${id}-refresh`).html("最後更新: " + getTimeFromTimestamp(new Date()));
+                $(`#bus-${id}`).removeClass("bus-stop");
+                $(`#bus-${id}`).show();                
+                $(`#bus-${id}`).html(html);
+            });
+
+            setTimeout(function() { getSortedBusRouteETA(dataList, row); }, busRefreshInterval);
+        }
+
+
 
         $(document).ajaxStart(function () {
             //$('#loadingDiv').show();
@@ -339,30 +438,19 @@
                 createBusDiv(i, '8P ➔尖沙咀(循環線) <香港文化中心>', '黃埔花園總站')
                 getBusKMBRouteETA('8P', 'O', '1', '75D6E5952B41E1D2', '2', i++);
             } else if (paramType == '4') { //B回家
-                var i = 0;
-                createBusDiv(i, '73 ➔粉嶺(華明)', '大埔寶鄉橋')
-                getBusKMBRouteETA('73', 'I', '1', 'FDDA176977136CD9', '17', i++);
-
-                createBusDiv(i, '73A ➔粉嶺(華明)', '大埔寶鄉橋')
-                getBusKMBRouteETA('73A', 'I', '1', 'FDDA176977136CD9', '25', i++);
-
-                createBusDiv(i, '74D ➔九龍坑', '大埔寶鄉橋')
-                getBusKMBRouteETA('74D', 'I', '1', 'FDDA176977136CD9', '23', i++);
-
-                createBusDiv(i, '64K ➔元朗(西)', '大埔寶鄉橋')
-                getBusKMBRouteETA('64K', 'I', '1', 'DA30F5393480B81D', '4', i++);
-
-                createBusDiv(i, '64P ➔嘉道理農場', '大埔寶鄉橋')
-                getBusKMBRouteETA('64P', 'O', '1', 'DA30F5393480B81D', '4', i++);
-
-                createBusDiv(i, '72 ➔大埔(太和)', '大埔廣福道')
-                getBusKMBRouteETA('72', 'I', '1', 'C55F50E43F6108EB', '40', i++);
-
-                createBusDiv(i, '907C ➔大埔頭', '大埔寶鄉橋')
-                getBusKMBRouteETA('907C', 'I', '1', '530F970BB56D778D', '8', i++);
-
-                createBusDiv(i, 'E41 ➔大埔頭', '大埔寶鄉橋')
-                getBusKMBRouteETA('E41', 'I', '1', '1F672A2CDE7D1F93', '15', i++);
+                const kmbPath = getPathFromCompany('kmb');
+                var dataList = [
+                    ["kmb", kmbPath, '73', 'I', '1', 'FDDA176977136CD9', '17', '大埔寶鄉橋'],
+                    ["kmb", kmbPath, '73A', 'I', '1', 'FDDA176977136CD9', '25', '大埔寶鄉橋'],
+                    ["kmb", kmbPath, '74D', 'I', '1', 'FDDA176977136CD9', '23', '大埔寶鄉橋'],
+                    ["kmb", kmbPath, '64K', 'I', '1', 'DA30F5393480B81D', '4', '大埔寶鄉橋'],
+                    ["kmb", kmbPath, '64P', 'O', '1', 'DA30F5393480B81D', '4', '大埔寶鄉橋'],
+                    ["kmb", kmbPath, '72', 'I', '1', 'C55F50E43F6108EB', '40', '大埔廣福道'],
+                    ["kmb", kmbPath, '907C', 'I', '1', '530F970BB56D778D', '8', '大埔寶鄉橋'],
+                    ["kmb", kmbPath, 'E41', 'I', '1', '1F672A2CDE7D1F93', '15', '大埔寶鄉橋']
+                ]
+                createBusDiv(0, 'B回家', '')
+                getSortedBusRouteETA(dataList, 0);
             } else if (paramType == '5') { //BB往西環
                 var i = 0;
                 createBusDiv(i, '968 ➔銅鑼灣(天后)', '元朗（西）總站')
@@ -410,6 +498,48 @@
 
                 createBusDiv(i, '971 ➔海麗邨', '均益大廈第二期, 德輔道西')
                 getBusNWFBRouteETA('971', 'O', '001192', '29', i++);
+            } else if (paramType == '7') { //由元朗廣場出發
+                const kmbPath = getPathFromCompany('kmb');
+                var dataList = [
+                    ["kmb", kmbPath, '54', 'O', '1', 'FAB0AB2B6DCEE7F2', '1', '元朗(西)'],
+                    ["kmb", kmbPath, '64K', 'O', '1', 'C7ACD35D5D7C153B', '1', '元朗(西)'],
+                    ["kmb", kmbPath, '68M', 'I', '1', 'E62FE9EC6A0D8E35', '1', '元朗(西)'],
+                    ["kmb", kmbPath, '968', 'O', '1', 'DAFFF59B0718B464', '1', '元朗(西)'],
+                    ["kmb", kmbPath, 'N368', 'O', '1', '41D1C16D44F410F1', '1', '元朗(西)'],
+                    ["kmb", kmbPath, '264R', 'O', '1', '6E85D42922E5A10C', '14', '元朗廣場'],
+                    ["kmb", kmbPath, '276', 'O', '1', 'B02B0B9F73E50D93', '10', '元朗廣場'],
+                    ["kmb", kmbPath, '276C', 'O', '1', 'B02B0B9F73E50D93', '5', '元朗廣場'],
+                    ["kmb", kmbPath, '276P', 'O', '1', 'B02B0B9F73E50D93', '14', '元朗廣場'],
+                    ["kmb", kmbPath, 'A36', 'I', '1', 'A9F790C55AB9D4E9', '6', '元朗廣場'],
+                    ["kmb", kmbPath, 'E36', 'I', '1', 'A9F790C55AB9D4E9', '15', '元朗廣場'],
+                    ["kmb", kmbPath, 'N269', 'O', '1', 'B02B0B9F73E50D93', '17', '元朗廣場'],
+                    ["kmb", kmbPath, '53', 'I', '1', '22D525468860D203', '72', '元朗喜利徑'],
+                    ["kmb", kmbPath, '68X', 'O', '1', '48FBCEF0B05599F8', '11', '元朗喜利徑'],
+                    ["kmb", kmbPath, '76K', 'I', '1', '4EE417C5EF5FEF4E', '3', '元朗喜利徑'],
+                    ["kmb", kmbPath, '268B', 'O', '1', '22D525468860D203', '7', '元朗喜利徑'],
+                    ["kmb", kmbPath, '268C', 'O', '1', '22D525468860D203', '7', '元朗喜利徑'],
+                    ["kmb", kmbPath, '268X', 'O', '1', '48FBCEF0B05599F8', '8', '元朗喜利徑'],
+                    ["kmb", kmbPath, '269D', 'O', '1', '4EE417C5EF5FEF4E', '15', '元朗喜利徑'],
+                ]
+                createBusDiv(0, '由元朗廣場出發', '')
+                getSortedBusRouteETA(dataList, 0);
+            } else if (paramType == '8') { //由太和出發
+                const kmbPath = getPathFromCompany('kmb');
+                var dataList = [
+                    ["kmb", kmbPath, '64K', 'O', '1', '399EF919E10C7F33', '51', '太和站'],
+                    ["kmb", kmbPath, '65K', 'O', '1', '399EF919E10C7F33', '18', '太和站'],
+                    ["kmb", kmbPath, '73', 'O', '1', '8C1810DE2419A30B', '16', '太和站'],
+                    ["kmb", kmbPath, '73A', 'O', '1', '8C1810DE2419A30B', '16', '太和站'],
+                    ["kmb", kmbPath, '73B', 'O', '1', '8C1810DE2419A30B', '28', '太和站'],
+                    ["kmb", kmbPath, '74C', 'O', '1', '399EF919E10C7F33', '10', '太和站'],
+                    ["kmb", kmbPath, '74D', 'O', '1', '399EF919E10C7F33', '10', '太和站'],
+                    ["kmb", kmbPath, '264R', 'O', '1', '8C1810DE2419A30B', '19', '太和站'],
+                    ["kmb", kmbPath, '71K', 'O', '1', 'B78076CC8F628B2B', '1', '太和總站'],
+                    ["kmb", kmbPath, '72', 'O', '1', 'C65C38558F2F978B', '1', '太和總站'],
+                    ["kmb", kmbPath, '74A', 'O', '1', '9FD5C5940A1D7212', '1', '太和總站'],
+                ]
+                createBusDiv(0, '由太和出發', '')
+                getSortedBusRouteETA(dataList, 0);
             }
 
 
