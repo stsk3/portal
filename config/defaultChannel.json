@@ -6,19 +6,31 @@
         "title": "有線財經資訊台",
         "cardImage": "cablefinance",
         "func": "cableolympic_38",
-        "func2": "cabletv_108"
+        "func2": "cabletv_108",
+        "videoUrlList": [
+            "https://uc6.i-cable.com/live_freedirect/freehd208_h.live/playlist.m3u8"
+        ],
+        "getFromInternet": true
       },
       {
         "title": "有線直播新聞台",
         "cardImage": "cablelivenews",
         "func": "cableolympic_39",
-        "func2": "cabletv_10"
+        "func2": "cabletv_10",
+        "videoUrlList": [
+            "https://uc6.i-cable.com/live_freedirect/hd110_h.live/playlist.m3u8"
+        ],
+        "getFromInternet": true
       },
       {
         "title": "有線新聞台",
         "cardImage": "cablenews",
         "func": "cableolympic_37",
-        "func2": "cabletv_109"
+        "func2": "cabletv_109",
+        "videoUrlList": [
+            "https://uc6.i-cable.com/live_freedirect/freehd209_h.live/playlist.m3u8"
+        ],
+        "getFromInternet": true
       },
       {
         "title": "now新聞台",
@@ -64,18 +76,6 @@
         "func": "nowtv_630"
       },
       {
-        "title": "澳門體育",
-        "cardImage": "tdmsport",
-        "func": "",
-        "videoUrlList": [
-          "http://live.tdm.com.mo:1935/ch4/sport_ch4.live/playlist.m3u8",
-          "http://live1.tdm.com.mo:1935/ch4/sport_ch4.live/playlist.m3u8",
-          "http://live2.tdm.com.mo:1935/ch4/sport_ch4.live/playlist.m3u8",
-          "http://live3.tdm.com.mo:1935/ch4/sport_ch4.live/playlist.m3u8",
-          "http://live4.tdm.com.mo:1935/ch4/sport_ch4.live/playlist.m3u8"
-        ]
-      },
-      {
         "title": "STAR Sports",
         "cardImage": "sports_starsports",
         "func": "tvfix_starsports"
@@ -107,6 +107,14 @@
         "cardImage": "cable_604",
         "func": "cablesports_664",
         "func2": "cable_64"
+      },
+      {
+        "title": "澳門體育",
+        "cardImage": "tdmsport",
+        "func": "",
+        "videoUrlList": [
+          "http://live4.tdm.com.mo:1935/ch4/sport_ch4.live/playlist.m3u8"
+        ]
       },
       {
         "title": "有線18台",
@@ -318,24 +326,32 @@
     "header": "有線電視",
     "channelDataList": [
       {
-        "title": "香港開電視",
-        "cardImage": "opentv",
+        "title": "HOY TV",
+        "cardImage": "hoytv77",
         "func": "",
         "videoUrlList": [
           "http://media.fantv.hk/m3u8/archive/channel2.m3u8",
           "http://uc6.i-cable.com/live_freedirect/opentvhd001_h.live/playlist.m3u8",
           "http://uc6.i-cable.com/live_freedirect/opentvhd001.live/playlist.m3u8",
-          "https://cdn.hklive.tv/hls/77/index.m3u8"
+          "https://cdn.hklive.tv/xxxx/77/index.m3u8"
+        ]
+      },
+      {
+        "title": "HOY TV 資訊台",
+        "cardImage": "hoytv78",
+        "func": "",
+        "videoUrlList": [
+          "https://cdn.hklive.tv/xxxx/78/index.m3u8"
         ]
       },
       {
         "title": "香港國際財經台",
-        "cardImage": "opentv2",
+        "cardImage": "hoytv76",
         "func": "",
         "videoUrlList": [
           "http://uc6.i-cable.com/live_freedirect/opentvhd002_h.live/playlist.m3u8",
           "http://uc6.i-cable.com/live_freedirect/opentvhd002.live/playlist.m3u8",
-          "https://cdn.hklive.tv/hls/76/index.m3u8"
+          "https://cdn.hklive.tv/xxxx/76/index.m3u8"
         ]
       }
     ]
@@ -346,17 +362,20 @@
       {
         "title": "Viu99",
         "cardImage": "viu99",
-        "func": "",
+        "func": "tvfix_viutv:第一聲道|tvfix_viutv2:第二聲道",
         "videoUrlList": [
-          "https://cdn.hklive.tv/hls/99/index.m3u8"
-        ]
+          "https://cdn.hklive.tv/ha/index_06.m3u8",
+          "https://cdn.hklive.tv/xxxx/99/index.m3u8"
+        ],
+        "getFromInternet": true
       },
       {
         "title": "Viu96",
         "cardImage": "viu96",
         "func": "viu",
         "videoUrlList": [
-          "https://cdn.hklive.tv/hls/96/index.m3u8"
+          "https://cdn.hklive.tv/xxxx/96b/index.m3u8",
+          "https://cdn.hklive.tv/xxxx/96/index.m3u8"
         ]
       }
     ]
@@ -370,7 +389,7 @@
         "func": "rthk",
         "videoUrlList": [
           "https://www.rthk.hk/feeds/dtt/rthktv31_https.m3u8",
-          "https://cdn.hklive.tv/hls/31/index.m3u8"
+          "https://cdn.hklive.tv/xxxx/31/index.m3u8"
         ]
       },
       {
@@ -379,15 +398,74 @@
         "func": "rthk",
         "videoUrlList": [
           "https://www.rthk.hk/feeds/dtt/rthktv32_https.m3u8",
-          "https://cdn.hklive.tv/hls/32/index.m3u8"
+          "https://cdn.hklive.tv/xxxx/32/index.m3u8"
         ]
       },
       {
         "title": "港台電視33",
         "cardImage": "rthktv33",
         "videoUrlList": [
-          "https://cdn.hklive.tv/hls/33/index.m3u8"
+          "https://cdn.hklive.tv/xxxx/33/index.m3u8"
         ]
+      },
+      {
+        "title": "港台電視34",
+        "cardImage": "rthktv34",
+        "videoUrlList": [
+          "https://cdn.hklive.tv/xxxx/34/index.m3u8"
+        ]
+      }
+    ]
+  },
+  {
+    "header": "CCTVB",
+    "channelDataList": [
+      {
+        "title": "翡翠台",
+        "cardImage": "tvb81",
+        "func": "tvfix_jade:繁體|tvfix_jade2:簡體",
+        "videoUrlList": [
+            "https://cdn.hklive.tv/xxxx/81/index.m3u8",
+            "https://cdn.hklive.tv/xxxx/81b/index.m3u8"
+        ],
+        "getFromInternet": true
+      },
+      {
+        "title": "J2",
+        "cardImage": "tvb82",
+        "func": "tvfix_j2:繁體|tvfix_j22:簡體",
+        "videoUrlList": [
+           "https://cdn.hklive.tv/xxxx/82/index.m3u8"
+        ],
+        "getFromInternet": true
+      },
+      {
+        "title": "無綫新聞台",
+        "cardImage": "tvb83",
+        "func": "tvfix_inews:第一聲道|tvfix_inews2:第二聲道",
+        "videoUrlList": [
+            "https://cdn.hklive.tv/xxxx/83/index.m3u8"
+        ],
+        "getFromInternet": true
+      },
+      {
+        "title": "明珠台",
+        "cardImage": "tvb84",
+        "func": "tvfix_pearl:第一聲道|tvfix_pearl2:第二聲道",
+        "videoUrlList": [
+            "https://cdn.hklive.tv/xxxx/84b/index.m3u8",
+            "https://cdn.hklive.tv/xxxx/84/index.m3u8"
+        ],
+        "getFromInternet": true
+      },
+      {
+        "title": "無綫財經體育資訊台",
+        "cardImage": "tvb85",
+        "func": "tvfix_finance:第一聲道|tvfix_finance2:第二聲道",
+        "videoUrlList": [
+            "https://cdn.hklive.tv/xxxx/85/index.m3u8"
+        ],
+        "getFromInternet": true
       }
     ]
   },
@@ -475,10 +553,6 @@
         "cardImage": "tdmmacau",
         "func": "",
         "videoUrlList": [
-          "http://live.tdm.com.mo:1935/ch1/ch1.live/playlist.m3u8",
-          "http://live1.tdm.com.mo:1935/ch1/ch1.live/playlist.m3u8",
-          "http://live2.tdm.com.mo:1935/ch1/ch1.live/playlist.m3u8",
-          "http://live3.tdm.com.mo:1935/ch1/ch1.live/playlist.m3u8",
           "http://live4.tdm.com.mo:1935/ch1/ch1.live/playlist.m3u8"
         ]
       },
@@ -487,10 +561,6 @@
         "cardImage": "tdminfo",
         "func": "",
         "videoUrlList": [
-          "http://live.tdm.com.mo:1935/ch5/info_ch5.live/playlist.m3u8",
-          "http://live1.tdm.com.mo:1935/ch5/info_ch5.live/playlist.m3u8",
-          "http://live2.tdm.com.mo:1935/ch5/info_ch5.live/playlist.m3u8",
-          "http://live3.tdm.com.mo:1935/ch5/info_ch5.live/playlist.m3u8",
           "http://live4.tdm.com.mo:1935/ch5/info_ch5.live/playlist.m3u8"
         ]
       },
@@ -499,10 +569,6 @@
         "cardImage": "tdmhd",
         "func": "",
         "videoUrlList": [
-          "http://live.tdm.com.mo:1935/ch6/hd_ch6.live/playlist.m3u8",
-          "http://live1.tdm.com.mo:1935/ch6/hd_ch6.live/playlist.m3u8",
-          "http://live2.tdm.com.mo:1935/ch6/hd_ch6.live/playlist.m3u8",
-          "http://live3.tdm.com.mo:1935/ch6/hd_ch6.live/playlist.m3u8",
           "http://live4.tdm.com.mo:1935/ch6/hd_ch6.live/playlist.m3u8"
         ]
       },
@@ -511,12 +577,7 @@
         "cardImage": "tdmsat",
         "func": "",
         "videoUrlList": [
-          "https://livesource.tdm.com.mo/TDM/ch3.m3u8",
           "https://livesource.tdm.com.mo/TDM/inter_ch3.m3u8",
-          "http://live.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8",
-          "http://live1.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8",
-          "http://live2.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8",
-          "http://live3.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8",
           "http://live4.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8"
         ]
       },
@@ -525,10 +586,6 @@
         "cardImage": "tdmportugal",
         "func": "",
         "videoUrlList": [
-          "http://live.tdm.com.mo:1935/ch2/ch2.live/playlist.m3u8",
-          "http://live1.tdm.com.mo:1935/ch2/ch2.live/playlist.m3u8",
-          "http://live2.tdm.com.mo:1935/ch2/ch2.live/playlist.m3u8",
-          "http://live3.tdm.com.mo:1935/ch2/ch2.live/playlist.m3u8",
           "http://live4.tdm.com.mo:1935/ch2/ch2.live/playlist.m3u8"
         ]
       }
