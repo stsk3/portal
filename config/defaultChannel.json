@@ -362,19 +362,15 @@
       {
         "title": "Viu99",
         "cardImage": "viu99",
-        "func": "tvfix_viutv:第一聲道|tvfix_viutv2:第二聲道",
         "videoUrlList": [
-          "https://cdn.hklive.tv/ha/index_06.m3u8",
           "https://cdn.hklive.tv/xxxx/99/index.m3u8"
-        ],
-        "getFromInternet": true
+        ]
       },
       {
         "title": "Viu96",
         "cardImage": "viu96",
         "func": "viu",
         "videoUrlList": [
-          "https://cdn.hklive.tv/xxxx/96b/index.m3u8",
           "https://cdn.hklive.tv/xxxx/96/index.m3u8"
         ]
       }
@@ -423,49 +419,39 @@
       {
         "title": "翡翠台",
         "cardImage": "tvb81",
-        "func": "tvfix_jade:繁體|tvfix_jade2:簡體",
         "videoUrlList": [
             "https://cdn.hklive.tv/xxxx/81/index.m3u8",
             "https://cdn.hklive.tv/xxxx/81b/index.m3u8"
-        ],
-        "getFromInternet": true
+        ]
       },
       {
         "title": "J2",
         "cardImage": "tvb82",
-        "func": "tvfix_j2:繁體|tvfix_j22:簡體",
         "videoUrlList": [
            "https://cdn.hklive.tv/xxxx/82/index.m3u8"
-        ],
-        "getFromInternet": true
+        ]
       },
       {
         "title": "無綫新聞台",
         "cardImage": "tvb83",
-        "func": "tvfix_inews:第一聲道|tvfix_inews2:第二聲道",
         "videoUrlList": [
             "https://cdn.hklive.tv/xxxx/83/index.m3u8"
-        ],
-        "getFromInternet": true
+        ]
       },
       {
         "title": "明珠台",
         "cardImage": "tvb84",
-        "func": "tvfix_pearl:第一聲道|tvfix_pearl2:第二聲道",
         "videoUrlList": [
             "https://cdn.hklive.tv/xxxx/84b/index.m3u8",
             "https://cdn.hklive.tv/xxxx/84/index.m3u8"
-        ],
-        "getFromInternet": true
+        ]
       },
       {
         "title": "無綫財經體育資訊台",
         "cardImage": "tvb85",
-        "func": "tvfix_finance:第一聲道|tvfix_finance2:第二聲道",
         "videoUrlList": [
             "https://cdn.hklive.tv/xxxx/85/index.m3u8"
-        ],
-        "getFromInternet": true
+        ]
       }
     ]
   },
