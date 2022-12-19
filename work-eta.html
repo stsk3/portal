@@ -373,7 +373,7 @@
 
             const paramType = findGetParameter("type");
 
-            if (paramType == '0') { //BB番工
+            if (paramType == '0') { //BB番工(天耀)
                 var i = 0;
 
                 createBusDiv(i, '269D ➔天富', '元朗狗屋')
@@ -387,7 +387,7 @@
 
                 createBusDiv(i, 'K73 ➔天恆 ', '元朗西')
                 getMTRBusStationETA('K73', 'K73-D010', 1, i++);
-            } else if (paramType == '1') { //BB放工
+            } else if (paramType == '1') { //BB放工(天耀)
                 var i = 0;
 
                 createBusDiv(i, '269D ➔瀝源, 拍卡!!', '天耀邨耀民樓')
@@ -404,39 +404,60 @@
             } else if (paramType == '2') { //B番工
                 var i = 0;
 
-                createBusDiv(i, '74X ➔觀塘碼頭', '大埔中心總站')
+                /*createBusDiv(i, '74X ➔觀塘碼頭', '大埔中心總站')
                 getBusKMBRouteETA('74X', 'O', '1', '7BECB2120CD69543', '1', i++);
 
-                createBusDiv(i, '75X ➔九龍城碼頭', '大埔中心總站')
+                //createBusDiv(i, '75X ➔九龍城碼頭', '大埔中心總站')
                 getBusKMBRouteETA('75X', 'O', '1', '8C21D2D96DA6D045', '2', i++);
 
                 createBusDiv(i, '307 ➔中環(渡輪碼頭)', '大埔中心總站')
-                getBusKMBRouteETA('307', 'O', '1', '09DFD305F09C558E', '1', i++);
+                getBusKMBRouteETA('307', 'O', '1', '09DFD305F09C558E', '1', i++);*/
 
                 createBusDiv(i, '74X ➔觀塘碼頭', '大埔廣福道')
                 getBusKMBRouteETA('74X', 'O', '1', '5734545592215022', '3', i++);
 
+                createBusDiv(i, '75X ➔九龍城碼頭', '寶湖花園')
+                getBusKMBRouteETA('75X', 'O', '1', 'A47A663F7AF92B77', '4', i++);
+
                 createBusDiv(i, '85X ➔紅磡(紅鸞道)', '大老山隧道')
                 getBusKMBRouteETA('85X', 'O', '1', '3114213F8975F536', '11', i++);
 
-                createBusDiv(i, '15 ➔紅磡(紅鸞道)', '采頤花園')
+                /*createBusDiv(i, '15 ➔紅磡(紅鸞道)', '采頤花園')
                 getBusKMBRouteETA('15', 'O', '1', 'D1AAD1771F3FA9A0', '15', i++);
 
                 createBusDiv(i, '85X ➔紅磡(紅鸞道)', '采頤花園')
-                getBusKMBRouteETA('85X', 'O', '1', 'D1AAD1771F3FA9A0', '12', i++);
+                getBusKMBRouteETA('85X', 'O', '1', 'D1AAD1771F3FA9A0', '12', i++);*/
             } else if (paramType == '3') { //B放工
                 var i = 0;
                 createBusDiv(i, '85X ➔馬鞍山市中心', '紅磡(紅鸞道)巴士總站')
                 getBusKMBRouteETA('85X', 'I', '1', 'B452F1514B4FEE40', '1', i++);
 
-                createBusDiv(i, '7B ➔樂富 <聖佐治大廈>', '紅磡(紅鸞道)巴士總站')
+                createBusDiv(i, '96 ➔大埔工業邨', '大老山隧道 (B1)')
+                getBusKMBRouteETA('96', 'O', '1', '9274EF6791CA3ED8', '16', i++);
+
+                createBusDiv(i, '74B ➔大埔中心', '大老山隧道 (B1)')
+                getBusKMBRouteETA('74B', 'O', '1', '9274EF6791CA3ED8', '7', i++);
+
+                createBusDiv(i, '74X ➔大埔中心', '大老山隧道 (B1)')
+                getBusKMBRouteETA('74X', 'I', '1', '9274EF6791CA3ED8', '15', i++);
+
+                createBusDiv(i, '274X ➔大埔中心', '大老山隧道 (B1)')
+                getBusKMBRouteETA('274X', 'O', '1', '9274EF6791CA3ED8', '11', i++);
+
+                createBusDiv(i, '73 ➔粉嶺(華明)', '大埔寶鄉橋')
+                getBusKMBRouteETA('73', 'I', '1', 'FDDA176977136CD9', '17', i++);
+
+                createBusDiv(i, '73A ➔粉嶺(華明)', '大埔寶鄉橋')
+                getBusKMBRouteETA('73A', 'I', '1', 'FDDA176977136CD9', '25', i++);
+
+                /*createBusDiv(i, '7B ➔樂富 <聖佐治大廈>', '紅磡(紅鸞道)巴士總站')
                 getBusKMBRouteETA('7B', 'O', '1', 'ED18A55B2C83BAD2', '1', i++);
 
                 createBusDiv(i, '30X ➔荃灣(荃威花園) <九龍中央郵政局>', '黃埔花園總站')
                 getBusKMBRouteETA('30X', 'I', '1', 'DE5FEC673BB54DC5', '1', i++);
 
                 createBusDiv(i, '8P ➔尖沙咀(循環線) <香港文化中心>', '黃埔花園總站')
-                getBusKMBRouteETA('8P', 'O', '1', '75D6E5952B41E1D2', '2', i++);
+                getBusKMBRouteETA('8P', 'O', '1', '75D6E5952B41E1D2', '2', i++);*/
             } else if (paramType == '4') { //B回家
                 const kmbPath = getPathFromCompany('kmb');
                 var dataList = [

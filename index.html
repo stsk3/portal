@@ -59,7 +59,23 @@
         if (!lastUpdateDate || today - lastUpdateDate >= 86400000) { //Date
           localStorage.setItem(key, (+memberPoint + 1) + "|" + today.getTime());
         }
-        
+
+        preloadPage();
+        function preloadPage(){        
+            const kmbPrefix = "https://data.etabus.gov.hk/v1/transport/kmb/";
+            fetch(kmbPrefix + "stop", {cache: "force-cache"})
+            fetch(kmbPrefix + "route", {cache: "force-cache"})
+
+            const nwPrefix = "https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/route/";
+            fetch(nwPrefix + "CTB", {cache: "force-cache"});
+            fetch(nwPrefix + "NWFB", {cache: "force-cache"});
+
+            const bbiPrefix = "https://www.kmb.hk/storage/";
+            fetch(bbiPrefix + "BBI_routeF1.js", {cache: "force-cache"});
+            fetch(bbiPrefix + "BBI_routeF2.js", {cache: "force-cache"});
+            fetch(bbiPrefix + "BBI_routeB1.js", {cache: "force-cache"});
+            fetch(bbiPrefix + "BBI_routeB2.js", {cache: "force-cache"});
+        }
 
     </script>
 

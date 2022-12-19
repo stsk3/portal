@@ -81,7 +81,6 @@ const filesToCache = [
     "script/map-component.js",
     "script/common.js",
 
-    "transport/bus-route.js",
     "transport/light_rail_station_list.js",
     "transport/mtr_bus_route_list.js",
     "transport/sectional-tko.png",
@@ -89,7 +88,7 @@ const filesToCache = [
     "transport/sectional-north.png",
 ];
 
-const swVersion = '1.170';
+const swVersion = '1.180';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

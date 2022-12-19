@@ -4,17 +4,20 @@
     <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
     <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
-    <script src="transport/bus-route.js"></script>
     <link rel="stylesheet" href="main.css">
     <style>
     </style>
     <script>
+        let busF1Map = new Map();
+        let busF2Map = new Map();
+        let busB1Map = new Map();
+        let busB2Map = new Map();
 
         /**
          * mode: B / F
          * interchangeType: 1 / 2
          **/
-        function getJson(routeNum, mode, interchangeType, isOnline) {
+        function getJson(routeNum, mode, interchangeType) {
             const type = (mode == "F" ? 'Go' : 'Back');
             const tableId = '#result' + type + 'Table';
             const spanId = '#result' + type + 'Span';
@@ -25,24 +28,14 @@
 
             $(spanId).html("");
 
-            if (isOnline) {
-                $.getJSON(`https://api.allorigins.win/raw?url=${encodeURIComponent(
-                    'https://www.kmb.hk/ajax/BBI/get_BBI2.php?routeno=' + routeNum + '&bound=' + mode + '&jtSorting=sec_routeno%20ASC' + (interchangeType == 2 ? '&interchangeType=2' : ''))}`,
-                    function (data) {
-                        const jsonData = data;
-                        createTable(jsonData, tableId, spanId, errorMsgId);
-                    }
-                );
+            var busMap;
+            if (mode == "F") {
+                busMap = interchangeType == 1 ? busF1Map : busF2Map;
             } else {
-                var busArray;
-                if (mode == "F") {
-                    busArray = interchangeType == 1 ? busFArray : busF2Array;
-                } else {
-                    busArray = (interchangeType == 1) ? busBArray : busB2Array;
-                }
-                const jsonData = JSON.parse(busArray.get(routeNum));
-                createTable(jsonData, tableId, spanId, errorMsgId);
+                busMap = interchangeType == 1 ? busB1Map : busB2Map;
             }
+            const jsonData = busMap.get(routeNum);
+            createTable(jsonData, tableId, spanId, errorMsgId);
         }
 
         function createTable(jsonData, tableId, spanId, errorMsgId) {
@@ -99,11 +92,11 @@
             }
         }
 
-        function getResult(interchangeType, isOnline) {
-            const routeNum = isOnline? $("#route-num").val().toUpperCase() : $('#route-select').find(":selected").val();
+        function getResult(interchangeType) {
+            const routeNum = $("#route-num").val().toUpperCase();
             if (!routeNum.startsWith("==")) {
-                getJson(routeNum, 'F', interchangeType, isOnline);
-                getJson(routeNum, 'B', interchangeType, isOnline);
+                getJson(routeNum, 'F', interchangeType);
+                getJson(routeNum, 'B', interchangeType);
             }
         }
 
@@ -122,20 +115,11 @@
         }
 
         function initRouteList() {
-            select = document.getElementById('route-select');
-            var optgroup = null;
-            for (const key of busFArray.keys()) {
-                if (key.startsWith("==")) {
-                    optgroup = document.createElement('optgroup');
-                    optgroup.setAttribute("label", key.substring(2, key.length-2));
-                    select.appendChild(optgroup);
-                } else {
-                    var opt = document.createElement('option');
-                    opt.value = key;
-                    opt.innerHTML = key;
-                    optgroup.appendChild(opt);
-                }
-            }
+            const prefix = "https://www.kmb.hk/storage/";
+            fetch(prefix + "BBI_routeF1.js").then(response => response.json()).then(json => busF1Map = new Map(Object.entries(json)));
+            fetch(prefix + "BBI_routeF2.js").then(response => response.json()).then(json => busF2Map = new Map(Object.entries(json)));
+            fetch(prefix + "BBI_routeB1.js").then(response => response.json()).then(json => busB1Map = new Map(Object.entries(json)));
+            fetch(prefix + "BBI_routeB2.js").then(response => response.json()).then(json => busB2Map = new Map(Object.entries(json)));
         }
 
         $(document).ready(function () {
@@ -161,15 +145,8 @@
 <body class="bus-interchange">
     <div class="input-div">
         <input id="route-num" type="text" placeholder="路線">
-        <button onclick="getResult(1, true)">第一程</button>
-        <button onclick="getResult(2, true)">第二程</button>
-    </div>
-    <div class="input-div">
-        <select id="route-select">
-            <option value="==">選擇路線</option>
-        </select>
-        <button onclick="getResult(1, false)">第一程</button>
-        <button onclick="getResult(2, false)">第二程</button>
+        <button onclick="getResult(1)">第一程</button>
+        <button onclick="getResult(2)">第二程</button>
     </div>
     <div>
         <a href="#resultGo">去程</a>
