@@ -93,16 +93,16 @@ const filesToCache = [
     "transport/sectional-north.png",
 
     kmbPrefix + "stop",
-    kmbPrefix + "route",
-    nwPrefix + "CTB",
-    nwPrefix + "NWFB",
+    kmbPrefix + "route/",
+    nwPrefix + "CTB/",
+    nwPrefix + "NWFB/",
     bbiPrefix + "BBI_routeF1.js",
     bbiPrefix + "BBI_routeF2.js",
     bbiPrefix + "BBI_routeB1.js",
     bbiPrefix + "BBI_routeB2.js",
 ];
 
-const swVersion = '1.181';
+const swVersion = '1.182';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
@@ -149,6 +149,7 @@ self.addEventListener('fetch', event => {
                             event.request.url.includes(kmbPrefix) ||
                             event.request.url.includes('hko.gov.hk')) &&
                         !event.request.url.includes('_=') &&
+                        !event.request.url.includes('?') &&
                         !event.request.url.includes('/apk/') &&
                         !event.request.url.includes('/config/'))
                     {
