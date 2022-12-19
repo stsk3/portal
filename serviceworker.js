@@ -1,6 +1,5 @@
 const kmbPrefix = "https://data.etabus.gov.hk/v1/transport/kmb/";
 const nwPrefix = "https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/route/";
-const bbiPrefix = "https://www.kmb.hk/storage/";
 
 
 const filesToCache = [
@@ -91,18 +90,18 @@ const filesToCache = [
     "transport/sectional-tko.png",
     "transport/sectional-tuen-yuen-tin.png",
     "transport/sectional-north.png",
+    "transport/interchange/BBI_routeF1.js",
+    "transport/interchange/BBI_routeF2.js",
+    "transport/interchange/BBI_routeB1.js",
+    "transport/interchange/BBI_routeB2.js",
 
     kmbPrefix + "stop",
     kmbPrefix + "route/",
     nwPrefix + "CTB/",
     nwPrefix + "NWFB/",
-    bbiPrefix + "BBI_routeF1.js",
-    bbiPrefix + "BBI_routeF2.js",
-    bbiPrefix + "BBI_routeB1.js",
-    bbiPrefix + "BBI_routeB2.js",
 ];
 
-const swVersion = '1.182';
+const swVersion = '1.183';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
@@ -146,7 +145,6 @@ self.addEventListener('fetch', event => {
                         (event.request.url.includes('stsk3') ||
                             event.request.url.includes(kmbPrefix) ||
                             event.request.url.includes(nwPrefix) ||
-                            event.request.url.includes(kmbPrefix) ||
                             event.request.url.includes('hko.gov.hk')) &&
                         !event.request.url.includes('_=') &&
                         !event.request.url.includes('?') &&

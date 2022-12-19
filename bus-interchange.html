@@ -115,7 +115,8 @@
         }
 
         function initRouteList() {
-            const prefix = "https://www.kmb.hk/storage/";
+            //const prefix = "https://www.kmb.hk/storage/";
+            const prefix = "transport/interchange/";
             fetch(prefix + "BBI_routeF1.js").then(response => response.json()).then(json => busF1Map = new Map(Object.entries(json)));
             fetch(prefix + "BBI_routeF2.js").then(response => response.json()).then(json => busF2Map = new Map(Object.entries(json)));
             fetch(prefix + "BBI_routeB1.js").then(response => response.json()).then(json => busB1Map = new Map(Object.entries(json)));
