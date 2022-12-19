@@ -60,7 +60,7 @@
           localStorage.setItem(key, (+memberPoint + 1) + "|" + today.getTime());
         }
 
-        preloadPage();
+        //preloadPage();
         function preloadPage(){        
             const kmbPrefix = "https://data.etabus.gov.hk/v1/transport/kmb/";
             fetch(kmbPrefix + "stop", {cache: "force-cache"})
