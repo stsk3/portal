@@ -284,6 +284,21 @@
             document.body.removeChild(element);
         }
 
+        function importData() {
+            var jsonString = prompt("請匯入Data");
+            if (jsonString != null) {
+                const testFinanceBillMap = new Map(JSON.parse(jsonString.trim()));
+                const size = testFinanceBillMap.size;
+                if (size > 0) {
+                    const type = 0;
+                    const sessionKey = getSessionKey(type);
+                    localStorage.setItem(sessionKey, jsonString);
+                    getFromSession(type);
+                    alert("成功匯入" + testFinanceBillMap.size + "個月");
+                }
+            }
+        }
+
     </script>
 </head>
 
@@ -321,6 +336,7 @@
 
     <div id="menu-div">
         <input type="button" id="setting-button" value="設定" onclick="$('#setting-div').show()"/>
+        <input type="button" id="setting-button" value="匯入" onclick="importData()"/>
         <input type="button" id="setting-button" value="匯出" onclick="exportData()"/>
     </div>
 
