@@ -33,6 +33,15 @@
         "getFromInternet": true
       },
       {
+        "title": "HOY TV 資訊台",
+        "cardImage": "hoytv78",
+        "func": "",
+        "videoUrlList": [
+          "https://hoytv-live-stream.hoy.tv/ch78/index-fhd.m3u8",
+          "https://cdn.hklive.tv/xxxx/78/index.m3u8"
+        ]
+      },
+      {
         "title": "now新聞台",
         "cardImage": "nowtv332",
         "func": "nowtv_332"
@@ -159,6 +168,22 @@
         "func": "mytv_live_903",
         "videoUrlList": [
           "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT5_h264/__op/default/__f/manifest.mpd"
+        ]
+      },
+      {
+        "title": "myTV SUPER直播足球6台(905)",
+        "cardImage": "mytv_live_soccer",
+        "func": "mytv_live_903",
+        "videoUrlList": [
+          "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT6_h264/__op/default/__f/manifest.mpd"
+        ]
+      },
+      {
+        "title": "myTV SUPER直播足球7台(906)",
+        "cardImage": "mytv_live_soccer",
+        "func": "mytv_live_903",
+        "videoUrlList": [
+          "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT7_h264/__op/default/__f/manifest.mpd"
         ]
       },
       {
@@ -330,18 +355,11 @@
         "cardImage": "hoytv77",
         "func": "",
         "videoUrlList": [
+          "https://hoytv-live-stream.hoy.tv/ch77/index-fhd.m3u8",
           "http://media.fantv.hk/m3u8/archive/channel2.m3u8",
           "http://uc6.i-cable.com/live_freedirect/opentvhd001_h.live/playlist.m3u8",
           "http://uc6.i-cable.com/live_freedirect/opentvhd001.live/playlist.m3u8",
           "https://cdn.hklive.tv/xxxx/77/index.m3u8"
-        ]
-      },
-      {
-        "title": "HOY TV 資訊台",
-        "cardImage": "hoytv78",
-        "func": "",
-        "videoUrlList": [
-          "https://cdn.hklive.tv/xxxx/78/index.m3u8"
         ]
       },
       {
