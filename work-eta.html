@@ -205,13 +205,14 @@
                 const stop = item[5];
                 const seq = item[6];
                 const station = item[7];
+                const splitStationName = station.split("(")[0];
                 
                 const isKMB = company == "kmb";
                 const isBRAVO = company == "citybus-nwfb";
 
-                if (!stationMap.has(station)) {
-                    console.log(stationMap)
-                    stationMap.set(station, stationColor++);
+                if (!stationMap.has(splitStationName)) {
+                    console.log(splitStationName + ":" + stationColor)
+                    stationMap.set(splitStationName, stationColor++);
                 }
 
                 const ajaxCall = $.ajax({url: `${path}/${stop}/${route}/${serviceType}`, cache: false, success: 
@@ -233,11 +234,11 @@
                                 if (dir == bound && (isBRAVO || (isKMB && seq == stopSeq))) {
                                     if (eta) etaText = eta;
                                     else if (rmk != "暫停預報" && rmk != "九巴時段") etaText = "暫時沒有預定班次";
-                                    etaSortList.push({"route": route, "station": station, "eta": etaText, "rmk": rmk, "stopSeq": stopSeq, "stationColor": stationMap.get(station)});
+                                    etaSortList.push({"route": route, "station": station, "eta": etaText, "rmk": rmk, "stopSeq": stopSeq, "stationColor": stationMap.get(splitStationName)});
                                 }
                             });
                         } else {
-                            etaSortList.push({"route": route, "eta": etaText, "rmk": "", "stopSeq": seq, "stationColor": stationMap.get(station)});
+                            etaSortList.push({"route": route, "eta": etaText, "rmk": "", "stopSeq": seq, "stationColor": stationMap.get(splitStationName)});
                         }
                 }});
 
@@ -379,6 +380,9 @@
                 createBusDiv(i, '269D ➔天富', '元朗狗屋')
                 getBusKMBRouteETA('269D', 'I', '1', '1B0FD9C27F5FE0BE', '12', i++);
 
+                createBusDiv(i, 'B1 ➔天慈', '元朗狗屋')
+                getBusKMBRouteETA('B1', 'I', '1', '1B0FD9C27F5FE0BE', '9', i++);
+
                 createBusDiv(i, '276 ➔天慈', '元朗康樂路 (S10)')
                 getBusKMBRouteETA('276', 'I', '1', 'D9CE618F99BAC2B6', '6', i++);
 
@@ -392,6 +396,9 @@
 
                 createBusDiv(i, '269D ➔瀝源, 拍卡!!', '天耀邨耀民樓')
                 getBusKMBRouteETA('269D', 'O', '1', '0BC0F64B076ED373', '10', i++);
+
+                createBusDiv(i, 'B1 ➔落馬洲站', '天耀邨耀民樓')
+                getBusKMBRouteETA('B1', 'O', '1', '4BE4E6D4F5A06A51', '3', i++);
 
                 createBusDiv(i, '276 ➔上水, 拍卡!!', '天耀邨耀民樓')
                 getBusKMBRouteETA('276', 'O', '1', '4BE4E6D4F5A06A51', '3', i++);
@@ -443,6 +450,9 @@
 
                 createBusDiv(i, '274X ➔大埔中心', '大老山隧道 (B1)')
                 getBusKMBRouteETA('274X', 'O', '1', '9274EF6791CA3ED8', '11', i++);
+
+                createBusDiv(i, '75X ➔大埔(富善)', '大老山隧道 (B1)')
+                getBusKMBRouteETA('75X', 'I', '1', '9274EF6791CA3ED8', '20', i++);
 
                 createBusDiv(i, '73 ➔粉嶺(華明)', '大埔寶鄉橋')
                 getBusKMBRouteETA('73', 'I', '1', 'FDDA176977136CD9', '17', i++);
@@ -527,20 +537,21 @@
                     ["kmb", kmbPath, '68M', 'I', '1', 'E62FE9EC6A0D8E35', '1', '元朗(西)'],
                     ["kmb", kmbPath, '968', 'O', '1', 'DAFFF59B0718B464', '1', '元朗(西)'],
                     ["kmb", kmbPath, 'N368', 'O', '1', '41D1C16D44F410F1', '1', '元朗(西)'],
-                    ["kmb", kmbPath, '264R', 'O', '1', '6E85D42922E5A10C', '14', '元朗廣場'],
-                    ["kmb", kmbPath, '276', 'O', '1', 'B02B0B9F73E50D93', '10', '元朗廣場'],
-                    ["kmb", kmbPath, '276C', 'O', '1', 'B02B0B9F73E50D93', '5', '元朗廣場'],
-                    ["kmb", kmbPath, '276P', 'O', '1', 'B02B0B9F73E50D93', '14', '元朗廣場'],
-                    ["kmb", kmbPath, 'A36', 'I', '1', 'A9F790C55AB9D4E9', '6', '元朗廣場'],
-                    ["kmb", kmbPath, 'E36', 'I', '1', 'A9F790C55AB9D4E9', '15', '元朗廣場'],
-                    ["kmb", kmbPath, 'N269', 'O', '1', 'B02B0B9F73E50D93', '17', '元朗廣場'],
-                    ["kmb", kmbPath, '53', 'I', '1', '22D525468860D203', '72', '元朗喜利徑'],
-                    ["kmb", kmbPath, '68X', 'O', '1', '48FBCEF0B05599F8', '11', '元朗喜利徑'],
-                    ["kmb", kmbPath, '76K', 'I', '1', '4EE417C5EF5FEF4E', '3', '元朗喜利徑'],
-                    ["kmb", kmbPath, '268B', 'O', '1', '22D525468860D203', '7', '元朗喜利徑'],
-                    ["kmb", kmbPath, '268C', 'O', '1', '22D525468860D203', '7', '元朗喜利徑'],
-                    ["kmb", kmbPath, '268X', 'O', '1', '48FBCEF0B05599F8', '8', '元朗喜利徑'],
-                    ["kmb", kmbPath, '269D', 'O', '1', '4EE417C5EF5FEF4E', '15', '元朗喜利徑'],
+                    ["kmb", kmbPath, '264R', 'O', '1', '6E85D42922E5A10C', '14', '元朗廣場(N1)'],
+                    ["kmb", kmbPath, '276', 'O', '1', 'F87A56BD0A2640ED', '10', '元朗廣場(N2)'],
+                    ["kmb", kmbPath, '276C', 'O', '1', 'F87A56BD0A2640ED', '5', '元朗廣場(N2)'],
+                    ["kmb", kmbPath, '276P', 'O', '1', 'F87A56BD0A2640ED', '14', '元朗廣場(N2)'],
+                    ["kmb", kmbPath, 'B1', 'O', '1', 'BF85B8D218CD0FF6', '8', '元朗廣場(N4)'],
+                    ["kmb", kmbPath, 'A36', 'I', '1', 'F87A56BD0A2640ED', '6', '元朗廣場(N2)'],
+                    ["kmb", kmbPath, 'E36', 'I', '1', 'F87A56BD0A2640ED', '15', '元朗廣場(N2)'],
+                    ["kmb", kmbPath, 'N269', 'O', '1', 'B02B0B9F73E50D93', '17', '元朗廣場(N3)'],
+                    ["kmb", kmbPath, '53', 'I', '1', '22D525468860D203', '72', '元朗喜利徑(N6)'],
+                    ["kmb", kmbPath, '68X', 'O', '1', '48FBCEF0B05599F8', '11', '元朗喜利徑(N7)'],
+                    ["kmb", kmbPath, '76K', 'I', '1', '4EE417C5EF5FEF4E', '3', '元朗喜利徑(N5)'],
+                    ["kmb", kmbPath, '268B', 'O', '1', '22D525468860D203', '7', '元朗喜利徑(N6)'],
+                    ["kmb", kmbPath, '268C', 'O', '1', '22D525468860D203', '7', '元朗喜利徑(N6)'],
+                    ["kmb", kmbPath, '268X', 'O', '1', '48FBCEF0B05599F8', '8', '元朗喜利徑(N7)'],
+                    ["kmb", kmbPath, '269D', 'O', '1', '4EE417C5EF5FEF4E', '15', '元朗喜利徑(N5)'],
                 ]
                 createBusDiv(0, '由元朗廣場出發', '')
                 getSortedBusRouteETA(dataList, 0);

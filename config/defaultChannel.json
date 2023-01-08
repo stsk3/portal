@@ -42,21 +42,6 @@
         ]
       },
       {
-        "title": "now新聞台",
-        "cardImage": "nowtv332",
-        "func": "nowtv_332"
-      },
-      {
-        "title": "now財經台",
-        "cardImage": "nowtv333",
-        "func": "nowtv_333"
-      },
-      {
-        "title": "now直播台",
-        "cardImage": "nowtv331",
-        "func": "nowtv_331"
-      },
-      {
         "title": "HK01直播",
         "cardImage": "fb_hk01wemedia",
         "func": "",
@@ -80,20 +65,15 @@
     "header": "體育",
     "channelDataList": [
       {
-        "title": "now630",
-        "cardImage": "nowtv630",
-        "func": "nowtv_630"
-      },
-      {
-        "title": "STAR Sports",
-        "cardImage": "sports_starsports",
-        "func": "tvfix_starsports"
-      },
-      {
         "title": "高清體育台",
         "cardImage": "cable_601",
         "func": "cablesports_661",
-        "func2": "cable_62"
+        "func2": "cable_62",
+        "videoUrlList": [
+          "http://uc6.i-cable.com/live_freedirect/hd202_h.live/playlist.m3u8",
+          "http://uc6.i-cable.com/live_freedirect/hd202.live/playlist.m3u8"
+        ],
+        "getFromInternet": true
       },
       {
         "title": "高清體育台(2)",
@@ -104,7 +84,12 @@
         "title": "Sports Plus 1",
         "cardImage": "cable_602",
         "func": "cablesports_662",
-        "func2": "cable_61"
+        "func2": "cable_61",
+        "videoUrlList": [
+          "http://uc6.i-cable.com/live_freedirect/hd201_h.live/playlist.m3u8",
+          "http://uc6.i-cable.com/live_freedirect/hd201.live/playlist.m3u8"
+        ],
+        "getFromInternet": true
       },
       {
         "title": "Sports Plus 1(2)",
@@ -115,7 +100,26 @@
         "title": "Sports Plus 2",
         "cardImage": "cable_604",
         "func": "cablesports_664",
-        "func2": "cable_64"
+        "func2": "cable_64",
+        "videoUrlList": [
+          "http://uc6.i-cable.com/live_freedirect/hd604_h.live/playlist.m3u8",
+          "http://uc6.i-cable.com/live_freedirect/hd604.live/playlist.m3u8"
+        ],
+        "getFromInternet": true
+      },
+      {
+        "title": "HD603",
+        "cardImage": "cable_603",
+        "func": "",
+        "videoUrlList": [
+          "http://uc6.i-cable.com/live_freedirect/hd203_h.live/playlist.m3u8",
+          "http://uc6.i-cable.com/live_freedirect/hd203.live/playlist.m3u8"
+        ]
+      },
+      {
+        "title": "STAR Sports",
+        "cardImage": "sports_starsports",
+        "func": "tvfix_starsports"
       },
       {
         "title": "澳門體育",
@@ -370,6 +374,41 @@
           "http://uc6.i-cable.com/live_freedirect/opentvhd002_h.live/playlist.m3u8",
           "http://uc6.i-cable.com/live_freedirect/opentvhd002.live/playlist.m3u8",
           "https://cdn.hklive.tv/xxxx/76/index.m3u8"
+        ]
+      },
+      {
+        "title": "有線綜合娛樂台",
+        "cardImage": "cable_212",
+        "func": "",
+        "videoUrlList": [
+          "http://uc6.i-cable.com/live_freedirect/hd212_h.live/playlist.m3u8",
+          "http://uc6.i-cable.com/live_freedirect/hd212.live/playlist.m3u8"
+        ]
+      },
+      {
+        "title": "TVN",
+        "cardImage": "world_tvn",
+        "func": "",
+        "videoUrlList": [
+          "http://uc6.i-cable.com/live_freedirect/hd320_h.live/playlist.m3u8",
+          "http://uc6.i-cable.com/live_freedirect/hd320.live/playlist.m3u8"
+        ]
+      },
+      {
+        "title": "亞洲美食頻道",
+        "cardImage": "world_afn",
+        "func": "",
+        "videoUrlList": [
+          "http://uc6.i-cable.com/live_freedirect/hd717_h.live/playlist.m3u8",
+          "http://uc6.i-cable.com/live_freedirect/hd717.live/playlist.m3u8"
+        ]
+      },
+      {
+        "title": "Migu TV",
+        "cardImage": "cable_migutv",
+        "func": "",
+        "videoUrlList": [
+          "http://hongkongicable.miguvideo.com/live/migutv.m3u8"
         ]
       }
     ]
