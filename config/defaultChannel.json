@@ -8,7 +8,8 @@
         "func": "cableolympic_38",
         "func2": "cabletv_108",
         "videoUrlList": [
-            "https://uc6.i-cable.com/live_freedirect/freehd208_h.live/playlist.m3u8"
+          "https://uc6.i-cable.com/live_freedirect/freehd208_h.live/playlist.m3u8",
+          "https://cdn.hklive.tv/xxxx/108/index.m3u8"
         ],
         "getFromInternet": true
       },
@@ -18,7 +19,8 @@
         "func": "cableolympic_39",
         "func2": "cabletv_10",
         "videoUrlList": [
-            "https://uc6.i-cable.com/live_freedirect/hd110_h.live/playlist.m3u8"
+          "https://uc6.i-cable.com/live_freedirect/hd110_h.live/playlist.m3u8",
+          "https://cdn.hklive.tv/xxxx/110/index.m3u8"
         ],
         "getFromInternet": true
       },
@@ -28,7 +30,8 @@
         "func": "cableolympic_37",
         "func2": "cabletv_109",
         "videoUrlList": [
-            "https://uc6.i-cable.com/live_freedirect/freehd209_h.live/playlist.m3u8"
+          "https://uc6.i-cable.com/live_freedirect/freehd209_h.live/playlist.m3u8",
+          "https://cdn.hklive.tv/xxxx/109/index.m3u8"
         ],
         "getFromInternet": true
       },
@@ -42,6 +45,14 @@
         ]
       },
       {
+        "title": "now新聞台",
+        "cardImage": "nowtv332",
+        "func": "",
+        "videoUrlList": [
+          "https://cdn.hklive.tv/xxxx/332/index.m3u8"
+        ]
+      },
+      {
         "title": "HK01直播",
         "cardImage": "fb_hk01wemedia",
         "func": "",
@@ -49,14 +60,6 @@
           "http://live.cdn.hk01.com/origin/smil:01news.smil/playlist.m3u8",
           "http://live2.cdn.hk01.com/origin/smil:Sudden01.smil/playlist.m3u8",
           "http://live.cdn.hk01.com/origin/smil:EventBox001.smil/playlist.m3u8"
-        ]
-      },
-      {
-        "title": "香港電台視像新聞",
-        "cardImage": "news_rthk",
-        "func": "",
-        "videoUrlList": [
-          "https://rthkcnews-lh.akamaihd.net/i/rthknews_1@312607/master.m3u8"
         ]
       }
     ]
@@ -71,7 +74,8 @@
         "func2": "cable_62",
         "videoUrlList": [
           "http://uc6.i-cable.com/live_freedirect/hd202_h.live/playlist.m3u8",
-          "http://uc6.i-cable.com/live_freedirect/hd202.live/playlist.m3u8"
+          "http://uc6.i-cable.com/live_freedirect/hd202.live/playlist.m3u8",
+          "https://pull-l3-cny.douyincdn.com/live/d3b862d084bb075be28e531825f2d5ba.m3u8"
         ],
         "getFromInternet": true
       },
@@ -203,7 +207,11 @@
       {
         "title": "ELEVEN1",
         "cardImage": "sports_eleven",
-        "func": "rtmp_tv73"
+        "func": "",
+        "func2": "rtmp_tv73",
+        "videoUrlList": [
+          "https://pull-l3-cny.douyincdn.com/live/2a00f6ff25aecbc8e7725f803223290f.m3u8"
+        ]
       },
       {
         "title": "ELEVEN2",
@@ -223,7 +231,11 @@
       {
         "title": "ELTA1(mod)",
         "cardImage": "sports_elta1",
-        "func": "rtmp_md01"
+        "func": "",
+        "func2": "rtmp_md01",
+        "videoUrlList": [
+          "https://pull-l3-cny.douyincdn.com/live/e782a33f919a4d55214e9927f397c4a7.m3u8"
+        ]
       },
       {
         "title": "ELTA2(mod)",
@@ -233,7 +245,11 @@
       {
         "title": "緯來體育",
         "cardImage": "sports_vlsports",
-        "func": "rtmp_tv72"
+        "func": "",
+        "func2": "rtmp_tv72",
+        "videoUrlList": [
+          "https://pull-l3-cny.douyincdn.com/live/3c23099e4d35dfd4c3af6a6b7d0283c6.m3u8"
+        ]
       },
       {
         "title": "momo綜合台",
@@ -243,7 +259,11 @@
       {
         "title": "博斯網球(mod)",
         "cardImage": "sports_bstennis",
-        "func": "rtmp_md02"
+        "func": "",
+        "func2": "rtmp_md02",
+        "videoUrlList": [
+          "https://pull-l3-cny.douyincdn.com/live/4698d0160058cd86a09310f0affe4ad9.m3u8"
+        ]
       },
       {
         "title": "華視",
@@ -260,6 +280,14 @@
   {
     "header": "中共體育",
     "channelDataList": [
+      {
+        "title": "廣東體育",
+        "cardImage": "sports_gdtv",
+        "func": "",
+        "videoUrlList": [
+          "https://pull-l3-cny.douyincdn.com/live/b6c8e5d844c1e9eb75cd18ecdfc3a460.m3u8"
+        ]
+      },
       {
         "title": "CCTV5体育",
         "cardImage": "cctv5",
@@ -363,6 +391,8 @@
           "http://media.fantv.hk/m3u8/archive/channel2.m3u8",
           "http://uc6.i-cable.com/live_freedirect/opentvhd001_h.live/playlist.m3u8",
           "http://uc6.i-cable.com/live_freedirect/opentvhd001.live/playlist.m3u8",
+          "http://61.10.2.140/live_freedirect/opentvhd001_h.live/playlist.m3u8?uid=_vip",
+          "http://61.10.2.140/live_freedirect/opentvhd001.live/playlist.m3u8?uid=_vip",
           "https://cdn.hklive.tv/xxxx/77/index.m3u8"
         ]
       },
@@ -373,6 +403,8 @@
         "videoUrlList": [
           "http://uc6.i-cable.com/live_freedirect/opentvhd002_h.live/playlist.m3u8",
           "http://uc6.i-cable.com/live_freedirect/opentvhd002.live/playlist.m3u8",
+          "http://61.10.2.140/live_freedirect/opentvhd002_h.live/playlist.m3u8?uid=_vip",
+          "http://61.10.2.140/live_freedirect/opentvhd002.live/playlist.m3u8?uid=_vip",
           "https://cdn.hklive.tv/xxxx/76/index.m3u8"
         ]
       },
@@ -390,8 +422,8 @@
         "cardImage": "world_tvn",
         "func": "",
         "videoUrlList": [
-          "http://uc6.i-cable.com/live_freedirect/hd320_h.live/playlist.m3u8",
-          "http://uc6.i-cable.com/live_freedirect/hd320.live/playlist.m3u8"
+          "http://uc6.i-cable.com/live_freedirect/hd717_h.live/playlist.m3u8",
+          "http://uc6.i-cable.com/live_freedirect/hd717.live/playlist.m3u8"
         ]
       },
       {
@@ -399,8 +431,8 @@
         "cardImage": "world_afn",
         "func": "",
         "videoUrlList": [
-          "http://uc6.i-cable.com/live_freedirect/hd717_h.live/playlist.m3u8",
-          "http://uc6.i-cable.com/live_freedirect/hd717.live/playlist.m3u8"
+          "http://uc6.i-cable.com/live_freedirect/hd320_h.live/playlist.m3u8",
+          "http://uc6.i-cable.com/live_freedirect/hd320.live/playlist.m3u8"
         ]
       },
       {
@@ -408,7 +440,7 @@
         "cardImage": "cable_migutv",
         "func": "",
         "videoUrlList": [
-          "http://hongkongicable.miguvideo.com/live/migutv.m3u8"
+          "https://hoytv-live-stream.hoy.tv/ch77/index-fhd.m3u8"
         ]
       }
     ]
@@ -477,37 +509,37 @@
         "title": "翡翠台",
         "cardImage": "tvb81",
         "videoUrlList": [
-            "https://cdn.hklive.tv/xxxx/81/index.m3u8",
-            "https://cdn.hklive.tv/xxxx/81b/index.m3u8"
+          "https://cdn.hklive.tv/xxxx/81/index.m3u8",
+          "https://cdn.hklive.tv/xxxx/81b/index.m3u8"
         ]
       },
       {
         "title": "J2",
         "cardImage": "tvb82",
         "videoUrlList": [
-           "https://cdn.hklive.tv/xxxx/82/index.m3u8"
+          "https://cdn.hklive.tv/xxxx/82/index.m3u8"
         ]
       },
       {
         "title": "無綫新聞台",
         "cardImage": "tvb83",
         "videoUrlList": [
-            "https://cdn.hklive.tv/xxxx/83/index.m3u8"
+          "https://cdn.hklive.tv/xxxx/83/index.m3u8"
         ]
       },
       {
         "title": "明珠台",
         "cardImage": "tvb84",
         "videoUrlList": [
-            "https://cdn.hklive.tv/xxxx/84b/index.m3u8",
-            "https://cdn.hklive.tv/xxxx/84/index.m3u8"
+          "https://cdn.hklive.tv/xxxx/84b/index.m3u8",
+          "https://cdn.hklive.tv/xxxx/84/index.m3u8"
         ]
       },
       {
         "title": "無綫財經體育資訊台",
         "cardImage": "tvb85",
         "videoUrlList": [
-            "https://cdn.hklive.tv/xxxx/85/index.m3u8"
+          "https://cdn.hklive.tv/xxxx/85/index.m3u8"
         ]
       }
     ]
@@ -521,14 +553,6 @@
         "func": "tw",
         "videoUrlList": [
           "http://38.64.72.148/hls/modn/list/4012/chunklist0.m3u8"
-        ]
-      },
-      {
-        "title": "壹電視新聞",
-        "cardImage": "nexttv_news",
-        "func": "",
-        "videoUrlList": [
-          "http://stream.nexttv.com.tw/n001/hd/live.m3u8"
         ]
       },
       {
@@ -620,7 +644,6 @@
         "cardImage": "tdmsat",
         "func": "",
         "videoUrlList": [
-          "https://livesource.tdm.com.mo/TDM/inter_ch3.m3u8",
           "http://live4.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8"
         ]
       },
