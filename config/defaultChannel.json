@@ -99,11 +99,6 @@
         "videoUrlList": [
           "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT7_h264/__op/default/__f/manifest.mpd"
         ]
-      },
-      {
-        "title": "NHK WORLD Premium",
-        "cardImage": "sports_nhkworldpremium",
-        "func": "tvfix_nhkworldpremium"
       }
     ]
   },
@@ -121,21 +116,6 @@
         "func": "rtmp_tv74"
       },
       {
-        "title": "ELEVEN2(mod)",
-        "cardImage": "sports_eleven2",
-        "func": "rtmp_md04"
-      },
-      {
-        "title": "ELEVEN+(mod)",
-        "cardImage": "sports_elevenplus",
-        "func": "rtmp_md05"
-      },
-      {
-        "title": "ELTA1(mod)",
-        "cardImage": "sports_elta1",
-        "func": "rtmp_md01"
-      },
-      {
         "title": "ELTA2(mod)",
         "cardImage": "sports_elta2",
         "func": "rtmp_md03"
@@ -151,12 +131,27 @@
         "func": "rtmp_tv76"
       },
       {
-        "title": "博斯網球(mod)",
-        "cardImage": "sports_bstennis",
+        "title": "HamiVideo(mod)",
+        "cardImage": "sports_hamivideo",
         "func": "rtmp_md02"
       },
       {
-        "title": "華視",
+        "title": "博斯網球(mod)",
+        "cardImage": "sports_bstennis",
+        "func": "rtmp_md04"
+      },
+      {
+        "title": "博斯運動I(mod)",
+        "cardImage": "sports_bssports1",
+        "func": "rtmp_md05"
+      },
+      {
+        "title": "博斯運動II(mod)",
+        "cardImage": "sports_bssports2",
+        "func": "rtmp_md01"
+      },
+      {
+        "title": "華視HD",
         "cardImage": "tw_cts",
         "func": "rtmp_tv11"
       },
@@ -173,8 +168,8 @@
       {
         "title": "CCTV5体育",
         "cardImage": "cctv5",
-        "func": "tvfix_cctv5hd",
-        "func2": "rtmp_cn021",
+        "func1": "rtmp_cn02",
+        "func2": "tvfix_cctv5hd",
         "videoUrlList": [
           "http://39.135.138.60:18890/PLTV/88888910/224/3221225633/index.m3u8",
           "http://140.207.241.2:8080/live/program/live/cctv5hd/4000000/mnf.m3u8",
@@ -185,8 +180,8 @@
       {
         "title": "CCTV5+体育赛事",
         "cardImage": "cctv5plus",
-        "func": "tvfix_cctv5phd",
-        "func2": "rtmp_cn051",
+        "func": "rtmp_cn05",
+        "func2": "tvfix_cctv5phd",
         "videoUrlList": [
           "http://39.135.138.60:18890/PLTV/88888910/224/3221225649/index.m3u8",
           "http://140.207.241.2:8080/live/program/live/cctv5phd/4000000/mnf.m3u8"
@@ -238,21 +233,6 @@
         "title": "极速汽车",
         "cardImage": "sports_jsqc",
         "func": "tvfix_jsqchd"
-      },
-      {
-        "title": "CCTV风云足球",
-        "cardImage": "cctvfyzq",
-        "func": "tvfix_cctvfyzqhd"
-      },
-      {
-        "title": "CCTV央视台球",
-        "cardImage": "cctvtq",
-        "func": "tvfix_cctvtqhd"
-      },
-      {
-        "title": "CCTV高尔夫网球",
-        "cardImage": "cctvgefwq",
-        "func": "tvfix_cctvgefwqhd"
       }
     ]
   },
@@ -274,104 +254,6 @@
         "videoUrlList": [
           "https://www.rthk.hk/feeds/dtt/rthktv32_https.m3u8"
         ]
-      }
-    ]
-  },
-  {
-    "header": "CCTVB",
-    "channelDataList": [
-      {
-        "title": "翡翠台",
-        "cardImage": "tvb81",
-        "func": "tvfix_jade|jade2"
-      },
-      {
-        "title": "J2",
-        "cardImage": "tvb82",
-        "func": "tvfix_j2|j22"
-      },
-      {
-        "title": "無綫新聞台",
-        "cardImage": "tvb83",
-        "func": "tvfix_inews|inews2"
-      },
-      {
-        "title": "明珠台",
-        "cardImage": "tvb84",
-        "func": "tvfix_pearl|pearl2"
-      },
-      {
-        "title": "無綫財經體育資訊台",
-        "cardImage": "tvb85",
-        "func": "tvfix_finance|finance2"
-      }
-    ]
-  },
-  {
-    "header": "新聞",
-    "channelDataList": [
-      {
-        "title": "民視新聞",
-        "cardImage": "tw_ftvn",
-        "func": "tw",
-        "videoUrlList": [
-          "http://38.64.72.148/hls/modn/list/4012/chunklist0.m3u8"
-        ]
-      },
-      {
-        "title": "BBC News",
-        "cardImage": "news_bbcnews",
-        "func": "tvfix_bbcnews"
-      },
-      {
-        "title": "CNN",
-        "cardImage": "news_cnn",
-        "func": "tvfix_cnn"
-      },
-      {
-        "title": "RT",
-        "cardImage": "news_rt",
-        "func": "tvfix_rt"
-      },
-      {
-        "title": "NHK WORLD",
-        "cardImage": "news_nhkworld",
-        "func": "tvfix_nhkworld|nhkworld2"
-      },
-      {
-        "title": "CCTV13新闻",
-        "cardImage": "cctv13",
-        "func": "tvfix_cctv13hd",
-        "videoUrlList": [
-          "http://39.135.138.60:18890/PLTV/88888910/224/3221225638/index.m3u8",
-          "http://140.207.241.2:8080/live/program/live/cctvxw/1300000/mnf.m3u8"
-        ],
-        "getFromInternet": true
-      },
-      {
-        "title": "鳳凰中文",
-        "cardImage": "news_fhzw",
-        "func": "tvfix_fhzw"
-      },
-      {
-        "title": "鳳凰資訊",
-        "cardImage": "news_fhzx",
-        "func": "tvfix_fhzx"
-      },
-      {
-        "title": "上海新闻综合",
-        "cardImage": "news_shxwzh",
-        "func": "tvfix_shxwzhhd"
-      },
-      {
-        "title": "北京新闻",
-        "cardImage": "news_brtv9",
-        "func": "tvfix_brtv9hd"
-      },
-      {
-        "title": "CGTN",
-        "cardImage": "cgtn",
-        "func": "tvfix_cgtnhd"
       }
     ]
   },
@@ -424,24 +306,32 @@
     "header": "台灣",
     "channelDataList": [
       {
-        "title": "民視",
+        "title": "民視HD",
         "cardImage": "tw_ftv",
         "func": "rtmp_tv05"
       },
       {
-        "title": "台視",
+        "title": "民視新聞",
+        "cardImage": "tw_ftvn",
+        "func": "tw",
+        "videoUrlList": [
+          "http://38.64.72.148/hls/modn/list/4012/chunklist0.m3u8"
+        ]
+      },
+      {
+        "title": "台視HD",
         "cardImage": "tw_ttv",
         "func": "rtmp_tv07"
       },
       {
-        "title": "中視",
+        "title": "中視HD",
         "cardImage": "tw_ctv",
         "func": "rtmp_tv09"
       },
       {
         "title": "緯來日本",
         "cardImage": "sports_vljp",
-        "func": "rtmp_tv52"
+        "func": "rtmp_tv77"
       }
     ]
   },
@@ -449,14 +339,9 @@
     "header": "外國",
     "channelDataList": [
       {
-        "title": "Discovery",
-        "cardImage": "knowledge_discovery",
-        "func": "tvfix_discovery"
-      },
-      {
-        "title": "Animal Planet",
-        "cardImage": "knowledge_animal",
-        "func": "tvfix_animal:第一聲道|animal2:第二聲道"
+        "title": "鳳凰電影",
+        "cardImage": "movie_fhdy",
+        "func": "tvfix_fhdy"
       },
       {
         "title": "國家地理",
@@ -469,21 +354,6 @@
         "func": "tvfix_startv"
       },
       {
-        "title": "tvN",
-        "cardImage": "world_tvn",
-        "func": "tvfix_tvn"
-      },
-      {
-        "title": "AXN",
-        "cardImage": "world_tvn",
-        "func": "tvfix_axn"
-      },
-      {
-        "title": "NHK綜合",
-        "cardImage": "world_nhkg",
-        "func": "tvfix_nhkg:第一聲道|nhkg2:第二聲道"
-      },
-      {
         "title": "瞬間看地球",
         "cardImage": "knowledge_earth",
         "func": "tvfix_earth"
@@ -492,42 +362,6 @@
         "title": "Channel V",
         "cardImage": "world_channelv",
         "func": "tvfix_channelv"
-      }
-    ]
-  },
-  {
-    "header": "電影",
-    "channelDataList": [
-      {
-        "title": "美亞電影台",
-        "cardImage": "movie_mydy",
-        "func": "tvfix_mydy:粵語|mydy2:國語"
-      },
-      {
-        "title": "鳳凰電影",
-        "cardImage": "movie_fhdy",
-        "func": "tvfix_fhdy"
-      },
-      {
-        "title": "Thrill",
-        "cardImage": "movie_thrill",
-        "func": "tvfix_thrill:第一聲道|thrill2:第二聲道"
-      },
-      {
-        "title": "Hands Up Channel",
-        "cardImage": "movie_handsup",
-        "func": "tvfix_kid:第一聲道|kid2:第二聲道",
-        "videoUrlList": [
-          "https://cdn.hklive.tv/hls/100/index.m3u8"
-        ]
-      },
-      {
-        "title": "Animax",
-        "cardImage": "movie_animax",
-        "func": "tvfix_animax:第一聲道|animax2:第二聲道",
-        "videoUrlList": [
-          "https://cdn.hklive.tv/hls/504/index.m3u8"
-        ]
       }
     ]
   },
@@ -593,6 +427,16 @@
         "title": "CCTV12社会与法",
         "cardImage": "cctv12",
         "func": "tvfix_cctv12hd"
+      },
+      {
+        "title": "CCTV13新闻",
+        "cardImage": "cctv13",
+        "func": "tvfix_cctv13hd",
+        "videoUrlList": [
+          "http://39.135.138.60:18890/PLTV/88888910/224/3221225638/index.m3u8",
+          "http://140.207.241.2:8080/live/program/live/cctvxw/1300000/mnf.m3u8"
+        ],
+        "getFromInternet": true
       },
       {
         "title": "CCTV14少儿",
@@ -984,6 +828,136 @@
         "title": "US25",
         "cardImage": "cat_sports",
         "func": "rtmp_us25"
+      }
+    ]
+  },
+  {
+    "header": "中國體育",
+    "channelDataList": [
+      {
+        "title": "CN1",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn01"
+      },
+      {
+        "title": "CN2",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn02"
+      },
+      {
+        "title": "CN3",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn03"
+      },
+      {
+        "title": "CN4",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn04"
+      },
+      {
+        "title": "CN5",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn05"
+      },
+      {
+        "title": "CN6",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn06"
+      },
+      {
+        "title": "CN7",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn07"
+      },
+      {
+        "title": "CN8",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn08"
+      },
+      {
+        "title": "CN9",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn09"
+      },
+      {
+        "title": "CN10",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn10"
+      },
+      {
+        "title": "CN11",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn11"
+      },
+      {
+        "title": "CN12",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn12"
+      },
+      {
+        "title": "CN13",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn13"
+      },
+      {
+        "title": "CN14",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn14"
+      },
+      {
+        "title": "CN15",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn15"
+      },
+      {
+        "title": "CN16",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn16"
+      },
+      {
+        "title": "CN17",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn17"
+      },
+      {
+        "title": "CN18",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn18"
+      },
+      {
+        "title": "CN19",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn19"
+      },
+      {
+        "title": "CN20",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn20"
+      },
+      {
+        "title": "CN21",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn21"
+      },
+      {
+        "title": "CN22",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn22"
+      },
+      {
+        "title": "CN23",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn23"
+      },
+      {
+        "title": "CN24",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn24"
+      },
+      {
+        "title": "CN25",
+        "cardImage": "cat_sports",
+        "func": "rtmp_cn25"
       }
     ]
   },
