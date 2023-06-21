@@ -41,8 +41,7 @@
         "cardImage": "sports_btsport1",
         "func": "",
         "videoUrlList": [
-          "http://198.16.100.90:8278/beeone/playlist.m3u8?tid=ME4E5665100556651005&ct=19254&tsum=caea1a674ddae23ddac022c6f734bbe9",
-          "http://50.7.238.114:8278/beeone/playlist.m3u8?tid=ME4E5665100556651005&ct=19254&tsum=caea1a674ddae23ddac022c6f734bbe9"
+          "http://198.16.100.90:8278/beeone/playlist.m3u8?tid=ME4E5665100556651005&ct=19254&tsum=caea1a674ddae23ddac022c6f734bbe9"
         ]
       },
       {
@@ -50,8 +49,7 @@
         "cardImage": "sports_btsport3",
         "func": "",
         "videoUrlList": [
-          "http://198.16.100.90:8278/beethree/playlist.m3u8?tid=MD8D2705762227057622&ct=19254&tsum=5f67e864d74200ddfa93a55f5f897168",
-          "http://50.7.238.114:8278/beethree/playlist.m3u8?tid=MD8D2705762227057622&ct=19254&tsum=5f67e864d74200ddfa93a55f5f897168"
+          "http://198.16.100.90:8278/beethree/playlist.m3u8?tid=MD8D2705762227057622&ct=19254&tsum=5f67e864d74200ddfa93a55f5f897168"
         ]
       },
       {
@@ -59,10 +57,7 @@
         "cardImage": "sports_btsport4",
         "func": "",
         "videoUrlList": [
-          "http://198.16.100.90:8278/btespn/playlist.m3u8?tid=MB5B6304580563045805&ct=19254&tsum=80d2ec53bd2391dea02424aad8c648c7",
-          "http://198.16.100.90:8278/btespn/playlist.m3u8?tid=MA7A3153817131538171&ct=19225&tsum=9452e06c1cdd6935e85cb94a95212a9a",
-          "http://50.7.238.114:8278/btespn/playlist.m3u8?tid=MB5B6304580563045805&ct=19254&tsum=80d2ec53bd2391dea02424aad8c648c7",
-          "http://50.7.238.114:8278/btespn/playlist.m3u8?tid=MA7A3153817131538171&ct=19225&tsum=9452e06c1cdd6935e85cb94a95212a9a"
+          "http://198.16.100.90:8278/btespn/playlist.m3u8?tid=MB5B6304580563045805&ct=19254&tsum=80d2ec53bd2391dea02424aad8c648c7"
         ]
       },
       {
@@ -70,8 +65,7 @@
         "cardImage": "sports_astross2",
         "func": "",
         "videoUrlList": [
-          "http://198.16.100.90:8278/Assp2/playlist.m3u8?tid=ME1E4056565440565654&ct=19249&tsum=1bf59bebb8a43a859eae9f1b3759f844",
-          "http://50.7.238.114:8278/Assp2/playlist.m3u8?tid=ME1E4056565440565654&ct=19249&tsum=1bf59bebb8a43a859eae9f1b3759f844"
+          "http://198.16.100.90:8278/Assp2/playlist.m3u8?tid=ME1E4056565440565654&ct=19249&tsum=1bf59bebb8a43a859eae9f1b3759f844"
         ]
       },
       {
@@ -79,8 +73,7 @@
         "cardImage": "sports_astross3",
         "func": "",
         "videoUrlList": [
-          "http://198.16.100.90:8278/Assp3/playlist.m3u8?tid=MB4B2552451125524511&ct=19249&tsum=f6cb45a995e37dfc7c40d515f29924e4",
-          "http://50.7.238.114:8278/Assp3/playlist.m3u8?tid=MB4B2552451125524511&ct=19249&tsum=f6cb45a995e37dfc7c40d515f29924e4"
+          "http://198.16.100.90:8278/Assp3/playlist.m3u8?tid=MB4B2552451125524511&ct=19249&tsum=f6cb45a995e37dfc7c40d515f29924e4"
         ]
       },
       {
@@ -88,8 +81,7 @@
         "cardImage": "sports_truefootballpremium1",
         "func": "",
         "videoUrlList": [
-          "http://198.16.100.90:8278/truepre1_pat/playlist.m3u8?tid=MCEC6796185367961853&ct=19249&tsum=9ab501851eed281c85dc762c6b915c47",
-          "http://50.7.238.114:8278/truepre1_pat/playlist.m3u8?tid=MCEC6796185367961853&ct=19249&tsum=9ab501851eed281c85dc762c6b915c47"
+          "http://198.16.100.90:8278/truepre1_pat/playlist.m3u8?tid=MCEC6796185367961853&ct=19249&tsum=9ab501851eed281c85dc762c6b915c47"
         ]
       },
       {
@@ -97,40 +89,38 @@
         "cardImage": "sports_truefootballpremium2",
         "func": "",
         "videoUrlList": [
-          "http://198.16.100.90:8278/truepre2_pat/playlist.m3u8?tid=MD7D6803914668039146&ct=19249&tsum=896db6668d2b4a7ad693b44ab39fcd22",
-          "http://50.7.238.114:8278/truepre2_pat/playlist.m3u8?tid=MD7D6803914668039146&ct=19249&tsum=896db6668d2b4a7ad693b44ab39fcd22"
+          "http://198.16.100.90:8278/truepre2_pat/playlist.m3u8?tid=MD7D6803914668039146&ct=19249&tsum=896db6668d2b4a7ad693b44ab39fcd22"
         ]
       },
       {
-        "title": "TNT Sports 巴西1",
+        "title": "TNT Sports 巴西",
         "cardImage": "sports_tntbr",
         "func": "",
         "videoUrlList": [
-          "https://glxlmn026c.singularcdn.net.br/playout_01/playlist-720p.m3u8"
-        ]
-      },
-      {
-        "title": "TNT Sports 巴西2",
-        "cardImage": "sports_tntbr",
-        "func": "",
-        "videoUrlList": [
-          "https://glxlmn026c.singularcdn.net.br/playout_02/playlist-720p.m3u8"
-        ]
-      },
-      {
-        "title": "TNT Sports 巴西3",
-        "cardImage": "sports_tntbr",
-        "func": "",
-        "videoUrlList": [
-          "https://glxlmn026c.singularcdn.net.br/playout_03/playlist-720p.m3u8"
-        ]
-      },
-      {
-        "title": "TNT Sports 巴西4",
-        "cardImage": "sports_tntbr",
-        "func": "",
-        "videoUrlList": [
+          "https://glxlmn026c.singularcdn.net.br/playout_01/playlist-720p.m3u8",
+          "https://glxlmn026c.singularcdn.net.br/playout_02/playlist-720p.m3u8",
+          "https://glxlmn026c.singularcdn.net.br/playout_03/playlist-720p.m3u8",
           "https://glxlmn026c.singularcdn.net.br/playout_04/playlist-720p.m3u8"
+        ]
+      },
+      {
+        "title": "Dubai Sports",
+        "cardImage": "sports_dubai",
+        "func": "",
+        "videoUrlList": [
+          "https://dmitwlvvll.cdn.mangomolo.com/dubaisportshd/smil:dubaisportshd.smil/index.m3u8",
+          "https://dmitwlvvll.cdn.mangomolo.com/dubaisportshd5/smil:dubaisportshd5.smil/index.m3u8",
+          "http://dmithrvll.cdn.mangomolo.com/dubaimubasher/smil:dubaimubasher.smil/playlist.m3u8",
+          "https://glxlmn026c.singularcdn.net.br/playout_04/playlist-720p.m3u8"
+        ]
+      },
+      {
+        "title": "EDGE",
+        "cardImage": "sports_edge",
+        "func": "",
+        "videoUrlList": [
+          "https://edgesport-samsunguk.amagi.tv/playlist.m3u8",
+          "https://edgesport-rakuten-samsung.amagi.tv/playlist.m3u8"
         ]
       },
       {
@@ -207,7 +197,6 @@
         "cardImage": "sports_eleven",
         "func": "rtmp_tv73",
         "videoUrlList": [
-          "http://198.16.100.90:8278/golfchannel_twn/playlist.m3u8?tid=m43df9270caf7&ct=18335&tsum=3bcc02e810e7073b86bb40d392e95f23",
           "http://198.16.100.90:8278/golfchannel_twn/playlist.m3u8?tid=MFBF2798068027980680&ct=18393&tsum=d8204023f67120512c75a8882f121120",
           "http://50.7.238.114:8278/golfchannel_twn/playlist.m3u8?tid=m43df9270caf7&ct=18335&tsum=3bcc02e810e7073b86bb40d392e95f23",
           "http://50.7.238.114:8278/golfchannel_twn/playlist.m3u8?tid=MFBF2798068027980680&ct=18393&tsum=d8204023f67120512c75a8882f121120"
@@ -225,9 +214,7 @@
         "func": "",
         "videoUrlList": [
           "http://198.16.100.90:8278/eltasport_twn/playlist.m3u8?tid=MF1F8884668388846683&ct=19249&tsum=b676f636b8ef285596dc6512fc4659d4",
-          "http://198.16.100.90:8278/eltasport2_twn/playlist.m3u8?tid=ME3E4844502848445028&ct=19317&tsum=035fc643389fcb4a6bf124bca1248aab",
-          "http://50.7.238.114:8278/eltasport_twn/playlist.m3u8?tid=MF1F8884668388846683&ct=19249&tsum=b676f636b8ef285596dc6512fc4659d4",
-          "http://50.7.238.114:8278/eltasport2_twn/playlist.m3u8?tid=ME3E4844502848445028&ct=19317&tsum=035fc643389fcb4a6bf124bca1248aab"
+          "http://50.7.238.114:8278/eltasport_twn/playlist.m3u8?tid=MF1F8884668388846683&ct=19249&tsum=b676f636b8ef285596dc6512fc4659d4"
         ]
       },
       {
@@ -235,8 +222,10 @@
         "cardImage": "sports_elta2",
         "func": "rtmp_md03",
         "videoUrlList": [
+          "http://198.16.100.90:8278/eltasport2_twn/playlist.m3u8?tid=ME3E4844502848445028&ct=19317&tsum=035fc643389fcb4a6bf124bca1248aab",
           "http://198.16.100.90:8278/eltasport2_twn/playlist.m3u8?tid=MB2B3966739039667390&ct=19249&tsum=20bdbd3a22909e8d89aabe7a923c8c5b",
           "http://198.16.100.90:8278/eltasport2_twn/playlist.m3u8?tid=MCDC5093685750936857&ct=19225&tsum=592e009b281ea2abc43b21768cb1bec0",
+          "http://50.7.238.114:8278/eltasport2_twn/playlist.m3u8?tid=ME3E4844502848445028&ct=19317&tsum=035fc643389fcb4a6bf124bca1248aab",
           "http://50.7.238.114:8278/eltasport2_twn/playlist.m3u8?tid=MB2B3966739039667390&ct=19249&tsum=20bdbd3a22909e8d89aabe7a923c8c5b",
           "http://50.7.238.114:8278/eltasport2_twn/playlist.m3u8?tid=MCDC5093685750936857&ct=19225&tsum=592e009b281ea2abc43b21768cb1bec0"
         ],
@@ -298,7 +287,6 @@
         "cardImage": "sports_bsgolf1",
         "func": "",
         "videoUrlList": [
-          "http://198.16.100.90:8278/bosigolf2_twn/playlist.m3u8?tid=m51c41c232c43&ct=18335&tsum=26e2e08302bf0409db94a692921fa08b",
           "http://198.16.100.90:8278/bosigolf1_twn/playlist.m3u8?tid=MD5D3832704238327042&ct=18393&tsum=cbf3bf749c9b0bf4828ab19efff1c5b0",
           "http://50.7.238.114:8278/bosigolf1_twn/playlist.m3u8?tid=m51c41c232c43&ct=18335&tsum=26e2e08302bf0409db94a692921fa08b",
           "http://50.7.238.114:8278/bosigolf1_twn/playlist.m3u8?tid=MD5D3832704238327042&ct=18393&tsum=cbf3bf749c9b0bf4828ab19efff1c5b0"
@@ -333,6 +321,14 @@
   {
     "header": "中共體育",
     "channelDataList": [
+      {
+        "title": "廣東体育",
+        "cardImage": "sports_gdtv",
+        "func": "",
+        "videoUrlList": [
+          "http://218.15.229.90:9901/tsfile/live/1001_1.m3u8"
+        ]
+      },
       {
         "title": "CCTV5体育",
         "cardImage": "cctv5",
@@ -469,7 +465,6 @@
         "cardImage": "tvb82",
         "func": "",
         "videoUrlList": [
-          "http://198.16.100.90:8278/j2_twn/playlist.m3u8?tid=MFCF3274854132748541&ct=19254&tsum=699466c18aac56202ad1d2843fd21032",
           "http://50.7.238.114:8278/j2_twn/playlist.m3u8?tid=MFCF3274854132748541&ct=19254&tsum=699466c18aac56202ad1d2843fd21032"
         ]
       },
@@ -478,8 +473,7 @@
         "cardImage": "tvb83",
         "func": "",
         "videoUrlList": [
-          "http://198.16.100.90:8278/inews_twn/playlist.m3u8?tid=MD8D9734527497345274&ct=19249&tsum=88c5d57f9fdce89810d61e1001910a80",
-          "http://50.7.238.114:8278/inews_twn/playlist.m3u8?tid=MD8D9734527497345274&ct=19249&tsum=88c5d57f9fdce89810d61e1001910a80"
+          "http://198.16.100.90:8278/inews_twn/playlist.m3u8?tid=MD8D9734527497345274&ct=19249&tsum=88c5d57f9fdce89810d61e1001910a80"
         ]
       },
       {
@@ -549,12 +543,7 @@
       {
         "title": "民視HD",
         "cardImage": "tw_ftv",
-        "func": "rtmp_tv05",
-        "videoUrlList": [
-          "http://198.16.100.90:8278/ftvhd_taiwan/playlist.m3u8?tid=MC8C5908644059086440&ct=19249&tsum=c96d2cd48b11d40ca9e97fb3addb1384",
-          "http://50.7.238.114:8278/ftvhd_taiwan/playlist.m3u8?tid=MC8C5908644059086440&ct=19249&tsum=c96d2cd48b11d40ca9e97fb3addb1384"
-        ],
-        "getFromInternet": true
+        "func": "rtmp_tv05"
       },
       {
         "title": "民視新聞",
@@ -591,7 +580,6 @@
         "cardImage": "movie_starmovies",
         "func": "",
         "videoUrlList": [
-          "http://198.16.100.90:8278/xingwei_movie/playlist.m3u8?tid=MBDB4578128345781283&ct=19225&tsum=f2041ec954c95b4a5fe29d7ccbfe5b60",
           "http://50.7.238.114:8278/xingwei_movie/playlist.m3u8?tid=MBDB4578128345781283&ct=19225&tsum=f2041ec954c95b4a5fe29d7ccbfe5b60"
         ]
       },
@@ -611,7 +599,6 @@
         "videoUrlList": [
           "http://198.16.100.90:8278/fyi_twn/playlist.m3u8?tid=m99b80124e3b4&ct=18337&tsum=73f6f540497de9a5615b9bd55bec8853",
           "http://198.16.100.90:8278/fyi_twn/playlist.m3u8?tid=MFCF7312728573127285&ct=18393&tsum=bc4d3db9ca83c3765cc75512a1bbbbe3",
-          "http://50.7.238.114:8278/fyi_twn/playlist.m3u8?tid=m99b80124e3b4&ct=18337&tsum=73f6f540497de9a5615b9bd55bec8853",
           "http://50.7.238.114:8278/fyi_twn/playlist.m3u8?tid=MFCF7312728573127285&ct=18393&tsum=bc4d3db9ca83c3765cc75512a1bbbbe3"
         ]
       },
@@ -622,10 +609,7 @@
         "videoUrlList": [
           "http://198.16.100.90:8278/TVN/playlist.m3u8?tid=ME8E2207086222070862&ct=19249&tsum=b7f602e68174a03e917c7b354788bce9",
           "http://198.16.100.90:8278/TVN/playlist.m3u8?tid=ME2E2714748027147480&ct=19225&tsum=48ef5f1d47a64fc90e5f5ad5b182fb5d",
-          "http://198.16.100.90:8278/Tvnmovie/playlist.m3u8?tid=MFFF1556953015569530&ct=19254&tsum=f4498d6da7a4ccf9064e26396a90e4a7",
-          "http://50.7.238.114:8278/TVN/playlist.m3u8?tid=ME8E2207086222070862&ct=19249&tsum=b7f602e68174a03e917c7b354788bce9",
-          "http://50.7.238.114:8278/TVN/playlist.m3u8?tid=ME2E2714748027147480&ct=19225&tsum=48ef5f1d47a64fc90e5f5ad5b182fb5d",
-          "http://50.7.238.114:8278/Tvnmovie/playlist.m3u8?tid=MFFF1556953015569530&ct=19254&tsum=f4498d6da7a4ccf9064e26396a90e4a7"
+          "http://198.16.100.90:8278/Tvnmovie/playlist.m3u8?tid=MFFF1556953015569530&ct=19254&tsum=f4498d6da7a4ccf9064e26396a90e4a7"
         ]
       },
       {
@@ -639,7 +623,6 @@
           "http://198.16.100.90:8278/discoveryturbo_twn/playlist.m3u8?tid=MA4A9062409890624098&ct=19254&tsum=a08aaae68298f6df5540cb41f9d7fdd5",
           "http://50.7.238.114:8278/discoveryhd_twn/playlist.m3u8?tid=MF6F9560989795609897&ct=19254&tsum=5c76a2419ab5b56e7202248db95be60e",
           "http://50.7.238.114:8278/discoverytwn_twn/playlist.m3u8?tid=MB1B4014431840144318&ct=19254&tsum=a72e8caa6986ef92c4d6cb743e22a78f",
-          "http://50.7.238.114:8278/discoveryworldtam_raj/playlist.m3u8?tid=MCEC6115648861156488&ct=19254&tsum=37c93ae7da63829245608ed1857a0f97",
           "http://50.7.238.114:8278/discoveryturbo_twn/playlist.m3u8?tid=MA4A9062409890624098&ct=19254&tsum=a08aaae68298f6df5540cb41f9d7fdd5"
 
         ]
@@ -652,9 +635,7 @@
           "http://198.16.100.90:8278/natgeohd_twn/playlist.m3u8?tid=MD3D4446495344464953&ct=19249&tsum=f8c0bfc8c564a4a28247dad400acddba",
           "http://198.16.100.90:8278/natgeotamil_raj/playlist.m3u8?tid=MC8C8508198685081986&ct=19249&tsum=211a7c56c1dd113e10eae565520483d0",
           "http://198.16.100.90:8278/Natgeo/playlist.m3u8?tid=MD9D9302547893025478&ct=19249&tsum=98e3f2f5104d6ed1e826d12d93d64794",
-          "http://50.7.238.114:8278/natgeohd_twn/playlist.m3u8?tid=MD3D4446495344464953&ct=19249&tsum=f8c0bfc8c564a4a28247dad400acddba",
-          "http://50.7.238.114:8278/natgeotamil_raj/playlist.m3u8?tid=MC8C8508198685081986&ct=19249&tsum=211a7c56c1dd113e10eae565520483d0",
-          "http://50.7.238.114:8278/Natgeo/playlist.m3u8?tid=MD9D9302547893025478&ct=19249&tsum=98e3f2f5104d6ed1e826d12d93d64794"
+          "http://50.7.238.114:8278/natgeohd_twn/playlist.m3u8?tid=MD3D4446495344464953&ct=19249&tsum=f8c0bfc8c564a4a28247dad400acddba"
         ],
         "getFromInternet": true
       },
@@ -665,7 +646,6 @@
         "videoUrlList": [
           "http://198.16.100.90:8278/AnimalPlanet/playlist.m3u8?tid=MD5D8455808984558089&ct=19254&tsum=899db3292c39fbba53680601a57ee552",
           "http://198.16.100.90:8278/animalplanet_twn/playlist.m3u8?tid=MF4F9191603991916039&ct=19254&tsum=8eeac3e9b8c5f58ad74a17b9b4813ed1",
-          "http://50.7.238.114:8278/AnimalPlanet/playlist.m3u8?tid=MD5D8455808984558089&ct=19254&tsum=899db3292c39fbba53680601a57ee552",
           "http://50.7.238.114:8278/animalplanet_twn/playlist.m3u8?tid=MF4F9191603991916039&ct=19254&tsum=8eeac3e9b8c5f58ad74a17b9b4813ed1"
         ]
       },
@@ -677,9 +657,7 @@
           "http://198.16.100.90:8278/natgeowildtamil_raj/playlist.m3u8?tid=MA3A7576802775768027&ct=19249&tsum=38e4069aeedc94944ccb5122c294c939",
           "http://198.16.100.90:8278/natgeowild_twn/playlist.m3u8?tid=MF6F5354447153544471&ct=19249&tsum=fcc679b64dded7ec1ff6a0f09e335f38",
           "http://198.16.100.90:8278/Natgeowild/playlist.m3u8?tid=MCEC8162047281620472&ct=19249&tsum=903a62e36d9cd6c67654b4e2ca6bcbd5",
-          "http://50.7.238.114:8278/natgeowildtamil_raj/playlist.m3u8?tid=MA3A7576802775768027&ct=19249&tsum=38e4069aeedc94944ccb5122c294c939",
-          "http://50.7.238.114:8278/natgeowild_twn/playlist.m3u8?tid=MF6F5354447153544471&ct=19249&tsum=fcc679b64dded7ec1ff6a0f09e335f38",
-          "http://50.7.238.114:8278/Natgeowild/playlist.m3u8?tid=MCEC8162047281620472&ct=19249&tsum=903a62e36d9cd6c67654b4e2ca6bcbd5"
+          "http://50.7.238.114:8278/natgeowild_twn/playlist.m3u8?tid=MF6F5354447153544471&ct=19249&tsum=fcc679b64dded7ec1ff6a0f09e335f38"
         ]
       },
       {
@@ -692,8 +670,7 @@
         "cardImage": "news_cnn",
         "func": "",
         "videoUrlList": [
-          "http://50.7.238.114:8278/cnn_twn/playlist.m3u8?tid=ME9E1590756115907561&ct=19225&tsum=adf5db9504938a69e07bad07c9d6f7d6",
-          "http://198.16.100.90:8278/cnn_twn/playlist.m3u8?tid=ME9E1590756115907561&ct=19225&tsum=adf5db9504938a69e07bad07c9d6f7d6"
+          "http://50.7.238.114:8278/cnn_twn/playlist.m3u8?tid=ME9E1590756115907561&ct=19225&tsum=adf5db9504938a69e07bad07c9d6f7d6"
         ]
       },
       {
