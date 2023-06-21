@@ -617,7 +617,7 @@
       },
       {
         "title": "TVN",
-        "cardImage": "word_tvn",
+        "cardImage": "world_tvn",
         "func": "",
         "videoUrlList": [
           "http://198.16.100.90:8278/TVN/playlist.m3u8?tid=ME8E2207086222070862&ct=19249&tsum=b7f602e68174a03e917c7b354788bce9",
@@ -630,7 +630,7 @@
       },
       {
         "title": "Discovery",
-        "cardImage": "word_discovery",
+        "cardImage": "world_discovery",
         "func": "",
         "videoUrlList": [
           "http://198.16.100.90:8278/discoveryhd_twn/playlist.m3u8?tid=MF6F9560989795609897&ct=19254&tsum=5c76a2419ab5b56e7202248db95be60e",
