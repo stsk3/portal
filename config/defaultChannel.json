@@ -97,31 +97,6 @@
     ]
   },
   {
-    "header": "MYTV Super",
-    "channelDataList": [
-      {
-        "title": "SUPER FREE",
-        "cardImage": "mytv1",
-        "func": "hkdtmb_001"
-      },
-      {
-        "title": "Hands Up Channel",
-        "cardImage": "movie_handsup",
-        "func": "hkdtmb_100"
-      },
-      {
-        "title": "美亞電影台",
-        "cardImage": "movie_mydy",
-        "func": "hkdtmb_201"
-      },
-      {
-        "title": "Animax",
-        "cardImage": "movie_animax",
-        "func": "hkdtmb_504"
-      }
-    ]
-  },
-  {
     "header": "CCTVB",
     "channelDataList": [
       {
@@ -166,6 +141,31 @@
           "http://50.7.238.114:8278/tvbcaijing_twn/playlist.m3u8?tid=MD3D9552893795528937&ct=19254&tsum=77d4c2db4fa7537d7dd3eb19f933526d"
         ],
         "getFromInternet": true
+      }
+    ]
+  },
+  {
+    "header": "MYTV Super",
+    "channelDataList": [
+      {
+        "title": "SUPER FREE",
+        "cardImage": "mytv1",
+        "func": "hkdtmb_001"
+      },
+      {
+        "title": "Hands Up Channel",
+        "cardImage": "movie_handsup",
+        "func": "hkdtmb_100"
+      },
+      {
+        "title": "美亞電影台",
+        "cardImage": "movie_mydy",
+        "func": "hkdtmb_201"
+      },
+      {
+        "title": "Animax",
+        "cardImage": "movie_animax",
+        "func": "hkdtmb_504"
       }
     ]
   },
