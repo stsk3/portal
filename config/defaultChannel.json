@@ -5,7 +5,7 @@
       {
         "title": "VIU99",
         "cardImage": "viu99",
-        "func": "hkdtmb_99",
+        "func": "hkdtmb_99:網上|99b:天線",
         "videoUrlList": [
           "http://198.16.100.90:8278/viu1_twn/playlist.m3u8?tid=MF9F2344917423449174&ct=19254&tsum=3cb061ac749a32280d3b88c022a1403f",
           "http://50.7.238.114:8278/viu1_twn/playlist.m3u8?tid=MF9F2344917423449174&ct=19254&tsum=3cb061ac749a32280d3b88c022a1403f"
@@ -102,7 +102,7 @@
       {
         "title": "翡翠台",
         "cardImage": "tvb81",
-        "func": "hkdtmb_81:HD|81b:HEVC",
+        "func": "hkdtmb_81:網上|81b:天線",
         "videoUrlList": [
           "http://198.16.100.90:8278/jade_twn/playlist.m3u8?tid=ME6E1330319113303191&ct=19225&tsum=d76985c4965fd63807e131035f66af09",
           "http://50.7.238.114:8278/jade_twn/playlist.m3u8?tid=ME6E1330319113303191&ct=19225&tsum=d76985c4965fd63807e131035f66af09"
@@ -112,7 +112,7 @@
       {
         "title": "J2",
         "cardImage": "tvb82",
-        "func": "hkdtmb_82",
+        "func": "hkdtmb_82:網上|82b:天線",
         "videoUrlList": [
           "http://50.7.238.114:8278/j2_twn/playlist.m3u8?tid=MFCF3274854132748541&ct=19254&tsum=699466c18aac56202ad1d2843fd21032"
         ],
@@ -121,7 +121,7 @@
       {
         "title": "無綫新聞台",
         "cardImage": "tvb83",
-        "func": "hkdtmb_83",
+        "func": "hkdtmb_83:網上|83b:天線",
         "videoUrlList": [
           "http://198.16.100.90:8278/inews_twn/playlist.m3u8?tid=MD8D9734527497345274&ct=19249&tsum=88c5d57f9fdce89810d61e1001910a80"
         ],
@@ -130,12 +130,12 @@
       {
         "title": "明珠台",
         "cardImage": "tvb84",
-        "func": "hkdtmb_84:第一聲道|84b:第二聲道"
+        "func": "hkdtmb_84:網上麗音|84b:網上原聲|84c:天線麗音|84d:天線原聲"
       },
       {
         "title": "無綫財經體育資訊台",
         "cardImage": "tvb85",
-        "func": "hkdtmb_85",
+        "func": "hkdtmb_85:網上|85b:天線",
         "videoUrlList": [
           "http://198.16.100.90:8278/tvbcaijing_twn/playlist.m3u8?tid=MD3D9552893795528937&ct=19254&tsum=77d4c2db4fa7537d7dd3eb19f933526d",
           "http://50.7.238.114:8278/tvbcaijing_twn/playlist.m3u8?tid=MD3D9552893795528937&ct=19254&tsum=77d4c2db4fa7537d7dd3eb19f933526d"
@@ -196,13 +196,18 @@
       },
       {
         "title": "港台電視33",
-        "cardImage": "rthktv33",
+        "cardImage": "cctv1",
         "func": "hkdtmb_33"
       },
       {
         "title": "港台電視34",
-        "cardImage": "rthktv34",
+        "cardImage": "cgtndoc",
         "func": "hkdtmb_34"
+      },
+      {
+        "title": "港台電視35",
+        "cardImage": "cgtn",
+        "func": "hkdtmb_35"
       }
     ]
   },
@@ -725,7 +730,7 @@
       },
       {
         "title": "Discovery",
-        "cardImage": "world_discovery",
+        "cardImage": "knowledge_discovery",
         "func": "",
         "videoUrlList": [
           "http://198.16.100.90:8278/discoveryhd_twn/playlist.m3u8?tid=MF6F9560989795609897&ct=19254&tsum=5c76a2419ab5b56e7202248db95be60e",
