@@ -505,7 +505,8 @@
       {
         "title": "無綫新聞台83",
         "cardImage": "tvb83",
-        "func": "hkdtmb_83",
+        "func": "tvb_C:香港版|I-NEWS:海外版",
+        "func2": "hkdtmb_83",
         "videoUrlList": [
           "http://198.16.100.90:8278/inews_twn/playlist.m3u8?tid=MD8D9734527497345274&ct=19249&tsum=88c5d57f9fdce89810d61e1001910a80"
         ],
@@ -525,6 +526,21 @@
           "http://50.7.238.114:8278/tvbcaijing_twn/playlist.m3u8?tid=MD3D9552893795528937&ct=19254&tsum=77d4c2db4fa7537d7dd3eb19f933526d"
         ],
         "getFromInternet": true
+      },
+      {
+        "title": "無綫財經體育資訊台海外版85",
+        "cardImage": "tvb85",
+        "func": "tvb_I-FINA"
+      },
+      {
+        "title": "事件直播頻道1",
+        "cardImage": "tvb83",
+        "func": "tvb_NEVT1"
+      },
+      {
+        "title": "事件直播頻道2",
+        "cardImage": "tvb83",
+        "func": "tvb_NEVT2"
       }
     ]
   },
