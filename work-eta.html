@@ -277,6 +277,44 @@
         }
 
 
+        function getBrightonStopETA(stationId) {
+            $.ajax({url: `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://www.buses.co.uk/stops/${stationId}`)}`, cache: false, success: 
+                function (data) {
+                    const htmlDom = $($.parseHTML(data));
+
+                    const routeList = htmlDom.find('.single-visit__name');
+                    const destinationList = htmlDom.find('.single-visit__description');
+                    const etaList = htmlDom.find('.single-visit__time--expected');
+                    
+
+                    var html = '';
+
+                    if (routeList && routeList.length > 0) {
+                        html += '<div class="etaDiv">';
+                        $.each(routeList, function (index, route) {
+                            const routeNo = route.innerHTML;
+                            const dest = destinationList[index].innerHTML;
+                            const time = etaList[index].innerHTML;
+                            const timeWords = time;
+
+                            html += `<div><span class="eta-detail-route">${routeNo}</span> ➔${dest} <span class="eta-detail">${timeWords}</span></div>`;
+                        });
+                        html += '</div>';
+                   }
+                   
+                   if (!html) {
+                        html = '<div class="etaDiv"><div class="operating"><span class="eta-detail seq1">暫時沒有預定班次</span></div></div>';
+                   }
+
+                   $(`#eta-lr-refresh`).html("最後更新: " + getTimeFromTimestamp(new Date().getTime()));
+                   $(`#eta-lr`).show();
+                   $(`#eta-lr`).html(html);
+            }});
+
+            setTimeout(function() { getBrightonStopETA(stationId); }, busRefreshInterval);
+        }
+
+
 
         $(document).ajaxStart(function () {
             //$('#loadingDiv').show();
@@ -358,6 +396,20 @@
                 <div class="mtr-eta-page">
                     <div id="stationInfo">
                         <span id="stationInfo-Title">輕鐵站: </span>
+                        <span id="stationInfo-Data">${data}</span>
+                        <div id="eta-lr-refresh" class="refreshDiv">更新中...</div>
+                        <div id="eta-lr"></div>
+                    </div>
+                </div>`;
+            $("#content").append(content);
+
+        }
+
+        function createBrightonBusDiv(data) {
+            const content = `
+                <div class="mtr-eta-page">
+                    <div id="stationInfo">
+                        <span id="stationInfo-Title">巴士站: </span>
                         <span id="stationInfo-Data">${data}</span>
                         <div id="eta-lr-refresh" class="refreshDiv">更新中...</div>
                         <div id="eta-lr"></div>
@@ -575,6 +627,12 @@
                 ]
                 createBusDiv(0, '由太和出發', '')
                 getSortedBusRouteETA(dataList, 0);
+            } else if (paramType == '9') { //由Palmeira Square出發
+                createBrightonBusDiv('由Palmeira Square出發')
+                getBrightonStopETA('149000006949')
+            } else if (paramType == '10') { //由Beaconsfield Villas Top出發
+                createBrightonBusDiv('由Beaconsfield Villas Top出發')
+                getBrightonStopETA('149000006332')
             }
 
 
