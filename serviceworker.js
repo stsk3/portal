@@ -9,6 +9,7 @@ const filesToCache = [
     "bus-sectional-fare.html",
     "bus-eta.html",
     "bus-mtr-eta.html",
+    "bus-brighton-eta.html",
     "work-eta.html",
     "mtr-lr-eta.html",
     "weather.html",
@@ -87,6 +88,8 @@ const filesToCache = [
 
     "transport/light_rail_station_list.js",
     "transport/mtr_bus_route_list.js",
+    "transport/brighton_bus_route_list.js",
+    "transport/brighton_bus_station_list.js",
     "transport/sectional-tko.png",
     "transport/sectional-tuen-yuen-tin.png",
     "transport/sectional-north.png",
@@ -101,7 +104,7 @@ const filesToCache = [
     nwPrefix + "NWFB/",
 ];
 
-const swVersion = '1.19';
+const swVersion = '1.20';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

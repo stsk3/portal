@@ -1,0 +1,567 @@
+<html>
+
+<head>    
+    <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="transport/brighton_bus_route_list.js"></script>
+    <script type="text/javascript" src="transport/brighton_bus_station_list.js"></script>
+    <script type="text/javascript" src="script/leaflet.js"></script>
+    <script type="text/javascript" src="script/map-component.js"></script>
+    <script type="text/javascript" src="script/common.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <style></style>
+    <script>
+
+        const busStopMap = {};
+        const busStopGroupMap = {};
+        const refreshMap = {};  
+        const refreshInterval = 30000;
+
+        const regex = /\(.*\)/;
+        const regex2 = /\(.*?\)/g;
+
+        var searchValue = "";
+
+        function getRouteList() {
+            clearRefreshMap();
+            $('.busRouteInfo').hide();
+            setMapVisibility(false);
+
+            const tableId = '#listTable';
+
+            //Destroy old data
+            $(tableId + " > tbody").html("");
+
+            var html = '<thead>';
+            html += '<tr>';
+            html += '<th>Route</th>';
+            html += '<th>From</th>';
+            html += '<th>➔ To</th>';
+            html += '</tr>';
+            html += '</thead>';
+
+            if ($.fn.DataTable.isDataTable(tableId)) {
+                const dt = $(tableId).DataTable();
+                dt.columns(0).header().to$().text('Route');
+                dt.columns(1).header().to$().text('From');
+                dt.columns(2).header().to$().text('➔ To');
+            }
+
+            html += '<tbody>';
+            $.each(brightonBusRotueList, function (index, brightonBusRotue) {
+                const route = brightonBusRotue.route;
+                const description = brightonBusRotue.desc;
+                const descriptionSplit = description.split("-");
+                var destA = descriptionSplit[0].trim();
+                var destB = descriptionSplit[1].trim();
+
+                if (route[0] != '9' && route != 'CSR') {
+                    html += `<tr onclick="clearRefreshMap(); getRouteBusStopList('${route}', 'inbound', '${destB}')">`;
+                    html += `<td class="highlight">${route}</td>`;
+                    html += `<td>${destA}</td>`;
+                    html += `<td class="highlight">➔ ${destB}</td>`;
+                    html += '</tr>';
+
+                    //Not swap for single route line
+                    const temp = destA;
+                    destA = destB;
+                    destB = temp;
+                }
+
+                html += `<tr onclick="clearRefreshMap(); getRouteBusStopList('${route}', 'outbound', '${destB}')">`;
+                html += `<td class="highlight">${route}</td>`;
+                html += `<td>${destA}</td>`;
+                html += `<td class="highlight">➔ ${destB}</td>`;
+                html += '</tr>';
+            });
+            html += '</tbody>';
+
+           $(tableId).html(html);
+
+           initMap();
+           initDataTable(tableId);
+        }
+
+
+        function getBusStopList() {
+            clearRefreshMap();
+            $('.busRouteInfo').hide();
+            setMapVisibility(false);
+
+            const tableId = '#listTable';
+
+            //Destroy old data
+            $(tableId + " > tbody").html("");
+
+            setTimeout(function(){ 
+                var html = '<thead>';
+                html += '<tr>';
+                html += '<th>#</th>';
+                html += '<th>Bus Stop</th>';
+                html += '<th>Total</th>';
+                html += '</tr>';
+                html += '</thead>';
+
+                if ($.fn.DataTable.isDataTable(tableId)) {
+                    const dt = $(tableId).DataTable();
+                    dt.columns(0).header().to$().text('#');
+                    dt.columns(1).header().to$().text('Bus Stop');
+                    dt.columns(2).header().to$().text('Total');
+                }
+
+                html += '<tbody>';
+                var index = 0;
+                for (const [key, value] of Object.entries(busStopGroupMap)) {
+                    const name = key;
+                    const listLength = value.length;
+                    index++;
+
+                    html += `<tr onclick="clearRefreshMap(); getBusStopETA('${name}', 'busStopList', true)">`;
+                    html += '<td>' + index + '</td>';
+                    html += '<td>' + name + '</td>';
+                    html += '<td>' + listLength + '</td>';
+                    html += '</tr>';
+                }
+                html += '</tbody>';
+
+                $(tableId).html(html);
+
+
+                initMap();
+                initDataTable(tableId);
+            }, 100);
+       }
+
+
+        function getRouteBusStopList(route, bound, dest) {
+            const mapPoints = [];
+
+            $.ajax({url: cors(`https://www.buses.co.uk/_ajax/lines/timetable/BH/${route}?direction=${bound}&all=on`), cache: true, success: 
+                function (data) {
+                    const htmlDom = $($.parseHTML(data));
+
+                    const stationList = htmlDom.find('.line-timetable__link');
+                    if (stationList.length > 0) {
+                            var minDistance = 9999999;
+                            var minDistanceSeq = -1;
+
+                            var html = '';
+                            $.each(stationList, function (index, station) {
+                                const seq = index + 1;
+                                const stop = station.getAttribute("href").split("/")[2];
+                                const busStopName = station.innerHTML;
+                                //console.log(stop)
+                                const busStopLat = busStopMap[stop].lat;
+                                const busStopLong = busStopMap[stop].long;
+                                const divId = seq + "-" + stop;
+
+                                const extract = extractStationName(busStopName);
+                                const busStopGroupName = extract[0];
+                                const platform = extract[1];
+
+                                const mapPopupName = seq + " " + busStopName;
+                                mapPoints.push([busStopLat, busStopLong, mapPopupName]); 
+
+                                const distance = calcCrow(busStopLat, busStopLong);
+
+                                if (distance != -1 && distance < minDistance) {
+                                    minDistance = distance;
+                                    minDistanceSeq = seq;
+                                }
+
+                                html += `<div class="busStopDiv" id="busStopDiv-${seq}">
+                                                   <span>
+                                                       <span class="busStopDiv-seq">${seq}.</span>
+                                                       <span class="busStopDiv-name" onclick="getRouteETA('${route}', '${stop}', '${seq}'); selectMarker('${mapPopupName}');">${busStopName}</span>
+                                                       <span class="busStopDiv-other" onclick="getBusStopETA('${busStopGroupName}', '${divId}', false); selectMarker('${mapPopupName}'); ">🚏🚌</span>
+                                                       <span class="busStopDiv-map" onclick="window.open('https://maps.google.com/?q=${busStopLat},${busStopLong}', '_blank')">📌</span>
+                                                       <span class="busStopDiv-distance">${distance != -1 ? distance + "M": ""}</span>
+                                                   </span>
+                                                   <div id="${divId}-refresh" class="refreshDiv"></div>
+                                               </div>`;
+                                html += `<div id="${divId}" class="etaDiv"></div>`;
+                                $("#busRouteInfo-Title").html("Route: ");
+                                $("#busRouteInfo-Data").html(route + " ➔" + dest);
+                            });
+
+                            $("#busStopList").html(html);
+                            $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
+                            $('.busRouteInfo').show();
+
+                            addMarkersToMap(mapPoints);
+                   } else {
+                       $("#busStopList").html("Bus route not exist");
+                   }
+            }});
+        }
+
+        function getBusStopETA(name, id, showMap) {
+            if (refreshMap[id + '-eta']  !== undefined) {
+                clearInterval(refreshMap[id + '-eta']);
+                delete refreshMap[id + '-eta'];
+            }
+
+            const busStopGroupList = busStopGroupMap[name];
+            const busStopName = name;
+
+            const mapPoints = [];
+
+            var html = '';
+            for (var i = 0; i < busStopGroupList.length; i++) {
+                const busStop = busStopGroupList[i];
+                const stop = busStop.stop;
+                const lat = busStop.lat;
+                const long = busStop.long;
+                const platform = busStop.platform;
+                const divId = "0-" + stop;
+
+                const mapPopupName = platform;
+                mapPoints.push([lat, long, mapPopupName]); 
+
+                html += `<div class="busStopTitle">
+                                <span class="busStopDiv-other" onclick="selectMarker('${mapPopupName}');">${mapPopupName}</span>
+                                <span onclick="window.open('https://maps.google.com/?q=${lat},${long}', '_blank')">📌</span>
+                                <div id="${divId}-refresh" class="refreshDiv"></div>
+                            </div>`;
+                html += `<div class="busStopDiv">`
+                html += `<div id="${divId}" class="etaDiv"></div>`;
+                html += `</div>`;
+
+                getRouteBusStopETA(stop);
+            }
+
+
+            if (refreshMap[id + '-stopEta'] === undefined) {
+                //Bus stop page
+                if (id == 'busStopList') {
+                    $("#busRouteInfo-Title").html("Bus Stop: ");
+                    $("#busRouteInfo-Data").html(busStopName);
+                    $('.busRouteInfo').show();
+                //Route page
+                } else {
+                    if (refreshMap[id + '-eta']  !== undefined) {
+                        clearInterval(refreshMap[id + '-eta']);
+                        delete refreshMap[id + '-eta'];
+                   }
+
+                   $(`#${id}-refresh`).html("");
+                   $("#" + id).show();
+               }
+
+                $("#" + id).html(html); //Only for the first time, for interval triggered -> only update ETA
+
+                var interval = setInterval(function() { getBusStopETA(name, id); }, refreshInterval);
+                refreshMap[id + '-stopEta'] = interval;
+            }
+
+            if (showMap) {
+                addMarkersToMap(mapPoints);
+            }
+        }
+
+
+        function getRouteETA(routeNum, stopId, seq) {
+            const id = seq + '-' + stopId;
+
+            $.ajax({url: cors(`https://www.buses.co.uk/stops/${stopId}`), cache: false, global: false, success: 
+                function (data) {
+                    const htmlDom = $($.parseHTML(data));
+                    const currentTimestamp = new Date().getTime();
+
+                    const routeList = htmlDom.find('.single-visit__name');
+                    const destinationList = htmlDom.find('.single-visit__description');
+                    const etaList = htmlDom.find('.single-visit__time--expected');
+                    if (routeList.length > 0) {
+                        const routeSet = new Set();
+                        var html = '';
+                        $.each(routeList, function (index, record) {
+                            const route = record.innerHTML;
+                            const eta = etaList[index].innerHTML;
+                            const dest = destinationList[index].innerHTML;
+                            const etaText = eta ? eta : "暫時沒有預定班次";
+
+                            if (routeNum == route) {
+                                const routeSetId = dest;
+                                const etaSeq = routeSet.has(routeSetId) ? "2" : "1";
+                                routeSet.add(routeSetId);
+
+                                html += `<div class="operating">
+                                            ➔${dest}
+                                            <span class="eta-detail seq${etaSeq}">${etaText}</span>
+                                        </div>`;
+                                isFirst = false;
+                            }
+                        });
+                    }
+
+                    if (!html) {
+                        html = `<div class="operating"><span class="eta-detail seq1">There are no upcoming departures for this stop at the moment.</span></div>`;
+                    }
+
+                    $(`#${id}-refresh`).html("Last Update: " + getTimeFromTimestamp(currentTimestamp));
+                    $(`#${id}`).removeClass("bus-stop");
+                    $(`#${id}`).show();
+                    $(`#${id}`).html(html);
+
+                    if (refreshMap[id + '-eta'] === undefined) {
+                        if (refreshMap[id + '-stopEta']  !== undefined) {
+                            clearInterval(refreshMap[id + '-stopEta']);
+                            delete refreshMap[id + '-stopEta'];
+                        }
+
+                        var interval = setInterval(function() { getRouteETA(routeNum, stopId, seq); }, refreshInterval);
+                        refreshMap[id + '-eta'] = interval;
+                    }
+             }});
+        }
+
+
+
+        function getRouteBusStopETA(stopId) {
+            const id = '0-' + stopId;
+
+            $.ajax({url: cors(`https://www.buses.co.uk/stops/${stopId}`), cache: false, global: false, success: 
+                function (data) {
+                    const htmlDom = $($.parseHTML(data));
+                    const currentTimestamp = new Date().getTime();
+
+                    const routeList = htmlDom.find('.single-visit__name');
+                    const destinationList = htmlDom.find('.single-visit__description');
+                    const etaList = htmlDom.find('.single-visit__time--expected');
+                    if (routeList.length > 0) {
+                        const routeSet = new Set();
+
+                        var html = '';
+                        $.each(routeList, function (index, data) {
+                            const route = data.innerHTML;
+                            const eta = etaList[index].innerHTML;
+                            const dest = destinationList[index].innerHTML;
+                            const routeSetId = route + "-" + dest;
+
+                            const etaSeq = routeSet.has(routeSetId) ? "2" : "1";
+                            routeSet.add(routeSetId);
+
+                            html += `<div class="etaStop-seq-2 ${!eta ? 'end' : 'operating'}">
+                                              <span class="eta-detail-route">${route}</span>
+                                              ➔${dest}
+                                              <span class="eta-detail seq${etaSeq}">${eta}</span>
+                                          </div>`;
+                        });
+                    } else {
+                        html = `<div class="operating"><span class="eta-detail seq1">There are no upcoming departures for this stop at the moment.</span></div>`;
+                    }
+
+                    $(`#${id}-refresh`).html("Last Update: " + getTimeFromTimestamp(currentTimestamp));
+                    $(`#${id}`).addClass("bus-stop");
+                    $(`#${id}`).show();
+                    $(`#${id}`).html(html);
+             }});
+        }
+
+
+        function initBusStop() {
+            //$.getJSON(cors("https://www.buses.co.uk/_ajax/stops?bounds[]=51.2925619222074,-0.7457593036670731&bounds[]=50.72280714350394,0.4172750861851755"),
+                //function (data) {
+                    const jsonData = JSON.parse(brightonBusStationJson);
+
+                    const records = jsonData.features;
+                    $.each(records, function (index, record) {
+                        const stop = record.properties.atcoCode;
+                        const name = record.properties.commonName;
+                        const lat = record.geometry.coordinates[1];
+                        const long = record.geometry.coordinates[0];
+
+                        busStopMap[stop] = { 'name': name, 'lat': lat, 'long': long };
+
+
+                        //Add to map
+                        const extract = extractStationName(name);
+                        const busStopGroupName = extract[0];
+                        const platform = extract[1];
+                        
+                        var busStopGroupList = busStopGroupMap[busStopGroupName];
+                        if (busStopGroupList == undefined) {
+                            busStopGroupList = [];
+                            busStopGroupMap[busStopGroupName] = busStopGroupList;
+                        }
+
+                        if (platform == null || busStopGroupList.length == 0) {
+                            busStopGroupList.push({'stop': stop, 'lat': lat, 'long': long, 'platform': platform });
+                        } else {
+                            var i = 0;
+                            for (; i < busStopGroupList.length; i++) {
+                                if (parseInt(platform.substr(1)) <= parseInt(busStopGroupList[i].platform.substr(1))) {
+                                    break;
+                                }
+                            }
+                            busStopGroupList.splice(i, 0, {'stop': stop, 'lat': lat, 'long': long, 'platform': platform });
+                        }
+                    });
+
+
+                   const paramRoute = findGetParameter("route", null);
+                   const paramStop = findGetParameter("stop", null);
+                   if (paramRoute) {
+                       searchValue = paramRoute;
+                       getRouteList();
+                   } else if (paramStop) {
+                       searchValue = paramStop;
+                       getBusStopList();
+                   } else {
+                       getRouteList();
+                   }
+             //});
+             $('#loadingDiv').hide();
+        }
+
+
+        function initDataTable(id) {
+            $('#initializingDiv').show();
+
+            if ($.fn.DataTable.isDataTable(id))
+                $(id).DataTable().destroy();
+
+            $(id).DataTable({
+                "order": [],
+                paging: true,
+                "info": false,
+                "columnDefs": [
+                    { "className": "dt-center", "targets": "_all" }
+                ],
+                "search": {
+                    "search": searchValue
+                },
+                "initComplete": function( settings, json ) {
+                    if (searchValue) {
+                        $("tr")[1].click();
+                        searchValue = "";
+                    } else {
+                        $('.bus-eta-page .dataTables_wrapper .dataTables_filter input').focus()
+                    }
+                }
+            });
+
+            $('#initializingDiv').hide();
+            $('#menu-button').show();
+        }
+
+        function clearRefreshMap() {
+            for (const [key, value] of Object.entries(refreshMap)) {
+                clearInterval(refreshMap[key]);
+                delete refreshMap[key];
+            }
+        }
+
+        $(document).ready(function () {
+            initializingGif();
+
+            apiType = "kmb";
+
+            apiHost = "data.etabus.gov.hk/v1";
+            company = "";
+
+            initBusStop();
+        });
+
+
+        $(document).ajaxStart(function () {
+            $('#loadingDiv').show();
+        });
+
+        $(document).ajaxComplete(function () {
+            $('#loadingDiv').hide();
+        });
+
+        function getTimeFromTimestamp(timestamp) {
+            const date = new Date(timestamp);
+            const hours = date.getHours(); 
+            const minutes = "0" + date.getMinutes();
+            const seconds = "0" + date.getSeconds();
+            const formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+            return formattedTime;
+        }
+
+        function millisToMinutesAndSeconds(eta, stopSeq) {
+           if (eta) {
+               const millis = new Date(eta) - new Date();
+               if (millis > 0) { 
+                   var minutes = Math.floor(millis / 60000);
+                   var seconds = Math.floor(((millis % 60000) / 1000));
+                   return minutes + "分" + (seconds < 10 ? '0' : '') + seconds+ "秒";
+               } else if (!isNaN(millis)) {
+                   return stopSeq == 1 ? "已開出" : "已到站";
+               }
+           }
+           return eta;
+        }
+
+
+        function findGetParameter(parameterName, defaultValue) {
+            var result = defaultValue;
+            tmp = [];
+            location.search.substr(1).split("&")
+                .forEach(function (item) {
+                    tmp = item.split("=");
+                       if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+                });
+           return result;
+        }
+
+        function extractStationName(name) {
+            var groupName = name;
+            var platform = groupName.match(regex);
+            if (platform) {
+                platform = platform[0];
+                groupName = groupName.replace(platform, '').trim();
+                platformFix = platform.match(regex2);
+                platform = platformFix[platformFix.length-1].replace('(', '').replace(')', '').trim();
+            }
+            return [groupName, platform];
+        }
+
+        function cors(link) {
+            return `https://api.allorigins.win/raw?url=${encodeURIComponent(link)}`;
+        }
+
+    </script>
+</head>
+
+<body class="bus-eta-page">
+    <div id="menu-button">
+        <button id="routeButton" onclick="getRouteList()">Bus Route</button>
+        <button id="stopButton" onclick="getBusStopList()">Bus Stop</button>
+        Map:
+        <label class="switch">
+            <input id="mapSwitch" type="checkbox" onchange="mapCheckboxChanged(event)">
+            <span class="slider"></span>
+        </label>
+    </div>
+    <br/>
+    <div id="initializingDiv">Initializing...</div>
+    <div id="loadingDiv">
+        Loading...
+    </div>
+    <div>
+        <table id="listTable" class="dataTable display"></table>
+        <div id="leaflet-map"> 
+            <div class="leaflet-bottom leaflet-right">
+                <div id="marker-legend">
+                    <button id="leaflet-map-enlarge-button" class="custom-button" onclick="resizeMap()"><img src="image/map-marker/enlarge-button.png"></button>
+                    <button id="leaflet-map-prev-button" class="custom-button" onclick="popupPrevNextMarker(false)"><img src="image/map-marker/prev-button.png"></button>
+                    <button id="leaflet-map-next-button" class="custom-button" onclick="popupPrevNextMarker(true)"><img src="image/map-marker/next-button.png"></button>
+                    <button id="leaflet-map-gps-button" class="custom-button" onclick="setViewToGpsLocation()"><img src="image/map-marker/gps-button.png"></button>
+                </div>
+            </div>
+        </div>
+        <div class="busRouteInfo">
+            <span id="busRouteInfo-Title"></span>
+            <span class="busRouteInfo-Data" id="busRouteInfo-Data"></span>
+            <div id="busStopList"></div>
+        </div>
+    </div>
+
+    <object type="text/html" data="footer.html"></object>
+</body>
+
+</html>

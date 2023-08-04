@@ -154,16 +154,19 @@
         <a href="weather.html" class="blue"><img src="image/home-icon/weather.png" id="weather-icon">天氣<br/><span id="temperature"></span></a>
         <a href="finance-bill.html" class="light-red"><img src="image/home-icon/finance_bill.png">記數簿</a>
         <a class="light-green">
-            <img src="image/home-icon/bus_kmb_eta.png" onclick="location.href='bus-eta.html'">巴士到站時間
+            <img src="image/home-icon/bus_kmb_eta.png" onclick="location.href='bus-brighton-eta.html'">巴士到站時間
             <div style="padding-top: 5px">
-                <form action="bus-eta.html" method="get">
-                    <input type="input" name="route" placeholder="64K" size="2" onclick="event.preventDefault()">
+                <form action="bus-brighton-eta.html" method="get">
+                    <input type="input" name="route" placeholder="5B" size="2" onclick="event.preventDefault()">
                 </form>
-                <form action="bus-eta.html" method="get">
-                    <input type="input" name="stop" placeholder="喜利徑" size="3" onclick="event.preventDefault()">
+                <form action="bus-brighton-eta.html" method="get">
+                    <input type="input" name="stop" placeholder="Palmeira Square" size="3" onclick="event.preventDefault()">
                 </form>
             </div>
             <div>
+                <form action="bus-eta.html" method="get">
+                    <input type="submit" value="巴士" class="light-red">
+                </form>
                 <form action="mtr-lr-eta.html" method="get">
                     <input type="submit" value="輕黨鐡" class="blue">
                 </form>

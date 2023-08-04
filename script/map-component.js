@@ -105,7 +105,8 @@ function initMap() {
                     //alert("Location access has been denied.");
                     const setView = Object.entries(leafletMapStationMarkerMap) == 0;
                     if (setView) {
-                        leafletMap.setView([22.3493, 114.1694], 10); //Default HK view
+                        //leafletMap.setView([22.3493, 114.1694], 10); //Default HK view
+                        leafletMap.setView([50.8292, -0.1348], 11); //Default Brighton view
                     }
                 });
         } else {
