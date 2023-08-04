@@ -184,6 +184,7 @@ const pepeachristskyLoveIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnch
 const shinchanIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/shinchan.png" });
 const snoopyBlueIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/snoopy_blue.png" });
 const snoopyYellowIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/snoopy_yellow.png" });
+const busIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/bus.png" });
 // Birthday icon
 const birthday2020Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2020.png" });
 const birthday2021Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2021.png" });
@@ -197,7 +198,9 @@ function getMarkerIcon(lat, lng, title) {
     var dateObj = new Date();
     var month = dateObj.getMonth() + 1; //months from 1-12
     var day = dateObj.getDate();
-    if (month == 1 && day == 31 || month == 9 && day == 25) {
+    if (isBus(title)) {
+        return busIcon;
+    } else if (month == 1 && day == 31 || month == 9 && day == 25) {
         return birthdayIconGroup[Math.floor(Math.random() * birthdayIconGroup.length)];
     } else if (month == 8 && day == 1) {
         return anniversaryIconGroup[Math.floor(Math.random() * anniversaryIconGroup.length)];
@@ -227,7 +230,7 @@ function getMarkerIcon(lat, lng, title) {
     return randomIconGroup[lat.toString().slice(-1) % randomIconGroup.length];
 }
 
-function addMarkersToMap(points) {
+function addMarkersToMap(points, opacity = 1.0) {
     if (isShowMap()) {
         // clear previous markers
         clearMarkersFromMap();
@@ -240,8 +243,9 @@ function addMarkersToMap(points) {
                 closeOnClick: false,
               }).setContent(title);
             const marker = L.marker([lat, lng], {
-                opacity: 1.0,
-                icon: getMarkerIcon(lat, lng, title)
+                opacity: isBus(title) ? 1.0 : opacity,
+                icon: getMarkerIcon(lat, lng, title),
+                zIndexOffset:  isBus(title) ? 1000 : 0
             }).bindPopup(popup).on('click', markerOnClick);
             leafletMapStationMarkerMap[title] = marker;
             featureGroups.push(marker);
@@ -309,6 +313,10 @@ function markerOnClick(e) {
 
 function isShowMap() {
     return $("#mapSwitch").prop("checked");
+}
+
+function isBus(title) {
+    return title[0] == "\ud83d";
 }
 
 

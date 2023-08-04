@@ -189,10 +189,47 @@
                             $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
                             $('.busRouteInfo').show();
 
-                            addMarkersToMap(mapPoints);
+                            getLiveBus(route, bound, mapPoints);
                    } else {
                        $("#busStopList").html("Bus route not exist");
                    }
+            }});
+        }
+
+
+        function getLiveBus(route, bound, mapPoints) {
+            $.getJSON({url: cors(`https://www.buses.co.uk/_ajax/lines/vehicles?lines%5B0%5D=BH:${route}`), cache: false, 
+            success: function (jsonData) {
+                    const records = jsonData.features;
+                    if (records.length > 0) {
+                        $.each(records, function (index, record) {
+                            const properties = record['properties'];
+                            const direction = properties['direction'];
+                            if (direction == bound) {
+                                const coordinates = record['geometry']['coordinates'];
+                                const lat = coordinates[1];
+                                const long = coordinates[0];
+
+                                var mapPopupName = "🚌";
+
+                                const meta = properties['meta'];
+                                if (meta) {
+                                    const lowFloor = meta['low_floor'] ? 'L' : '';
+                                    const name = meta['name'];
+                                    const numberPlate = meta['number_plate'];
+                                    const powerUsb = meta['power_usb'] ? 'U' : '';
+                                    const type = meta['type'];
+                                    const wifi = meta['wifi'] ? 'W' : '';
+                                    mapPopupName += numberPlate + '|' + type + '|' + wifi + '|' +  powerUsb  + '|' + lowFloor;
+                                }
+
+                                mapPoints.push([lat, long, mapPopupName]); 
+                            }
+                        });
+                   }
+            },
+            complete: function (data) {
+                addMarkersToMap(mapPoints, 0.7);
             }});
         }
 

@@ -66,6 +66,7 @@ const filesToCache = [
     "image/map-marker/shinchan.png",
     "image/map-marker/snoopy_blue.png",
     "image/map-marker/snoopy_yellow.png",
+    "image/map-marker/bus.png",
 
     "image/loading/loading1.gif",
     "image/loading/loading2.gif",
