@@ -230,7 +230,7 @@ function getMarkerIcon(lat, lng, title) {
     return randomIconGroup[lat.toString().slice(-1) % randomIconGroup.length];
 }
 
-function addMarkersToMap(points, opacity = 1.0) {
+function addMarkersToMap(points, refesh = true, opacity = 1.0) {
     if (isShowMap()) {
         // clear previous markers
         clearMarkersFromMap();
@@ -260,10 +260,12 @@ function addMarkersToMap(points, opacity = 1.0) {
         const group = new L.featureGroup(featureGroups);
 
         // method fitBounds sets a map view that contains the given geographical bounds
-        leafletMap.fitBounds(group.getBounds(), {
-            padding: [20, 20], // adding padding to map
-            maxZoom: leafletMapMaxZoom
-        });
+        if (refesh) {
+            leafletMap.fitBounds(group.getBounds(), {
+                padding: [20, 20], // adding padding to map
+                maxZoom: leafletMapMaxZoom
+            });
+        }
     }
 }
 

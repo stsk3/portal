@@ -51,12 +51,13 @@
             html += '<tbody>';
             $.each(brightonBusRotueList, function (index, brightonBusRotue) {
                 const route = brightonBusRotue.route;
+                const bound = brightonBusRotue.bound;
                 const description = brightonBusRotue.desc;
                 const descriptionSplit = description.split("-");
                 var destA = descriptionSplit[0].trim();
                 var destB = descriptionSplit[1].trim();
 
-                if (route[0] != '9' && route != 'CSR') {
+                if (!bound || bound == "I") {
                     html += `<tr onclick="clearRefreshMap(); getRouteBusStopList('${route}', 'inbound', '${destB}')">`;
                     html += `<td class="highlight">${route}</td>`;
                     html += `<td>${destA}</td>`;
@@ -69,11 +70,13 @@
                     destB = temp;
                 }
 
-                html += `<tr onclick="clearRefreshMap(); getRouteBusStopList('${route}', 'outbound', '${destB}')">`;
-                html += `<td class="highlight">${route}</td>`;
-                html += `<td>${destA}</td>`;
-                html += `<td class="highlight">➔ ${destB}</td>`;
-                html += '</tr>';
+                if (!bound || bound == "O") {
+                    html += `<tr onclick="clearRefreshMap(); getRouteBusStopList('${route}', 'outbound', '${destB}')">`;
+                    html += `<td class="highlight">${route}</td>`;
+                    html += `<td>${destA}</td>`;
+                    html += `<td class="highlight">➔ ${destB}</td>`;
+                    html += '</tr>';
+                }
             });
             html += '</tbody>';
 
@@ -189,15 +192,21 @@
                             $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
                             $('.busRouteInfo').show();
 
-                            getLiveBus(route, bound, mapPoints);
+                            routeMapPoints = mapPoints;
+
+                            getLiveBus(route, bound, true);
                    } else {
                        $("#busStopList").html("Bus route not exist");
                    }
             }});
         }
 
+        var routeMapPoints = [];
 
-        function getLiveBus(route, bound, mapPoints) {
+        function getLiveBus(route, bound, refresh) {
+            const mapPoints = [];
+            mapPoints.push(...routeMapPoints);
+
             $.getJSON({url: cors(`https://www.buses.co.uk/_ajax/lines/vehicles?lines%5B0%5D=BH:${route}`), cache: false, 
             success: function (jsonData) {
                     const records = jsonData.features;
@@ -220,7 +229,7 @@
                                     const powerUsb = meta['power_usb'] ? 'U' : '';
                                     const type = meta['type'];
                                     const wifi = meta['wifi'] ? 'W' : '';
-                                    mapPopupName += numberPlate + '|' + type + '|' + wifi + '|' +  powerUsb  + '|' + lowFloor;
+                                    mapPopupName += numberPlate + '|' + type + '|' + wifi +  powerUsb + lowFloor;
                                 }
 
                                 mapPoints.push([lat, long, mapPopupName]); 
@@ -229,7 +238,11 @@
                    }
             },
             complete: function (data) {
-                addMarkersToMap(mapPoints, 0.7);
+                addMarkersToMap(mapPoints, refresh, 0.6);
+		if (refreshMap[route + '-live'] === undefined) {
+                    var interval = setInterval(function() { getLiveBus(route, bound, false); }, refreshInterval);
+                    refreshMap[route + '-live'] = interval;
+		}
             }});
         }
 
@@ -346,7 +359,6 @@
                             clearInterval(refreshMap[id + '-stopEta']);
                             delete refreshMap[id + '-stopEta'];
                         }
-
                         var interval = setInterval(function() { getRouteETA(routeNum, stopId, seq); }, refreshInterval);
                         refreshMap[id + '-eta'] = interval;
                     }
