@@ -17,8 +17,8 @@
 
         function getCurrentWeather() {
             const key = 'c36d2385-78ae-4582-93e9-68f1c607da06';
-            $.when($.getJSON(`http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/310091?res=3hourly&key=${key}`),
-                    $.getJSON(`http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/310037?res=3hourly&key=${key}`)).then(
+            $.when($.getJSON(cors(`http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/310091?res=3hourly&key=${key}`)),
+                    $.getJSON(cors(`http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/310037?res=3hourly&key=${key}`))).then(
                         function(r1, r2){
                             const jsonData = r1[0];
                             const temperatureObj = jsonData.SiteRep.DV.Location.Period[0].Rep[0];

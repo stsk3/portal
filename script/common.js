@@ -50,3 +50,7 @@ function country(newCountry = null) {
 function isUK() {
     return country() == "UK";
 }
+
+function cors(link) {
+    return `https://api.allorigins.win/raw?url=${encodeURIComponent(link)}`;
+}
