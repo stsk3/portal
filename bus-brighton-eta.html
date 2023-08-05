@@ -154,17 +154,26 @@
                                 const seq = index + 1;
                                 const stop = station.getAttribute("href").split("/")[2];
                                 const busStopName = station.innerHTML;
-                                //console.log(stop)
-                                const busStopLat = busStopMap[stop].lat;
-                                const busStopLong = busStopMap[stop].long;
                                 const divId = seq + "-" + stop;
+
+                                //console.log(stop)
 
                                 const extract = extractStationName(busStopName);
                                 const busStopGroupName = extract[0];
                                 const platform = extract[1];
 
                                 const mapPopupName = seq + " " + busStopName;
-                                mapPoints.push([busStopLat, busStopLong, mapPopupName]); 
+
+                                var busStopLat = 0;
+                                var busStopLong = 0;
+                                const busStop = busStopMap[stop];
+                                if (busStop) {
+                                    busStopLat = busStop.lat;
+                                    busStopLong = busStop.long;
+                                    mapPoints.push([busStopLat, busStopLong, mapPopupName]);
+                                } else {
+                                    console.error("Bus Stop not found:" +  stop);
+                                } 
 
                                 const distance = calcCrow(busStopLat, busStopLong);
 
@@ -192,8 +201,7 @@
                             $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
                             $('.busRouteInfo').show();
 
-                            routeMapPoints = mapPoints;
-
+                            addMarkersToMap(mapPoints, 0.6);
                             getLiveBus(route, bound, true);
                    } else {
                        $("#busStopList").html("Bus route not exist");
@@ -201,16 +209,12 @@
             }});
         }
 
-        var routeMapPoints = [];
-
         function getLiveBus(route, bound, refresh) {
-            const mapPoints = [];
-            mapPoints.push(...routeMapPoints);
-
             $.getJSON({url: cors(`https://www.buses.co.uk/_ajax/lines/vehicles?lines%5B0%5D=BH:${route}`), cache: false, 
             success: function (jsonData) {
                     const records = jsonData.features;
                     if (records.length > 0) {
+                        const mapPoints = [];
                         $.each(records, function (index, record) {
                             const properties = record['properties'];
                             const direction = properties['direction'];
@@ -220,29 +224,41 @@
                                 const long = coordinates[0];
 
                                 var mapPopupName = "🚌";
+                        
+                                const compassDirection = properties['compassDirection'];
+                                switch(compassDirection) {
+                                    case "N": mapPopupName+='⬆️';break;
+                                    case "NE": mapPopupName+='↗️';break;
+                                    case "E": mapPopupName+='➡️';break;
+                                    case "SE": mapPopupName+='↘️';break;
+                                    case "E": mapPopupName+='⬇️';break;
+                                    case "SW": mapPopupName+='↙️';break;
+                                    case "W": mapPopupName+='⬅️';break;
+                                    case "NW": mapPopupName+='↖️';break;
+                                    default:
+                                }
 
                                 const meta = properties['meta'];
                                 if (meta) {
-                                    const lowFloor = meta['low_floor'] ? 'L' : '';
+                                    const lowFloor = meta['low_floor'] ? 'Low Floor✔' : '';
                                     const name = meta['name'];
                                     const numberPlate = meta['number_plate'];
-                                    const powerUsb = meta['power_usb'] ? 'U' : '';
+                                    const powerUsb = meta['power_usb'] ? 'USB✔' : '';
                                     const type = meta['type'];
-                                    const wifi = meta['wifi'] ? 'W' : '';
-                                    mapPopupName += numberPlate + '|' + type + '|' + wifi +  powerUsb + lowFloor;
+                                    const wifi = meta['wifi'] ? 'WIFI✔' : '';
+                                    mapPopupName += numberPlate + '<br>' + wifi +  powerUsb + lowFloor + '<br>' + type;
                                 }
 
                                 mapPoints.push([lat, long, mapPopupName]); 
                             }
                         });
+
+                        addMarkersToMap(mapPoints, 1.0, "topPane");
+                        if (refreshMap[route + '-live'] === undefined) {
+                            var interval = setInterval(function() { getLiveBus(route, bound, false); }, refreshInterval);
+                            refreshMap[route + '-live'] = interval;
+                        }
                    }
-            },
-            complete: function (data) {
-                addMarkersToMap(mapPoints, refresh, 0.6);
-		if (refreshMap[route + '-live'] === undefined) {
-                    var interval = setInterval(function() { getLiveBus(route, bound, false); }, refreshInterval);
-                    refreshMap[route + '-live'] = interval;
-		}
             }});
         }
 
@@ -263,7 +279,7 @@
                 const stop = busStop.stop;
                 const lat = busStop.lat;
                 const long = busStop.long;
-                const platform = busStop.platform;
+                const platform = (i+1) + ") " + busStop.platform;
                 const divId = "0-" + stop;
 
                 const mapPopupName = platform;

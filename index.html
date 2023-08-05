@@ -12,6 +12,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="main.css">
     <link rel="shortcut icon" type="image/x-icon" href="image/favicon.ico">
+    <script type="text/javascript" src="script/common.js"></script>
     <title>STSK Portal</title>
 
     <style>
@@ -19,7 +20,11 @@
 
     <script>
 		window.addEventListener('load', () => {
+            if (top != self) {
+                top.location.replace(document.location);
+            }
 			registerSW();
+            document.getElementById('iframe').src = isUK() ? "home-uk.html" : "home.html";
 		});
 
 		// Register the Service Worker
@@ -74,7 +79,7 @@
     </div>
 
     <div id="iframeDiv">
-        <iframe src="home.html"></iframe>
+        <iframe id="iframe"></iframe>
     </div>
 </body>
 </html>

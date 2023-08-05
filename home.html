@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="main.css">
     <script type="text/javascript" src="serviceworker.js"></script>
     <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
-
+    <script type="text/javascript" src="script/common.js"></script>
 
 
     <script>
@@ -104,35 +104,6 @@
                 }
             );
         }
-
-
-        function getCurrentVersion() {
-            $.get('latestVersion.txt',
-                function (data) {
-                    var version = "v" + swVersion;
-                    if (data.trim() != swVersion.trim()) {
-                        version += "(舊版本)";
-                    }
-                    $('#version').html(version);
-                }
-            );
-        }
-
-        function getMemberInfo() {
-            const memberPoint = localStorage.getItem("member-point");
-            if (memberPoint) {
-                $('#member-info').html(memberPoint.split("|")[0] + "分");
-            }
-        }
-
-        function resetMemberPoint() {
-            if (confirm("想重新計過?")) {
-                localStorage.setItem("member-point", 0);
-                getMemberInfo();
-            } else {
-                alert("笑死🤣🤣🤣")
-            }
-        }
     </script>
 </head>
 
@@ -140,7 +111,7 @@
 
     <div id="nav-bar">
         <div id="weather-bar">
-            <img id="member-level-logo" src="image/icon.png"/>
+            <img id="member-level-logo" src="image/icon.png" onclick="country('UK')"/>
             <div id="top-right-bar">
                 <div id="member-info" onclick="resetMemberPoint()"></div>
                 <div id="version"></div>
@@ -154,19 +125,16 @@
         <a href="weather.html" class="blue"><img src="image/home-icon/weather.png" id="weather-icon">天氣<br/><span id="temperature"></span></a>
         <a href="finance-bill.html" class="light-red"><img src="image/home-icon/finance_bill.png">記數簿</a>
         <a class="light-green">
-            <img src="image/home-icon/bus_kmb_eta.png" onclick="location.href='bus-brighton-eta.html'">巴士到站時間
+            <img src="image/home-icon/bus_kmb_eta.png" onclick="location.href='bus-eta.html'">巴士到站時間
             <div style="padding-top: 5px">
-                <form action="bus-brighton-eta.html" method="get">
-                    <input type="input" name="route" placeholder="5B" size="2" onclick="event.preventDefault()">
+                <form action="bus-eta.html" method="get">
+                    <input type="input" name="route" placeholder="64K" size="2" onclick="event.preventDefault()">
                 </form>
-                <form action="bus-brighton-eta.html" method="get">
-                    <input type="input" name="stop" placeholder="Palmeira Square" size="3" onclick="event.preventDefault()">
+                <form action="bus-eta.html" method="get">
+                    <input type="input" name="stop" placeholder="喜利徑" size="3" onclick="event.preventDefault()">
                 </form>
             </div>
             <div>
-                <form action="bus-eta.html" method="get">
-                    <input type="submit" value="巴士" class="light-red">
-                </form>
                 <form action="mtr-lr-eta.html" method="get">
                     <input type="submit" value="輕黨鐡" class="blue">
                 </form>
@@ -205,7 +173,7 @@
                 <a class="blue" href="work-eta.html?type=7">YOHO去</a><a class="green" href="bus-eta.html?stop=形點">返</a><a class="" href="bus-eta.html?route=53">53</a>
             </div>
             <div>
-                <a class="blue" href="work-eta.html?type=9">番工💯</a><a class="light-blue" href="work-eta.html?type=2">B</a><a class="red" href="work-eta.html?type=10">放工😘</a><a class="light-red" href="work-eta.html?type=3">B</a>
+                <a class="blue" href="work-eta.html?type=5">番工💯</a><a class="light-blue" href="work-eta.html?type=2">B</a><a class="red" href="work-eta.html?type=6">放工😘</a><a class="light-red" href="work-eta.html?type=3">B</a>
             </div>
         </div>
         <a href="traffic-news.html" class="red"><img src="image/home-icon/traffic-news.png">交通消息</a>

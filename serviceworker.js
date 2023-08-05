@@ -5,6 +5,7 @@ const nwPrefix = "https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/route/";
 const filesToCache = [
     "index.html",
     "home.html",
+    "home-uk.html",
     "bus-interchange.html",
     "bus-sectional-fare.html",
     "bus-eta.html",
@@ -105,7 +106,7 @@ const filesToCache = [
     nwPrefix + "NWFB/",
 ];
 
-const swVersion = '1.21';
+const swVersion = '1.30';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

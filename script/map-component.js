@@ -4,6 +4,7 @@ const MAP_ENABLED = "map-enabled";
 
 var leafletMap;
 var leafletMapStationMarkerMap = {};
+var leafletMapTopPaneMarkerMap = {};
 var leafletMapGPSMarkerLayer;
 const leafletMapMaxZoom = 17;
 var currentPopupTitle;
@@ -76,6 +77,9 @@ function initMap() {
 
             leafletMap.createPane("gpsPane");
             leafletMap.getPane("gpsPane").style.zIndex = 610;
+            
+            leafletMap.createPane("topPane");
+            leafletMap.getPane("topPane").style.zIndex = 600;
 
             leafletMap.locate({
                     setView: false,
@@ -123,6 +127,7 @@ function destroyMap() {
         leafletMap.remove();
         leafletMap = null;
         leafletMapStationMarkerMap = {};
+        leafletMapTopPaneMarkerMap = {};
         leafletMapGPSMarkerLayer = null;
     }
     setMapVisibility(false);
@@ -153,12 +158,20 @@ function resizeMap() {
     leafletMap.invalidateSize();
 }
 
-function clearMarkersFromMap() {
+function clearMarkersFromMap(pane = null) {
     if (leafletMap) {
-        for (const [key, value] of Object.entries(leafletMapStationMarkerMap)) {
-            value.remove();
+        if (!pane || pane == "markerPane") {
+            for (const [key, value] of Object.entries(leafletMapStationMarkerMap)) {
+                value.remove();
+            }
+            leafletMapStationMarkerMap = {};
         }
-        leafletMapStationMarkerMap = {};
+        if (!pane || pane == "topPane") {
+            for (const [key, value] of Object.entries(leafletMapTopPaneMarkerMap)) {
+                value.remove();
+            }
+            leafletMapTopPaneMarkerMap = {};
+        }
         currentPopupTitle = null;
     }
 }
@@ -198,7 +211,7 @@ function getMarkerIcon(lat, lng, title) {
     var dateObj = new Date();
     var month = dateObj.getMonth() + 1; //months from 1-12
     var day = dateObj.getDate();
-    if (isBus(title)) {
+    if (title[0] == "\ud83d") {
         return busIcon;
     } else if (month == 1 && day == 31 || month == 9 && day == 25) {
         return birthdayIconGroup[Math.floor(Math.random() * birthdayIconGroup.length)];
@@ -230,10 +243,10 @@ function getMarkerIcon(lat, lng, title) {
     return randomIconGroup[lat.toString().slice(-1) % randomIconGroup.length];
 }
 
-function addMarkersToMap(points, refesh = true, opacity = 1.0) {
+function addMarkersToMap(points, opacity = 1.0, pane = null) {
     if (isShowMap()) {
         // clear previous markers
-        clearMarkersFromMap();
+        clearMarkersFromMap(pane);
 
         // adding all markers to the featureGroups array
         let featureGroups = [];
@@ -243,12 +256,18 @@ function addMarkersToMap(points, refesh = true, opacity = 1.0) {
                 closeOnClick: false,
               }).setContent(title);
             const marker = L.marker([lat, lng], {
-                opacity: isBus(title) ? 1.0 : opacity,
+                opacity: opacity,
                 icon: getMarkerIcon(lat, lng, title),
-                zIndexOffset:  isBus(title) ? 1000 : 0
+                pane: pane ? pane : "markerPane",
+                zIndexOffset: 0
             }).bindPopup(popup).on('click', markerOnClick);
-            leafletMapStationMarkerMap[title] = marker;
             featureGroups.push(marker);
+
+            if (pane == "topPane") {
+                leafletMapTopPaneMarkerMap[title] = marker;
+            } else {
+                leafletMapStationMarkerMap[title] = marker;
+            }
         }
 
         // adding all markers to the map
@@ -260,7 +279,7 @@ function addMarkersToMap(points, refesh = true, opacity = 1.0) {
         const group = new L.featureGroup(featureGroups);
 
         // method fitBounds sets a map view that contains the given geographical bounds
-        if (refesh) {
+        if (!pane) {
             leafletMap.fitBounds(group.getBounds(), {
                 padding: [20, 20], // adding padding to map
                 maxZoom: leafletMapMaxZoom
@@ -316,11 +335,6 @@ function markerOnClick(e) {
 function isShowMap() {
     return $("#mapSwitch").prop("checked");
 }
-
-function isBus(title) {
-    return title[0] == "\ud83d";
-}
-
 
 $(document).ready(function () {
     getLocation();
