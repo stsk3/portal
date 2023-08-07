@@ -19,14 +19,14 @@ const brightonBusRotueList = [
 
 {"route": "11X", "desc": "Eastbourne-Brighton Station"},
 
-{"route": "12", "desc": "Coaster:Eastbourne-Brighton"},
-{"route": "12A", "desc": "Coaster:Eastbourne-Brighton"},
-{"route": "12X", "desc": "Coaster:Eastbourne-Brighton"},
-{"route": "N12", "desc": "Coaster:Eastbourne-Brighton"},
+{"route": "Coaster 12", "desc": ":Eastbourne-Brighton"},
+{"route": "Coaster 12A", "desc": "Eastbourne-Brighton"},
+{"route": "Coaster 12X", "desc": "Eastbourne-Brighton"},
+{"route": "Coaster N12", "desc": "Eastbourne-Brighton"},
 
 {"route": "13", "desc": "Brighton Station-Eastbourne"},
 
-{"route": "13X", "desc": "Coaster:Brighton Station-Eastbourne"},
+{"route": "Coaster 13X", "desc": "Brighton Station-Eastbourne"},
 
 {"route": "14", "desc": "Newhaven-Brighton"},
 {"route": "14A", "desc": "Newhaven-Brighton"},
@@ -53,12 +53,12 @@ const brightonBusRotueList = [
 {"route": "27C", "desc": "Saltdean-Westdene"},
 {"route": "27B", "desc": "Saltdean-Westdene", "bound": "I"},
 
-{"route": "28", "desc": "Regency:Hailsham and Eastbourne-Brighton"},
+{"route": "Regency 28", "desc": "Hailsham and Eastbourne-Brighton"},
 
-{"route": "29", "desc": "Regency:Tunbridge Wells and Heathfield-Brighton"},
-{"route": "29A", "desc": "Regency:Tunbridge Wells and Heathfield-Brighton"},
-{"route": "29B", "desc": "Regency:Tunbridge Wells and Heathfield-Brighton"},
-{"route": "29X", "desc": "Regency:Tunbridge Wells and Heathfield-Brighton"},
+{"route": "Regency 29", "desc": "Tunbridge Wells and Heathfield-Brighton"},
+{"route": "Regency 29A", "desc": "Tunbridge Wells and Heathfield-Brighton"},
+{"route": "Regency 29B", "desc": "Tunbridge Wells and Heathfield-Brighton"},
+{"route": "Regency 29X", "desc": "Tunbridge Wells and Heathfield-Brighton"},
 
 {"route": "46", "desc": "Hollingbury-Southwick"},
 
@@ -92,11 +92,11 @@ const brightonBusRotueList = [
 {"route": "76", "desc": "Saltdean-Longhill School"},
 {"route": "76A", "desc": "Peacehaven-Longhill School"},
 
-{"route": "77", "desc": "Breeze:Palace Pier-Devil's Dyke"},
+{"route": "Breeze 77", "desc": "Palace Pier-Devils Dyke"},
 
-{"route": "78", "desc": "Breeze:Stanmer Village-Brighton Station"},
+{"route": "Breeze 78", "desc": "Stanmer Village-Brighton Station"},
 
-{"route": "79", "desc": "Breeze:Ditchling Beacon-Brighton Station"},
+{"route": "Breeze 79", "desc": "Ditchling Beacon-Brighton Station"},
 
 {"route": "91", "desc": "Ovingdean-Newman School", "bound": "O"},
 

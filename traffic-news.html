@@ -50,7 +50,7 @@
                         const descList = htmlDom.find('.traffic-incident-item__results-traffic-description');
                         const dateList = htmlDom.find('.traffic-incident-item__results-last-updated');
                         $.each(titleList, function (index, title) {
-                            const content = (title.textContent + ": " + descList[index].textContent).trim();
+                            const content = (`<i>${title.textContent}</i></br>${descList[index].textContent}`).trim();
                             const displayDate = (dateList[index].textContent).trim();
                             html += `<hr/><div><b>${displayDate}</b></div>`;
                             html += `<div>${content}</div>`;
@@ -74,8 +74,10 @@
 
         $(document).ready(function () {
             if (isUK()){
+                document.getElementById("header").innerHTML="Traffic News"; 
                 getUKData();
             } else {
+                document.getElementById("header").innerHTML="交通消息"; 
                 getData();
             }
         });
@@ -86,7 +88,7 @@
 </head>
 
 <body>
-    <div class="list-title">交通消息</div>
+    <div id="header" class="list-title"></div>
     <div id="loadingDiv">
         Loading...
     </div>

@@ -62,7 +62,7 @@
         if (memberInfo) {
             var memberInfoArray = memberInfo.split("|");
             memberPoint = memberInfoArray[0];
-            lastUpdateDate = new Date(parseInt(memberInfo[1]));
+            lastUpdateDate = new Date(parseInt(memberInfoArray[1]));
         }
         const today = new Date();
         today.setHours(0,0,0,0);

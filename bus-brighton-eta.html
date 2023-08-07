@@ -139,21 +139,22 @@
 
         function getRouteBusStopList(route, bound, dest) {
             const mapPoints = [];
+            const routeNum = route.split(" ").length > 1 ? route.split(" ")[1] : route.split(" ")[0];
 
-            $.ajax({url: cors(`https://www.buses.co.uk/_ajax/lines/timetable/BH/${route}?direction=${bound}&all=on`), cache: true, success: 
+            $.ajax({url: cors(`https://www.buses.co.uk/_ajax/lines/timetable/BH/${routeNum}?direction=${bound}&all=on`), cache: true, success: 
                 function (data) {
                     const htmlDom = $($.parseHTML(data));
 
+                    var html = '';
                     const stationList = htmlDom.find('.line-timetable__link');
                     if (stationList.length > 0) {
                             var minDistance = 9999999;
                             var minDistanceSeq = -1;
 
-                            var html = '';
                             $.each(stationList, function (index, station) {
                                 const seq = index + 1;
                                 const stop = station.getAttribute("href").split("/")[2];
-                                const busStopName = station.innerHTML;
+                                const busStopName = station.innerHTML.replace("'", "");
                                 const divId = seq + "-" + stop;
 
                                 //console.log(stop)
@@ -193,19 +194,19 @@
                                                    <div id="${divId}-refresh" class="refreshDiv"></div>
                                                </div>`;
                                 html += `<div id="${divId}" class="etaDiv"></div>`;
-                                $("#busRouteInfo-Title").html("Route: ");
-                                $("#busRouteInfo-Data").html(route + " ➔" + dest);
                             });
 
-                            $("#busStopList").html(html);
-                            $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
-                            $('.busRouteInfo').show();
-
                             addMarkersToMap(mapPoints, 0.6);
-                            getLiveBus(route, bound, true);
-                   } else {
-                       $("#busStopList").html("Bus route not exist");
-                   }
+                            getLiveBus(routeNum, bound, true);
+                    } else {
+                       html = "Bus route not exist";
+                    }
+
+                    $("#busRouteInfo-Title").html("Route: ");
+                    $("#busRouteInfo-Data").html(route + " ➔" + dest);
+                    $("#busStopList").html(html);
+                    $(`#busStopDiv-${minDistanceSeq}`).addClass("red");
+                    $('.busRouteInfo').show();
             }});
         }
 
@@ -574,7 +575,7 @@
         }
 
         function extractStationName(name) {
-            var groupName = name;
+            var groupName = name.replace("'", "");
             var platform = groupName.match(regex);
             if (platform) {
                 platform = platform[0];

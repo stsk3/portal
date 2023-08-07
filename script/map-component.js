@@ -165,6 +165,7 @@ function clearMarkersFromMap(pane = null) {
                 value.remove();
             }
             leafletMapStationMarkerMap = {};
+            currentPopupTitle = null;
         }
         if (!pane || pane == "topPane") {
             for (const [key, value] of Object.entries(leafletMapTopPaneMarkerMap)) {
@@ -172,7 +173,6 @@ function clearMarkersFromMap(pane = null) {
             }
             leafletMapTopPaneMarkerMap = {};
         }
-        currentPopupTitle = null;
     }
 }
 
