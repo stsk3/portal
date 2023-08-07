@@ -3,6 +3,7 @@
 <head>    
     <link rel="stylesheet" href="main.css">
     <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="script/common.js"></script>
 
     <script>
         var currentDisplayDate = "";
@@ -19,7 +20,7 @@
                     if (records.length > 0) {
                         var html = '';
                         $.each(records, function (index, record) {
-                            const title = record.title;
+                            const content = record.title;
                             const displayTS = record.display_ts;
                             const displayDate = record.display_date;
 
@@ -28,12 +29,37 @@
                                 html += `<hr/><div><b>${currentDisplayDate}</b></div>`;
                             }
 
-                            html += `<div>${title}</div>`;
+                            html += `<div>${content}</div>`;
                         });
                         html += '</tbody>';
                         $('.grid-1').html(html);
                    }
              }});
+            document.getElementById("more").href="https://t.me/s/HK_Traffic_News"; 
+        }
+
+        function getUKData() {
+            const link = 'https://www.theargus.co.uk/li/traffic.in.Brighton/';
+            $.ajax({url: cors(link), cache: false, success: 
+                function (data) {
+                    const htmlDom = $($.parseHTML(data));
+
+                    const titleList = htmlDom.find('.traffic-incident-item__results-title');
+                    if (titleList.length > 0) {
+                        var html = '';
+                        const descList = htmlDom.find('.traffic-incident-item__results-traffic-description');
+                        const dateList = htmlDom.find('.traffic-incident-item__results-last-updated');
+                        $.each(titleList, function (index, title) {
+                            const content = (title.textContent + ": " + descList[index].textContent).trim();
+                            const displayDate = (dateList[index].textContent).trim();
+                            html += `<hr/><div><b>${displayDate}</b></div>`;
+                            html += `<div>${content}</div>`;
+                        });
+                        html += '</tbody>';
+                        $('.grid-1').html(html);
+                    }
+            }});
+            document.getElementById("more").href=link; 
         }
 
 
@@ -47,7 +73,11 @@
         });
 
         $(document).ready(function () {
-            getData();
+            if (isUK()){
+                getUKData();
+            } else {
+                getData();
+            }
         });
     </script>
 
@@ -64,7 +94,7 @@
     <div class="list-body grid-1"></div>
     <hr/>
     <div>
-        <a href="https://t.me/s/HK_Traffic_News" target="_blank">RTHK</a>
+        <a id="more" target="_blank">More</a>
     </div>
 
     <object type="text/html" data="footer.html"></object>

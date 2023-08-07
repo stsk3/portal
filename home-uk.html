@@ -16,12 +16,25 @@
 		});
 
         function getCurrentWeather() {
+            const dateNow = new Date().toJSON();
+            const timeGap = dateNow.substr(0,11) + Math.round(dateNow.substr(11,2)/3)*3 + ":00:00Z";
             const key = 'c36d2385-78ae-4582-93e9-68f1c607da06';
-            $.when($.getJSON(cors(`http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/310091?res=3hourly&key=${key}`)),
-                    $.getJSON(cors(`http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/310037?res=3hourly&key=${key}`))).then(
+            $.when($.getJSON(cors(`http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/351029?res=3hourly&time=${timeGap}&key=${key}`)),
+                    $.getJSON(cors(`http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/310037?res=3hourly&time=${timeGap}&key=${key}`))).then(
                         function(r1, r2){
-                            const jsonData = r1[0];
-                            const temperatureObj = jsonData.SiteRep.DV.Location.Period[0].Rep[0];
+                            const result1 = convertWeatherDataToString("Hove", r1[0]);
+                            const result2 = convertWeatherDataToString("Brighton", r2[0]);
+                            
+                            const weatherType =  r1[0].SiteRep.DV.Location.Period.Rep.W;
+                            $("#weather-icon").attr("src", `https://www.metoffice.gov.uk/webfiles/1690896476951/images/icons/weather/${weatherType}.svg`);
+
+                            $('#temperature').html(`${result1}<br/>${result2}`);
+                        }
+            );
+        }
+
+        function convertWeatherDataToString(location, jsonData) {
+            const temperatureObj = jsonData.SiteRep.DV.Location.Period.Rep;
                             const temperature = temperatureObj.T;
                             const feelLikeTemperature = temperatureObj.F;
                             const windDirection = temperatureObj.D;
@@ -30,22 +43,7 @@
                             const maxUVIndex = temperatureObj.U;
                             const weatherType = temperatureObj.W;
                             const precipitationProb = temperatureObj.Pp;
-
-                            const jsonData2 = r2[0];
-                            const temperatureObj2 = jsonData2.SiteRep.DV.Location.Period[0].Rep[0];
-                            const temperature2 = temperatureObj2.T;
-                            const feelLikeTemperature2 = temperatureObj2.F;
-                            const windDirection2 = temperatureObj2.D;
-                            const windSpeed2 = temperatureObj2.S;
-                            const windGust2 = temperatureObj2.G;
-                            const maxUVIndex2 = temperatureObj2.U;
-                            const weatherType2 = temperatureObj2.W;
-                            const precipitationProb2 = temperatureObj2.Pp;
-
-                            $("#weather-icon").attr("src", `https://www.metoffice.gov.uk/webfiles/1690896476951/images/icons/weather/${weatherType}.svg`);
-                            $('#temperature').html(`Hove: ${temperature}(${feelLikeTemperature})°C ${precipitationProb}%<br/>Brighton: ${temperature2}(${feelLikeTemperature2})°C ${precipitationProb2}%`);
-                        }
-            );
+            return `<b>${location}: </b><i>${temperature}(${feelLikeTemperature})°C<br/>🌧️${precipitationProb}%🌪️${windSpeed}(${windGust})mph</i>`;
         }
 
 
@@ -70,7 +68,7 @@
         <a href="weather.html" class="blue"><img src="image/home-icon/weather.png" id="weather-icon">Weather<br/><span id="temperature"></span></a>
         <a href="finance-bill.html" class="light-red"><img src="image/home-icon/finance_bill.png">Bill</a>
         <a class="light-green">
-            <img src="image/home-icon/bus_kmb_eta.png" onclick="location.href='bus-brighton-eta.html'">Bus ETA
+            <img src="image/home-icon/bus_brighton_eta.png" onclick="location.href='bus-brighton-eta.html'">Bus ETA
             <div style="padding-top: 5px">
                 <form action="bus-brighton-eta.html" method="get">
                     <input type="input" name="route" placeholder="5B" size="2" onclick="event.preventDefault()">
@@ -85,13 +83,13 @@
                 <a href="bus-brighton-eta.html?route=5">5</a><a class="green"href="bus-brighton-eta.html?route=5B">5B</a><a class="light-red" href="bus-brighton-eta.html?route=46">46</a><a class="blue" href="bus-brighton-eta.html?route=7">7</a><a class="red" href="bus-brighton-eta.html?route=21">21</a>
             </div>
             <div>
-                <a class="green" href="bus-brighton-eta.html?stop=Palmeira%20Square">Palmeira Square</a><a class="light-red" href="bus-brighton-eta.html?stop=London%20Road">London Road</a>
+                <a class="green" href="bus-brighton-eta.html?stop=Palmeira%20Square">Palmeira Square</a>
             </div>
             <div>
                 <a class="red" href="work-eta.html?type=11">Go Marina#7</a><a class="light-red" href="work-eta.html?type=12">#21</a>
             </div>
             <div>
-                <a class="light-blue" href="work-eta.html?type=13">From Lidl</a>
+                <a class="light-blue" href="work-eta.html?type=13">Lidl</a><a class="light-red" href="bus-brighton-eta.html?stop=London%20Road">London Road</a>
             </div>
             <div>
                 <a class="blue" href="work-eta.html?type=9">Work💯</a><a class="red" href="work-eta.html?type=10">Home😘</a>

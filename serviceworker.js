@@ -30,6 +30,7 @@ const filesToCache = [
     "image/home-icon/bus_interchange.png",
     "image/home-icon/bus_sectional_fare.png",
     "image/home-icon/bus_kmb_eta.png",
+    "image/home-icon/bus_brighton_eta.png",
     "image/home-icon/mtr_lr_eta.png",
     "image/home-icon/hmd.png",
     "image/home-icon/kfc.png",
@@ -106,7 +107,7 @@ const filesToCache = [
     nwPrefix + "NWFB/",
 ];
 
-const swVersion = '1.30';
+const swVersion = '1.31';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
