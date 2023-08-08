@@ -571,6 +571,14 @@ mtr-eta.hhtml
     color: red;
 }
 
+.mtr-eta-page .etaDiv .eta-detail.seq1{
+    color: red;
+}
+
+.mtr-eta-page .etaDiv .eta-detail.seq2{
+    color: black;
+}
+
 /**
 finance-bill.html
 **/
