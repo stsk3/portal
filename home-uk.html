@@ -19,16 +19,14 @@
             const dateNow = new Date().toJSON();
             const timeGap = dateNow.substr(0,11) + Math.round(dateNow.substr(11,2)/3)*3 + ":00:00Z";
             const key = 'c36d2385-78ae-4582-93e9-68f1c607da06';
-            $.when($.getJSON(cors(`http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/351029?res=3hourly&time=${timeGap}&key=${key}`)),
-                    $.getJSON(cors(`http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/310037?res=3hourly&time=${timeGap}&key=${key}`))).then(
-                        function(r1, r2){
-                            const result1 = convertWeatherDataToString("Hove", r1[0]);
-                            const result2 = convertWeatherDataToString("Brighton", r2[0]);
+            $.when($.getJSON(cors(`http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/351029?res=3hourly&time=${timeGap}&key=${key}`))).then(
+                        function(r1){
+                            const result1 = convertWeatherDataToString("Hove", r1);
                             
-                            const weatherType =  r1[0].SiteRep.DV.Location.Period.Rep.W;
+                            const weatherType =  r1.SiteRep.DV.Location.Period.Rep.W;
                             $("#weather-icon").attr("src", `https://www.metoffice.gov.uk/webfiles/1690896476951/images/icons/weather/${weatherType}.svg`);
 
-                            $('#temperature').html(`${result1}<br/>${result2}`);
+                            $('#temperature').html(`${result1}`);
                         }
             );
         }
@@ -38,12 +36,14 @@
                             const temperature = temperatureObj.T;
                             const feelLikeTemperature = temperatureObj.F;
                             const windDirection = temperatureObj.D;
-                            const windSpeed = temperatureObj.S;
-                            const windGust = temperatureObj.G;
+                            const windSpeed = Math.round(temperatureObj.S * 1.609344);
+                            const windGust = Math.round(temperatureObj.G * 1.609344);
+                            const direction = temperatureObj.D;
                             const maxUVIndex = temperatureObj.U;
                             const weatherType = temperatureObj.W;
                             const precipitationProb = temperatureObj.Pp;
-            return `<b>${location}: </b><i>${temperature}(${feelLikeTemperature})°C<br/>🌧️${precipitationProb}%🌪️${windSpeed}(${windGust})mph</i>`;
+                            const relativeHumidity = temperatureObj.H;
+            return `${temperature}(${feelLikeTemperature})°C☀️${maxUVIndex}<br/>💦${relativeHumidity}%🌧️${precipitationProb}%<br/>🌪️${direction}${windSpeed}(${windGust})K`;
         }
 
 
