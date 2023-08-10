@@ -4,6 +4,7 @@
     <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
     <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="script/common.js"></script>
     <link rel="stylesheet" href="main.css">
     <style></style>
     <script>
@@ -278,7 +279,7 @@
 
 
         function getBrightonStopETA(stationId) {
-            $.ajax({url: `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://www.buses.co.uk/stops/${stationId}`)}`, cache: false, success: 
+            $.ajax({url: cors(`https://www.buses.co.uk/stops/${stationId}`), cache: false, success: 
                 function (data) {
                     const htmlDom = $($.parseHTML(data));
 
@@ -290,6 +291,7 @@
                     var html = '';
 
                     if (routeList && routeList.length > 0) {
+                        const routeSet = new Set();
                         html += '<div class="etaDiv">';
                         $.each(routeList, function (index, route) {
                             const routeNo = route.innerHTML;
@@ -297,7 +299,11 @@
                             const time = etaList[index].innerHTML;
                             const timeWords = time;
 
-                            html += `<div><span class="eta-detail-route">${routeNo}</span> ➔${dest} <span class="eta-detail">${timeWords}</span></div>`;
+                            const routeSetId = routeNo + "-" + dest;
+                            const etaSeq = routeSet.has(routeSetId) ? "2" : "1";
+                            routeSet.add(routeSetId);
+
+                            html += `<div><span class="eta-detail-route">${routeNo}</span> ➔${dest} <span class="eta-detail seq${etaSeq}">${timeWords}</span></div>`;
                         });
                         html += '</div>';
                    }
@@ -306,7 +312,7 @@
                         html = '<div class="etaDiv"><div class="operating"><span class="eta-detail seq1">暫時沒有預定班次</span></div></div>';
                    }
 
-                   $(`#eta-lr-refresh`).html("最後更新: " + getTimeFromTimestamp(new Date().getTime()));
+                   $(`#eta-lr-refresh`).html("Last Update: " + getTimeFromTimestamp(new Date().getTime()));
                    $(`#eta-lr`).show();
                    $(`#eta-lr`).html(html);
             }});
