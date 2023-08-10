@@ -17,6 +17,7 @@ const filesToCache = [
     "hospital.html",
     "traffic-news.html",
     "finance-bill.html",
+    "exchange-rate.html",
 
     "footer.html",
 
@@ -107,7 +108,7 @@ const filesToCache = [
     nwPrefix + "NWFB/",
 ];
 
-const swVersion = '1.33';
+const swVersion = '1.40';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

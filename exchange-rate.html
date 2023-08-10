@@ -1,0 +1,242 @@
+<html>
+
+<head>    
+    <script type="text/javascript" src="script/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="script/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="script/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="script/common.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <style>
+    </style>
+    <script>
+
+        function getVisaJson(paidAmount, date) {
+            //Clear
+            $("#visa-rate").html("");
+            $("#visa-amount").html("");
+            $("#visa-rate-bank1").html("");
+            $("#visa-amount-bank1").html("");
+            $("#visa-rate-bank195").html("");
+            $("#visa-amount-bank195").html("");
+            $("#bank-rate").html("");
+            $("#bank-amount").html("");
+            $("#bank-rate-bank1").html("");
+            $("#bank-amount-bank1").html("");
+            $("#bank-rate-bank195").html("");
+            $("#bank-amount-bank195").html("");
+
+            const dateArray = date.split('-');
+            const formattedDate = dateArray[1] + '/' + dateArray[2] + '/' + dateArray[0];
+            $.getJSON({url: cors(`https://www.visa.co.uk/cmsapi/fx/rates?amount=1&fee=0&utcConvertedDate=${formattedDate}&exchangedate=${formattedDate}&fromCurr=HKD&toCurr=GBP`), cache: isCache(), 
+                success: function (jsonData) {
+                    const originalValues = jsonData.originalValues;
+                    const lastUpdatedVisaRate = new Date(originalValues.lastUpdatedVisaRate * 1000).toLocaleString();
+                    const rate = originalValues.fxRateVisa;
+                    const amount = '$' + (paidAmount * rate);
+                    const rateBank1 = rate * (1 + 1.00 / 100);
+                    const amountBank1 = '$' + (paidAmount * rateBank1);
+                    const rateBank195 = rate * (1 + 1.95 / 100);
+                    const amountBank195 = '$' + (paidAmount * rateBank1);
+                    $("#visa-rate").html(rate);
+                    $("#visa-amount").html(amount);
+                    $("#visa-rate-bank1").html(rateBank1);
+                    $("#visa-amount-bank1").html(amountBank1);
+                    $("#visa-rate-bank195").html(rateBank195);
+                    $("#visa-amount-bank195").html(amountBank195);
+
+                    const benchmark = originalValues.benchmarks[0];
+                    const bmLastUpdatedVisaRate = new Date(benchmark.lastUpdatedBenchmarkRate * 1000).toLocaleString();
+                    const bmRate = benchmark.benchmarkFxRate;
+                    const bmAmount = '$' + (paidAmount * bmRate);
+                    const bmRateBank1 = bmRate * (1 + 1.00 / 100);
+                    const bmAmountBank1 = '$' + (paidAmount * bmRateBank1);
+                    const bmRateBank195 = bmRate * (1 + 1.95 / 100);
+                    const bmAmountBank195 = '$' + (paidAmount * bmRateBank195);
+
+                    $("#bank-rate").html(bmRate);
+                    $("#bank-amount").html(bmAmount);
+                    $("#bank-rate-bank1").html(bmRateBank1);
+                    $("#bank-amount-bank1").html(bmAmountBank1);
+                    $("#bank-rate-bank195").html(bmRateBank195);
+                    $("#bank-amount-bank195").html(bmAmountBank195);
+                }
+            });
+        }
+        
+        function getMasterJson(paidAmount, date) {
+            //Clear
+            $("#master-rate").html("");
+            $("#master-amount").html("");
+            $("#master-rate-bank1").html("");
+            $("#master-amount-bank1").html("");
+            $("#master-rate-bank195").html("");
+            $("#master-amount-bank195").html("");
+
+            const formattedDate = date;
+            $.getJSON({url: cors(`https://www.mastercard.co.uk/settlement/currencyrate/conversion-rate?fxDate=${formattedDate}&transCurr=GBP&crdhldBillCurr=HKD&bankFee=0&transAmt=1`), cache: isCache(), 
+                success: function (jsonData) {
+                    const lastUpdatedVisaRate = jsonData.date;
+                    const data = jsonData.data;
+                    const rate = data.conversionRate;
+                    const amount = '$' + (paidAmount * rate);
+                    const rateBank1 = rate * (1 + 1.00 / 100);
+                    const amountBank1 = '$' + (paidAmount * rateBank1)
+                    const rateBank195 = rate * (1 + 1.95 / 100);
+                    const amountBank195 = '$' + (paidAmount * rateBank195)
+                    $("#master-rate").html(rate);
+                    $("#master-amount").html(amount);
+                    $("#master-rate-bank1").html(rateBank1);
+                    $("#master-amount-bank1").html(amountBank1);
+                    $("#master-rate-bank195").html(rateBank195);
+                    $("#master-amount-bank195").html(amountBank195);
+                }
+            });
+        }
+        
+        function getUnionPayJson(paidAmount, date) {
+            //Clear
+            $("#up-rate").html("");
+            $("#up-amount").html("");
+            $("#up-rate-bank1").html("");
+            $("#up-amount-bank1").html("");
+            $("#up-rate-bank195").html("");
+            $("#up-amount-bank195").html("");
+
+            const dateArray = date.split('-');
+            const formattedDate = dateArray[0] + dateArray[1] + dateArray[2];
+            $.getJSON({url: cors(`https://www.unionpayintl.com/upload/jfimg/${formattedDate}.json`), cache: isCache(), 
+                success: function (jsonData) {
+                    const exchangeRateJson = jsonData.exchangeRateJson;
+
+                    var selectedExchangeRate = null;
+
+                    for (exchangeRate of exchangeRateJson) {
+                        const baseCur = exchangeRate.baseCur;
+                        const transCur = exchangeRate.transCur;
+                        const rateData = exchangeRate.rateData;
+                        if (baseCur == 'HKD' && transCur == 'GBP') {
+                            selectedExchangeRate = exchangeRate;
+                        }
+                    }
+
+                    const rate = selectedExchangeRate.rateData;
+                    const amount = '$' + (paidAmount * rate);
+                    const rateBank1 = rate * (1 + 1.00 / 100);
+                    const amountBank1 = '$' + (paidAmount * rateBank1)
+                    const rateBank195 = rate * (1 + 1.95 / 100);
+                    const amountBank195 = '$' + (paidAmount * rateBank195)
+                    $("#up-rate").html(rate);
+                    $("#up-amount").html(amount);
+                    $("#up-rate-bank1").html(rateBank1);
+                    $("#up-amount-bank1").html(amountBank1);
+                    $("#up-rate-bank195").html(rateBank195);
+                    $("#up-amount-bank195").html(amountBank195);
+                }
+            });
+        }
+
+        function getResult() {
+            const amount = $("#amount").val();
+            const date = $("#date-picker").val();
+            
+            getVisaJson(amount, date);
+            getMasterJson(amount, date);
+            getUnionPayJson(amount, date);
+        }
+
+        function isCache() {
+            return !$('#no-cache-box').is(":checked");
+        }
+
+        $(document).ready(function () {
+            document.getElementById('date-picker').valueAsDate = new Date();
+            getResult();
+
+            $('#loadingDiv').hide();
+        });
+
+
+        $(document).ajaxStart(function () {
+            $('#loadingDiv').show();
+        });
+
+        $(document).ajaxComplete(function () {
+            $('#loadingDiv').hide();
+        });
+
+
+    </script>
+</head>
+
+<body class="exchange-rate">
+    <div class="input-div">
+        GBP
+        <input id="amount" type="nubmer" placeholder="Amount" value="1">
+        <input id="date-picker" type="date" placeholder="date">
+        <button onclick="getResult()">Check</button>
+        No Cache: <input id="no-cache-box" type="checkbox"></input>
+    </div>
+    <hr/>
+
+    <div id="loadingDiv">
+        Loading...
+    </div>
+    
+    <div>
+        <table border="1">
+            <tr>
+                <th></th>
+                <th>Bank</th>
+                <th>VISA</th>
+                <th>Master</th>
+                <th>UnionPay</th>
+            </tr>
+            <tr>
+                <td>Rate</td>
+                <td id="bank-rate"></td>
+                <td id="visa-rate"></td>
+                <td id="master-rate"></td>
+                <td id="up-rate"></td>
+            </tr>
+            <tr>
+                <td>Amount</td>
+                <td id="bank-amount"></td>
+                <td id="visa-amount"></td>
+                <td id="master-amount"></td>
+                <td id="up-amount"></td>
+            </tr>
+            <tr>
+                <td>Rate(+1%)</td>
+                <td id="bank-rate-bank1"></td>
+                <td id="visa-rate-bank1"></td>
+                <td id="master-rate-bank1"></td>
+                <td id="up-rate-bank1"></td>
+            </tr>
+            <tr>
+                <td>Amount(+1%)</td>
+                <td id="bank-amount-bank1"></td>
+                <td id="visa-amount-bank1"></td>
+                <td id="master-amount-bank1"></td>
+                <td id="up-amount-bank1"></td>
+            </tr>
+            <tr>
+                <td>Rate(+1.95%)</td>
+                <td id="bank-rate-bank195"></td>
+                <td id="visa-rate-bank195"></td>
+                <td id="master-rate-bank195"></td>
+                <td id="up-rate-bank195"></td>
+            </tr>
+            <tr>
+                <td>Amount(+1.95%)</td>
+                <td id="bank-amount-bank195"></td>
+                <td id="visa-amount-bank195"></td>
+                <td id="master-amount-bank195"></td>
+                <td id="up-amount-bank195"></td>
+            </tr>
+        </table>
+    </div>
+
+    <object type="text/html" data="footer.html"></object>
+</body>
+
+</html>

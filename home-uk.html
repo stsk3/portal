@@ -43,7 +43,7 @@
                             const weatherType = temperatureObj.W;
                             const precipitationProb = temperatureObj.Pp;
                             const relativeHumidity = temperatureObj.H;
-            return `${temperature}(${feelLikeTemperature})°C☀️${maxUVIndex}<br/>💦${relativeHumidity}%🌧️${precipitationProb}%<br/>🌪️${direction}${windSpeed}(${windGust})K`;
+            return `${temperature}(${feelLikeTemperature})°C☀️${maxUVIndex}<br/>💦${relativeHumidity}%🌧️${precipitationProb}%<br/>🌪️${direction}${windSpeed}(${windGust})kmh`;
         }
 
 
@@ -65,8 +65,15 @@
     <div id="swt-bar"></div>
 
     <div class="grid-container">
-        <a href="https://metoffice.gov.uk/weather/forecast/gcpchm3cd" target="_blank" class="blue"><img src="image/home-icon/weather.png" id="weather-icon">Weather<br/><span id="temperature"></span></a>
-        <a href="finance-bill.html" class="light-red"><img src="image/home-icon/finance_bill.png">Bill</a>
+        <a href="https://metoffice.gov.uk/weather/forecast/gcpchm3cd" target="_blank" class="blue"><img style="width:40%" src="image/home-icon/weather.png" id="weather-icon"><span id="temperature">Weather</span></a>
+        <a href="finance-bill.html" class="light-red">
+            <img src="image/home-icon/finance_bill.png">Bill
+            <div>
+                <form action="exchange-rate.html" method="get">
+                    <input type="submit" value="Rate" class="blue">
+                </form>
+            </div>
+        </a>
         <a class="light-green">
             <img src="image/home-icon/bus_brighton_eta.png" onclick="location.href='bus-brighton-eta.html'">Bus ETA
             <div style="padding-top: 5px">
