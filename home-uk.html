@@ -17,7 +17,7 @@
 
         function getCurrentWeather() {
             const dateNow = new Date().toJSON();
-            const timeGap = dateNow.substr(0,11) + Math.round(dateNow.substr(11,2)/3)*3 + ":00:00Z";
+            const timeGap = dateNow.substr(0,11) + Math.max(7,Math.round(dateNow.substr(11,2)/3))*3 + ":00:00Z";
             const key = 'c36d2385-78ae-4582-93e9-68f1c607da06';
             $.when($.getJSON(cors(`http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/351029?res=3hourly&time=${timeGap}&key=${key}`))).then(
                         function(r1){
