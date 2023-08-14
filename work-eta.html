@@ -309,7 +309,7 @@
                    }
                    
                    if (!html) {
-                        html = '<div class="etaDiv"><div class="operating"><span class="eta-detail seq1">暫時沒有預定班次</span></div></div>';
+                        html = '<div class="etaDiv"><div class="operating"><span class="eta-detail seq1">There are no upcoming departures for this stop at the moment.</span></div></div>';
                    }
 
                    $(`#eta-lr-refresh`).html("Last Update: " + getTimeFromTimestamp(new Date().getTime()));
@@ -415,9 +415,9 @@
             const content = `
                 <div class="mtr-eta-page">
                     <div id="stationInfo">
-                        <span id="stationInfo-Title">巴士站: </span>
+                        <span id="stationInfo-Title">Bus Stop: </span>
                         <span id="stationInfo-Data">${data}</span>
-                        <div id="eta-lr-refresh" class="refreshDiv">更新中...</div>
+                        <div id="eta-lr-refresh" class="refreshDiv">Loading...</div>
                         <div id="eta-lr"></div>
                     </div>
                 </div>`;
@@ -428,6 +428,8 @@
 
 
         $(document).ready(function () {
+            document.getElementById("update-button").value= isUK() ? "Update" : "更新";
+
             const updateTimeGapInterval = setInterval(updateTimeGap , 1000);
 
             const paramType = findGetParameter("type");
@@ -634,19 +636,19 @@
                 createBusDiv(0, '由太和出發', '')
                 getSortedBusRouteETA(dataList, 0);
             } else if (paramType == '9') { //由Palmeira Square出發
-                createBrightonBusDiv('由Palmeira Square出發')
+                createBrightonBusDiv('From Palmeira Square')
                 getBrightonStopETA('149000006949')
             } else if (paramType == '10') { //由Beaconsfield Villas Top出發
-                createBrightonBusDiv('由Beaconsfield Villas Top出發')
+                createBrightonBusDiv('From Beaconsfield Villas Top')
                 getBrightonStopETA('149000006332')
             } else if (paramType == '11') { //由Lyon Close出發
-                createBrightonBusDiv('由Lyon Close出發')
+                createBrightonBusDiv('From Lyon Close')
                 getBrightonStopETA('149000006637')
             } else if (paramType == '12') { //由Cricket Ground出發
-                createBrightonBusDiv('由Cricket Ground出發')
+                createBrightonBusDiv('From Cricket Ground')
                 getBrightonStopETA('149000006876')
             } else if (paramType == '13') { //由Hove Park Tavern出發
-                createBrightonBusDiv('由Hove Park Tavern出發')
+                createBrightonBusDiv('From Hove Park Tavern')
                 getBrightonStopETA('149000006512')
             }
 
@@ -663,7 +665,7 @@
         Loading...
     </div>
     <div>
-        <input type="button" value="更新" onclick="location.reload()" />
+        <input id="update-button" type="button" value="更新" onclick="location.reload()" />
     </div>
 
     <div id="content"></div>

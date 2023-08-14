@@ -5,7 +5,7 @@
       {
         "title": "香港國際財經台76",
         "cardImage": "hoytv76",
-        "func": "hkdtmb_76",
+        "func": "",
         "videoUrlList": [
           "https://hoytv-live-stream.hoy.tv/ch76/index-fhd.m3u8"
         ]
@@ -13,7 +13,7 @@
       {
         "title": "HOY TV 77",
         "cardImage": "hoytv77",
-        "func": "hkdtmb_77",
+        "func": "",
         "videoUrlList": [
           "https://hoytv-live-stream.hoy.tv/ch77/index-fhd.m3u8"
         ]
@@ -21,7 +21,7 @@
       {
         "title": "HOY TV 資訊台 78",
         "cardImage": "hoytv78",
-        "func": "hkdtmb_78",
+        "func": "",
         "videoUrlList": [
           "https://hoytv-live-stream.hoy.tv/ch78/index-fhd.m3u8"
         ]
@@ -506,22 +506,20 @@
       {
         "title": "VIU96",
         "cardImage": "viu96",
-        "func": "hkdtmb_96",
+        "func": "",
         "videoUrlList": [
           "http://198.16.100.90:8278/viusix_twn/playlist.m3u8?tid=MF0F4217630642176306&ct=19249&tsum=33becc0fe8466036420dbbb4727dc49e",
           "http://50.7.238.114:8278/viusix_twn/playlist.m3u8?tid=MF0F4217630642176306&ct=19249&tsum=33becc0fe8466036420dbbb4727dc49e"
-        ],
-        "getFromInternet": true
+        ]
       },
       {
         "title": "VIU99",
         "cardImage": "viu99",
-        "func": "hkdtmb_99",
+        "func": "",
         "videoUrlList": [
           "http://198.16.100.90:8278/viu1_twn/playlist.m3u8?tid=MF9F2344917423449174&ct=19254&tsum=3cb061ac749a32280d3b88c022a1403f",
           "http://50.7.238.114:8278/viu1_twn/playlist.m3u8?tid=MF9F2344917423449174&ct=19254&tsum=3cb061ac749a32280d3b88c022a1403f"
-        ],
-        "getFromInternet": true
+        ]
       }
     ]
   },
@@ -531,46 +529,37 @@
       {
         "title": "翡翠台81",
         "cardImage": "tvb81",
-        "func": "hkdtmb_81",
+        "func": "",
         "videoUrlList": [
           "http://198.16.100.90:8278/jade_twn/playlist.m3u8?tid=ME6E1330319113303191&ct=19225&tsum=d76985c4965fd63807e131035f66af09",
           "http://50.7.238.114:8278/jade_twn/playlist.m3u8?tid=ME6E1330319113303191&ct=19225&tsum=d76985c4965fd63807e131035f66af09"
-        ],
-        "getFromInternet": true
+        ]
       },
       {
         "title": "J2",
         "cardImage": "tvb82",
-        "func": "hkdtmb_82",
+        "func": "",
         "videoUrlList": [
           "http://50.7.238.114:8278/j2_twn/playlist.m3u8?tid=MFCF3274854132748541&ct=19254&tsum=699466c18aac56202ad1d2843fd21032"
-        ],
-        "getFromInternet": true
+        ]
       },
       {
         "title": "無綫新聞台83",
         "cardImage": "tvb83",
         "func": "tvb_C:香港版|I-NEWS:海外版",
-        "func2": "hkdtmb_83",
+        "func2": "",
         "videoUrlList": [
           "http://198.16.100.90:8278/inews_twn/playlist.m3u8?tid=MD8D9734527497345274&ct=19249&tsum=88c5d57f9fdce89810d61e1001910a80"
-        ],
-        "getFromInternet": true
-      },
-      {
-        "title": "明珠台84",
-        "cardImage": "tvb84",
-        "func": "hkdtmb_84:麗音|84b:原聲"
+        ]
       },
       {
         "title": "無綫財經體育資訊台85",
         "cardImage": "tvb85",
-        "func": "hkdtmb_85",
+        "func": "",
         "videoUrlList": [
           "http://198.16.100.90:8278/tvbcaijing_twn/playlist.m3u8?tid=MD3D9552893795528937&ct=19254&tsum=77d4c2db4fa7537d7dd3eb19f933526d",
           "http://50.7.238.114:8278/tvbcaijing_twn/playlist.m3u8?tid=MD3D9552893795528937&ct=19254&tsum=77d4c2db4fa7537d7dd3eb19f933526d"
-        ],
-        "getFromInternet": true
+        ]
       },
       {
         "title": "無綫財經體育資訊台海外版85",
@@ -595,33 +584,30 @@
       {
         "title": "港台電視31",
         "cardImage": "rthktv31",
-        "func": "hkdtmb_31",
+        "func": "",
         "videoUrlList": [
           "https://rthktv31-live.akamaized.net/hls/live/2036818/RTHKTV31/master.m3u8",
           "http://198.16.100.90:8278/rhk31_twn/playlist.m3u8?tid=MA6A6225600662256006&ct=19249&tsum=7b0adccccff4fded44e906e9d848ee35",
           "http://50.7.238.114:8278/rhk31_twn/playlist.m3u8?tid=MA6A6225600662256006&ct=19249&tsum=7b0adccccff4fded44e906e9d848ee35"
-        ],
-        "getFromInternet": false
+        ]
       },
       {
         "title": "港台電視32",
         "cardImage": "rthktv32",
-        "func": "hkdtmb_32",
+        "func": "",
         "videoUrlList": [
           "https://rthktv32-live.akamaized.net/hls/live/2036819/RTHKTV32/master.m3u8",
           "http://198.16.100.90:8278/rhk32_twn/playlist.m3u8?tid=MDBD4704174447041744&ct=19249&tsum=763ebe53fc33677d02ebf83b4d558d33",
           "http://50.7.238.114:8278/rhk32_twn/playlist.m3u8?tid=MDBD4704174447041744&ct=19249&tsum=763ebe53fc33677d02ebf83b4d558d33"
-        ],
-        "getFromInternet": false
+        ]
       },
       {
         "title": "港台電視33(CCTV1)",
         "cardImage": "cctv1",
-        "func": "hkdtmb_33",
+        "func": "",
         "videoUrlList": [
           "https://rthktv33-live.akamaized.net/hls/live/2101641/RTHKTV33/master.m3u8"
-        ],
-        "getFromInternet": false
+        ]
       },
       {
         "title": "港台電視34(CGTN DOC)",
