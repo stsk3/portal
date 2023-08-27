@@ -278,7 +278,8 @@
         }
 
 
-        function getBrightonStopETA(stationId) {
+        function getBrightonStopETA(stationId, row=0) {
+            const id = row
             $.ajax({url: cors(`https://www.buses.co.uk/stops/${stationId}`), cache: false, success: 
                 function (data) {
                     const htmlDom = $($.parseHTML(data));
@@ -312,12 +313,12 @@
                         html = '<div class="etaDiv"><div class="operating"><span class="eta-detail seq1">There are no upcoming departures for this stop at the moment.</span></div></div>';
                    }
 
-                   $(`#eta-lr-refresh`).html("Last Update: " + getTimeFromTimestamp(new Date().getTime()));
-                   $(`#eta-lr`).show();
-                   $(`#eta-lr`).html(html);
+                   $(`#eta-lr-refresh-${id}`).html("Last Update: " + getTimeFromTimestamp(new Date().getTime()));
+                   $(`#eta-lr-${id}`).show();
+                   $(`#eta-lr-${id}`).html(html);
             }});
 
-            setTimeout(function() { getBrightonStopETA(stationId); }, busRefreshInterval);
+            setTimeout(function() { getBrightonStopETA(stationId, row); }, busRefreshInterval);
         }
 
 
@@ -411,14 +412,14 @@
 
         }
 
-        function createBrightonBusDiv(data) {
+        function createBrightonBusDiv(data, id=0) {
             const content = `
                 <div class="mtr-eta-page">
-                    <div id="stationInfo">
+                    <div id="stationInfo" class="stationInfoClass">
                         <span id="stationInfo-Title">Bus Stop: </span>
                         <span id="stationInfo-Data">${data}</span>
-                        <div id="eta-lr-refresh" class="refreshDiv">Loading...</div>
-                        <div id="eta-lr"></div>
+                        <div id="eta-lr-refresh-${id}" class="refreshDiv">Loading...</div>
+                        <div id="eta-lr-${id}"></div>
                     </div>
                 </div>`;
             $("#content").append(content);
@@ -648,12 +649,18 @@
                 createBrightonBusDiv('From Cricket Ground')
                 getBrightonStopETA('149000006876')
             } else if (paramType == '13') { //由Hove Park Tavern出發
-                createBrightonBusDiv('From Hove Park Tavern')
-                getBrightonStopETA('149000006512')
+                var i = 0;
+                createBrightonBusDiv('From Holland Road to Lidl', i)
+                getBrightonStopETA('149000007637', i++)
+                createBrightonBusDiv('From Cricket Ground to Lidl', i)
+                getBrightonStopETA('149000007876', i++)
+                createBrightonBusDiv('From Hove Park Tavern To home', i)
+                getBrightonStopETA('149000006512', i++)
             }
 
             $('.busRouteInfo').show();
             $('#stationInfo').show();
+            $('.stationInfoClass').show();
         });
 
     </script>

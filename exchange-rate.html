@@ -52,7 +52,7 @@
 
             const dateArray = date.split('-');
             const formattedDate = dateArray[1] + '/' + dateArray[2] + '/' + dateArray[0];
-            $.getJSON({url: cors(`https://www.visa.co.uk/cmsapi/fx/rates?amount=1&fee=0&utcConvertedDate=${formattedDate}&exchangedate=${formattedDate}&fromCurr=HKD&toCurr=GBP`), cache: isCache(), 
+            $.getJSON({url: cors2(`https://www.visa.co.uk/cmsapi/fx/rates?amount=1&fee=0&utcConvertedDate=${formattedDate}&exchangedate=${formattedDate}&fromCurr=HKD&toCurr=GBP`), cache: isCache(), 
                 success: function (jsonData) {
                     const originalValues = jsonData.originalValues;
                     const rate = originalValues.fxRateVisa;
