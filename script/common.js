@@ -53,7 +53,7 @@ function isUK() {
 
 function cors(link) {
     //return `http://192.168.8.1:18080/php?link=${encodeURIComponent(link)}`;
-    return `http://stsk.rf.gd?link=${encodeURIComponent(link)}`;
+    return `https://stsk.rf.gd?link=${encodeURIComponent(link)}`;
 }
 
 function cors2(link) {
