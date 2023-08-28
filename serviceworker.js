@@ -108,7 +108,7 @@ const filesToCache = [
     nwPrefix + "NWFB/",
 ];
 
-const swVersion = '1.47';
+const swVersion = '1.48';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 

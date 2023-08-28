@@ -59,7 +59,3 @@ function cors(link) {
 
 
 }
-
-function cors2(link) {
-    return `https://api.allorigins.win/raw?url=${encodeURIComponent(link)}`;
-}
