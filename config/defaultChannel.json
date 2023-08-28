@@ -206,11 +206,6 @@
     "header": "體育-外國",
     "channelDataList": [
       {
-        "title": "STAR Sports",
-        "cardImage": "sports_starsports",
-        "func": "tvfix_starsports"
-      },
-      {
         "title": "TNT Sports 1",
         "cardImage": "sports_tntuk",
         "func": "",
@@ -405,7 +400,6 @@
         "title": "CCTV5体育",
         "cardImage": "cctv5",
         "func": "rtmp_cn02",
-        "func2": "tvfix_cctv5hd",
         "videoUrlList": [
           "http://39.134.61.219/PLTV/88888888/224/3221226900/index.m3u8",
           "http://140.207.241.2:8080/live/program/live/cctv5hd/4000000/mnf.m3u8",
@@ -417,7 +411,6 @@
         "title": "CCTV5+体育赛事",
         "cardImage": "cctv5plus",
         "func": "rtmp_cn05",
-        "func2": "tvfix_cctv5phd",
         "videoUrlList": [
           "http://39.134.61.219/PLTV/88888888/224/3221226912/index.m3u8",
           "http://140.207.241.2:8080/live/program/live/cctv5phd/4000000/mnf.m3u8"
@@ -425,50 +418,36 @@
         "getFromInternet": true
       },
       {
-        "title": "CCTV16奥林匹克",
-        "cardImage": "cctv16",
-        "func": "tvfix_cctv16hd"
-      },
-      {
         "title": "新視覺HD",
         "cardImage": "sports_newying",
-        "func": "tvfix_xsjhd",
+        "func": "",
         "videoUrlList": [
           "http://140.207.241.2:8080/live/program/live/xsjhd/4000000/mnf.m3u8"
-        ],
-        "getFromInternet": true
+        ]
       },
       {
         "title": "五星體育",
         "cardImage": "sports_5star",
-        "func": "tvfix_wxtyhd",
+        "func": "",
         "videoUrlList": [
           "http://140.207.241.2:8080/live/program/live/ssty/4000000/mnf.m3u8"
-        ],
-        "getFromInternet": true
+        ]
       },
       {
         "title": "勁爆體育",
         "cardImage": "sports_gingbao",
-        "func": "tvfix_jbtyhd",
+        "func": "",
         "videoUrlList": [
           "http://140.207.241.2:8080/live/program/live/jbtyhd/4000000/mnf.m3u8"
-        ],
-        "getFromInternet": true
+        ]
       },
       {
         "title": "魅力足球",
         "cardImage": "sports_ml",
-        "func": "tvfix_mlzqhd",
+        "func": "",
         "videoUrlList": [
           "http://140.207.241.2:8080/live/program/live/mlyyhd/4000000/mnf.m3u8"
-        ],
-        "getFromInternet": true
-      },
-      {
-        "title": "极速汽车",
-        "cardImage": "sports_jsqc",
-        "func": "tvfix_jsqchd"
+        ]
       }
     ]
   },
@@ -663,11 +642,6 @@
           "http://198.16.100.90:8278/fyi_twn/playlist.m3u8?tid=MFCF7312728573127285&ct=18393&tsum=bc4d3db9ca83c3765cc75512a1bbbbe3",
           "http://50.7.238.114:8278/fyi_twn/playlist.m3u8?tid=MFCF7312728573127285&ct=18393&tsum=bc4d3db9ca83c3765cc75512a1bbbbe3"
         ]
-      },
-      {
-        "title": "鳳凰電影",
-        "cardImage": "movie_fhdy",
-        "func": "tvfix_fhdy"
       }
     ]
   },
@@ -702,14 +676,13 @@
       {
         "title": "國家地理",
         "cardImage": "knowledge_natlgeo",
-        "func": "tvfix_natlgeo:第一聲道|natlgeo2:第二聲道",
+        "func": "",
         "videoUrlList": [
           "http://198.16.100.90:8278/natgeohd_twn/playlist.m3u8?tid=MD3D4446495344464953&ct=19249&tsum=f8c0bfc8c564a4a28247dad400acddba",
           "http://198.16.100.90:8278/natgeotamil_raj/playlist.m3u8?tid=MC8C8508198685081986&ct=19249&tsum=211a7c56c1dd113e10eae565520483d0",
           "http://198.16.100.90:8278/Natgeo/playlist.m3u8?tid=MD9D9302547893025478&ct=19249&tsum=98e3f2f5104d6ed1e826d12d93d64794",
           "http://50.7.238.114:8278/natgeohd_twn/playlist.m3u8?tid=MD3D4446495344464953&ct=19249&tsum=f8c0bfc8c564a4a28247dad400acddba"
-        ],
-        "getFromInternet": true
+        ]
       },
       {
         "title": "動物星球",
@@ -739,191 +712,6 @@
         "videoUrlList": [
           "http://50.7.238.114:8278/cnn_twn/playlist.m3u8?tid=ME9E1590756115907561&ct=19225&tsum=adf5db9504938a69e07bad07c9d6f7d6"
         ]
-      },
-      {
-        "title": "星空衛視",
-        "cardImage": "world_startv",
-        "func": "tvfix_startv"
-      },
-      {
-        "title": "瞬間看地球",
-        "cardImage": "knowledge_earth",
-        "func": "tvfix_earth"
-      },
-      {
-        "title": "Channel V",
-        "cardImage": "world_channelv",
-        "func": "tvfix_channelv"
-      }
-    ]
-  },
-  {
-    "header": "CCTV",
-    "channelDataList": [
-      {
-        "title": "CCTV1综合",
-        "cardImage": "cctv1",
-        "func": "tvfix_cctv1hd",
-        "videoUrlList": [
-          "http://39.134.61.219/PLTV/88888888/224/3221227090/index.m3u8",
-          "http://140.207.241.2:8080/live/program/live/cctv1hd/4000000/mnf.m3u8"
-        ],
-        "getFromInternet": true
-      },
-      {
-        "title": "CCTV2财经",
-        "cardImage": "cctv2",
-        "func": "tvfix_cctv2hd"
-      },
-      {
-        "title": "CCTV3综艺",
-        "cardImage": "cctv3",
-        "func": "tvfix_cctv3hd"
-      },
-      {
-        "title": "CCTV4中文国际",
-        "cardImage": "cctv4",
-        "func": "tvfix_cctv4hd"
-      },
-      {
-        "title": "CCTV6电影",
-        "cardImage": "cctv6",
-        "func": "tvfix_cctv6hd"
-      },
-      {
-        "title": "CCTV7国防军事",
-        "cardImage": "cctv7",
-        "func": "tvfix_cctv7hd"
-      },
-      {
-        "title": "CCTV8电视剧",
-        "cardImage": "cctv8",
-        "func": "tvfix_cctv8hd"
-      },
-      {
-        "title": "CCTV9纪录",
-        "cardImage": "cctv9",
-        "func": "tvfix_cctv9hd"
-      },
-      {
-        "title": "CCTV10科教",
-        "cardImage": "cctv10",
-        "func": "tvfix_cctv10hd"
-      },
-      {
-        "title": "CCTV11戏曲",
-        "cardImage": "cctv11",
-        "func": "tvfix_cctv11hd"
-      },
-      {
-        "title": "CCTV12社会与法",
-        "cardImage": "cctv12",
-        "func": "tvfix_cctv12hd"
-      },
-      {
-        "title": "CCTV13新闻",
-        "cardImage": "cctv13",
-        "func": "tvfix_cctv13hd",
-        "videoUrlList": [
-          "http://39.134.61.219/PLTV/88888888/224/3221226853/index.m3u8",
-          "http://140.207.241.2:8080/live/program/live/cctvxw/1300000/mnf.m3u8"
-        ],
-        "getFromInternet": true
-      },
-      {
-        "title": "CCTV14少儿",
-        "cardImage": "cctv14",
-        "func": "tvfix_cctv14hd"
-      },
-      {
-        "title": "CCTV15音乐",
-        "cardImage": "cctv15",
-        "func": "tvfix_cctv15hd"
-      },
-      {
-        "title": "CCTV17农业农村",
-        "cardImage": "cctv17",
-        "func": "tvfix_cctv17hd"
-      },
-      {
-        "title": "CCTV4K超高清",
-        "cardImage": "cctv4k",
-        "func": "tvfix_cctv4k"
-      },
-      {
-        "title": "CCTV怀旧剧场",
-        "cardImage": "cctvhjjc",
-        "func": "tvfix_cctvhjjchd"
-      },
-      {
-        "title": "CCTV世界地理",
-        "cardImage": "cctvsjdl",
-        "func": "tvfix_cctvsjdlhd"
-      },
-      {
-        "title": "CCTV兵器科技",
-        "cardImage": "cctvbqkj",
-        "func": "tvfix_cctvbqkjhd"
-      },
-      {
-        "title": "CCTV卫生健康",
-        "cardImage": "cctvwsjk",
-        "func": "tvfix_cctvwsjkhd"
-      },
-      {
-        "title": "CCTV风云剧场",
-        "cardImage": "cctvfyjc",
-        "func": "tvfix_cctvfyjchd"
-      },
-      {
-        "title": "CCTV风云音乐",
-        "cardImage": "cctvfyyy",
-        "func": "tvfix_cctvfyyyhd"
-      },
-      {
-        "title": "CCTV央视文化精品",
-        "cardImage": "cctvwhjp",
-        "func": "tvfix_cctvwhjphd"
-      },
-      {
-        "title": "CCTV女性时尚",
-        "cardImage": "cctvnxjk",
-        "func": "tvfix_cctvnxjkhd"
-      },
-      {
-        "title": "CCTV电视指南",
-        "cardImage": "cctvdszn",
-        "func": "tvfix_cctvdsznhd"
-      },
-      {
-        "title": "CCTV第一剧场",
-        "cardImage": "cctvdyjc",
-        "func": "tvfix_cctvdyjchd"
-      },
-      {
-        "title": "CGTN纪录",
-        "cardImage": "cgtndoc",
-        "func": "tvfix_cgtndochd"
-      },
-      {
-        "title": "CGTN法语",
-        "cardImage": "cgtnf",
-        "func": "tvfix_cgtnfhd"
-      },
-      {
-        "title": "CGTN俄语",
-        "cardImage": "cgtne",
-        "func": "tvfix_cgtnehd"
-      },
-      {
-        "title": "CGTN阿拉伯语",
-        "cardImage": "cgtna",
-        "func": "tvfix_cgtnahd"
-      },
-      {
-        "title": "CGTN西班牙语",
-        "cardImage": "cgtnx",
-        "func": "tvfix_cgtnxhd"
       }
     ]
   },
