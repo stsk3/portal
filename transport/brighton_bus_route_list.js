@@ -19,7 +19,7 @@ const brightonBusRotueList = [
 
 {"route": "11X", "desc": "Eastbourne-Brighton Station"},
 
-{"route": "Coaster 12", "desc": ":Eastbourne-Brighton"},
+{"route": "Coaster 12", "desc": "Eastbourne-Brighton"},
 {"route": "Coaster 12A", "desc": "Eastbourne-Brighton"},
 {"route": "Coaster 12X", "desc": "Eastbourne-Brighton"},
 {"route": "Coaster N12", "desc": "Eastbourne-Brighton"},

@@ -642,20 +642,21 @@
             } else if (paramType == '10') { //由Beaconsfield Villas Top出發
                 createBrightonBusDiv('From Beaconsfield Villas Top')
                 getBrightonStopETA('149000006332')
-            } else if (paramType == '11') { //由Lyon Close出發
-                createBrightonBusDiv('From Lyon Close')
-                getBrightonStopETA('149000006637')
-            } else if (paramType == '12') { //由Cricket Ground出發
-                createBrightonBusDiv('From Cricket Ground')
-                getBrightonStopETA('149000006876')
-            } else if (paramType == '13') { //由Hove Park Tavern出發
+            } else if (paramType == '11') { //去Marina
                 var i = 0;
-                createBrightonBusDiv('From Holland Road to Lidl', i)
+                createBrightonBusDiv('7 From Lyon Close', i)
+                getBrightonStopETA('149000006637', i++)
+                createBrightonBusDiv('21 From Cricket Ground', i)
+                getBrightonStopETA('149000006876', i++)
+            } else if (paramType == '12') { //由Cricket Ground出發
+                var i = 0;
+                createBrightonBusDiv('7 From Holland Road', i)
                 getBrightonStopETA('149000007637', i++)
-                createBrightonBusDiv('From Cricket Ground to Lidl', i)
+                createBrightonBusDiv('21 From Cricket Ground', i)
                 getBrightonStopETA('149000007876', i++)
-                createBrightonBusDiv('From Hove Park Tavern To home', i)
-                getBrightonStopETA('149000006512', i++)
+            } else if (paramType == '13') { //由Hove Park Tavern出發
+                createBrightonBusDiv('From Hove Park Tavern')
+                getBrightonStopETA('149000006512')
             }
 
             $('.busRouteInfo').show();

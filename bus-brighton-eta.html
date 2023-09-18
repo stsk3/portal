@@ -348,7 +348,7 @@
                             const dest = destinationList[index].innerHTML;
                             const etaText = eta ? eta : "暫時沒有預定班次";
 
-                            if (routeNum == route) {
+                            if (route.includes(routeNum) || routeNum    .includes(route)) {
                                 const routeSetId = dest;
                                 const etaSeq = routeSet.has(routeSetId) ? "2" : "1";
                                 routeSet.add(routeSetId);

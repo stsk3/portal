@@ -11,7 +11,7 @@
     </style>
     <script>
         
-        function getBankJson(paidAmount, date) {
+        function getBankJson(currency, paidAmount, date) {
             //Clear
             $("#bank-rate").html("");
             $("#bank-amount").html("");
@@ -21,7 +21,9 @@
             $("#bank-amount-bank195").html("");
 
             const formattedDate = date;
-            $.getJSON({url: `https://api.exchangerate.host/convert?date=${formattedDate}&from=GBP&to=HKD`, cache: false, 
+            $('#th-bank').html(`<a href="https://www.xe.com/currencycharts/?from=${currency}&to=HKD&view=1D" target="_blank">Bank</a>`);
+
+            $.getJSON({url: `https://api.exchangerate.host/convert?date=${formattedDate}&from=${currency}&to=HKD`, cache: false, 
                 success: function (jsonData) {
                     const rate = jsonData.result;
                     const amount = '$' + (paidAmount * rate);
@@ -40,7 +42,7 @@
         }
         
 
-        function getVisaJson(paidAmount, date) {
+        function getVisaJson(currency, paidAmount, date) {
             //Clear
             $("#visa-rate").html("");
             $("#visa-amount").html("");
@@ -51,7 +53,10 @@
 
             const dateArray = date.split('-');
             const formattedDate = dateArray[1] + '/' + dateArray[2] + '/' + dateArray[0];
-            $.getJSON({url: cors(`https://www.visa.co.uk/cmsapi/fx/rates?amount=1&fee=0&utcConvertedDate=${formattedDate}&exchangedate=${formattedDate}&fromCurr=HKD&toCurr=GBP`), cache: isCache(), 
+            const link = `https://www.visa.co.uk/cmsapi/fx/rates?amount=1&fee=0&utcConvertedDate=${formattedDate}&exchangedate=${formattedDate}&fromCurr=HKD&toCurr=${currency}`;
+            $('#th-visa').html(`<a href="${link}" target="_blank">VISA</a>`);
+
+            $.getJSON({url: cors(link), cache: isCache(), 
                 success: function (jsonData) {
                     const originalValues = jsonData.originalValues;
                     const rate = originalValues.fxRateVisa;
@@ -70,7 +75,7 @@
             });
         }
         
-        function getMasterJson(paidAmount, date) {
+        function getMasterJson(currency, paidAmount, date) {
             //Clear
             $("#master-rate").html("");
             $("#master-amount").html("");
@@ -80,7 +85,10 @@
             $("#master-amount-bank195").html("");
 
             const formattedDate = date;
-            $.getJSON({url: cors(`https://www.mastercard.co.uk/settlement/currencyrate/conversion-rate?fxDate=${formattedDate}&transCurr=GBP&crdhldBillCurr=HKD&bankFee=0&transAmt=1`), cache: isCache(), 
+            const link = `https://www.mastercard.co.uk/settlement/currencyrate/conversion-rate?fxDate=${formattedDate}&transCurr=${currency}&crdhldBillCurr=HKD&bankFee=0&transAmt=1`;
+            $('#th-master').html(`<a href="${link}" target="_blank">Master</a>`);
+
+            $.getJSON({url: cors(link), cache: isCache(), 
                 success: function (jsonData) {
                     const data = jsonData.data;
                     const rate = data.conversionRate;
@@ -99,7 +107,7 @@
             });
         }
         
-        function getUnionPayJson(paidAmount, date) {
+        function getUnionPayJson(currency, paidAmount, date) {
             //Clear
             $("#up-rate").html("");
             $("#up-amount").html("");
@@ -110,7 +118,10 @@
 
             const dateArray = date.split('-');
             const formattedDate = dateArray[0] + dateArray[1] + dateArray[2];
-            $.getJSON({url: cors(`https://www.unionpayintl.com/upload/jfimg/${formattedDate}.json`), cache: isCache(), 
+            const link = `https://www.unionpayintl.com/upload/jfimg/${formattedDate}.json`;
+            $('#th-up').html(`<a href="${link}" target="_blank">UnionPay</a>`);
+
+            $.getJSON({url: cors(link), cache: isCache(), 
                 success: function (jsonData) {
                     const exchangeRateJson = jsonData.exchangeRateJson;
 
@@ -120,7 +131,7 @@
                         const baseCur = exchangeRate.baseCur;
                         const transCur = exchangeRate.transCur;
                         const rateData = exchangeRate.rateData;
-                        if (baseCur == 'HKD' && transCur == 'GBP') {
+                        if (baseCur == 'HKD' && transCur == currency) {
                             selectedExchangeRate = exchangeRate;
                         }
                     }
@@ -142,13 +153,14 @@
         }
 
         function getResult() {
+            const currency = $("#currency").val();
             const amount = $("#amount").val();
             const date = $("#date-picker").val();
             
-            getBankJson(amount, date)
-            getVisaJson(amount, date);
-            getMasterJson(amount, date);
-            getUnionPayJson(amount, date);
+            getBankJson(currency, amount, date)
+            getVisaJson(currency, amount, date);
+            getMasterJson(currency, amount, date);
+            getUnionPayJson(currency, amount, date);
         }
 
         function isCache() {
@@ -177,7 +189,7 @@
 
 <body class="exchange-rate">
     <div class="input-div">
-        GBP
+        <input id="currency" type="text" placeholder="Currency" value="GBP" maxlength="3">
         <input id="amount" type="nubmer" placeholder="Amount" value="1">
         <input id="date-picker" type="date" placeholder="date">
         <button onclick="getResult()">Check</button>
@@ -193,10 +205,10 @@
         <table border="1">
             <tr>
                 <th></th>
-                <th>Bank</th>
-                <th>VISA</th>
-                <th>Master</th>
-                <th>UnionPay</th>
+                <th id="th-bank">Bank</th>
+                <th id="th-visa">VISA</th>
+                <th id="th-master">Master</th>
+                <th id="th-up">UnionPay</th>
             </tr>
             <tr>
                 <td>Rate</td>
