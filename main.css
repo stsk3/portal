@@ -582,7 +582,8 @@ mtr-eta.hhtml
 /**
 finance-bill.html
 **/
-.finance-bill-page #setting-div {
+.finance-bill-page #setting-div,
+.finance-bill-page #import-div {
    display: none;
 }
 

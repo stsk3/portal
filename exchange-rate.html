@@ -23,7 +23,7 @@
             const formattedDate = date;
             $('#th-bank').html(`<a href="https://www.xe.com/currencycharts/?from=${currency}&to=HKD&view=1D" target="_blank">Bank</a>`);
 
-            $.getJSON({url: `https://api.exchangerate.host/convert?date=${formattedDate}&from=${currency}&to=HKD`, cache: false, 
+            $.getJSON({url: `https://api.exchangerate.host/convert?date=${formattedDate}&from=${currency}&to=HKD`, cache: false, headers: {"apikey": "x7xOx3vOI3W4SrGwDFjySCeUeLVDZ6Im"},
                 success: function (jsonData) {
                     const rate = jsonData.result;
                     const amount = '$' + (paidAmount * rate);

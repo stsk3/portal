@@ -55,6 +55,19 @@
             alert("更新成功");
         });
 
+
+        $(document).on('submit', '#import-setting', function(event){
+            event.preventDefault();
+            let form = event.target;
+            let formData = new FormData(form);
+            
+            let jsonString = formData.get("setting-import")
+            importData(jsonString)
+
+            $('#import-div').hide();
+            alert("Import成功");
+        });
+
         $(document).on('change', '#finance-bill-month-select', function(event){
             currentMonth = $('#finance-bill-month-select').val();
             refreshDataTable();
@@ -284,8 +297,7 @@
             document.body.removeChild(element);
         }
 
-        function importData() {
-            var jsonString = prompt("請匯入Data");
+        function importData(jsonString) {
             if (jsonString != null) {
                 const testFinanceBillMap = new Map(JSON.parse(jsonString.trim()));
                 const size = testFinanceBillMap.size;
@@ -336,7 +348,7 @@
 
     <div id="menu-div">
         <input type="button" id="setting-button" value="設定" onclick="$('#setting-div').show()"/>
-        <input type="button" id="setting-button" value="匯入" onclick="importData()"/>
+        <input type="button" id="setting-button" value="匯入" onclick="$('#import-div').show()"/>
         <input type="button" id="setting-button" value="匯出" onclick="exportData()"/>
     </div>
 
@@ -345,6 +357,13 @@
             <div><label for="setting-paymentMethod">付款方法</label><input type="text" name="setting-paymentMethod" id="setting-paymentMethod" placeholder="現金|中信Motion|Citi Plus" required="true"/></div>
             <div><label for="setting-type">類別</label><input type="text" name="setting-type" id="setting-type" placeholder="指定類別|指定類別2|限時類別|限時類別2|其他" required="true"/></div>
             <div><input type="submit" value="更新"/></div>
+        </form>
+    </div>
+
+    <div id="import-div">
+        <form id="import-setting">
+            <div><input type="text" name="setting-import" id="setting-import" placeholder="JSON" required="true"/></div>
+            <div><input type="submit" value="IMPORT"/></div>
         </form>
     </div>
     
