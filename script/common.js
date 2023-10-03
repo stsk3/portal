@@ -56,6 +56,9 @@ function cors(link) {
     //return `https://stsk.rf.gd/cors?link=${encodeURIComponent(link)}`;
     //return `http://stsk.byethost10.com/cors?link=${encodeURIComponent(link)}`;
     return `https://stsk3.000webhostapp.com/cors/?link=${encodeURIComponent(link)}`;
+}
 
 
+function cors_exchange(from, to, date, amount) {
+    return `https://stsk3.000webhostapp.com/exchangerate/?from=${from}&to=${to}&date=${date}&amount=${amount}`;
 }
