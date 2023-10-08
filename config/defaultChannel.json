@@ -41,14 +41,6 @@
         "videoUrlList": [
           "https://d238cgug17vwpr.cloudfront.net/ch2/live.m3u8"
         ]
-      },
-      {
-        "title": "HOY TV亞運3",
-        "cardImage": "hoytv77",
-        "func": "",
-        "videoUrlList": [
-          "https://d238cgug17vwpr.cloudfront.net/ch3/live.m3u8"
-        ]
       }
     ]
   },
