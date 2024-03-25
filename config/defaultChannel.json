@@ -3,30 +3,6 @@
     "header": "HOY TV",
     "channelDataList": [
       {
-        "title": "HOY APP 1",
-        "cardImage": "hoytv77",
-        "func": "",
-        "videoUrlList": [
-          "https://d238cgug17vwpr.cloudfront.net/ch1/live.m3u8"
-        ]
-      },
-      {
-        "title": "HOY APP 2",
-        "cardImage": "hoytv77",
-        "func": "",
-        "videoUrlList": [
-          "https://d238cgug17vwpr.cloudfront.net/ch2/live.m3u8"
-        ]
-      },
-      {
-        "title": "HOY APP 3",
-        "cardImage": "hoytv77",
-        "func": "",
-        "videoUrlList": [
-          "https://d238cgug17vwpr.cloudfront.net/ch3/live.m3u8"
-        ]
-      },
-      {
         "title": "香港國際財經台76",
         "cardImage": "hoytv76",
         "func": "",
@@ -736,41 +712,6 @@
         "videoUrlList": [
           "http://50.7.238.114:8278/cnn_twn/playlist.m3u8?tid=ME9E1590756115907561&ct=19225&tsum=adf5db9504938a69e07bad07c9d6f7d6"
         ]
-      }
-    ]
-  },
-  {
-    "header": "廣州電視",
-    "channelDataList": [
-      {
-        "title": "綜合頻道",
-        "cardImage": "gz_zhonghe",
-        "func": "gztv_zhonghe"
-      },
-      {
-        "title": "競賽頻道",
-        "cardImage": "gz_jingsai",
-        "func": "gztv_jingsai"
-      },
-      {
-        "title": "新聞頻道",
-        "cardImage": "gz_xinwen",
-        "func": "gztv_xinwen"
-      },
-      {
-        "title": "影視頻道",
-        "cardImage": "gz_yingshi",
-        "func": "gztv_yingshi"
-      },
-      {
-        "title": "南國都市(4K)",
-        "cardImage": "gz_nanguodushi",
-        "func": "gztv_shenghuo"
-      },
-      {
-        "title": "法治頻道",
-        "cardImage": "gz_jingji",
-        "func": "gztv_fazhi"
       }
     ]
   },
