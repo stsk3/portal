@@ -25,6 +25,30 @@
         "videoUrlList": [
           "https://hoytv-live-stream.hoy.tv/ch78/index-fhd.m3u8"
         ]
+      },
+      {
+        "title": "HOY APP 1",
+        "cardImage": "hoytv77",
+        "func": "",
+        "videoUrlList": [
+          "https://d238cgug17vwpr.cloudfront.net/ch1/live.m3u8"
+        ]
+      },
+      {
+        "title": "HOY APP 2",
+        "cardImage": "hoytv77",
+        "func": "",
+        "videoUrlList": [
+          "https://d238cgug17vwpr.cloudfront.net/ch2/live.m3u8"
+        ]
+      },
+      {
+        "title": "HOY APP 3",
+        "cardImage": "hoytv77",
+        "func": "",
+        "videoUrlList": [
+          "https://d238cgug17vwpr.cloudfront.net/ch3/live.m3u8"
+        ]
       }
     ]
   },
