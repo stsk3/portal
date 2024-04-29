@@ -109,6 +109,15 @@
     "header": "體育",
     "channelDataList": [
       {
+        "title": "now英超1台",
+        "cardImage": "nowtv621",
+        "func": "",
+        "videoUrlList": [
+          "http://mtw.so/62SxG4",
+          "http://220.246.126.166:9981/stream/channel/dc8db4742fcbe0da67fa417159b6fadd"
+        ]
+      },
+      {
         "title": "Astro Super Sport 2",
         "cardImage": "sports_astross2",
         "func": "",
@@ -399,12 +408,113 @@
       {
         "title": "民視新聞",
         "cardImage": "tw_ftvn",
-        "func": "tw",
+        "func": "youtube_ylYJSBUgaMA",
         "videoUrlList": [
           "http://38.64.72.148/hls/modn/list/4012/chunklist0.m3u8",
           "http://198.16.100.90:8278/ftvnew_taiwan/playlist.m3u8?tid=MA7A6968320369683203&ct=19249&tsum=e3b040434ed43f12a738964a100a0e59",
           "http://50.7.238.114:8278/ftvnew_taiwan/playlist.m3u8?tid=MA7A6968320369683203&ct=19249&tsum=e3b040434ed43f12a738964a100a0e59"
-        ]
+        ],
+        "getFromInternet": true
+      },
+      {
+        "title": "華視新聞台HD",
+        "cardImage": "news_cts",
+        "func": "youtube_wM0g8EoUZ_E"
+      },
+      {
+        "title": "台視新聞台HD",
+        "cardImage": "tw_ttv",
+        "func": "youtube_xL0ch83RAK8"
+      },
+      {
+        "title": "中視新聞HD",
+        "cardImage": "news_ctv",
+        "func": "youtube_TCnaIE_SAtM"
+      },
+      {
+        "title": "公視新聞HD",
+        "cardImage": "tw_pnn",
+        "func": "youtube_quwqlazU-c8"
+      },
+      {
+        "title": "中天亞洲台HD",
+        "cardImage": "tw_cti",
+        "func": "youtube_s2waUruqze4"
+      },
+      {
+        "title": "東森新聞51",
+        "cardImage": "news_ebc",
+        "func": "youtube_E0zhe2gkXBs"
+      },
+      {
+        "title": "中天新聞HD",
+        "cardImage": "news_cti",
+        "func": "youtube_WPfPjbOLNfE"
+      },
+      {
+        "title": "三立iNEWS",
+        "cardImage": "news_setn",
+        "func": "youtube_CKjSm5ZeehE"
+      },
+      {
+        "title": "TVBS News",
+        "cardImage": "news_tvbs",
+        "func": "youtube_2mCSYvcfhtc"
+      },
+      {
+        "title": "寰宇新聞台",
+        "cardImage": "news_globaltw",
+        "func": "youtube_6IquAgfvYmc"
+      },
+      {
+        "title": "新唐人亞運台",
+        "cardImage": "news_ntvasia",
+        "func": "youtube_WIhgU_mc05A"
+      }
+    ]
+  },
+  {
+    "header": "外國",
+    "channelDataList": [
+      {
+        "title": "CNA news",
+        "cardImage": "news_cna",
+        "func": "youtube_XWq5kBlakcQ"
+      },
+      {
+        "title": "France24",
+        "cardImage": "news_france24",
+        "func": "youtube_tkDUSYHoKxE"
+      },
+      {
+        "title": "Al Jazeera English",
+        "cardImage": "news_ctv",
+        "func": "youtube_gCNeDWCI0vo"
+      },
+      {
+        "title": "TRT news",
+        "cardImage": "news_trt",
+        "func": "youtube_5VF4aor94gw"
+      },
+      {
+        "title": "Bloomberg",
+        "cardImage": "news_bloomberg",
+        "func": "youtube_iyOq8DhaMYw"
+      },
+      {
+        "title": "NHK World",
+        "cardImage": "news_nhkworld",
+        "func": "youtube_f0lYkdA-Gtw"
+      },
+      {
+        "title": "ABC News Australia",
+        "cardImage": "news_abc",
+        "func": "youtube_vOTiJkg1voo"
+      },
+      {
+        "title": "YTN News",
+        "cardImage": "news_ytn",
+        "func": "youtube_FJfwehhzIhw"
       }
     ]
   },
@@ -876,6 +986,16 @@
   {
     "header": "自選",
     "channelDataList": [
+      {
+        "title": "自選Youtube1",
+        "cardImage": "custom",
+        "func": "youtubeCustom1"
+      },
+      {
+        "title": "自選Youtube2",
+        "cardImage": "custom",
+        "func": "youtubeCustom2"
+      },
       {
         "title": "自選1",
         "cardImage": "custom",
