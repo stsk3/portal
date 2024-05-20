@@ -53,6 +53,41 @@
     ]
   },
   {
+    "header": "Now TV",
+    "channelDataList": [
+      {
+        "title": "now新聞台",
+        "cardImage": "nowtv332",
+        "func": "redirect_https://hk-php.kg2024.site/now/now.php?channel=332"
+      },
+      {
+        "title": "now財經台",
+        "cardImage": "nowtv333",
+        "func": "redirect_https://hk-php.kg2024.site/now/now.php?channel=333"
+      },
+      {
+        "title": "now直播台",
+        "cardImage": "nowtv331",
+        "func": "redirect_https://hk-php.kg2024.site/now/now.php?channel=331"
+      },
+      {
+        "title": "VIU99",
+        "cardImage": "viu99",
+        "func": "redirect_https://hk-php.kg2024.site/now/now.php?channel=099"
+      },
+      {
+        "title": "VIU96",
+        "cardImage": "viu96",
+        "func": "redirect_https://hk-php.kg2024.site/now/now.php?channel=096"
+      },
+      {
+        "title": "nowSports Prime",
+        "cardImage": "nowtv630",
+        "func": "redirect_https://hk-php.kg2024.site/now/now.php?channel=630"
+      }
+    ]
+  },
+  {
     "header": "myTV Super",
     "channelDataList": [
       {
@@ -61,13 +96,6 @@
         "func": "mytv_J",
         "drmId": "0958b9c657622c465a6205eb2252b8ed",
         "drmKey": "2d2fd7b1661b1e28de38268872b48480"
-      },
-      {
-        "title": "翡翠台(超高清)",
-        "cardImage": "tvb81",
-        "func": "mytv_JUHD",
-        "drmId": "2c045f5adb26d391cc41cd01f00416fa",
-        "drmKey": "fc146771a9b096fc4cb57ffe769861be"
       },
       {
         "title": "TVB Plus",
@@ -145,6 +173,13 @@
         "func": "mytv_CC1",
         "drmId": "e50b18fee7cab76b9f2822e2ade8773a",
         "drmKey": "2e2e8602b6d835ccf10ee56a9a7d91a2"
+      },
+      {
+        "title": "翡翠台(超高清)",
+        "cardImage": "tvb81",
+        "func": "mytv_JUHD",
+        "drmId": "2c045f5adb26d391cc41cd01f00416fa",
+        "drmKey": "fc146771a9b096fc4cb57ffe769861be"
       }
     ]
   },
