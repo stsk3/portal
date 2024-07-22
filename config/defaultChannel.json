@@ -455,6 +455,14 @@
         ]
       },
       {
+        "title": "港台電視36",
+        "cardImage": "rthktv36",
+        "func": "rthk",
+        "videoUrlList": [
+          "https://rthktv36-live.akamaized.net/hls/live/2112176/RTHKTV36/master.m3u8"
+        ]
+      },
+      {
         "title": "港台電視33(CCTV1)",
         "cardImage": "cctv1",
         "func": "",
