@@ -1,6 +1,6 @@
 [
   {
-    "header": "HOY TV",
+    "header": "HOY TV[VPN]",
     "channelDataList": [
       {
         "title": "香港國際財經台76",
@@ -61,7 +61,7 @@
     ]
   },
   {
-    "header": "myTV Super",
+    "header": "myTV Super[VPN]",
     "channelDataList": [
       {
         "title": "翡翠台",
@@ -157,7 +157,7 @@
     ]
   },
   {
-    "header": "RTHK",
+    "header": "RTHK[VPN]",
     "channelDataList": [
       {
         "title": "港台電視31",
@@ -213,7 +213,7 @@
     "header": "體育",
     "channelDataList": [
       {
-        "title": "myTV SUPER直播足球1台(900)\nVPN",
+        "title": "myTV SUPER直播足球1台(900)",
         "cardImage": "mytv_live_soccer",
         "func": "mytv_live_900",
         "videoUrlList": [
@@ -221,7 +221,7 @@
         ]
       },
       {
-        "title": "myTV SUPER直播足球2台(901)\nVPN",
+        "title": "myTV SUPER直播足球2台(901)",
         "cardImage": "mytv_live_soccer",
         "func": "mytv_live_901",
         "videoUrlList": [
@@ -229,7 +229,7 @@
         ]
       },
       {
-        "title": "myTV SUPER直播足球3台(902)\nVPN",
+        "title": "myTV SUPER直播足球3台(902)",
         "cardImage": "mytv_live_soccer",
         "func": "mytv_live_902",
         "videoUrlList": [
@@ -237,7 +237,7 @@
         ]
       },
       {
-        "title": "myTV SUPER直播足球4台(903)\nVPN",
+        "title": "myTV SUPER直播足球4台(903)",
         "cardImage": "mytv_live_soccer",
         "func": "mytv_live_903",
         "videoUrlList": [
@@ -245,7 +245,7 @@
         ]
       },
       {
-        "title": "myTV SUPER直播足球5台(904)\nVPN",
+        "title": "myTV SUPER直播足球5台(904)",
         "cardImage": "mytv_live_soccer",
         "func": "mytv_live_903",
         "videoUrlList": [
@@ -253,7 +253,7 @@
         ]
       },
       {
-        "title": "myTV SUPER直播足球6台(905)\nVPN",
+        "title": "myTV SUPER直播足球6台(905)",
         "cardImage": "mytv_live_soccer",
         "func": "mytv_live_903",
         "videoUrlList": [
@@ -261,7 +261,7 @@
         ]
       },
       {
-        "title": "myTV SUPER直播足球7台(906)\nVPN",
+        "title": "myTV SUPER直播足球7台(906)",
         "cardImage": "mytv_live_soccer",
         "func": "mytv_live_903",
         "videoUrlList": [
@@ -296,7 +296,7 @@
     ]
   },
   {
-    "header": "CCTVB",
+    "header": "CCTVB[VPN]",
     "channelDataList": [
       {
         "title": "無綫新聞台83",
@@ -490,471 +490,6 @@
         "title": "YTN News",
         "cardImage": "news_ytn",
         "func": "youtube_FJfwehhzIhw"
-      }
-    ]
-  },
-  {
-    "header": "日本體育",
-    "channelDataList": [
-      {
-        "title": "JP1",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp01"
-      },
-      {
-        "title": "JP2",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp02"
-      },
-      {
-        "title": "JP3",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp03"
-      },
-      {
-        "title": "JP4",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp04"
-      },
-      {
-        "title": "JP5",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp05"
-      },
-      {
-        "title": "JP6",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp06"
-      },
-      {
-        "title": "JP7",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp07"
-      },
-      {
-        "title": "JP8",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp08"
-      },
-      {
-        "title": "JP9",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp09"
-      },
-      {
-        "title": "JP10",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp10"
-      },
-      {
-        "title": "JP11",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp11"
-      },
-      {
-        "title": "JP12",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp12"
-      },
-      {
-        "title": "JP13",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp13"
-      },
-      {
-        "title": "JP14",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp14"
-      },
-      {
-        "title": "JP15",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp15"
-      },
-      {
-        "title": "JP16",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp16"
-      },
-      {
-        "title": "JP17",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp17"
-      },
-      {
-        "title": "JP18",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp18"
-      },
-      {
-        "title": "JP19",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp19"
-      },
-      {
-        "title": "JP20",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp20"
-      },
-      {
-        "title": "JP21",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp21"
-      },
-      {
-        "title": "JP22",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp22"
-      },
-      {
-        "title": "JP23",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp23"
-      },
-      {
-        "title": "JP24",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp24"
-      },
-      {
-        "title": "JP25",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp25"
-      },
-      {
-        "title": "JP26",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp26"
-      },
-      {
-        "title": "JP27",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp27"
-      },
-      {
-        "title": "JP28",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp28"
-      },
-      {
-        "title": "JP29",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp29"
-      },
-      {
-        "title": "JP30",
-        "cardImage": "cat_sports",
-        "func": "rtmp_jp30"
-      }
-    ]
-  },
-  {
-    "header": "美國體育",
-    "channelDataList": [
-      {
-        "title": "US1",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us01"
-      },
-      {
-        "title": "US2",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us02"
-      },
-      {
-        "title": "US3",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us03"
-      },
-      {
-        "title": "US4",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us04"
-      },
-      {
-        "title": "US5",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us05"
-      },
-      {
-        "title": "US6",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us06"
-      },
-      {
-        "title": "US7",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us07"
-      },
-      {
-        "title": "US8",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us08"
-      },
-      {
-        "title": "US9",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us09"
-      },
-      {
-        "title": "US10",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us10"
-      },
-      {
-        "title": "US11",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us11"
-      },
-      {
-        "title": "US12",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us12"
-      },
-      {
-        "title": "US13",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us13"
-      },
-      {
-        "title": "US14",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us14"
-      },
-      {
-        "title": "US15",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us15"
-      },
-      {
-        "title": "US16",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us16"
-      },
-      {
-        "title": "US17",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us17"
-      },
-      {
-        "title": "US18",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us18"
-      },
-      {
-        "title": "US19",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us19"
-      },
-      {
-        "title": "US20",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us20"
-      },
-      {
-        "title": "US21",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us21"
-      },
-      {
-        "title": "US22",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us22"
-      },
-      {
-        "title": "US23",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us23"
-      },
-      {
-        "title": "US24",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us24"
-      },
-      {
-        "title": "US25",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us25"
-      },
-      {
-        "title": "US26",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us26"
-      },
-      {
-        "title": "US27",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us27"
-      },
-      {
-        "title": "US28",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us28"
-      },
-      {
-        "title": "US29",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us29"
-      },
-      {
-        "title": "US30",
-        "cardImage": "cat_sports",
-        "func": "rtmp_us30"
-      }
-    ]
-  },
-  {
-    "header": "中國體育",
-    "channelDataList": [
-      {
-        "title": "CN1",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn01"
-      },
-      {
-        "title": "CN2",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn02"
-      },
-      {
-        "title": "CN3",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn03"
-      },
-      {
-        "title": "CN4",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn04"
-      },
-      {
-        "title": "CN5",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn05"
-      },
-      {
-        "title": "CN6",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn06"
-      },
-      {
-        "title": "CN7",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn07"
-      },
-      {
-        "title": "CN8",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn08"
-      },
-      {
-        "title": "CN9",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn09"
-      },
-      {
-        "title": "CN10",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn10"
-      },
-      {
-        "title": "CN11",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn11"
-      },
-      {
-        "title": "CN12",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn12"
-      },
-      {
-        "title": "CN13",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn13"
-      },
-      {
-        "title": "CN14",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn14"
-      },
-      {
-        "title": "CN15",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn15"
-      },
-      {
-        "title": "CN16",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn16"
-      },
-      {
-        "title": "CN17",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn17"
-      },
-      {
-        "title": "CN18",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn18"
-      },
-      {
-        "title": "CN19",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn19"
-      },
-      {
-        "title": "CN20",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn20"
-      },
-      {
-        "title": "CN21",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn21"
-      },
-      {
-        "title": "CN22",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn22"
-      },
-      {
-        "title": "CN23",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn23"
-      },
-      {
-        "title": "CN24",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn24"
-      },
-      {
-        "title": "CN25",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn25"
-      },
-      {
-        "title": "CN26",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn26"
-      },
-      {
-        "title": "CN27",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn27"
-      },
-      {
-        "title": "CN28",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn28"
-      },
-      {
-        "title": "CN29",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn29"
-      },
-      {
-        "title": "CN30",
-        "cardImage": "cat_sports",
-        "func": "rtmp_cn30"
       }
     ]
   },
