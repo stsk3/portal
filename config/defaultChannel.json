@@ -6,7 +6,7 @@
       {
         "title": "香港國際財經台(76)",
         "cardImage": "hoytv76",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "https://hoytv-live-stream.hoy.tv/ch76/index-fhd.m3u8"
         ],
@@ -15,7 +15,7 @@
       {
         "title": "HOY TV(77)",
         "cardImage": "hoytv77",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "https://hoytv-live-stream.hoy.tv/ch77/index-fhd.m3u8"
         ],
@@ -24,7 +24,7 @@
       {
         "title": "HOY資訊台(78)",
         "cardImage": "hoytv78",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "https://hoytv-live-stream.hoy.tv/ch78/index-fhd.m3u8"
         ],
@@ -33,7 +33,7 @@
       {
         "title": "HOY APP 1",
         "cardImage": "hoytv77",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "https://d238cgug17vwpr.cloudfront.net/ch1/live.m3u8"
         ],
@@ -42,7 +42,7 @@
       {
         "title": "HOY APP 2",
         "cardImage": "hoytv77",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "https://d238cgug17vwpr.cloudfront.net/ch2/live.m3u8"
         ],
@@ -51,7 +51,7 @@
       {
         "title": "HOY APP 3",
         "cardImage": "hoytv77",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "https://d238cgug17vwpr.cloudfront.net/ch3/live.m3u8"
         ],
@@ -60,7 +60,7 @@
       {
         "title": "HOY APP 4",
         "cardImage": "hoytv77",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "https://d238cgug17vwpr.cloudfront.net/ch4/live.m3u8"
         ],
@@ -75,7 +75,9 @@
       {
         "title": "翡翠台(81)",
         "cardImage": "tvb81",
-        "func": "mytv_J",
+        "funcList": [
+          {"provider": "mytv", "id":  "J", "name": "VPN"}
+        ],
         "drmId": "0958b9c657622c465a6205eb2252b8ed",
         "drmKey": "2d2fd7b1661b1e28de38268872b48480",
         "videoUrlName": "VPN"
@@ -83,7 +85,9 @@
       {
         "title": "翡翠4K(81)",
         "cardImage": "tvb81",
-        "func": "mytv_JUHD",
+        "funcList": [
+          {"provider": "mytv", "id": "JUHD", "name": "VPN"}
+        ],
         "drmId": "2c045f5adb26d391cc41cd01f00416fa",
         "drmKey": "fc146771a9b096fc4cb57ffe769861be",
         "videoUrlName": "VPN"
@@ -91,7 +95,9 @@
       {
         "title": "TVB Plus(82)",
         "cardImage": "tvbplus",
-        "func": "mytv_B",
+        "funcList": [
+          {"provider": "mytv", "id": "B", "name": "VPN"}
+        ],
         "drmId": "56603b65fa1d7383b6ef0e73b9ae69fa",
         "drmKey": "5d9d8e957d2e45d8189a56fe8665aaaa",
         "videoUrlName": "VPN"
@@ -99,7 +105,9 @@
       {
         "title": "無綫新聞台(83)",
         "cardImage": "tvb83",
-        "func": "mytv_C",
+        "funcList": [
+          {"provider": "mytv", "id": "C", "name": "VPN"}
+        ],
         "drmId": "90a0bd01d9f6cbb39839cd9b68fc26bc",
         "drmKey": "51546d1f2af0547f0e961995b60a32a1",
         "videoUrlName": "VPN"
@@ -107,13 +115,18 @@
       {
         "title": "無綫新聞台(83)",
         "cardImage": "tvb83",
-        "func": "tvb_C:香港版VPN|I-NEWS:海外版VPN",
+        "funcList": [
+          {"provider": "mytv", "id": "C", "name": "VPN香港版"},
+          {"provider": "mytv", "id": "I-NEWS", "name": "VPN海外版"}
+        ],
         "videoUrlName": "VPN"
       },
       {
         "title": "明珠台(84)",
         "cardImage": "tvb84",
-        "func": "mytv_P",
+        "funcList": [
+          {"provider": "mytv", "id": "P", "name": "VPN"}
+        ],
         "drmId": "e04facdd91354deee318c674993b74c1",
         "drmKey": "8f97a629de680af93a652c3102b65898",
         "videoUrlName": "VPN"
@@ -121,7 +134,9 @@
       {
         "title": "SUPER FREE",
         "cardImage": "mytv1",
-        "func": "mytv_CWIN",
+        "funcList": [
+          {"provider": "mytv", "id": "CWIN", "name": "VPN"}
+        ],
         "drmId": "0737b75ee8906c00bb7bb8f666da72a0",
         "drmKey": "15f515458cdb5107452f943a111cbe89",
         "videoUrlName": "VPN"
@@ -129,7 +144,9 @@
       {
         "title": "黃金翡翠台",
         "cardImage": "mytv_gold",
-        "func": "mytv_TVG",
+        "funcList": [
+          {"provider": "mytv", "id": "TVG", "name": "VPN"}
+        ],
         "drmId": "8fe3db1a24969694ae3447f26473eb9f",
         "drmKey": "5cce95833568b9e322f17c61387b306f",
         "videoUrlName": "VPN"
@@ -137,7 +154,9 @@
       {
         "title": "娛樂新聞台",
         "cardImage": "mytv_ent",
-        "func": "mytv_CTVE",
+        "funcList": [
+          {"provider": "mytv", "id": "CTVE", "name": "VPN"}
+        ],
         "drmId": "6fa0e47750b5e2fb6adf9b9a0ac431a3",
         "drmKey": "a256220e6c2beaa82f4ca5fba4ec1f95",
         "videoUrlName": "VPN"
@@ -145,7 +164,9 @@
       {
         "title": "鳳凰衛視中文台",
         "cardImage": "phoe_c",
-        "func": "mytv_PCC",
+        "funcList": [
+          {"provider": "mytv", "id": "PCC", "name": "VPN"}
+        ],
         "drmId": "7bca0771ba9205edb5d467ce2fdf0162",
         "drmKey": "eb19c7e3cea34dc90645e33f983b15ab",
         "videoUrlName": "VPN"
@@ -153,7 +174,9 @@
       {
         "title": "鳳凰衛視資訊台",
         "cardImage": "phoe_i",
-        "func": "mytv_PIN",
+        "funcList": [
+          {"provider": "mytv", "id": "PIN", "name": "VPN"}
+        ],
         "drmId": "83f7d313adfc0a5b978b9efa0421ce25",
         "drmKey": "ecdc8065a46287bfb58e9f765e4eec2b",
         "videoUrlName": "VPN"
@@ -161,7 +184,9 @@
       {
         "title": "鳳凰衛視香港台(85)",
         "cardImage": "phoe_hk",
-        "func": "mytv_PHK",
+        "funcList": [
+          {"provider": "mytv", "id": "PHK", "name": "VPN"}
+        ],
         "drmId": "cde62e1056eb3615dab7a3efd83f5eb4",
         "drmKey": "b8685fbecf772e64154630829cf330a3",
         "videoUrlName": "VPN"
@@ -169,12 +194,16 @@
       {
         "title": "事件直播頻道1",
         "cardImage": "tvb83",
-        "func": "tvb_NEVT1"
+        "funcList": [
+          {"provider": "mytv", "id": "NEVT1", "name": "VPN"}
+        ]
       },
       {
         "title": "事件直播頻道2",
         "cardImage": "tvb83",
-        "func": "tvb_NEVT2"
+        "funcList": [
+          {"provider": "mytv", "id": "NEVT2", "name": "VPN"}
+        ]
       }
     ]
   },
@@ -185,7 +214,9 @@
       {
         "title": "港台電視31",
         "cardImage": "rthktv31",
-        "func": "",
+        "funcList": [
+          {"provider": "rthk"}
+        ],
         "videoUrlList": [
           "https://rthktv31-live.akamaized.net/hls/live/2036818/RTHKTV31/master.m3u8"
         ],
@@ -194,7 +225,9 @@
       {
         "title": "港台電視32",
         "cardImage": "rthktv32",
-        "func": "",
+        "funcList": [
+          {"provider": "rthk"}
+        ],
         "videoUrlList": [
           "https://rthktv32-live.akamaized.net/hls/live/2036819/RTHKTV32/master.m3u8"
         ],
@@ -203,7 +236,9 @@
       {
         "title": "港台電視36",
         "cardImage": "rthktv36",
-        "func": "rthk",
+        "funcList": [
+          {"provider": "rthk"}
+        ],
         "videoUrlList": [
           "https://rthktv36-live.akamaized.net/hls/live/2112176/RTHKTV36/master.m3u8"
         ],
@@ -212,7 +247,9 @@
       {
         "title": "CCTV-1 港澳版(33)",
         "cardImage": "cctv1",
-        "func": "mytv_CC1",
+        "funcList": [
+          {"provider": "mytv", "id": "CC1", "name": "VPN"}
+        ],
         "drmId": "e50b18fee7cab76b9f2822e2ade8773a",
         "drmKey": "2e2e8602b6d835ccf10ee56a9a7d91a2",
         "videoUrlList": [
@@ -224,7 +261,9 @@
       {
         "title": "CGTN Documentary(34)",
         "cardImage": "cgtndoc",
-        "func": "rthk",
+        "funcList": [
+          {"provider": "rthk"}
+        ],
         "videoUrlList": [
           "https://rthktv34-live.akamaized.net/hls/live/2101642/RTHKTV34/master.m3u8"
         ],
@@ -233,7 +272,9 @@
       {
         "title": "CGTN English(35)",
         "cardImage": "cgtn",
-        "func": "rthk",
+        "funcList": [
+          {"provider": "rthk"}
+        ],
         "videoUrlList": [
           "https://rthktv35-live.akamaized.net/hls/live/2101643/RTHKTV35/master.m3u8"
         ],
@@ -248,7 +289,9 @@
       {
         "title": "myTV SUPER直播足球1台(900)",
         "cardImage": "mytv_live_soccer",
-        "func": "mytv_EVT1",
+        "funcList": [
+          {"provider": "mytv", "id": "EVT1", "name": "VPN"}
+        ],
         "drmId": "e8ca7903e25450d85cb32b3057948522",
         "drmKey": "d5db5c03608f5f6c8a382c6abcb829e4",
         "videoUrlList": [
@@ -259,7 +302,9 @@
       {
         "title": "myTV SUPER直播足球2台(901)",
         "cardImage": "mytv_live_soccer",
-        "func": "mytv_live_901",
+        "funcList": [
+          {"provider": "mytvsports", "id": "", "name": "VPN"}
+        ],
         "videoUrlList": [
           "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT2_h264/__op/default/__f/manifest.mpd"
         ]
@@ -267,7 +312,9 @@
       {
         "title": "myTV SUPER直播足球3台(902)",
         "cardImage": "mytv_live_soccer",
-        "func": "mytv_live_902",
+        "funcList": [
+          {"provider": "mytvsports", "id": "", "name": "VPN"}
+        ],
         "videoUrlList": [
           "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT3_h264/__op/default/__f/manifest.mpd"
         ]
@@ -275,7 +322,9 @@
       {
         "title": "myTV SUPER直播足球4台(903)",
         "cardImage": "mytv_live_soccer",
-        "func": "mytv_live_903",
+        "funcList": [
+          {"provider": "mytvsports", "id": "", "name": "VPN"}
+        ],
         "videoUrlList": [
           "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT4_h264/__op/default/__f/manifest.mpd"
         ]
@@ -283,7 +332,9 @@
       {
         "title": "myTV SUPER直播足球5台(904)",
         "cardImage": "mytv_live_soccer",
-        "func": "mytv_live_903",
+        "funcList": [
+          {"provider": "mytvsports", "id": "", "name": "VPN"}
+        ],
         "videoUrlList": [
           "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT5_h264/__op/default/__f/manifest.mpd"
         ]
@@ -291,7 +342,9 @@
       {
         "title": "myTV SUPER直播足球6台(905)",
         "cardImage": "mytv_live_soccer",
-        "func": "mytv_live_903",
+        "funcList": [
+          {"provider": "mytvsports", "id": "", "name": "VPN"}
+        ],
         "videoUrlList": [
           "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT6_h264/__op/default/__f/manifest.mpd"
         ]
@@ -299,7 +352,9 @@
       {
         "title": "myTV SUPER直播足球7台(906)",
         "cardImage": "mytv_live_soccer",
-        "func": "mytv_live_903",
+        "funcList": [
+          {"provider": "mytvsports", "id": "", "name": "VPN"}
+        ],
         "videoUrlList": [
           "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT7_h264/__op/default/__f/manifest.mpd"
         ]
@@ -307,7 +362,7 @@
       {
         "title": "Dubai Sports 2",
         "cardImage": "sports_dubai",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "https://dmitwlvvll.cdn.mangomolo.com/dubaisportshd/smil:dubaisportshd.smil/index.m3u8"
         ]
@@ -315,7 +370,7 @@
       {
         "title": "Dubai Sports 3",
         "cardImage": "sports_dubai",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "https://dmitwlvvll.cdn.mangomolo.com/dubaisportshd5/smil:dubaisportshd5.smil/index.m3u8"
         ]
@@ -323,7 +378,7 @@
       {
         "title": "Dubai Sports Racing",
         "cardImage": "sports_dubai",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "https://dmithrvll.cdn.mangomolo.com/dubairacing/smil:dubairacing.smil/chunklist.m3u8",
           "http://dmithrvll.cdn.mangomolo.com/dubaimubasher/smil:dubaimubasher.smil/playlist.m3u8"
@@ -338,7 +393,7 @@
       {
         "title": "澳視澳門",
         "cardImage": "tdmmacau",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "http://live4.tdm.com.mo:1935/ch1/ch1.live/playlist.m3u8",
           "http://live5.tdm.com.mo:1935/ch1/ch1.live/playlist.m3u8"
@@ -347,7 +402,7 @@
       {
         "title": "澳門資訊",
         "cardImage": "tdminfo",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "http://live4.tdm.com.mo:1935/ch5/info_ch5.live/playlist.m3u8",
           "http://live5.tdm.com.mo:1935/ch5/info_ch5.live/playlist.m3u8"
@@ -356,7 +411,7 @@
       {
         "title": "澳門綜藝",
         "cardImage": "tdmhd",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "http://live4.tdm.com.mo:1935/ch6/hd_ch6.live/playlist.m3u8",
           "http://live5.tdm.com.mo:1935/ch6/hd_ch6.live/playlist.m3u8"
@@ -365,7 +420,7 @@
       {
         "title": "澳門體育",
         "cardImage": "tdmsport",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "http://live4.tdm.com.mo:1935/ch4/sport_ch4.live/playlist.m3u8",
           "http://live5.tdm.com.mo:1935/ch4/sport_ch4.live/playlist.m3u8"
@@ -374,7 +429,7 @@
       {
         "title": "澳門-MACAU",
         "cardImage": "tdmsat",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "http://live4.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8",
           "http://live5.tdm.com.mo:1935/ch3/ch3.live/playlist.m3u8"
@@ -383,7 +438,7 @@
       {
         "title": "澳視葡文",
         "cardImage": "tdmportugal",
-        "func": "",
+        "funcList": [],
         "videoUrlList": [
           "http://live4.tdm.com.mo:1935/ch2/ch2.live/playlist.m3u8",
           "http://live5.tdm.com.mo:1935/ch2/ch2.live/playlist.m3u8"
@@ -398,7 +453,9 @@
       {
         "title": "中天亞洲台",
         "cardImage": "tw_cti",
-        "func": "youtube_s2waUruqze4"
+        "funcList": [
+          {"provider": "youtube", "id": "s2waUruqze4"}
+        ]
       }
     ]
   },
@@ -409,7 +466,10 @@
       {
         "title": "民視新聞",
         "cardImage": "tw_ftvn",
-        "func2": "youtube_ylYJSBUgaMA",
+        "funcList": [],
+        "func2List": [
+          {"provider": "youtube", "id": "ylYJSBUgaMA"}
+        ],
         "videoUrlList": [
           "http://38.64.72.148/hls/modn/list/4012/chunklist0.m3u8"
         ]
@@ -417,52 +477,72 @@
       {
         "title": "華視新聞",
         "cardImage": "news_cts",
-        "func": "youtube_wM0g8EoUZ_E"
+        "funcList": [
+          {"provider": "youtube", "id": "wM0g8EoUZ_E"}
+        ]
       },
       {
         "title": "台視新聞",
         "cardImage": "tw_ttv",
-        "func": "youtube_xL0ch83RAK8"
+        "funcList": [
+          {"provider": "youtube", "id": "xL0ch83RAK8"}
+        ]
       },
       {
         "title": "中視新聞",
         "cardImage": "news_ctv",
-        "func": "youtube_TCnaIE_SAtM"
+        "funcList": [
+          {"provider": "youtube", "id": "TCnaIE_SAtM"}
+        ]
       },
       {
         "title": "公視新聞",
         "cardImage": "tw_pnn",
-        "func": "youtube_quwqlazU-c8"
+        "funcList": [
+          {"provider": "youtube", "id": "quwqlazU-c8"}
+        ]
       },
       {
         "title": "東森新聞",
         "cardImage": "news_ebc",
-        "func": "youtube_E0zhe2gkXBs"
+        "funcList": [
+          {"provider": "youtube", "id": "E0zhe2gkXBs"}
+        ]
       },
       {
         "title": "中天新聞",
         "cardImage": "news_cti",
-        "func": "youtube_WPfPjbOLNfE"
+        "funcList": [
+          {"provider": "youtube", "id": "WPfPjbOLNfE"}
+        ]
       },
       {
         "title": "三立iNEWS",
         "cardImage": "news_setn",
-        "func": "youtube_CKjSm5ZeehE"
+        "funcList": [
+          {"provider": "youtube", "id": "CKjSm5ZeehE"}
+        ]
       },
       {
         "title": "TVBS新聞",
         "cardImage": "news_tvbs",
-        "func": "youtube_2mCSYvcfhtc"
+        "funcList": [
+          {"provider": "youtube", "id": "2mCSYvcfhtc"}
+        ]
       },
       {
         "title": "寰宇新聞",
         "cardImage": "news_globaltw",
-        "func": "youtube_6IquAgfvYmc"
+        "funcList": [
+          {"provider": "youtube", "id": "6IquAgfvYmc"}
+        ]
       },
       {
         "title": "新唐人亞運台",
         "cardImage": "news_ntvasia",
-        "func": "youtube_WIhgU_mc05A"
+        "funcList": [
+          {"provider": "youtube", "id": "WIhgU_mc05A"}
+        ]
       }
     ]
   },
@@ -473,42 +553,58 @@
       {
         "title": "CNA news",
         "cardImage": "news_cna",
-        "func": "youtube_XWq5kBlakcQ"
+        "funcList": [
+          {"provider": "youtube", "id": "XWq5kBlakcQ"}
+        ]
       },
       {
         "title": "France24",
         "cardImage": "news_france24",
-        "func": "youtube_tkDUSYHoKxE"
+        "funcList": [
+          {"provider": "youtube", "id": "tkDUSYHoKxE"}
+        ]
       },
       {
         "title": "Al Jazeera English",
         "cardImage": "news_aljazeera",
-        "func": "youtube_gCNeDWCI0vo"
+        "funcList": [
+          {"provider": "youtube", "id": "gCNeDWCI0vo"}
+        ]
       },
       {
         "title": "TRT news",
         "cardImage": "news_trt",
-        "func": "youtube_5VF4aor94gw"
+        "funcList": [
+          {"provider": "youtube", "id": "5VF4aor94gw"}
+        ]
       },
       {
         "title": "Bloomberg",
         "cardImage": "news_bloomberg",
-        "func": "youtube_iyOq8DhaMYw"
+        "funcList": [
+          {"provider": "youtube", "id": "iyOq8DhaMYw"}
+        ]
       },
       {
         "title": "NHK World",
         "cardImage": "news_nhkworld",
-        "func": "youtube_f0lYkdA-Gtw"
+        "funcList": [
+          {"provider": "youtube", "id": "f0lYkdA-Gtw"}
+        ]
       },
       {
         "title": "ABC News Australia",
         "cardImage": "news_abc",
-        "func": "youtube_vOTiJkg1voo"
+        "funcList": [
+          {"provider": "youtube", "id": "vOTiJkg1voo"}
+        ]
       },
       {
         "title": "YTN News",
         "cardImage": "news_ytn",
-        "func": "youtube_FJfwehhzIhw"
+        "funcList": [
+          {"provider": "youtube", "id": "FJfwehhzIhw"}
+        ]
       }
     ]
   },
@@ -519,32 +615,44 @@
       {
         "title": "自選Youtube1",
         "cardImage": "custom",
-        "func": "youtubeCustom1"
+        "funcList": [
+          {"provider": "youtubeCustom1"}
+        ]
       },
       {
         "title": "自選Youtube2",
         "cardImage": "custom",
-        "func": "youtubeCustom2"
+        "funcList": [
+          {"provider": "youtubeCustom2"}
+        ]
       },
       {
         "title": "自選1",
         "cardImage": "custom",
-        "func": "custom1"
+        "funcList": [
+          {"provider": "custom1"}
+        ]
       },
       {
         "title": "自選2",
         "cardImage": "custom",
-        "func": "custom2"
+        "funcList": [
+          {"provider": "custom2"}
+        ]
       },
       {
         "title": "自選Exo1",
         "cardImage": "custom",
-        "func": "exoCustom1"
+        "funcList": [
+          {"provider": "exoCustom1"}
+        ]
       },
       {
         "title": "自選Exo2",
         "cardImage": "custom",
-        "func": "exoCustom2"
+        "funcList": [
+          {"provider": "exoCustom2"}
+        ]
       }
     ]
   }
