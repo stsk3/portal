@@ -48,7 +48,6 @@ const filesToCache = [
     "image/map-marker/anniversary_2021.png",
     "image/map-marker/anniversary_2022.png",
     "image/map-marker/anniversary_2023.png",
-    "image/map-marker/anniversary_2024.png",
     "image/map-marker/birthday_2020.png",
     "image/map-marker/birthday_2021.png",
     "image/map-marker/birthday_2022.png",
