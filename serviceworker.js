@@ -52,6 +52,7 @@ const filesToCache = [
     "image/map-marker/birthday_2021.png",
     "image/map-marker/birthday_2022.png",
     "image/map-marker/birthday_2023.png",
+    "image/map-marker/birthday_2024.png",
     "image/map-marker/cockroach.png",
     "image/map-marker/cow.png",
     "image/map-marker/enlarge-button.png",
@@ -110,7 +111,7 @@ const filesToCache = [
     nwPrefix + "NWFB/",
 ];
 
-const swVersion = '1.51';
+const swVersion = '1.52';
 const cacheName = 'stsk-portal-v' + swVersion;
 const dataCacheName = 'stsk-portal-data-v' + swVersion;
 
