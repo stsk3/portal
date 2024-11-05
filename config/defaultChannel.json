@@ -190,20 +190,6 @@
         "drmId": "cde62e1056eb3615dab7a3efd83f5eb4",
         "drmKey": "b8685fbecf772e64154630829cf330a3",
         "videoUrlName": "VPN"
-      },
-      {
-        "title": "事件直播頻道1",
-        "cardImage": "tvb83",
-        "funcList": [
-          {"provider": "mytv", "id": "NEVT1", "name": "VPN"}
-        ]
-      },
-      {
-        "title": "事件直播頻道2",
-        "cardImage": "tvb83",
-        "funcList": [
-          {"provider": "mytv", "id": "NEVT2", "name": "VPN"}
-        ]
       }
     ]
   },
@@ -293,71 +279,7 @@
           {"provider": "mytv", "id": "EVT1", "name": "VPN"}
         ],
         "drmId": "e8ca7903e25450d85cb32b3057948522",
-        "drmKey": "d5db5c03608f5f6c8a382c6abcb829e4",
-        "videoUrlList": [
-          "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT1_h264/__op/default/__f/manifest.mpd"
-        ],
-        "getFromInternet": true
-      },
-      {
-        "title": "myTV SUPER直播足球2台(901)",
-        "cardImage": "mytv_live_soccer",
-        "funcList": [
-          {"provider": "mytvsports", "id": "", "name": "VPN"}
-        ],
-        "videoUrlList": [
-          "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT2_h264/__op/default/__f/manifest.mpd"
-        ]
-      },
-      {
-        "title": "myTV SUPER直播足球3台(902)",
-        "cardImage": "mytv_live_soccer",
-        "funcList": [
-          {"provider": "mytvsports", "id": "", "name": "VPN"}
-        ],
-        "videoUrlList": [
-          "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT3_h264/__op/default/__f/manifest.mpd"
-        ]
-      },
-      {
-        "title": "myTV SUPER直播足球4台(903)",
-        "cardImage": "mytv_live_soccer",
-        "funcList": [
-          {"provider": "mytvsports", "id": "", "name": "VPN"}
-        ],
-        "videoUrlList": [
-          "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT4_h264/__op/default/__f/manifest.mpd"
-        ]
-      },
-      {
-        "title": "myTV SUPER直播足球5台(904)",
-        "cardImage": "mytv_live_soccer",
-        "funcList": [
-          {"provider": "mytvsports", "id": "", "name": "VPN"}
-        ],
-        "videoUrlList": [
-          "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT5_h264/__op/default/__f/manifest.mpd"
-        ]
-      },
-      {
-        "title": "myTV SUPER直播足球6台(905)",
-        "cardImage": "mytv_live_soccer",
-        "funcList": [
-          {"provider": "mytvsports", "id": "", "name": "VPN"}
-        ],
-        "videoUrlList": [
-          "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT6_h264/__op/default/__f/manifest.mpd"
-        ]
-      },
-      {
-        "title": "myTV SUPER直播足球7台(906)",
-        "cardImage": "mytv_live_soccer",
-        "funcList": [
-          {"provider": "mytvsports", "id": "", "name": "VPN"}
-        ],
-        "videoUrlList": [
-          "https://prd-mytvs-hkjc-evt4-vcache.tvb.com/__cl/slocalo24/__c/ott_EVT7_h264/__op/default/__f/manifest.mpd"
-        ]
+        "drmKey": "d5db5c03608f5f6c8a382c6abcb829e4"
       },
       {
         "title": "Dubai Sports 2",
