@@ -220,17 +220,6 @@
         "videoUrlName": "VPN"
       },
       {
-        "title": "港台電視36",
-        "cardImage": "rthktv36",
-        "funcList": [
-          {"provider": "rthk"}
-        ],
-        "videoUrlList": [
-          "https://rthktv36-live.akamaized.net/hls/live/2112176/RTHKTV36/master.m3u8"
-        ],
-        "videoUrlName": "VPN"
-      },
-      {
         "title": "CCTV-1 港澳版(33)",
         "cardImage": "cctv1",
         "funcList": [
@@ -263,6 +252,17 @@
         ],
         "videoUrlList": [
           "https://rthktv35-live.akamaized.net/hls/live/2101643/RTHKTV35/master.m3u8"
+        ],
+        "videoUrlName": "VPN"
+      },
+      {
+        "title": "港台電視36",
+        "cardImage": "rthktv36",
+        "funcList": [
+          {"provider": "rthk"}
+        ],
+        "videoUrlList": [
+          "https://rthktv36-live.akamaized.net/hls/live/2112176/RTHKTV36/master.m3u8"
         ],
         "videoUrlName": "VPN"
       }
@@ -306,6 +306,75 @@
           "http://dmithrvll.cdn.mangomolo.com/dubaimubasher/smil:dubaimubasher.smil/playlist.m3u8"
         ]
       }
+    ]
+  },
+  {
+    "header": "體育(台灣)",
+    "group": "SPORTS",
+    "channelDataList": [
+      {
+        "title": "緯來體育",
+        "cardImage": "sports_vlsports",
+        "funcList": [
+          {"provider": "rtmp", "id": "tv72", "name": "RTMP"}
+        ]
+      },
+      {
+        "title": "ELTA2",
+        "cardImage": "sports_elta2",
+        "funcList": [
+          {"provider": "rtmp", "id": "md03", "name": "RTMP"}
+        ]
+      },
+      {
+        "title": "HamiVideo",
+        "cardImage": "sports_hamivideo",
+        "funcList": [
+          {"provider": "rtmp", "id": "md02", "name": "RTMP"}
+        ]
+      },
+      {
+        "title": "DAZN1",
+        "cardImage": "sports_dazn1",
+        "funcList": [
+          {"provider": "rtmp", "id": "tv73", "name": "RTMP"}
+        ]
+      },
+      {
+        "title": "DAZN2",
+        "cardImage": "sports_dazn2",
+        "funcList": [
+          {"provider": "rtmp", "id": "tv74", "name": "RTMP"}
+        ]
+      },
+      {
+        "title": "博斯運動一台",
+        "cardImage": "sports_bssports1",
+        "funcList": [
+          {"provider": "rtmp", "id": "md05", "name": "RTMP"}
+        ]
+      },
+      {
+        "title": "博斯運動二台",
+        "cardImage": "sports_bssports2",
+        "funcList": [
+          {"provider": "rtmp", "id": "md01", "name": "RTMP"}
+        ]
+      },
+      {
+        "title": "博斯網球台",
+        "cardImage": "sports_bstennis",
+        "funcList": [
+          {"provider": "rtmp", "id": "md04", "name": "RTMP"}
+        ]
+      },
+      {
+        "title": "MOMO TV",
+        "cardImage": "sports_momo",
+        "funcList": [
+          {"provider": "rtmp", "id": "tv76", "name": "RTMP"}
+        ]
+      },
     ]
   },
   {
@@ -372,6 +441,48 @@
     "header": "台灣綜合",
     "group": "TW",
     "channelDataList": [
+      {
+        "title": "華視",
+        "cardImage": "tw_cts",
+        "funcList": [
+          {"provider": "rtmp", "id": "tv11", "name": "RTMP"}
+        ]
+      },
+      {
+        "title": "民視",
+        "cardImage": "tw_ftv",
+        "funcList": [
+          {"provider": "rtmp", "id": "tv05", "name": "RTMP"}
+        ]
+      },
+      {
+        "title": "台視",
+        "cardImage": "tw_ttv",
+        "funcList": [
+          {"provider": "rtmp", "id": "tv07", "name": "RTMP"}
+        ]
+      },
+      {
+        "title": "中視",
+        "cardImage": "tw_ctv",
+        "funcList": [
+          {"provider": "rtmp", "id": "tv09", "name": "RTMP"}
+        ]
+      },
+      {
+        "title": "緯來育樂",
+        "cardImage": "sports_vlyl",
+        "funcList": [
+          {"provider": "rtmp", "id": "tv70", "name": "RTMP"}
+        ]
+      },
+      {
+        "title": "緯來日本",
+        "cardImage": "sports_vljp",
+        "funcList": [
+          {"provider": "rtmp", "id": "tv77", "name": "RTMP"}
+        ]
+      },
       {
         "title": "中天亞洲台",
         "cardImage": "tw_cti",
