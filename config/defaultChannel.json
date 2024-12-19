@@ -113,15 +113,6 @@
         "videoUrlName": "VPN"
       },
       {
-        "title": "無綫新聞台(83)",
-        "cardImage": "tvb83",
-        "funcList": [
-          {"provider": "mytv", "id": "C", "name": "VPN香港版"},
-          {"provider": "mytv", "id": "I-NEWS", "name": "VPN海外版"}
-        ],
-        "videoUrlName": "VPN"
-      },
-      {
         "title": "明珠台(84)",
         "cardImage": "tvb84",
         "funcList": [
@@ -273,15 +264,6 @@
     "group": "SPORTS",
     "channelDataList": [
       {
-        "title": "myTV SUPER直播足球1台(900)",
-        "cardImage": "mytv_live_soccer",
-        "funcList": [
-          {"provider": "mytv", "id": "EVT1", "name": "VPN"}
-        ],
-        "drmId": "e8ca7903e25450d85cb32b3057948522",
-        "drmKey": "d5db5c03608f5f6c8a382c6abcb829e4"
-      },
-      {
         "title": "Dubai Sports 2",
         "cardImage": "sports_dubai",
         "funcList": [],
@@ -320,20 +302,6 @@
         ]
       },
       {
-        "title": "ELTA2",
-        "cardImage": "sports_elta2",
-        "funcList": [
-          {"provider": "rtmp", "id": "md03", "name": "RTMP"}
-        ]
-      },
-      {
-        "title": "HamiVideo",
-        "cardImage": "sports_hamivideo",
-        "funcList": [
-          {"provider": "rtmp", "id": "md02", "name": "RTMP"}
-        ]
-      },
-      {
         "title": "DAZN1",
         "cardImage": "sports_dazn1",
         "funcList": [
@@ -348,33 +316,12 @@
         ]
       },
       {
-        "title": "博斯運動一台",
-        "cardImage": "sports_bssports1",
-        "funcList": [
-          {"provider": "rtmp", "id": "md05", "name": "RTMP"}
-        ]
-      },
-      {
-        "title": "博斯運動二台",
-        "cardImage": "sports_bssports2",
-        "funcList": [
-          {"provider": "rtmp", "id": "md01", "name": "RTMP"}
-        ]
-      },
-      {
-        "title": "博斯網球台",
-        "cardImage": "sports_bstennis",
-        "funcList": [
-          {"provider": "rtmp", "id": "md04", "name": "RTMP"}
-        ]
-      },
-      {
         "title": "MOMO TV",
         "cardImage": "sports_momo",
         "funcList": [
           {"provider": "rtmp", "id": "tv76", "name": "RTMP"}
         ]
-      },
+      }
     ]
   },
   {
