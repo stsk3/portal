@@ -278,15 +278,6 @@
         "videoUrlList": [
           "https://dmitwlvvll.cdn.mangomolo.com/dubaisportshd5/smil:dubaisportshd5.smil/index.m3u8"
         ]
-      },
-      {
-        "title": "Dubai Sports Racing",
-        "cardImage": "sports_dubai",
-        "funcList": [],
-        "videoUrlList": [
-          "https://dmithrvll.cdn.mangomolo.com/dubairacing/smil:dubairacing.smil/chunklist.m3u8",
-          "http://dmithrvll.cdn.mangomolo.com/dubaimubasher/smil:dubaimubasher.smil/playlist.m3u8"
-        ]
       }
     ]
   },
