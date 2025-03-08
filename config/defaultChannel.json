@@ -69,6 +69,252 @@
     ]
   },
   {
+    "header": "NOW TV",
+    "group": "TOP",
+    "channelDataList": [
+      {
+        "title": "HBO 115",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH115/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH115/index.m3u8"
+        ]
+      },
+      {
+        "title": "now爆谷台 133",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH133/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH133/index.m3u8"
+        ]
+      },
+      {
+        "title": "now爆谷星影台 138",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH138/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH138/index.m3u8"
+        ]
+      },
+      {
+        "title": "now直播台 331",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH331/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH331/index.m3u8"
+        ]
+      },
+      {
+        "title": "now新聞台 332",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH332/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH332/index.m3u8"
+        ]
+      },
+      {
+        "title": "now財經台 333",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH333/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH333/index.m3u8"
+        ]
+      },
+    ]
+  },
+  {
+    "header": "體育(NOW TV)",
+    "group": "SPORTS",
+    "channelDataList": [
+      {
+        "title": "now英超1台 621",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH621/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH621/index.m3u8"
+        ]
+      },
+      {
+        "title": "now英超2台 622",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH622/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH622/index.m3u8"
+        ]
+      },
+      {
+        "title": "now英超3台 623",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH623/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH623/index.m3u8"
+        ]
+      },
+      {
+        "title": "now英超4台 624",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH624/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH624/index.m3u8"
+        ]
+      },
+      {
+        "title": "now英超5台 625",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH625/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH625/index.m3u8"
+        ]
+      },
+      {
+        "title": "now英超6台 626",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH626/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH626/index.m3u8"
+        ]
+      },
+      {
+        "title": "nowSports2 632",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH632/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH632/index.m3u8"
+        ]
+      },
+      {
+        "title": "nowSports3 633",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH633/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH633/index.m3u8"
+        ]
+      },
+      {
+        "title": "nowSports4 634",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH634/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH634/index.m3u8"
+        ]
+      },
+      {
+        "title": "nowSports5 635",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH635/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH635/index.m3u8"
+        ]
+      },
+      {
+        "title": "nowSports6 636",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH636/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH636/index.m3u8"
+        ]
+      },
+      {
+        "title": "nowSports7 637",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH637/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH637/index.m3u8"
+        ]
+      },
+      {
+        "title": "beinSports1 638",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH638/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH638/index.m3u8"
+        ]
+      },
+      {
+        "title": "beinSports2 639",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH639/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH639/index.m3u8"
+        ]
+      },
+      {
+        "title": "nowSports 651",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH651/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH651/index.m3u8"
+        ]
+      },
+      {
+        "title": "nowSports 652",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH652/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH652/index.m3u8"
+        ]
+      },
+      {
+        "title": "nowSports Plus 680",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH680/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH680/index.m3u8"
+        ]
+      },
+      {
+        "title": "Premier Sports 679",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH679/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH679/index.m3u8"
+        ]
+      },
+      {
+        "title": "nowSportsNBA 641",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH641/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH641/index.m3u8"
+        ]
+      },
+      {
+        "title": "NBATV 642",
+        "cardImage": "",
+        "funcList": [],
+        "videoUrlList": [
+          "https://dko29we9nm1rd.cloudfront.net/hls/CH642/index.m3u8",
+          "https://eventcdn02-nowe.akamaized.net/hls/CH642/index.m3u8"
+        ]
+      }
+    ]
+  },
+  {
     "header": "CCTVB",
     "group": "TOP",
     "channelDataList": [
