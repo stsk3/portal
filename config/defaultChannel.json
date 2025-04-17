@@ -69,66 +69,6 @@
     ]
   },
   {
-    "header": "NOW TV",
-    "group": "TOP",
-    "channelDataList": [
-      {
-        "title": "HBO 115",
-        "cardImage": "",
-        "funcList": [],
-        "videoUrlList": [
-          "https://dko29we9nm1rd.cloudfront.net/hls/CH115/index.m3u8",
-          "https://eventcdn02-nowe.akamaized.net/hls/CH115/index.m3u8"
-        ]
-      },
-      {
-        "title": "now爆谷台 133",
-        "cardImage": "",
-        "funcList": [],
-        "videoUrlList": [
-          "https://dko29we9nm1rd.cloudfront.net/hls/CH133/index.m3u8",
-          "https://eventcdn02-nowe.akamaized.net/hls/CH133/index.m3u8"
-        ]
-      },
-      {
-        "title": "now爆谷星影台 138",
-        "cardImage": "",
-        "funcList": [],
-        "videoUrlList": [
-          "https://dko29we9nm1rd.cloudfront.net/hls/CH138/index.m3u8",
-          "https://eventcdn02-nowe.akamaized.net/hls/CH138/index.m3u8"
-        ]
-      },
-      {
-        "title": "now直播台 331",
-        "cardImage": "",
-        "funcList": [],
-        "videoUrlList": [
-          "https://dko29we9nm1rd.cloudfront.net/hls/CH331/index.m3u8",
-          "https://eventcdn02-nowe.akamaized.net/hls/CH331/index.m3u8"
-        ]
-      },
-      {
-        "title": "now新聞台 332",
-        "cardImage": "",
-        "funcList": [],
-        "videoUrlList": [
-          "https://dko29we9nm1rd.cloudfront.net/hls/CH332/index.m3u8",
-          "https://eventcdn02-nowe.akamaized.net/hls/CH332/index.m3u8"
-        ]
-      },
-      {
-        "title": "now財經台 333",
-        "cardImage": "",
-        "funcList": [],
-        "videoUrlList": [
-          "https://dko29we9nm1rd.cloudfront.net/hls/CH333/index.m3u8",
-          "https://eventcdn02-nowe.akamaized.net/hls/CH333/index.m3u8"
-        ]
-      }
-    ]
-  },
-  {
     "header": "CCTVB",
     "group": "TOP",
     "channelDataList": [
