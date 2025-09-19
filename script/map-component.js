@@ -198,19 +198,21 @@ const shinchanIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupA
 const snoopyBlueIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/snoopy_blue.png" });
 const snoopyYellowIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/snoopy_yellow.png" });
 const busIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/bus.png" });
+const koopaGreenIcon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/koopa_green.png" });
 // Birthday icon
 const birthday2020Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2020.png" });
 const birthday2021Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2021.png" });
 const birthday2022Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2022.png" });
 const birthday2023Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2023.png" });
 const birthday2024Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2024.png" });
-const birthdayIconGroup = [birthday2020Icon, birthday2021Icon, birthday2022Icon, birthday2023Icon, birthday2024Icon];
+const birthday2025Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2025.png" });
+const birthdayIconGroup = [birthday2020Icon, birthday2021Icon, birthday2022Icon, birthday2023Icon, birthday2024Icon, birthday2025Icon];
 // Anniversary icon
 const anniversary2021Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/anniversary_2021.png" });
 const anniversary2022Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/anniversary_2022.png" });
 const anniversary2023Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/anniversary_2023.png" });
-const anniversary2024Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/anniversary_2024.png" });
-const anniversaryIconGroup = [anniversary2021Icon, anniversary2022Icon, anniversary2023Icon, anniversary2024Icon];
+//const anniversary2024Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/anniversary_2024.png" });
+const anniversaryIconGroup = [anniversary2021Icon, anniversary2022Icon, anniversary2023Icon];
 function getMarkerIcon(lat, lng, title) {
     var dateObj = new Date();
     var month = dateObj.getMonth() + 1; //months from 1-12
@@ -225,6 +227,8 @@ function getMarkerIcon(lat, lng, title) {
         return farmIcon;
     } else if (title.includes("警署")) {
         return cockroachIcon;
+    } else if (title.includes("山")) {
+        return koopaGreenIcon;
     } else if (lat > 22.336580 && lat < 22.338074 && lng > 114.144197 && lng < 114.149740) {
         return cowIcon;
     } else if (lat > 22.336964 && lat < 22.363622 && lng > 114.095672 && lng < 114.112284) {
