@@ -24,7 +24,8 @@
         const refreshMap = {};  
         const refreshInterval = 30000;
 
-        const regex = /\([A-Z]\d{1,2}\)/;
+        const platformRegex = /\([A-Z]\d{0,2}\)/; //Platform
+        const locationCodeRegex = /\([A-Z][A-Z]\d{1,3}\w?\)/; //Location Code
 
         var searchValue = "";
 
@@ -204,12 +205,17 @@
                                 const divId = seq + "-" + stop;
 
                                 var busStopGroupName = busStopName;
-                                var platform = busStopGroupName.match(regex);
+                                var locationCode = busStopGroupName.match(locationCodeRegex);
+                                var platform = busStopGroupName.match(platformRegex);
+                                if (locationCode) {
+                                    locationCode = locationCode[0];
+                                    busStopGroupName = busStopGroupName.replace(locationCode, '').trim();
+                                }
                                 if (platform) {
                                     platform = platform[0];
                                     busStopGroupName = busStopGroupName.replace(platform, '').trim();
                                     platform = platform.replace('(', '').replace(')', '').trim();
-                                    busStopGroupName = busStopGroupName + "(" + platform[0] + ")";
+                                    busStopGroupName = busStopGroupName + "(" + platform[0] + ")"; //Need first Letter only
                                 }
 
                                 const mapPopupName = seq + " " + busStopName;
@@ -440,19 +446,25 @@
                         //Add to map
                         var groupName = name;
                         var groupNameEn = nameEn;
-                        var platform = null;
 
-                        var platform = name.match(regex);
+                        var locationCode = name.match(locationCodeRegex);
+                        var platform = name.match(platformRegex);
+                        if (locationCode) {
+                            locationCode = locationCode[0];
+                            groupName = name.replace(locationCode, '').trim();
+                            groupNameEn = nameEn.replace(locationCode, '').trim();
+                        }
                         if (platform) {
                             platform = platform[0];
-                            groupName = name.replace(platform, '').trim();
-                            groupNameEn = nameEn.replace(platform, '').trim();
+                            groupName = groupName.replace(platform, '').trim();
+                            groupNameEn = groupNameEn.replace(platform, '').trim();
 
                             platform = platform.replace('(', '').replace(')', '').trim();
-                            groupName = groupName + "(" + platform[0] + ")";
-                            groupNameEn = groupNameEn + "(" + platform[0] + ")";
-//if (platform.substr(1) == "11") console.log(groupName + platform);
+                            groupName = groupName + "(" + platform[0] + ")"; //Need first letter only
+                            groupNameEn = groupNameEn + "(" + platform[0] + ")"; //Need first letter only
+                            //if (platform.substr(1) == "11") console.log(groupName + platform);
                         }
+
 
                         var busStopGroupList = busStopGroupMap[groupName];
                         if (busStopGroupList == undefined) {

@@ -619,22 +619,87 @@
                 ]
                 createBusDiv(0, '由元朗廣場出發', '')
                 getSortedBusRouteETA(dataList, 0);
-            } else if (paramType == '8') { //由太和出發
+            } else if (paramType == '8') { //由太和出發往九龍
                 const kmbPath = getPathFromCompany('kmb');
                 var dataList = [
-                    ["kmb", kmbPath, '64K', 'O', '1', '399EF919E10C7F33', '51', '太和站'],
-                    ["kmb", kmbPath, '65K', 'O', '1', '399EF919E10C7F33', '18', '太和站'],
-                    ["kmb", kmbPath, '73', 'O', '1', '8C1810DE2419A30B', '16', '太和站'],
-                    ["kmb", kmbPath, '73A', 'O', '1', '8C1810DE2419A30B', '16', '太和站'],
-                    ["kmb", kmbPath, '73B', 'O', '1', '8C1810DE2419A30B', '28', '太和站'],
-                    ["kmb", kmbPath, '74C', 'O', '1', '399EF919E10C7F33', '10', '太和站'],
-                    ["kmb", kmbPath, '74D', 'O', '1', '399EF919E10C7F33', '10', '太和站'],
-                    ["kmb", kmbPath, '264R', 'O', '1', '8C1810DE2419A30B', '19', '太和站'],
-                    ["kmb", kmbPath, '71K', 'O', '1', 'B78076CC8F628B2B', '1', '太和總站'],
-                    ["kmb", kmbPath, '72', 'O', '1', 'C65C38558F2F978B', '1', '太和總站'],
-                    ["kmb", kmbPath, '74A', 'O', '1', '9FD5C5940A1D7212', '1', '太和總站'],
+                    ["kmb", kmbPath, '64K', 'O', '1', '399EF919E10C7F33', '52', '太和站 (TP981)'],
+                    ["kmb", kmbPath, '65K', 'O', '1', '399EF919E10C7F33', '16', '太和站 (TP981)'],
+                    ["kmb", kmbPath, '73', 'O', '1', '8C1810DE2419A30B', '16', '太和站 (TP980)'],
+                    ["kmb", kmbPath, '73A', 'O', '1', '8C1810DE2419A30B', '16', '太和站 (TP980)'],
+                    ["kmb", kmbPath, '73B', 'O', '1', '8C1810DE2419A30B', '28', '太和站 (TP980)'],
+                    ["kmb", kmbPath, '74C', 'O', '1', '399EF919E10C7F33', '10', '太和站 (TP981)'],
+                    ["kmb", kmbPath, '74D', 'O', '1', '399EF919E10C7F33', '10', '太和站 (TP981)'],
+                    ["kmb", kmbPath, '264R', 'O', '1', '399EF919E10C7F33', '20', '太和站 (TP981)'],
+                    ["kmb", kmbPath, '71K', 'O', '1', 'B78076CC8F628B2B', '1', '太和總站 (TP984)'],
+                    ["kmb", kmbPath, '72', 'O', '1', '4283F5F48ABBEBD2', '1', '太和總站 (TP986)'],
+                    ["kmb", kmbPath, '74A', 'O', '1', 'FB7E3001FDAB2CB1', '1', '太和總站 (TP987)'],
+                    ["kmb", kmbPath, 'A47X', 'O', '1', '5B5C877D02DF4C31', '1', '太和總站 (TP983)'],
+                    ["kmb", kmbPath, 'N73', 'I', '1', '8C1810DE2419A30B', '27', '太和站 (TP980)'],
                 ]
-                createBusDiv(0, '由太和出發', '')
+                createBusDiv(0, '由太和出發往九龍', '')
+                getSortedBusRouteETA(dataList, 0);
+            } else if (paramType == '81') { //由太和出發往新界
+                const kmbPath = getPathFromCompany('kmb');
+                var dataList = [
+                    ["kmb", kmbPath, '64K', 'I', '1', 'CCC4773031BC0FD8', '7', '太和廣場 (TP336)'],
+                    ["kmb", kmbPath, '73', 'I', '1', '9FDEEC09AD1B601B', '19', '太和廣場 (TP335)'],
+                    ["kmb", kmbPath, '73A', 'I', '1', '9FDEEC09AD1B601B', '27', '太和廣場 (TP335)'],
+                    ["kmb", kmbPath, '73B', 'O', '1', '9FDEEC09AD1B601B', '5', '太和廣場 (TP335)'],
+                    ["kmb", kmbPath, '74D', 'I', '1', '9FDEEC09AD1B601B', '25', '太和廣場 (TP335)'],
+                    ["kmb", kmbPath, '264R', 'I', '1', 'CCC4773031BC0FD8', '6', '太和廣場 (TP336)'],
+                    ["kmb", kmbPath, '64P', 'O', '1', 'CCC4773031BC0FD8', '7', '太和廣場 (TP336)'],
+                    ["kmb", kmbPath, 'N73', 'O', '1', 'CCC4773031BC0FD8', '9', '太和廣場 (TP336)'],
+                ]
+                createBusDiv(0, '由太和出發往新界', '')
+                getSortedBusRouteETA(dataList, 0);
+            } else if (paramType == '82') { //由廣福道出發往九龍
+                const kmbPath = getPathFromCompany('kmb');
+                var dataList = [
+                    ["kmb", kmbPath, '71K', 'I', '1', 'F7DD5A5E7E4D41C9', '5', '廣福道轉車站 (Y4) (TP567)'],
+                    ["kmb", kmbPath, '72X', 'O', '1', 'F7DD5A5E7E4D41C9', '6', '廣福道轉車站 (Y4) (TP567)'],
+                    ["kmb", kmbPath, '271', 'O', '1', 'F7DD5A5E7E4D41C9', '6', '廣福道轉車站 (Y4) (TP567)'],
+                    ["kmb", kmbPath, '272X', 'O', '1', 'F7DD5A5E7E4D41C9', '3', '廣福道轉車站 (Y4) (TP567)'],
+                    ["kmb", kmbPath, '73X', 'I', '1', 'CB7FA5CF40D4413A', '4', '廣福道轉車站 (Y3) (TP566)'],
+                    ["kmb", kmbPath, '74D', 'O', '1', '5734545592215022', '13', '廣福道轉車站 (Y2) (TP565)'],
+                    ["kmb", kmbPath, '74X', 'O', '1', '5734545592215022', '3', '廣福道轉車站 (Y2) (TP565)'],
+                    //["kmb", kmbPath, '64K', 'O', '1', '13E458C819D90940', '56', '廣福道轉車站 (Y1) (TP564)'],
+                    //["kmb", kmbPath, '74K', 'O', '1', '13E458C819D90940', '32', '廣福道轉車站 (Y1) (TP564)'],
+                    //["kmb", kmbPath, '75K', 'O', '1', '13E458C819D90940', '26', '廣福道轉車站 (Y1) (TP564)'],
+                    //["kmb", kmbPath, '264R', 'O', '1', '13E458C819D90940', '24', '廣福道轉車站 (Y1) (TP564)'],
+                    ["kmb", kmbPath, 'E41', 'O', '1', 'CE6B0D24BEBCD3F5', '6', '大埔廣福道 (TP563)'],
+                    ["kmb", kmbPath, '72', 'O', '1', '42A5DBE7D21EADE3', '5', '廣福道轉車站 - 寶鄉街 (X2)'],
+                    ["kmb", kmbPath, '72A', 'I', '1', '42A5DBE7D21EADE3', '15', '廣福道轉車站 - 寶鄉街 (X2)'],
+                    ["kmb", kmbPath, '73A', 'O', '1', '42A5DBE7D21EADE3', '19', '廣福道轉車站 - 寶鄉街 (X2)'],
+                    ["kmb", kmbPath, '74A', 'O', '1', '42A5DBE7D21EADE3', '5', '廣福道轉車站 - 寶鄉街 (X2)'],
+                    ["kmb", kmbPath, '307', 'O', '1', '3CE4F8574F4F9D72', '3', '廣福道轉車站 - 寶鄉街 (X1)'],
+                    ["kmb", kmbPath, 'N73', 'I', '1', '5734545592215022', '30', '廣福道轉車站 (Y2) (TP565)'],
+                ]
+                createBusDiv(0, '由廣福道出發往九龍', '')
+                getSortedBusRouteETA(dataList, 0);
+            } else if (paramType == '83') { //由廣福道出發往新界
+                const kmbPath = getPathFromCompany('kmb');
+                var dataList = [
+                    ["kmb", kmbPath, '72X', 'I', '1', '2AEDE966C122B71E', '17', '廣福道轉車站 - 寶鄉橋 (B2)'],
+                    ["kmb", kmbPath, '271', 'I', '1', '530F970BB56D778D', '22', '廣福道轉車站 - 寶鄉橋 (B1)'],
+                    ["kmb", kmbPath, '272X', 'I', '1', '2AEDE966C122B71E', '21', '廣福道轉車站 - 寶鄉橋 (B2)'],
+                    ["kmb", kmbPath, '73X', 'O', '1', '530F970BB56D778D', '15', '廣福道轉車站 - 寶鄉橋 (B1)'],
+                    ["kmb", kmbPath, '74D', 'I', '1', 'FDDA176977136CD9', '23', '廣福道轉車站 - 寶鄉橋 (B4)'],
+                    ["kmb", kmbPath, '74B', 'O', '1', '2AEDE966C122B71E', '10', '廣福道轉車站 - 寶鄉橋 (B2)'],
+                    ["kmb", kmbPath, '74X', 'I', '1', '2AEDE966C122B71E', '18', '廣福道轉車站 - 寶鄉橋 (B2)'],
+                    ["kmb", kmbPath, '274X', 'O', '1', '2AEDE966C122B71E', '14', '廣福道轉車站 - 寶鄉橋 (B2)'],
+                    ["kmb", kmbPath, '75X', 'I', '1', '530F970BB56D778D', '23', '廣福道轉車站 - 寶鄉橋 (B1)'],
+                    ["kmb", kmbPath, '64K', 'I', '1', 'DA30F5393480B81D', '4', '廣福道轉車站 - 寶鄉橋 (B3)'],
+                    ["kmb", kmbPath, '64P', 'O', '1', 'DA30F5393480B81D', '4', '廣福道轉車站 - 寶鄉橋 (B3)'],
+                    ["kmb", kmbPath, '264R', 'I', '1', 'DA30F5393480B81D', '3', '廣福道轉車站 - 寶鄉橋 (B3)'],
+                    ["kmb", kmbPath, 'E41', 'I', '1', '1F672A2CDE7D1F93', '15', '大埔寶鄉橋 (TP303)'],
+                    ["kmb", kmbPath, '72', 'I', '1', 'C55F50E43F6108EB', '40', '廣福道轉車站 (A2) (TP279)'],
+                    ["kmb", kmbPath, '72A', 'O', '1', '05485C36CA334A81', '27', '廣福道轉車站 (A1) (TP276)'],
+                    ["kmb", kmbPath, '73', 'I', '1', 'FDDA176977136CD9', '17', '廣福道轉車站 - 寶鄉橋 (B4)'],
+                    ["kmb", kmbPath, '73A', 'I', '1', 'FDDA176977136CD9', '25', '廣福道轉車站 - 寶鄉橋 (B4)'],
+                    ["kmb", kmbPath, '307', 'I', '1', '530F970BB56D778D', '13', '廣福道轉車站 - 寶鄉橋 (B1)'],
+                    ["kmb", kmbPath, 'N73', 'O', '1', 'FDDA176977136CD9', '7', '廣福道轉車站 - 寶鄉橋 (B4)'],
+                ]
+                createBusDiv(0, '由廣福道出發往新界', '')
                 getSortedBusRouteETA(dataList, 0);
             } else if (paramType == '9') { //由Palmeira Square出發
                 createBrightonBusDiv('From Palmeira Square')
