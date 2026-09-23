@@ -206,7 +206,8 @@ const birthday2022Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, po
 const birthday2023Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2023.png" });
 const birthday2024Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2024.png" });
 const birthday2025Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2025.png" });
-const birthdayIconGroup = [birthday2020Icon, birthday2021Icon, birthday2022Icon, birthday2023Icon, birthday2024Icon, birthday2025Icon];
+const birthday2026Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/birthday_2026.png" });
+const birthdayIconGroup = [birthday2020Icon, birthday2021Icon, birthday2022Icon, birthday2023Icon, birthday2024Icon, birthday2025Icon, birthday2026Icon];
 // Anniversary icon
 const anniversary2021Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/anniversary_2021.png" });
 const anniversary2022Icon = L.icon({ iconSize: iconSize, iconAnchor: iconAnchor, popupAnchor: popupAnchor, iconUrl: "image/map-marker/anniversary_2022.png" });
